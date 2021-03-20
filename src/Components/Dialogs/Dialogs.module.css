@@ -1,0 +1,34 @@
+
+.dialogs {
+    width: 100%;
+    display: flex;
+}
+
+.dialogList {
+    background-color: chocolate;
+    flex: 3;
+}
+
+.dialog {
+    padding: 2px;
+    border: 2px solid black;
+    border-radius: 8px;
+}
+
+.dialogLink {
+    text-decoration: none;
+    color: white;
+}
+
+.massageBar {
+    background-color: darkgray;
+    flex: 10;
+}
+
+.massage {
+    padding: 3px;
+}
+
+.activeDialog {
+    color: gold;
+}

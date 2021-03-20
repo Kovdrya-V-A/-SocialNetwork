@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.nav {
+    background-color: teal;
+    flex: 1;
+}
+
+.item {
+    border: 2px solid coral;
+    margin-bottom: 5px;
+    border-radius: 3px;
+}
+
+.link {
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+.activeLink {
+    color: gold;
+}

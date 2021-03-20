@@ -1,0 +1,17 @@
+
+.myPosts {
+    display: flex;
+    flex-direction: column;
+    background-color: cadetblue;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.addPostButton {
+    margin-left: 43%;
+    margin-right: 43%;
+}
+
+.inputPostText {
+    margin-bottom: 5px;
+}

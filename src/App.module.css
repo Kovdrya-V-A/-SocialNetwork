@@ -1,0 +1,20 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.AppWrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.main {
+    display: flex;
+}
+
+.content {
+    flex: 7;
+    background-color: tan;
+    display: flex;
+}
