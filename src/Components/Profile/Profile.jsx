@@ -13,13 +13,16 @@ const ScreenSaver = () => {
 }
 
 
-const Profile = () => {
+const Profile = (props) => {
 
     return (
         <div className={s.profile}>
             <ScreenSaver/>
-            <ProfileInfo name = "Михуил" date = "06.12.2004" address = "Под шконкой"/>
-            <MyPosts/>
+            <ProfileInfo name={props.profilePage.profileData[0].name}
+                         date={props.profilePage.profileData[0].date}
+                         address={props.profilePage.profileData[0].address}
+                         imgSrc={props.profilePage.profileData[0].imgSrc}/>
+            <MyPosts postsData={props.profilePage.postsData} newPostText = {props.profilePage.newPostText} addPost = {props.addPost} postTextChange = {props.postTextChange}/>
         </div>
     )
 }

@@ -6,7 +6,7 @@ const ProfileInfo = (props) => {
         <div className={s.profileInfo}>
                 <div className={s.ava}>
                 <img alt="ava"
-                     src="https://sun9-4.userapi.com/impg/ypBX4Cuuay8qJHUiOb_zlSr5EMhD0gvBcg02EA/tVlfxRvap6A.jpg?size=969x1080&quality=96&sign=673421d4f37e4b2bc82f2e6f83e834e1&type=album"/>
+                     src={props.imgSrc}/>
             </div>
             <div className={s.userData}>
                 <h4>{props.name}</h4>

@@ -1,0 +1,27 @@
+
+.dialog {
+    display: flex;
+    padding: 2px;
+    border: 2px solid black;
+    border-radius: 8px;
+}
+
+.dialogLink {
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+}
+
+.activeDialog {
+    color: gold;
+}
+
+.dialogAva {
+    margin-right: 8px;
+}
+
+.dialogAva img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}

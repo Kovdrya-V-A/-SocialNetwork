@@ -9,26 +9,22 @@
     flex: 3;
 }
 
-.dialog {
-    padding: 2px;
-    border: 2px solid black;
-    border-radius: 8px;
-}
-
-.dialogLink {
-    text-decoration: none;
-    color: white;
-}
-
 .massageBar {
+    display: flex;
+    flex-direction: column;
     background-color: darkgray;
     flex: 10;
 }
 
-.massage {
-    padding: 3px;
+.massageBar textarea {
+    margin-right: 5%;
+    margin-left: 5%;
+    max-width: 100%;
+    max-height: 60px;
 }
 
-.activeDialog {
-    color: gold;
+.massageBar button {
+    margin-right: 10%;
+    margin-left: 10%;
+    margin-top: 7px;
 }

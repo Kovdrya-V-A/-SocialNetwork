@@ -2,22 +2,29 @@ import React from 'react';
 import s from './MyPosts.module.css'
 import Post from "./Post/Post";
 
-let PostDate = [
-    {text: "СC-ЛАВА УКРАИНЕ !!!", likeValue: "31"},
-    {text: "Становится хуже... Начинает расти пушок. Рука непроизвольно тянется к салу в магазине...", likeValue: "27"},
-    {text: "Это мой первый пост, я родился. Уже подумываю выползти из-под шконки !", likeValue: "15"},
-]
+const MyPosts = (props) => {
+    let postsItems =
+        props.postsData.map(p => <Post avaImg={p.avaImg} text={p.text} likeValue={p.likeValue}/>)
 
-const MyPosts = () => {
+    let addNewPost = () => {
+        props.addPost()
+    }
+    let newPost = React.createRef()
+
+    let onPostTextChange = () => {
+        let enteredPostText = newPost.current.value;
+        props.postTextChange(enteredPostText)
+
+    }
+
     return (
         <div className={s.myPosts}>
-            <textarea className={s.inputPostText} name="Новый пост" id="" cols="10" rows="5"/>
-            <button className={s.addPostButton}>Add new post</button>
-            <Post text = {PostDate[0].text} likeValue = {PostDate[0].likeValue} />
-            <Post text = {PostDate[1].text} likeValue = {PostDate[1].likeValue} />
-            <Post text = {PostDate[2].text} likeValue = {PostDate[2].likeValue} />
+            <textarea onChange={onPostTextChange} value={props.newPostText} ref={newPost} className={s.inputPostText}
+                      name="Новый пост" id="" cols="10" rows="5"/>
+            <button onClick={addNewPost} className={s.addPostButton}>Add new post</button>
+            {postsItems}
         </div>
     )
 }
 
-export default  MyPosts;
+export default MyPosts;

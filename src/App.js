@@ -10,7 +10,7 @@ import News from "./Components/News/News";
 import Settings from "./Components/Settings/Settings";
 
 
-const App = () => {
+const App = (props) => {
     return (
         <BrowserRouter>
             <div className={s.AppWrapper}>
@@ -18,11 +18,11 @@ const App = () => {
                 <div className={s.main}>
                     <Nav/>
                     <div className={s.content}>
-                        <Route path="/Profile" component={Profile}/>
-                        <Route path="/Dialogs" component={Dialogs}/>
-                        <Route path="/News" component={News}/>
-                        <Route path="/Settings" component={Settings}/>
-
+                        <Route path="/Profile" render={() => <Profile profilePage={props.state.profilePage} addPost = {props.addPost} postTextChange = {props.postTextChange} />}/>
+                        <Route exact path="/" render={() => <Profile profilePage={props.state.profilePage} addPost = {props.addPost} postTextChange = {props.postTextChange}/>}/>
+                        <Route path="/Dialogs" render={() => <Dialogs dialogsPage={props.state.dialogsPage} sendMassage = {props.sendMassage} massageTextChange = {props.massageTextChange}/>}/>
+                        <Route path="/News" render={() => <News/>}/>
+                        <Route path="/Settings" render={() => <Settings/>}/>
                     </div>
                 </div>
                 <Footer/>
