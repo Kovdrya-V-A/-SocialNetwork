@@ -16,6 +16,6 @@
 
 .content {
     flex: 7;
-    background-color: tan;
     display: flex;
+    background-color: darkslategray;
 }

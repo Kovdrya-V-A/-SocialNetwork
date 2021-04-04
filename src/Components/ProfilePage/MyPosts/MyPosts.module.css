@@ -2,7 +2,7 @@
 .myPosts {
     display: flex;
     flex-direction: column;
-    background-color: cadetblue;
+    background-color: darkslategray;
     padding-left: 10px;
     padding-right: 10px;
 }

@@ -4,9 +4,9 @@
 }
 
 .postBox {
-    border: 2px solid darkgray;
+    border: 2px solid darkcyan;
     border-radius: 12px;
-    margin-top: 5px;
+    margin-top: 1%;
     display: flex;
 }
 

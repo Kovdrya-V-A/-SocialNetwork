@@ -7,7 +7,6 @@
 
 .ava {
     flex: 1;
-    background-color: bisque;
 }
 
 .ava img {
@@ -18,7 +17,6 @@
 
 .userData {
     flex: 10;
-    background-color: blueviolet;
     padding-left: 10px;
     padding-top: 10px;
 }

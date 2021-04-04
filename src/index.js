@@ -1,27 +1,26 @@
 import React from 'react';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import state, {bonkRerender} from './Redux/State';
 import ReactDOM from "react-dom";
 import App from "./App";
-import {addPost, massageTextChange, postTextChange, sendMassage} from "./Redux/State";
-export let rerender = (props) => {
-    ReactDOM.render(
-        <React.StrictMode>
-            <App state = {state}
-                 sendMassage = {sendMassage}
-                 addPost = {addPost}
-                 postTextChange = {postTextChange}
-                 massageTextChange = {massageTextChange}/>
-            {/*<AutoReg/>*/}
+import store from "./Redux/ReduxStore";
+import {BrowserRouter} from "react-router-dom";
+import {Provider} from "react-redux";
 
-        </React.StrictMode>,
-        document.getElementById('root')
-    );
-}
-rerender (state)
 
-bonkRerender(rerender)
+ReactDOM.render(
+    <React.StrictMode>
+        <BrowserRouter>
+            <Provider store={store}>
+                <App/>
+                {/*<AutoReg/>*/}
+            </Provider>
+        </BrowserRouter>
+
+    </React.StrictMode>,
+    document.getElementById('root')
+);
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

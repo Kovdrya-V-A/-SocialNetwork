@@ -1,0 +1,33 @@
+
+.friend {
+    min-width: 20%;
+    max-width: 40%;
+    display: flex;
+    background-color: grey;
+    margin: 10px auto;
+    border-radius: 10px;
+}
+
+.friendAva img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin-right: 7px;
+}
+
+.friendLink {
+    text-decoration: none;
+    color: white;
+    margin-bottom: 5px;
+}
+
+.toMassageButton {
+    height: 25px;
+    font-size: 14px;
+}
+
+.friendInfo {
+    display: flex;
+    flex-direction: column;
+}
+

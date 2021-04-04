@@ -1,18 +1,18 @@
 
-.dialogs {
+.dialogsPage {
     width: 100%;
     display: flex;
 }
 
 .dialogList {
-    background-color: chocolate;
+    background-color: darkcyan;
     flex: 3;
 }
 
 .massageBar {
     display: flex;
     flex-direction: column;
-    background-color: darkgray;
+    background-color: darkslategray;
     flex: 10;
 }
 
