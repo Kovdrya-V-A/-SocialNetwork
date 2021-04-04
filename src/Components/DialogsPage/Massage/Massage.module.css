@@ -1,0 +1,28 @@
+
+.massage {
+    padding: 7px;
+    display: flex;
+}
+
+.senderName {
+    color: wheat;
+    font-size: 18px;
+}
+
+.text {
+
+}
+
+.senderAva {
+
+}
+
+.senderAva img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+
+.massageContent {
+padding-left: 5px;
+}
