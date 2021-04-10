@@ -21,13 +21,26 @@
     margin-bottom: 5px;
 }
 
-.toMassageButton {
+.button {
     height: 25px;
-    font-size: 14px;
+    font-size: 15px;
+}
+
+.toMassageButton {
+    margin-bottom: 3px;
+}
+
+.deleteFromFriendsButton {
+    margin-bottom: 3px;
+}
+
+.addOnFriendsButton {
+    margin-bottom: 3px;
 }
 
 .friendInfo {
     display: flex;
     flex-direction: column;
 }
+
 
