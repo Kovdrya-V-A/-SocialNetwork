@@ -1,5 +1,9 @@
 import React from 'react';
-import {massageTextChangeActionCreator, sendMassageActionCreator} from "../../Redux/DialogsPageReducer";
+import {
+    massageTextChangeActionCreator,
+    sendMassageActionCreator, setDialogsActionCreator,
+    setMassageActionCreator
+} from "../../Redux/DialogsPageReducer";
 import {connect} from "react-redux";
 import DialogsPage from "./DialogsPage";
 
@@ -17,6 +21,12 @@ let mapDispatchToProps = (dispatch) => {
         },
         massageTextChange: (text) => {
             dispatch(massageTextChangeActionCreator(text))
+        },
+        setMassages: (massagesData) => {
+            dispatch(setMassageActionCreator(massagesData))
+        },
+        setDialogs: (dialogsData) => {
+            dispatch(setDialogsActionCreator(dialogsData))
         }
     }
 }

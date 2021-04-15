@@ -1,7 +1,12 @@
 import React from 'react';
-import {addPostActionCreator, postTextChangeActionCreator} from "../../../Redux/ProfilePageReducer";
+import {
+    addPostActionCreator,
+    postTextChangeActionCreator,
+    setPostsActionCreator
+} from "../../../Redux/ProfilePageReducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
+
 
 let mapStateToProps = (state) => {
     return {
@@ -11,9 +16,16 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
     return {
-        addNewPost: () => {dispatch(addPostActionCreator())},
-        postTextChange: (text) =>{dispatch(postTextChangeActionCreator(text))}
-}
+        addNewPost: () => {
+            dispatch(addPostActionCreator())
+        },
+        postTextChange: (text) => {
+            dispatch(postTextChangeActionCreator(text))
+        },
+        setPosts: (postsData) => {
+            dispatch(setPostsActionCreator(postsData))
+        }
+    }
 }
 
 const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
