@@ -7,6 +7,13 @@
     background-color: skyblue;
 }
 
-.header img {
-    width: 45px;
+.logo {
+    margin: 3px;
+    width: 50px;
+    border: 3px solid darkslategray;
+    border-radius: 50%;
+}
+
+.logo img {
+    width: 50px;
 }

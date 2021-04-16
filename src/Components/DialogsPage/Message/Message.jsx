@@ -1,13 +1,13 @@
-import s from "./Massage.module.css";
+import s from "./Message.module.css";
 import React from "react";
 
-const Massage = (props) => {
+const Message = (props) => {
     return (
-        <div className={s.massage}>
+        <div className={s.message}>
             <div className={s.senderAva}>
                 <img src={props.senderAva} alt="senderava"/>
             </div>
-            <div className={s.massageContent}>
+            <div className={s.messageContent}>
                 <div className={s.senderName}>{props.senderName}</div>
                 <div className={s.text}>{props.text}</div>
             </div>
@@ -15,4 +15,4 @@ const Massage = (props) => {
     )
 }
 
-export default Massage;
+export default Message;

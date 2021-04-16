@@ -7,11 +7,11 @@ import {Route} from "react-router-dom";
 import Settings from "./Components/Settings/Settings";
 import DialogsPageContainer from "./Components/DialogsPage/DialogsPageContainer";
 import NewsPageContainer from "./Components/NewsPage/NewsPageContainer";
-import FriendsPageContainer from "./Components/FriendsPage/FriendsPageContainer";
+import UsersPageContainer from "./Components/UsersPage/UsersPageContainer";
 import ProfilePageContainer from "./Components/ProfilePage/ProfilePageContainer";
 
 
-const App = (props) => {
+const App = () => {
     return (
             <div className={s.AppWrapper}>
                 <Header/>
@@ -21,7 +21,7 @@ const App = (props) => {
                         <Route path="/ProfilePage" render={() => <ProfilePageContainer/>}/>
                         <Route exact path="/" render={() => <ProfilePageContainer/>}/>
                         <Route path="/DialogsPage" render={() => <DialogsPageContainer/>}/>
-                        <Route path = "/FriendsPage" render = {() => <FriendsPageContainer/>}/>
+                        <Route path = "/UsersPage" render = {() => <UsersPageContainer/>}/>
                         <Route path="/NewsPage" render={() => <NewsPageContainer/>}/>
                         <Route path="/Settings" render={() => <Settings/>}/>
                     </div>

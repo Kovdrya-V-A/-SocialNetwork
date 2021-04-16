@@ -1,10 +1,5 @@
-.friendsPage {
-    margin: 0 auto;
-    width: 100%;
-    background-color: darkslategray;
-}
 
-.friend {
+.user {
     min-width: 20%;
     max-width: 40%;
     display: flex;
@@ -13,14 +8,14 @@
     border-radius: 10px;
 }
 
-.friendAva img {
+.userAva img {
     width: 70px;
     height: 70px;
     border-radius: 50%;
     margin-right: 7px;
 }
 
-.friendLink {
+.userLink {
     text-decoration: none;
     color: white;
     margin-bottom: 5px;
@@ -31,19 +26,21 @@
     font-size: 15px;
 }
 
-.toMassageButton {
+.toMessageButton {
     margin-bottom: 3px;
 }
 
-.deleteFromFriendsButton {
+.unfollowButton {
     margin-bottom: 3px;
 }
 
-.addOnFriendsButton {
+.followButton {
     margin-bottom: 3px;
 }
 
-.friendInfo {
+.userInfo {
     display: flex;
     flex-direction: column;
 }
+
+

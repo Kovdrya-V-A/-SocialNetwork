@@ -84,36 +84,36 @@
 //                 }
 //             ],
 //
-//             newMassageText: "",
+//             newMessageText: "",
 //
-//             massagesData: [
+//             messagesData: [
 //                 {
 //                     id: 1,
-//                     massage: "Привет ! Как дела ?",
+//                     message: "Привет ! Как дела ?",
 //                     senderName: "Таня",
 //                     senderAva: "https://games.mail.ru/hotbox/content_files/gallery/2020/12/11/2830937c5cf146ed8d6300f5f291fffe.jpg"
 //                 },
 //                 {
 //                     id: 2,
-//                     massage: "Да",
+//                     message: "Да",
 //                     senderName: "Михуил",
 //                     senderAva: "https://sun9-4.userapi.com/impg/ypBX4Cuuay8qJHUiOb_zlSr5EMhD0gvBcg02EA/tVlfxRvap6A.jpg?size=969x1080&quality=96&sign=673421d4f37e4b2bc82f2e6f83e834e1&type=album"
 //                 },
 //                 {
 //                     id: 3,
-//                     massage: "Что да ?",
+//                     message: "Что да ?",
 //                     senderName: "Таня",
 //                     senderAva: "https://games.mail.ru/hotbox/content_files/gallery/2020/12/11/2830937c5cf146ed8d6300f5f291fffe.jpg"
 //                 },
 //                 {
 //                     id: 4,
-//                     massage: "Аааааа, ну так это. Да !",
+//                     message: "Аааааа, ну так это. Да !",
 //                     senderName: "Михуил",
 //                     senderAva: "https://sun9-4.userapi.com/impg/ypBX4Cuuay8qJHUiOb_zlSr5EMhD0gvBcg02EA/tVlfxRvap6A.jpg?size=969x1080&quality=96&sign=673421d4f37e4b2bc82f2e6f83e834e1&type=album"
 //                 },
 //                 {
 //                     id: 5,
-//                     massage: "М-да",
+//                     message: "М-да",
 //                     senderName: "Таня",
 //                     senderAva: "https://games.mail.ru/hotbox/content_files/gallery/2020/12/11/2830937c5cf146ed8d6300f5f291fffe.jpg"
 //                 }

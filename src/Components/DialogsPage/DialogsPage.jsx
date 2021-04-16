@@ -1,41 +1,41 @@
 import React from 'react';
 import s from './DialogsPage.module.css'
 import Dialog from "./Dialog/Dialog";
-import Massage from "./Massage/Massage";
+import Message from "./Message/Message";
 
 class DialogsPage extends React.Component {
 
     componentDidMount() {
-        if (this.props.dialogsPage.massagesData.length === 0) {
-            this.props.setMassages(
+        if (this.props.dialogsPage.messagesData.length === 0) {
+            this.props.setMessages(
                 [
                     {
                         id: 1,
-                        massage: "Привет ! Как дела ?",
+                        message: "Привет ! Как дела ?",
                         senderName: "Таня",
                         senderAva: "https://games.mail.ru/hotbox/content_files/gallery/2020/12/11/2830937c5cf146ed8d6300f5f291fffe.jpg"
                     },
                     {
                         id: 2,
-                        massage: "Да",
+                        message: "Да",
                         senderName: "Михуил",
                         senderAva: "https://sun9-4.userapi.com/impg/ypBX4Cuuay8qJHUiOb_zlSr5EMhD0gvBcg02EA/tVlfxRvap6A.jpg?size=969x1080&quality=96&sign=673421d4f37e4b2bc82f2e6f83e834e1&type=album"
                     },
                     {
                         id: 3,
-                        massage: "Что да ?",
+                        message: "Что да ?",
                         senderName: "Таня",
                         senderAva: "https://games.mail.ru/hotbox/content_files/gallery/2020/12/11/2830937c5cf146ed8d6300f5f291fffe.jpg"
                     },
                     {
                         id: 4,
-                        massage: "Аааааа, ну так это. Да !",
+                        message: "Аааааа, ну так это. Да !",
                         senderName: "Михуил",
                         senderAva: "https://sun9-4.userapi.com/impg/ypBX4Cuuay8qJHUiOb_zlSr5EMhD0gvBcg02EA/tVlfxRvap6A.jpg?size=969x1080&quality=96&sign=673421d4f37e4b2bc82f2e6f83e834e1&type=album"
                     },
                     {
                         id: 5,
-                        massage: "М-да",
+                        message: "М-да",
                         senderName: "Таня",
                         senderAva: "https://games.mail.ru/hotbox/content_files/gallery/2020/12/11/2830937c5cf146ed8d6300f5f291fffe.jpg"
                     }
@@ -74,36 +74,36 @@ class DialogsPage extends React.Component {
         }
     }
 
-    onSendNewMassage() {
-        this.props.sendNewMassage();
+    onSendNewMessage() {
+        this.props.sendNewMessage();
     }
 
-    onMassageTextChange(text) {
-        this.props.massageTextChange(text)
+    onMessageTextChange(text) {
+        this.props.messageTextChange(text)
     }
 
     render() {
 
         let dialogsItems = this.props.dialogsPage.dialogsData.map(d => <Dialog dialogAva={d.dialogAva} id={d.id}
                                                                                name={d.name}/>)
-        let massagesItems = this.props.dialogsPage.massagesData.map(m => <Massage senderName={m.senderName}
+        let messagesItems = this.props.dialogsPage.messagesData.map(m => <Message senderName={m.senderName}
                                                                                   senderAva={m.senderAva} id={m.id}
-                                                                                  text={m.massage}/>)
+                                                                                  text={m.message}/>)
         let text = React.createRef()
 
 
         return (
             <div className={s.dialogsPage}>
-                <div className={s.massageBar}>
-                    {massagesItems}
-                    <textarea value={this.props.dialogsPage.newMassageText}
-                              onChange={() => this.onMassageTextChange(text)} ref={text}
+                <div className={s.messageBar}>
+                    {messagesItems}
+                    <textarea value={this.props.dialogsPage.newMessageText}
+                              onChange={() => this.onMessageTextChange(text)} ref={text}
                               name="новое сообщение" id="" cols="30" rows="10"/>
-                    <button onClick={() => this.onSendNewMassage()}>Send message</button>
+                    <button className={s.sendMessageButton} onClick={() => this.onSendNewMessage()}>Send message</button>
                 </div>
                 <div className={s.dialogList}>
                     {dialogsItems}
-                    <button>Start new dialog</button>
+                    <button className={s.addDialogButton}>Start new dialog</button>
                 </div>
             </div>
         )

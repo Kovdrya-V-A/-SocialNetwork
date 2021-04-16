@@ -4,7 +4,7 @@ import s from "./Header.module.css";
 const Header = () => {
     return (
         <header className={s.header}>
-            <img src='http://pngimg.com/uploads/shovel/shovel_PNG7619.png'/>
+            <div className={s.logo}><img src='https://wonder-day.com/wp-content/uploads/2020/10/wonder-day-among-us-21.png'/></div>
         </header>
     );
 }

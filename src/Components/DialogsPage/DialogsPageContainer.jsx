@@ -1,8 +1,8 @@
 import React from 'react';
 import {
-    massageTextChangeActionCreator,
-    sendMassageActionCreator, setDialogsActionCreator,
-    setMassageActionCreator
+    messageTextChangeActionCreator,
+    sendMessageActionCreator, setDialogsActionCreator,
+    setMessageActionCreator
 } from "../../Redux/DialogsPageReducer";
 import {connect} from "react-redux";
 import DialogsPage from "./DialogsPage";
@@ -16,14 +16,14 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
     return {
-        sendNewMassage: () => {
-            dispatch(sendMassageActionCreator())
+        sendNewMessage: () => {
+            dispatch(sendMessageActionCreator())
         },
-        massageTextChange: (text) => {
-            dispatch(massageTextChangeActionCreator(text))
+        messageTextChange: (text) => {
+            dispatch(messageTextChangeActionCreator(text))
         },
-        setMassages: (massagesData) => {
-            dispatch(setMassageActionCreator(massagesData))
+        setMessages: (messagesData) => {
+            dispatch(setMessageActionCreator(messagesData))
         },
         setDialogs: (dialogsData) => {
             dispatch(setDialogsActionCreator(dialogsData))

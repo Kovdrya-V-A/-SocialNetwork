@@ -9,22 +9,30 @@
     flex: 3;
 }
 
-.massageBar {
+.messageBar {
     display: flex;
     flex-direction: column;
     background-color: darkslategray;
     flex: 10;
 }
 
-.massageBar textarea {
+.messageBar textarea {
     margin-right: 5%;
     margin-left: 5%;
     max-width: 100%;
     max-height: 60px;
 }
 
-.massageBar button {
+.messageBar button {
     margin-right: 10%;
     margin-left: 10%;
     margin-top: 7px;
+}
+
+.addDialogButton {
+    cursor: pointer;
+}
+
+.sendMessageButton {
+    cursor: pointer;
 }

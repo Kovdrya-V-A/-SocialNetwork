@@ -1,30 +1,30 @@
-const SEND_MASSAGE = "SEND_MASSAGE";
-const MASSAGE_TEXT_CHANGE = "MASSAGE_TEXT_CHANGE";
-const SET_MASSAGE = "SET_MASSAGE"
+const SEND_MESSAGE = "SEND_MESSAGE";
+const MESSAGE_TEXT_CHANGE = "MESSAGE_TEXT_CHANGE";
+const SET_MESSAGE = "SET_MESSAGE"
 const SET_DIALOGS = "SET_DIALOGS"
 
 let initialDialogsPage = {
     dialogsData: [],
 
-    newMassageText: "",
+    newMessageText: "",
 
-    massagesData: []
+    messagesData: []
 };
 
 const dialogsPageReducer = (dialogsPage = initialDialogsPage, action) => {
     switch (action.type) {
-        case SEND_MASSAGE: {
-            let newMassage = {
+        case SEND_MESSAGE: {
+            let newMessage = {
                 id: 5,
-                massage: dialogsPage.newMassageText,
+                message: dialogsPage.newMessageText,
                 senderName: "Михуил",
                 senderAva: "https://sun9-4.userapi.com/impg/ypBX4Cuuay8qJHUiOb_zlSr5EMhD0gvBcg02EA/tVlfxRvap6A.jpg?size=969x1080&quality=96&sign=673421d4f37e4b2bc82f2e6f83e834e1&type=album"
             };
-            if (newMassage.massage != "") {
+            if (newMessage.message != "") {
                 return {
                     ...dialogsPage,
-                    massagesData: [...dialogsPage.massagesData, newMassage],
-                    newMassageText: ""
+                    messagesData: [...dialogsPage.messagesData, newMessage],
+                    newMessageText: ""
                 };
             } else {
                 alert("Текст сообщения не может быть пустым !")
@@ -33,17 +33,17 @@ const dialogsPageReducer = (dialogsPage = initialDialogsPage, action) => {
 
         }
 
-        case MASSAGE_TEXT_CHANGE: {
+        case MESSAGE_TEXT_CHANGE: {
             return {
                 ...dialogsPage,
-                newMassageText: action.enteredMassageText
+                newMessageText: action.enteredMessageText
             };
         }
 
-        case SET_MASSAGE: {
+        case SET_MESSAGE: {
             return {
                 ...dialogsPage,
-                massagesData: [...dialogsPage.massagesData, ...action.massagesData]
+                messagesData: [...dialogsPage.messagesData, ...action.messagesData]
             }
         }
 
@@ -60,22 +60,22 @@ const dialogsPageReducer = (dialogsPage = initialDialogsPage, action) => {
 
 }
 
-export const sendMassageActionCreator = () => {
+export const sendMessageActionCreator = () => {
     return {
-        type: SEND_MASSAGE
+        type: SEND_MESSAGE
     }
 }
-export const massageTextChangeActionCreator = (text) => {
+export const messageTextChangeActionCreator = (text) => {
     return {
-        type: MASSAGE_TEXT_CHANGE,
-        enteredMassageText: text.current.value,
+        type: MESSAGE_TEXT_CHANGE,
+        enteredMessageText: text.current.value,
     }
 }
 
-export const setMassageActionCreator = (massagesData) => {
+export const setMessageActionCreator = (messagesData) => {
     return {
-        type: SET_MASSAGE,
-        massagesData
+        type: SET_MESSAGE,
+        messagesData
     }
 }
 
