@@ -6,19 +6,22 @@ const Nav = () => {
     return (
             <nav className={s.nav}>
                 <div className={s.navItem}>
-                    <NavLink className={s.link} activeClassName = {s.activeLink} to ="/ProfilePage">Profile</NavLink>
+                    <NavLink className={s.link} activeClassName = {s.activeLink} to ="/AuthUser/ProfilePage">Profile</NavLink>
                 </div>
                 <div className={s.navItem}>
-                    <NavLink className={s.link} activeClassName = {s.activeLink} to ="/DialogsPage">Dialogs</NavLink>
+                    <NavLink className={s.link} activeClassName = {s.activeLink} to ="/AuthUser/DialogsPage">Dialogs</NavLink>
                 </div>
                 <div className={s.navItem}>
-                    <NavLink className={s.link} activeClassName = {s.activeLink} to ="/UsersPage">Users</NavLink>
+                    <NavLink className={s.link} activeClassName = {s.activeLink} to ="/AuthUser/UsersPage">Users</NavLink>
                 </div>
                 <div className={s.navItem}>
-                    <NavLink className={s.link} activeClassName = {s.activeLink} to ="/NewsPage">News</NavLink>
+                    <NavLink className={s.link} activeClassName = {s.activeLink} to ="/AuthUser/NewsPage">News</NavLink>
                 </div>
                 <div className={s.navItem}>
-                    <NavLink className={s.link} activeClassName = {s.activeLink} to ="/Settings">Settings</NavLink>
+                    <NavLink className={s.link} activeClassName = {s.activeLink} to ="/AuthUser/Settings">Settings</NavLink>
+                </div>
+                <div className={s.navItem}>
+                    <NavLink className={s.link} to ="/">Log out</NavLink>
                 </div>
             </nav>
     )

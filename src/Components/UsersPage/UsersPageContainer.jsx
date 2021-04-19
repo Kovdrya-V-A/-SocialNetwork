@@ -5,7 +5,7 @@ import {
     setCurrentPageActionCreator,
     setUsersActionCreator,
     unFollowActionCreator
-} from "../../Redux/UsersPageReducer";
+} from "../../Redux/Reducers/UsersPageReducer";
 import * as axios from "axios";
 import UsersPage from "./UsersPage";
 

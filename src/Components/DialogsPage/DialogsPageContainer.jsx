@@ -3,7 +3,7 @@ import {
     messageTextChangeActionCreator,
     sendMessageActionCreator, setDialogsActionCreator,
     setMessageActionCreator
-} from "../../Redux/DialogsPageReducer";
+} from "../../Redux/Reducers/DialogsPageReducer";
 import {connect} from "react-redux";
 import DialogsPage from "./DialogsPage";
 
@@ -103,11 +103,11 @@ class DialogsPageService extends React.Component {
         }
     }
 
-    onSendNewMessage() {
+    onSendNewMessage = () => {
         this.props.sendNewMessage();
     }
 
-    onMessageTextChange(text) {
+    onMessageTextChange = (text) => {
         this.props.messageTextChange(text)
     }
 
@@ -117,8 +117,8 @@ class DialogsPageService extends React.Component {
             <DialogsPage dialogsData={this.props.dialogsPage.dialogsData}
                          messagesData={this.props.dialogsPage.messagesData}
                          newMessageText={this.props.dialogsPage.newMessageText}
-                         onMessageTextChange = {this.onMessageTextChange}
-                         onSendNewMessage = {this.onSendNewMessage}/>
+                         onMessageTextChange={this.onMessageTextChange}
+                         onSendNewMessage={this.onSendNewMessage}/>
         )
     }
 }

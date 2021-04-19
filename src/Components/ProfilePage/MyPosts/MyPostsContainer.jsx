@@ -3,7 +3,7 @@ import {
     addPostActionCreator,
     postTextChangeActionCreator,
     setPostsActionCreator
-} from "../../../Redux/ProfilePageReducer";
+} from "../../../Redux/Reducers/ProfilePageReducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
 

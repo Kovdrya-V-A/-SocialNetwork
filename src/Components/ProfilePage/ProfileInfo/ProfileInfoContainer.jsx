@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import ProfileInfo from "./ProfileInfo";
-import {setProfileInfoActionCreator} from "../../../Redux/ProfilePageReducer";
+import {setProfileInfoActionCreator} from "../../../Redux/Reducers/ProfilePageReducer";
 
 
 let mapStateToProps = (state) => {

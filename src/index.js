@@ -4,16 +4,19 @@ import reportWebVitals from './reportWebVitals';
 import ReactDOM from "react-dom";
 import App from "./App";
 import store from "./Redux/ReduxStore";
-import {BrowserRouter} from "react-router-dom";
+import {BrowserRouter, Route} from "react-router-dom";
 import {Provider} from "react-redux";
+import RegistrationPage from "./AuthoRegComponents/RegistrationPage/RegistrationPage";
+import AuthorizationPageContainer from "./AuthoRegComponents/AuthorizationPage/AuthorizationPageContainer";
 
 
 ReactDOM.render(
     <React.StrictMode>
         <BrowserRouter>
             <Provider store={store}>
-                <App/>
-                {/*<AutoReg/>*/}
+                <Route path="/AuthUser" render={() => <App/>}/>
+                <Route exact path="/" render={() => <AuthorizationPageContainer/>}/>
+                <Route path="/RegistrationPage" render={() => <RegistrationPage/>}/>
             </Provider>
         </BrowserRouter>
 

@@ -18,12 +18,12 @@ const App = () => {
                 <div className={s.main}>
                     <Nav/>
                     <div className={s.content}>
-                        <Route path="/ProfilePage" render={() => <ProfilePageContainer/>}/>
-                        <Route exact path="/" render={() => <ProfilePageContainer/>}/>
-                        <Route path="/DialogsPage" render={() => <DialogsPageContainer/>}/>
-                        <Route path = "/UsersPage" render = {() => <UsersPageContainer/>}/>
-                        <Route path="/NewsPage" render={() => <NewsPageContainer/>}/>
-                        <Route path="/Settings" render={() => <Settings/>}/>
+                        <Route exact path="/AuthUser" render={() => <ProfilePageContainer/>}/>
+                        <Route path="/AuthUser/ProfilePage" render={() => <ProfilePageContainer/>}/>
+                        <Route path="/AuthUser/DialogsPage" render={() => <DialogsPageContainer/>}/>
+                        <Route path = "/AuthUser/UsersPage" render = {() => <UsersPageContainer/>}/>
+                        <Route path="/AuthUser/NewsPage" render={() => <NewsPageContainer/>}/>
+                        <Route path="/AuthUser/Settings" render={() => <Settings/>}/>
                     </div>
                 </div>
                 <Footer/>
