@@ -1,4 +1,4 @@
-import s from '../AutoReg.module.css';
+import s from '../AuthoReg.module.css';
 import React from 'react';
 import {NavLink} from "react-router-dom";
 import Header from "../../Components/Header/Header";
