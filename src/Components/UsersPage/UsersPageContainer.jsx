@@ -1,11 +1,13 @@
 import React from 'react';
 import {connect} from "react-redux";
-import UsersPage from "./UsersPage";
 import {
-    followActionCreator, setCurrentPageActionCreator,
+    followActionCreator,
+    setCurrentPageActionCreator,
     setUsersActionCreator,
     unFollowActionCreator
 } from "../../Redux/UsersPageReducer";
+import * as axios from "axios";
+import UsersPage from "./UsersPage";
 
 let mapStateToProps = (state) => {
     return {
@@ -18,16 +20,66 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
     return {
-        follow: (userId) => {dispatch(followActionCreator(userId))},
-        unfollow: (userId) => {dispatch(unFollowActionCreator(userId))},
-        setUsers: (usersData) => {dispatch(setUsersActionCreator(usersData))},
+        follow: (userId) => {
+            dispatch(followActionCreator(userId))
+        },
+        unfollow: (userId) => {
+            dispatch(unFollowActionCreator(userId))
+        },
+        setUsers: (usersData) => {
+            dispatch(setUsersActionCreator(usersData))
+        },
         setCurrentPage: (number) => {
             dispatch(setCurrentPageActionCreator(number))
         }
     }
 }
 
-const UsersPageContainer = connect(mapStateToProps, mapDispatchToProps)(UsersPage)
+
+class UsersPageService extends React.Component {
+
+    componentDidMount() {
+        console.log(this.props)
+        if (this.props.usersData.length === 0) {
+            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+                .then(response => {
+                    this.props.setUsers(response.data.items)
+                })
+        }
+    }
+
+    onUnfollow = (userId) => {
+        this.props.unfollow(userId)
+    }
+
+    onFollow = (userId) => {
+        this.props.follow(userId)
+    }
+
+    onSetCurrentPage = (number) => {
+        this.props.setCurrentPage(number)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${number}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+            })
+    }
+
+
+    render() {
+        return (
+            <UsersPage onSetCurrentPage={this.onSetCurrentPage}
+                       totalUsersCount={this.props.totalUsersCount}
+                       pageSize={this.props.pageSize}
+                       currentPage={this.props.currentPage}
+                       usersData={this.props.usersData}
+                       onUnfollow={this.onUnfollow}
+                       onFollow={this.onFollow}/>
+        )
+    }
+}
+
+
+const UsersPageContainer = connect(mapStateToProps, mapDispatchToProps)(UsersPageService)
 
 export default UsersPageContainer;
 

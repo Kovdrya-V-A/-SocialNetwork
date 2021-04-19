@@ -12,6 +12,16 @@ let mapDispatchToProps = (dispatch) => {
     return {}
 }
 
-const ProfilePageContainer = connect(mapStateToProps, mapDispatchToProps)(ProfilePage)
+
+class profilePageService extends React.Component {
+    render() {
+        return (
+            <ProfilePage/>
+        )
+    }
+
+}
+
+const ProfilePageContainer = connect(mapStateToProps, mapDispatchToProps)(profilePageService)
 
 export default ProfilePageContainer;

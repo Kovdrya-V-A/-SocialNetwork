@@ -7,7 +7,7 @@ let initialUsersPage = {
     usersData: [],
     currentPage: 1,
     pageSize: 7,
-    totalUsersCount: 50
+    totalUsersCount: 100
 };
 
 const usersPageReducer = (usersPage = initialUsersPage, action) => {
@@ -41,6 +41,7 @@ const usersPageReducer = (usersPage = initialUsersPage, action) => {
             }
 
         case SET_CURRENT_PAGE:
+            debugger
             return {
                 ...usersPage, currentPage: action.number
             }
