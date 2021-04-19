@@ -22,13 +22,13 @@ const AuthorizationPage = (props) => {
             <Header/>
             <div className={s.main}>
                 <div className={s.form}>
-                    <div className={s.autorisation}>
+                    <div className={s.authorisation}>
                         <h3>Авторицация</h3>
-                        <div className={s.interLogin}>
+                        <div className={s.enterLogin}>
                             <p>Введите логин:</p>
                             <input value={props.introducedLogin} onChange={() => props.onInputLogin(enterLogin)} ref={enterLogin} type="text"/>
                         </div>
-                        <div className={s.interPassword}>
+                        <div className={s.enterPassword}>
                             <p>Введите пароль:</p>
                             <input value={props.introducedPassword} onChange={() => props.onInputPassword(enterPassword)} ref={enterPassword} type="password"/>
                         </div>
