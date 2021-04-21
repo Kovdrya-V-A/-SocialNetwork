@@ -39,9 +39,9 @@ let mapDispatchToProps = (dispatch) => {
 class UsersPageService extends React.Component {
 
     componentDidMount() {
-        console.log(this.props)
+
         if (this.props.usersData.length === 0) {
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            axios.get(`http://188.32.105.146:404/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
                 .then(response => {
                     this.props.setUsers(response.data.items)
                 })
@@ -58,7 +58,7 @@ class UsersPageService extends React.Component {
 
     onSetCurrentPage = (number) => {
         this.props.setCurrentPage(number)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${number}&count=${this.props.pageSize}`)
+        axios.get(`http://188.32.105.146:404/users?page=${number}&count=${this.props.pageSize}`)
             .then(response => {
                 this.props.setUsers(response.data.items)
             })

@@ -18,7 +18,7 @@ const UsersPage = (props) => {
         <div className={s.user}>
             <div className={s.userAva}>
                 <img
-                    src={u.photos.small != null ? u.photos.small : "https://freepikpsd.com/wp-content/uploads/2019/10/user-png-image-9.png"}
+                    src={u.img != null ? u.img: "https://freepikpsd.com/wp-content/uploads/2019/10/user-png-image-9.png"}
                     alt="userAva"/>
             </div>
             <div className={s.userInfo}>

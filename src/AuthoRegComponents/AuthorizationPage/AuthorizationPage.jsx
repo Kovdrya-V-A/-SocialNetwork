@@ -5,13 +5,8 @@ import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
 
 const AuthorizationPage = (props) => {
-    debugger
     let enterLogin = React.createRef();
     let enterPassword = React.createRef();
-    let link = "/AuthUser/ProfilePage";
-    if (props.dataIsCorrect) {
-        props.onChangeStartLink(link)
-    }
     return (
         <div className={s.wrapper}>
             <Header/>
@@ -35,9 +30,8 @@ const AuthorizationPage = (props) => {
                             <button
                                 onClick={() => {
                                     props.onUserVerification(props.introducedLogin, props.introducedPassword)
-                                    debugger
                                 }}>
-                                <NavLink to={link}>ENTRY</NavLink>
+                                <NavLink to={props.dataIsCorrect ? props.startLink : "/"}>ENTRY</NavLink>
                             </button>
                         </div>
                         <div className={s.regLink}>

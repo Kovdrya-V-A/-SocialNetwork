@@ -41,7 +41,7 @@ const usersPageReducer = (usersPage = initialUsersPage, action) => {
             }
 
         case SET_CURRENT_PAGE:
-            debugger
+
             return {
                 ...usersPage, currentPage: action.number
             }
