@@ -1,6 +1,6 @@
 import s from '../AuthoReg.module.css';
 import React from 'react';
-import {NavLink} from "react-router-dom";
+import {NavLink, Redirect} from "react-router-dom";
 import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
 
@@ -31,7 +31,9 @@ const AuthorizationPage = (props) => {
                                 onClick={() => {
                                     props.onUserVerification(props.introducedLogin, props.introducedPassword)
                                 }}>
-                                <NavLink to={props.dataIsCorrect ? props.startLink : "/"}>ENTRY</NavLink>
+                                {props.dataIsCorrect ? <Redirect to="/AuthUser/ProfilePage"/> : null}
+                                {props.dataIsCorrect ? props.onResetVerification() : null}
+                                Entry
                             </button>
                         </div>
                         <div className={s.regLink}>

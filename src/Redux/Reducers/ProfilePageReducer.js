@@ -55,7 +55,6 @@ const profilePageReducer = (profilePage = initialProfilePage, action) => {
                 postsData: [...profilePage.postsData, ...action.postsData]
             }
 
-
         default:
             return profilePage;
     }

@@ -1,12 +1,12 @@
 const INPUT_LOGIN_STATE = "INPUT_LOGIN_STATE";
 const INPUT_PASSWORD_STATE = "INPUT_PASSWORD_STATE";
-const USER_VERIFICATION = 'USER_VERIFICATION';
+const USER_VERIFICATION = "USER_VERIFICATION";
+const RESET_VERIFICATION = "RESET_VERIFICATION"
 
 let initialAuthorisationPage = {
     introducedLogin: "",
     introducedPassword: "",
     dataIsCorrect: false,
-    startLink: '/'
 };
 
 const authorisationPageReducer = (authorisationPage = initialAuthorisationPage, action) => {
@@ -30,11 +30,16 @@ const authorisationPageReducer = (authorisationPage = initialAuthorisationPage, 
                 alert("Добро пожаловать !")
                 return {
                     ...authorisationPage,
-                    startLink: "/AuthUser/ProfilePage",
                     dataIsCorrect: action.dataIsCorrect
                 }
             } else {
                 alert("Неверный логин или пароль")
+            }
+
+        case RESET_VERIFICATION:
+            return {
+                ...authorisationPage,
+                dataIsCorrect: false
             }
 
         default: {
@@ -62,6 +67,11 @@ export const userVerificationActionCreator = (isFits) => {
     return {
         type: USER_VERIFICATION,
         dataIsCorrect: isFits
+    }
+}
+export const resetVerificationActionCreator = () => {
+    return {
+        type: RESET_VERIFICATION
     }
 }
 

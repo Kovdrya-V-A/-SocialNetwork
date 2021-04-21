@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import AuthorizationPage from "./AuthorizationPage";
 import {
     inputLoginActionCreator,
-    inputPasswordActionCreator, userVerificationActionCreator
+    inputPasswordActionCreator, resetVerificationActionCreator, userVerificationActionCreator
 } from "../../Redux/AuthoRegReducers/AuthorizationPageReducer";
 import * as axios from "axios";
 
@@ -26,11 +26,19 @@ let mapDispatchToProps = (dispatch) => {
             dispatch(userVerificationActionCreator(isFits))
         },
 
+        resetVerification: () => {
+            dispatch(resetVerificationActionCreator())
+        }
+
     }
 }
 
 
 class AuthorizationPageService extends React.Component {
+
+    onResetVerification = () => {
+            this.props.resetVerification()
+    }
 
     onInputLogin = (enterLogin) => {
         this.props.inputLogin(enterLogin)
@@ -55,10 +63,10 @@ class AuthorizationPageService extends React.Component {
                 introducedLogin={this.props.authorizationPage.introducedLogin}
                 introducedPassword={this.props.authorizationPage.introducedPassword}
                 dataIsCorrect={this.props.authorizationPage.dataIsCorrect}
-                startLink={this.props.authorizationPage.startLink}
                 onInputLogin={this.onInputLogin}
                 onInputPassword={this.onInputPassword}
                 onUserVerification={this.onUserVerification}
+                onResetVerification={this.onResetVerification}
             />
         )
     }
