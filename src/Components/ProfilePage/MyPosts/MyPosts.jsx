@@ -5,7 +5,7 @@ import Post from "./Post/Post";
 const MyPosts = (props) => {
 
     let postsItems =
-        props.postsData.map(p => <Post avaImg={p.avaImg} text={p.text} likeValue={p.likeValue}/>)
+        props.postsData.map(p => <Post avaImg={props.avaImg} text={p.text}/>)
 
     let text = React.createRef()
 

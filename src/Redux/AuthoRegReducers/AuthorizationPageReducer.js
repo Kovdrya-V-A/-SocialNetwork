@@ -1,13 +1,14 @@
 const INPUT_LOGIN_STATE = "INPUT_LOGIN_STATE";
 const INPUT_PASSWORD_STATE = "INPUT_PASSWORD_STATE";
 const USER_VERIFICATION = "USER_VERIFICATION";
-const RESET_VERIFICATION = "RESET_VERIFICATION"
+const RESET_VERIFICATION = "RESET_VERIFICATION";
+const SET_USER_TOKEN = "SET_USER_TOKEN"
 
 let initialAuthorisationPage = {
     introducedLogin: "",
     introducedPassword: "",
     dataIsCorrect: false,
-    serverLink: "188.32.105.146:404"
+    serverLink: "188.32.105.146:8000"
 };
 
 const authorisationPageReducer = (authorisationPage = initialAuthorisationPage, action) => {
@@ -42,7 +43,9 @@ const authorisationPageReducer = (authorisationPage = initialAuthorisationPage, 
                 ...authorisationPage,
                 dataIsCorrect: false
             }
-
+        case SET_USER_TOKEN:
+            console.log("в редьюсе" + action.token)
+            localStorage.setItem("userToken", action.token)
         default: {
             return authorisationPage
         }
@@ -73,6 +76,13 @@ export const userVerificationActionCreator = (isFits) => {
 export const resetVerificationActionCreator = () => {
     return {
         type: RESET_VERIFICATION
+    }
+
+}
+export const setUserTokenActionCreator = (token) => {
+    return {
+        type: SET_USER_TOKEN,
+        token
     }
 }
 

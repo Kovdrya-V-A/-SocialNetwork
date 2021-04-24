@@ -42,7 +42,6 @@ const profilePageReducer = (profilePage = initialProfilePage, action) => {
         }
 
         case SET_PROFILE_INFO:
-
             return {
                 ...profilePage,
                 profileData: [...action.profileData]
@@ -52,7 +51,7 @@ const profilePageReducer = (profilePage = initialProfilePage, action) => {
         case SET_POSTS:
             return {
                 ...profilePage,
-                postsData: [...profilePage.postsData, ...action.postsData]
+                postsData: [...action.postsData]
             }
 
         default:

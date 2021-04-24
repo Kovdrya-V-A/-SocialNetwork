@@ -11,11 +11,6 @@ const Post = (props) => {
                 <div className={s.postText}>
                     {props.text}
                 </div>
-                <div className={s.postLikeValue}>
-                    <p className={s.value}>
-                        {props.likeValue} like
-                    </p>
-                </div>
             </div>
         </div>
     )

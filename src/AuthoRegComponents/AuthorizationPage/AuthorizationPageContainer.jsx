@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import AuthorizationPage from "./AuthorizationPage";
 import {
     inputLoginActionCreator,
-    inputPasswordActionCreator, resetVerificationActionCreator, userVerificationActionCreator
+    inputPasswordActionCreator, resetVerificationActionCreator, setUserTokenActionCreator, userVerificationActionCreator
 } from "../../Redux/AuthoRegReducers/AuthorizationPageReducer";
 import * as axios from "axios";
 
@@ -17,6 +17,9 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
     return {
+        setToken: (token) => {
+            dispatch(setUserTokenActionCreator(token))
+        },
         inputLogin: (introducedLogin) => {
             dispatch(inputLoginActionCreator(introducedLogin))
         },
@@ -53,8 +56,12 @@ class AuthorizationPageService extends React.Component {
     onUserVerification = (login, password) => {
         axios.post(`http://${this.props.serverLink}/auth`, {"login": login, "password": password})
             .then(response => {
-                this.props.userVerification(response.data)
-
+                console.log(response)
+                console.log(response.data.access_token)
+                this.props.userVerification(response.data.key_type)
+                if (response.data.key_type) {
+                    this.props.setToken(response.data.access_token)
+                }
             })
     }
 
