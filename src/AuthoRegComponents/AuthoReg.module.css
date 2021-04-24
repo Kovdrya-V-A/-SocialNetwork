@@ -34,6 +34,7 @@
 }
 
 .entryButton {
+    margin-top: 5px;
     text-align: center;
 }
 
@@ -52,5 +53,6 @@
 }
 
 .regButton {
+    margin-top: 5px;
     text-align: center;
 }

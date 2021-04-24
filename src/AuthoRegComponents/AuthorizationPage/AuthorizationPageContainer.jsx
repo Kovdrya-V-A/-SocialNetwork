@@ -11,6 +11,7 @@ import * as axios from "axios";
 let mapStateToProps = (state) => {
     return {
         authorizationPage: state.authorizationPage,
+        serverLink: state.authorizationPage.serverLink
     }
 }
 
@@ -50,7 +51,7 @@ class AuthorizationPageService extends React.Component {
 
 
     onUserVerification = (login, password) => {
-        axios.post(`http://188.32.105.146:404/auth`, {"login": login, "password": password})
+        axios.post(`http://${this.props.serverLink}/auth`, {"login": login, "password": password})
             .then(response => {
                 this.props.userVerification(response.data)
 

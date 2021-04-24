@@ -2,12 +2,13 @@ import React from 'react';
 import {connect} from "react-redux";
 import {
     followActionCreator,
-    setCurrentPageActionCreator,
-    setUsersActionCreator,
+    setCurrentPageActionCreator, setIsFetchingActionCreator,
+    setUsersActionCreator, setUserTotalCountActionCreator,
     unFollowActionCreator
 } from "../../Redux/Reducers/UsersPageReducer";
 import * as axios from "axios";
 import UsersPage from "./UsersPage";
+import preloader from "../../Assets/preloader.gif"
 
 let mapStateToProps = (state) => {
     return {
@@ -15,6 +16,8 @@ let mapStateToProps = (state) => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
+        isFetching: state.usersPage.isFetching,
+        serverLink: state.authorizationPage.serverLink
     }
 }
 
@@ -31,6 +34,12 @@ let mapDispatchToProps = (dispatch) => {
         },
         setCurrentPage: (number) => {
             dispatch(setCurrentPageActionCreator(number))
+        },
+        setUserTotalCount: (count) => {
+            dispatch(setUserTotalCountActionCreator(count))
+        },
+        setIsFetching: (isFetch) => {
+            dispatch(setIsFetchingActionCreator(isFetch))
         }
     }
 }
@@ -41,9 +50,12 @@ class UsersPageService extends React.Component {
     componentDidMount() {
 
         if (this.props.usersData.length === 0) {
-            axios.get(`http://188.32.105.146:404/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            this.props.setIsFetching(true)
+            axios.get(`http://${this.props.serverLink}/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
                 .then(response => {
+                    this.props.setIsFetching(false)
                     this.props.setUsers(response.data.items)
+                    this.props.setUserTotalCount(response.data.totalCount)
                 })
         }
     }
@@ -58,15 +70,19 @@ class UsersPageService extends React.Component {
 
     onSetCurrentPage = (number) => {
         this.props.setCurrentPage(number)
-        axios.get(`http://188.32.105.146:404/users?page=${number}&count=${this.props.pageSize}`)
+        this.props.setIsFetching(true)
+        axios.get(`http://${this.props.serverLink}/users?page=${number}&count=${this.props.pageSize}`)
             .then(response => {
+                this.props.setIsFetching(false)
                 this.props.setUsers(response.data.items)
+                this.props.setUserTotalCount(response.data.totalCount)
             })
     }
 
 
     render() {
-        return (
+        return <>
+            {this.props.isFetching ? <img src={preloader}/> : null}
             <UsersPage onSetCurrentPage={this.onSetCurrentPage}
                        totalUsersCount={this.props.totalUsersCount}
                        pageSize={this.props.pageSize}
@@ -74,7 +90,7 @@ class UsersPageService extends React.Component {
                        usersData={this.props.usersData}
                        onUnfollow={this.onUnfollow}
                        onFollow={this.onFollow}/>
-        )
+        </>
     }
 }
 

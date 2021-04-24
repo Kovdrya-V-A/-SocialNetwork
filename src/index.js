@@ -8,6 +8,7 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {Provider} from "react-redux";
 import RegistrationPage from "./AuthoRegComponents/RegistrationPage/RegistrationPage";
 import AuthorizationPageContainer from "./AuthoRegComponents/AuthorizationPage/AuthorizationPageContainer";
+import RegistrationPageContainer from "./AuthoRegComponents/RegistrationPage/RegistrarionPageContainer";
 
 
 ReactDOM.render(
@@ -16,7 +17,7 @@ ReactDOM.render(
             <Provider store={store}>
                 <Route path="/AuthUser" render={() => <App/>}/>
                 <Route exact path="/" render={() => <AuthorizationPageContainer/>}/>
-                <Route path="/RegistrationPage" render={() => <RegistrationPage/>}/>
+                <Route path="/RegistrationPage" render={() => <RegistrationPageContainer/>}/>
             </Provider>
         </BrowserRouter>
 

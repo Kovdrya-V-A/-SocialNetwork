@@ -7,6 +7,7 @@ let initialAuthorisationPage = {
     introducedLogin: "",
     introducedPassword: "",
     dataIsCorrect: false,
+    serverLink: "188.32.105.146:404"
 };
 
 const authorisationPageReducer = (authorisationPage = initialAuthorisationPage, action) => {

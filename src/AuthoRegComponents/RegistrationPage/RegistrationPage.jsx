@@ -1,11 +1,14 @@
 import s from "../AuthoReg.module.css";
 import React from "react";
-import {NavLink, Route} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import Header from "../../Components/Header/Header";
-import AuthorizationPage from "../AuthorizationPage/AuthorizationPage";
 import Footer from "../../Components/Footer/Footer";
 
-const RegistrationPage = () => {
+const RegistrationPage = (props) => {
+    let enterLogin = React.createRef();
+    let enterPassword = React.createRef();
+    let enterFirstName = React.createRef();
+    let enterLastName = React.createRef();
 
     return (
         <div className={s.wrapper}>
@@ -15,23 +18,23 @@ const RegistrationPage = () => {
                     <div className={s.registration}>
                         <h3>Регистрация</h3>
                         <div className={s.interLogin}>
-                            <p>Введите логин:</p>
-                            <input type="text"/>
+                            <p>Придумайте логин:</p>
+                            <input value={props.introducedLogin} onChange={() => props.onInputLogin(enterLogin)} ref={enterLogin} type="text"/>
                         </div>
                         <div className={s.interName}>
                             <p>Введите имя:</p>
-                            <input type="text"/>
+                            <input value={props.introducedFirstName} onChange={() => props.onInputFirstName(enterFirstName)} ref={enterFirstName} type="text"/>
                         </div>
                         <div className={s.interFirstname}>
                             <p>Введите фамилию:</p>
-                            <input type="text"/>
+                            <input value={props.introducedLastName} onChange={() => props.onInputLastName(enterLastName)} ref={enterLastName} type="text"/>
                         </div>
                         <div className={s.interPassword}>
                             <p>Придумайте пароль:</p>
-                            <input type="password"/>
+                            <input value={props.introducedPassword} onChange={() => props.onInputPassword(enterPassword)} ref={enterPassword} type="password"/>
                         </div>
                         <div className={s.regButton}>
-                            <button>register</button>
+                            <button onClick={() => props.onRegistrationUser(props.introducedLogin, props.introducedPassword, props.introducedFirstName, props.introducedLastName)}>register</button>
                         </div>
                         <div className={s.authLink}>
                             <p>Уже есть аккаунт ? <NavLink to ="/">Авторизация</NavLink> </p>

@@ -1,7 +1,7 @@
 import s from "./UsersPage.module.css"
 import React from "react";
 import {NavLink} from "react-router-dom";
-
+import standUserAva from "../../Assets/standUserAva.png"
 const UsersPage = (props) => {
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
     let pageNumbers = []
@@ -18,12 +18,12 @@ const UsersPage = (props) => {
         <div className={s.user}>
             <div className={s.userAva}>
                 <img
-                    src={u.img != null ? u.img: "https://freepikpsd.com/wp-content/uploads/2019/10/user-png-image-9.png"}
+                    src={u.img != null ? u.img: standUserAva}
                     alt="userAva"/>
             </div>
             <div className={s.userInfo}>
                 <NavLink className={s.userLink}
-                         to={"/UsersPage/" + u.id}>{u.name}</NavLink>
+                         to={"/UsersPage/" + u.id}>{`${u.firstName} ${u.lastName}`}</NavLink>
                 <button className={`${s.toMessageButton} ${s.button}`}>Message</button>
                 {u.followed ?
                     <button onClick={() => props.onUnfollow(u.id)}
