@@ -41,7 +41,7 @@ let mapDispatchToProps = (dispatch) => {
 class AuthorizationPageService extends React.Component {
 
     onResetVerification = () => {
-            this.props.resetVerification()
+        this.props.resetVerification()
     }
 
     onInputLogin = (enterLogin) => {
@@ -56,12 +56,10 @@ class AuthorizationPageService extends React.Component {
     onUserVerification = (login, password) => {
         axios.post(`http://${this.props.serverLink}/auth`, {"login": login, "password": password})
             .then(response => {
-                console.log(response)
-                console.log(response.data.access_token)
-                this.props.userVerification(response.data.key_type)
                 if (response.data.key_type) {
                     this.props.setToken(response.data.access_token)
                 }
+                this.props.userVerification(response.data.key_type)
             })
     }
 
@@ -83,4 +81,3 @@ class AuthorizationPageService extends React.Component {
 const AuthorizationPageContainer = connect(mapStateToProps, mapDispatchToProps)(AuthorizationPageService)
 
 export default AuthorizationPageContainer
-

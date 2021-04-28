@@ -17,14 +17,14 @@ const AuthorizationPage = (props) => {
                         <div className={s.enterLogin}>
                             <p>Введите логин:</p>
                             <input value={props.introducedLogin} onChange={() => props.onInputLogin(enterLogin)}
-                                   ref={enterLogin} type="text"/>
+                                   ref={enterLogin} type="text" placeholder="Логин"/>
                         </div>
                         <div className={s.enterPassword}>
                             <p>Введите пароль:</p>
                             <input value={props.introducedPassword}
                                    onChange={() => props.onInputPassword(enterPassword)}
                                    ref={enterPassword}
-                                   type="password"/>
+                                   type="password" placeholder="Пароль"/>
                         </div>
                         <div className={s.entryButton}>
                             <button

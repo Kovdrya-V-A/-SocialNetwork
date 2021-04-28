@@ -44,7 +44,6 @@ const authorisationPageReducer = (authorisationPage = initialAuthorisationPage, 
                 dataIsCorrect: false
             }
         case SET_USER_TOKEN:
-            console.log("в редьюсе" + action.token)
             localStorage.setItem("userToken", action.token)
         default: {
             return authorisationPage

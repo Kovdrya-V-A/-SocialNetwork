@@ -6,7 +6,7 @@ const SET_PROFILE_INFO = "SET_PROFILE_INFO"
 let initialProfilePage = {
     postsData: [],
     profileData: [{}],
-    newPostText: "Новый пост",
+    newPostText: "",
 };
 
 
@@ -15,10 +15,7 @@ const profilePageReducer = (profilePage = initialProfilePage, action) => {
     switch (action.type) {
         case ADD_POST: {
             let newPost = {
-                id: 5,
-                avaImg: "https://sun9-4.userapi.com/impg/ypBX4Cuuay8qJHUiOb_zlSr5EMhD0gvBcg02EA/tVlfxRvap6A.jpg?size=969x1080&quality=96&sign=673421d4f37e4b2bc82f2e6f83e834e1&type=album",
                 text: profilePage.newPostText,
-                likeValue: 0
             };
 
             if (newPost.text != "") {
@@ -42,16 +39,19 @@ const profilePageReducer = (profilePage = initialProfilePage, action) => {
         }
 
         case SET_PROFILE_INFO:
+            console.log(action.profileData)
             return {
                 ...profilePage,
-                profileData: [...action.profileData]
+                profileData: [action.profileData]
             }
 
 
         case SET_POSTS:
-            return {
-                ...profilePage,
-                postsData: [...action.postsData]
+            if (action.postsData) {
+                return {
+                    ...profilePage,
+                    postsData: [...action.postsData]
+                }
             }
 
         default:

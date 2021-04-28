@@ -34,15 +34,18 @@ let mapDispatchToProps = (dispatch) => {
 class MyPostsService extends React.Component {
 
     componentDidMount() {
-        axios.get(`http://${this.props.serverLink}/posts?token=${localStorage.getItem("userToken")}&type="0"`)
+        axios.get(`http://${this.props.serverLink}/posts?token=${localStorage.getItem("userToken")}`)
             .then(response => {
                 this.props.setPosts(response.data.items)
             })
     }
 
-    onAddNewPost = () => {
+    onAddNewPost = (token, postText) => {
         this.props.addNewPost();
+        axios.post(`http://${this.props.serverLink}/addPost`, {"token": token, "postText": postText}
+        )
     }
+
 
 
     onPostTextChange = (text) => {
@@ -55,7 +58,8 @@ class MyPostsService extends React.Component {
                      newPostText = {this.props.profilePage.newPostText}
                      onPostTextChange = {this.onPostTextChange}
                      onAddNewPost = {this.onAddNewPost}
-                     avaImg = {this.props.profilePage.profileData.imgSrc}
+                     avaImg = {this.props.profilePage.profileData[0].img}
+                     postText = {this.props.profilePage.newPostText}
             />
         )
     }

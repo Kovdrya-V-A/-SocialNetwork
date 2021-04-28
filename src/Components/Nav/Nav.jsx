@@ -21,7 +21,7 @@ const Nav = () => {
                     <NavLink className={s.link} activeClassName = {s.activeLink} to ="/AuthUser/Settings">Settings</NavLink>
                 </div>
                 <div className={s.navItem}>
-                    <NavLink className={s.link} to ="/">Log out</NavLink>
+                    <button className={s.logoutButton} onClick={() => {window.location.reload()}}><NavLink className={s.link} to ="/">Log out</NavLink></button>
                 </div>
             </nav>
     )

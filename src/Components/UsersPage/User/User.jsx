@@ -3,7 +3,7 @@ import s from "./User.module.css"
 import {NavLink} from "react-router-dom";
 
 const User = (props) => {
-    let userId = props.key;
+    // let userId = props.key;
 
     let onUnfollow = (userId) => {
         props.unfollow(userId)}

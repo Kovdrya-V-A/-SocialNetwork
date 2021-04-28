@@ -8,7 +8,6 @@ import {
 } from "../../Redux/Reducers/UsersPageReducer";
 import * as axios from "axios";
 import UsersPage from "./UsersPage";
-import preloader from "../../Assets/preloader.gif"
 
 let mapStateToProps = (state) => {
     return {
@@ -82,7 +81,6 @@ class UsersPageService extends React.Component {
 
     render() {
         return <>
-            {this.props.isFetching ? <img src={preloader}/> : null}
             <UsersPage onSetCurrentPage={this.onSetCurrentPage}
                        totalUsersCount={this.props.totalUsersCount}
                        pageSize={this.props.pageSize}
@@ -98,6 +96,3 @@ class UsersPageService extends React.Component {
 const UsersPageContainer = connect(mapStateToProps, mapDispatchToProps)(UsersPageService)
 
 export default UsersPageContainer;
-
-
-
