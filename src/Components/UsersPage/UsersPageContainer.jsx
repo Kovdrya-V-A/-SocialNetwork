@@ -8,6 +8,7 @@ import {
 } from "../../Redux/Reducers/UsersPageReducer";
 import * as axios from "axios";
 import UsersPage from "./UsersPage";
+import {setSelectedUserIdActionCreator} from "../../Redux/Reducers/SelectedUserProfilePageReducer";
 
 let mapStateToProps = (state) => {
     return {
@@ -39,7 +40,7 @@ let mapDispatchToProps = (dispatch) => {
         },
         setIsFetching: (isFetch) => {
             dispatch(setIsFetchingActionCreator(isFetch))
-        }
+        },
     }
 }
 
@@ -78,6 +79,10 @@ class UsersPageService extends React.Component {
             })
     }
 
+    onsetSelectedUserId = (userId) => {
+        this.props.setSelectedUserId(userId)
+    }
+
 
     render() {
         return <>
@@ -87,7 +92,9 @@ class UsersPageService extends React.Component {
                        currentPage={this.props.currentPage}
                        usersData={this.props.usersData}
                        onUnfollow={this.onUnfollow}
-                       onFollow={this.onFollow}/>
+                       onFollow={this.onFollow}
+            />
+
         </>
     }
 }

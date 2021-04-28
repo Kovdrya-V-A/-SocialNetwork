@@ -23,7 +23,7 @@ const UsersPage = (props) => {
             </div>
             <div className={s.userInfo}>
                 <NavLink className={s.userLink}
-                         to={"/UsersPage/" + u.id}>{`${u.firstName} ${u.lastName}`}</NavLink>
+                                 to={"/AuthUser/UserPage/" + u.id}>{`${u.firstName} ${u.lastName}`}</NavLink>
                 <button className={`${s.toMessageButton} ${s.button}`}>Message</button>
                 {u.followed ?
                     <button onClick={() => props.onUnfollow(u.id)}

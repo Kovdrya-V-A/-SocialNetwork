@@ -9,6 +9,7 @@ import DialogsPageContainer from "./Components/DialogsPage/DialogsPageContainer"
 import NewsPageContainer from "./Components/NewsPage/NewsPageContainer";
 import UsersPageContainer from "./Components/UsersPage/UsersPageContainer";
 import ProfilePageContainer from "./Components/ProfilePage/ProfilePageContainer";
+import SelectedProfilePageContainer from "./Components/SelectedProfilePage/SelectedProfilePageContainer";
 
 
 const App = () => {
@@ -21,9 +22,10 @@ const App = () => {
                         <Route exact path="/AuthUser" render={() => <ProfilePageContainer/>}/>
                         <Route path="/AuthUser/ProfilePage" render={() => <ProfilePageContainer/>}/>
                         <Route path="/AuthUser/DialogsPage" render={() => <DialogsPageContainer/>}/>
-                        <Route path = "/AuthUser/UsersPage" render = {() => <UsersPageContainer/>}/>
+                        <Route exact path = "/AuthUser/UsersPage" render = {() => <UsersPageContainer/>}/>
                         <Route path="/AuthUser/NewsPage" render={() => <NewsPageContainer/>}/>
                         <Route path="/AuthUser/Settings" render={() => <Settings/>}/>
+                        <Route path="/AuthUser/userPage" render={() => <SelectedProfilePageContainer/>}/>
                     </div>
                 </div>
                 <Footer/>

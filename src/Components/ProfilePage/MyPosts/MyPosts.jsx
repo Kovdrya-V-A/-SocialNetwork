@@ -17,6 +17,7 @@ const MyPosts = (props) => {
             <button onClick={() => props.onAddNewPost(localStorage.getItem("userToken"), props.postText)}
                     className={s.addPostButton}>Add new post
             </button>
+            <h2>Ваши посты:</h2>
             {postsItems}
         </div>
     )
