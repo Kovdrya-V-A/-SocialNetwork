@@ -1,0 +1,61 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+.userPosts {
+    display: flex;
+    flex-direction: column;
+    background-color: darkslategray;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+
+.postBox {
+    border: 2px solid darkcyan;
+    border-radius: 12px;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    display: flex;
+}
+
+.postText {
+    color: khaki;
+}
+
+
+.avaPost img {
+    width: 50px;
+    height: 50px;
+    border: 2px solid grey;
+    border-radius: 50px;
+}
+
+.postContent {
+    padding-left: 10px;
+}
+
+.profileInfo {
+    display: flex;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+
+.ava {
+    flex: 1;
+}
+
+.ava img {
+    width: 130px;
+    border: 2px solid grey;
+    border-radius: 20px;
+}
+
+.userData {
+    flex: 10;
+    padding-left: 10px;
+    padding-top: 10px;
+}
