@@ -1,14 +1,17 @@
 const SEND_MESSAGE = "SEND_MESSAGE";
 const MESSAGE_TEXT_CHANGE = "MESSAGE_TEXT_CHANGE";
-const SET_MESSAGE = "SET_MESSAGE"
-const SET_DIALOGS = "SET_DIALOGS"
+const SET_MESSAGE = "SET_MESSAGE";
+const SET_DIALOGS = "SET_DIALOGS";
+const SET_CURRENT_DIALOG = "SET_CURRENT_DIALOG";
 
 let initialDialogsPage = {
     dialogsData: [],
 
     newMessageText: "",
 
-    messagesData: []
+    messagesData: [],
+
+    currentDialogId: ""
 };
 
 const dialogsPageReducer = (dialogsPage = initialDialogsPage, action) => {
@@ -50,7 +53,14 @@ const dialogsPageReducer = (dialogsPage = initialDialogsPage, action) => {
         case SET_DIALOGS: {
             return {
                 ...dialogsPage,
-                dialogsData: [...dialogsPage.dialogsData, ...action.dialogsData]
+                dialogsData: [...action.dialogsData]
+            }
+        }
+
+        case SET_CURRENT_DIALOG: {
+            return {
+                ...dialogsPage,
+                currentDialogId: action.selectedDialogId
             }
         }
 
@@ -83,6 +93,12 @@ export const setDialogsActionCreator = (dialogsData) => {
     return {
         type: SET_DIALOGS,
         dialogsData
+    }
+}
+    export const setCurrentDialogActionCreator = (selectedDialogId) => {
+    return {
+        type: SET_CURRENT_DIALOG,
+        selectedDialogId
     }
 }
 

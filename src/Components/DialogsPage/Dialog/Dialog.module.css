@@ -5,12 +5,23 @@
     border: 2px solid black;
     border-radius: 8px;
     margin-bottom: 7px;
+    margin-top: 5px;
 }
 
 .dialogLink {
     text-decoration: none;
     font-size: 18px;
     color: white;
+
+}
+
+.dialogLinkButton {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
 }
 
 .activeDialog {

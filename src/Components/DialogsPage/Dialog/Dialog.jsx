@@ -7,8 +7,8 @@ const Dialog = (props) => {
             <div className={s.dialogAva}>
                 <img src={props.dialogAva} alt="dialogava"/>
             </div>
-            <NavLink className={s.dialogLink} activeClassName={s.activeDialog}
-                     to={"/DialogsPage/" + props.id}>{props.name}</NavLink>
+            <button onClick={() => props.onSetCurrentDialog(props.idDialog)} className={s.dialogLinkButton}><NavLink className={s.dialogLink} activeClassName={s.activeDialog}
+                                                                                               to={`/AuthUser/DialogsPage/${props.idDialog}`}>{props.chatName}</NavLink></button>
         </div>
     )
 }
