@@ -18,9 +18,9 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
     return {
-        // sendNewMessage: () => {
-        //     dispatch(sendMessageActionCreator())
-        // },
+        sendNewMessage: (name, img, id, text) => {
+            dispatch(sendMessageActionCreator(name, img, id, text))
+        },
         messageTextChange: (text) => {
             dispatch(messageTextChangeActionCreator(text))
         },
@@ -63,22 +63,19 @@ class DialogsPageService extends React.Component {
 
 
     onSendNewMessage = (massageText) => {
-        // this.props.sendNewMessage(this.props.senderName, this.props.senderAva);
-        let dialogId = window.location.pathname.split("/")
-        let a = dialogId.length - 1
-        axios.post(`http://${this.props.serverLink}/sendMessage`,
-            {
-                "token": localStorage.getItem("userToken"),
-                "idDialog": dialogId[a],
-                "text": massageText
-            })
-            // .then(response => {
-            //     axios.get(`http://${this.props.serverLink}/messages?token=${localStorage.getItem("userToken")}&idDialog=${dialogId[a]}`)
-            //         .then(response => {
-            //             console.log(response)
-            //             this.props.setMessages(response.data.items)
-            //         })
-            // })
+        if (massageText) {
+            let dialogId = window.location.pathname.split("/")
+            let a = dialogId.length - 1
+            axios.post(`http://${this.props.serverLink}/sendMessage`,
+                {
+                    "token": localStorage.getItem("userToken"),
+                    "idDialog": dialogId[a],
+                    "text": massageText
+                })
+                .then(response => {
+                    this.props.sendNewMessage(response.data[0].name, response.data[0].img, response.data[0].id, response.data[0].text);
+                })
+        }
     }
 
     onMessageTextChange = (text) => {
