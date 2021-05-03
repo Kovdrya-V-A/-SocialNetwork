@@ -46,7 +46,7 @@ const dialogsPageReducer = (dialogsPage = initialDialogsPage, action) => {
         case SET_MESSAGE: {
             return {
                 ...dialogsPage,
-                messagesData: [...dialogsPage.messagesData, ...action.messagesData]
+                messagesData: [...action.messagesData]
             }
         }
 
