@@ -7,21 +7,20 @@ import {
 import {connect} from "react-redux";
 import DialogsPage from "./DialogsPage";
 import * as axios from "axios";
-import s from "./Dialog/Dialog.module.css";
 
 
 let mapStateToProps = (state) => {
     return {
         dialogsPage: state.dialogsPage,
-        serverLink: state.authorizationPage.serverLink
+        serverLink: state.authorizationPage.serverLink,
     }
 }
 
 let mapDispatchToProps = (dispatch) => {
     return {
-        sendNewMessage: () => {
-            dispatch(sendMessageActionCreator())
-        },
+        // sendNewMessage: () => {
+        //     dispatch(sendMessageActionCreator())
+        // },
         messageTextChange: (text) => {
             dispatch(messageTextChangeActionCreator(text))
         },
@@ -63,21 +62,29 @@ class DialogsPageService extends React.Component {
     }
 
 
-    onSendNewMessage = () => {
-        this.props.sendNewMessage();
+    onSendNewMessage = (massageText) => {
+        // this.props.sendNewMessage(this.props.senderName, this.props.senderAva);
+        let dialogId = window.location.pathname.split("/")
+        let a = dialogId.length - 1
+        axios.post(`http://${this.props.serverLink}/sendMessage`,
+            {
+                "token": localStorage.getItem("userToken"),
+                "idDialog": dialogId[a],
+                "text": massageText
+            })
+            // .then(response => {
+            //     axios.get(`http://${this.props.serverLink}/messages?token=${localStorage.getItem("userToken")}&idDialog=${dialogId[a]}`)
+            //         .then(response => {
+            //             console.log(response)
+            //             this.props.setMessages(response.data.items)
+            //         })
+            // })
     }
 
     onMessageTextChange = (text) => {
         this.props.messageTextChange(text)
     }
 
-    // onSetMessages = () => {
-    //     axios.get(`http://${this.props.serverLink}/messages?token=${localStorage.getItem("userToken")}$dialogId=${this.props.dialogsPage.currentDialogId}`)
-    //         .then(response => {
-    //             console.log(response)
-    //             this.props.setMessages(response.data.items)
-    //         })
-    // }
 
     render() {
 
@@ -88,8 +95,8 @@ class DialogsPageService extends React.Component {
                          onMessageTextChange={this.onMessageTextChange}
                          onSendNewMessage={this.onSendNewMessage}
                          currentDialogId={this.props.dialogsPage.currentDialogId}
-                         onSetCurrentDialog = {this.onSetCurrentDialog}
-                         // onSetMessages = {this.onSetMessages}
+                         onSetCurrentDialog={this.onSetCurrentDialog}
+
             />
         )
     }
