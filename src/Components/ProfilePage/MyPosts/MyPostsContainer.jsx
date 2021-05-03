@@ -36,14 +36,18 @@ class MyPostsService extends React.Component {
     componentDidMount() {
         axios.get(`http://${this.props.serverLink}/posts?token=${localStorage.getItem("userToken")}`)
             .then(response => {
-                this.props.setPosts(response.data.items)
+                if (response.data) {
+                    this.props.setPosts(response.data.items)
+                }
             })
     }
 
     onAddNewPost = (token, postText) => {
         this.props.addNewPost();
-        axios.post(`http://${this.props.serverLink}/addPost`, {"token": token, "postText": postText}
-        )
+        if (postText) {
+            axios.post(`http://${this.props.serverLink}/addPost`, {"token": token, "postText": postText}
+            )
+        }
     }
 
 

@@ -43,8 +43,9 @@ class DialogsPageService extends React.Component {
 
         axios.get(`http://${this.props.serverLink}/dialogs?token=${localStorage.getItem("userToken")}`)
             .then(response => {
-                console.log(response)
-                this.props.setDialogs(response.data.items)
+                if (response.data) {
+                    this.props.setDialogs(response.data.items)
+                }
             })
 
     }
@@ -56,8 +57,9 @@ class DialogsPageService extends React.Component {
         let a = dialogId.length - 1
         axios.get(`http://${this.props.serverLink}/messages?token=${localStorage.getItem("userToken")}&idDialog=${dialogId[a]}`)
             .then(response => {
-                console.log(response)
-                this.props.setMessages(response.data.items)
+                if (response.data) {
+                    this.props.setMessages(response.data.items)
+                }
             })
     }
 

@@ -25,7 +25,7 @@ class ProfileInfoService extends React.Component {
     componentDidMount() {
         axios.get(`http://${this.props.serverLink}/authProfileInfo?token=${localStorage.getItem("userToken")}`)
             .then(response => {
-                this.props.setProfileInfo(response.data)
+                    this.props.setProfileInfo(response.data)
             })
     }
 

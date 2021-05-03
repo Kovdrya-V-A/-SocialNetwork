@@ -3,6 +3,7 @@ const MESSAGE_TEXT_CHANGE = "MESSAGE_TEXT_CHANGE";
 const SET_MESSAGE = "SET_MESSAGE";
 const SET_DIALOGS = "SET_DIALOGS";
 const SET_CURRENT_DIALOG = "SET_CURRENT_DIALOG";
+// const CREATE_NEW_DIALOG = "CREATE_NEW_DIALOG"
 
 let initialDialogsPage = {
     dialogsData: [],
@@ -61,6 +62,10 @@ const dialogsPageReducer = (dialogsPage = initialDialogsPage, action) => {
             }
         }
 
+        // case CREATE_NEW_DIALOG: {
+        //
+        // }
+
         default:
             return dialogsPage;
     }
@@ -102,6 +107,12 @@ export const setCurrentDialogActionCreator = (selectedDialogId) => {
         selectedDialogId
     }
 }
+// export const createNewDialogActionCreator = (selectedDialogId) => {
+//     return {
+//         type: CREATE_NEW_DIALOG,
+//         selectedDialogId
+//     }
+// }
 
 
 export default dialogsPageReducer;

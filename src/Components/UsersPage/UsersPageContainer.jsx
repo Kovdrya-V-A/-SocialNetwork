@@ -8,7 +8,7 @@ import {
 } from "../../Redux/Reducers/UsersPageReducer";
 import * as axios from "axios";
 import UsersPage from "./UsersPage";
-import {setSelectedUserIdActionCreator} from "../../Redux/Reducers/SelectedUserProfilePageReducer";
+// import {setSelectedUserIdActionCreator} from "../../Redux/Reducers/SelectedUserProfilePageReducer";
 
 let mapStateToProps = (state) => {
     return {
@@ -79,9 +79,16 @@ class UsersPageService extends React.Component {
             })
     }
 
-    onsetSelectedUserId = (userId) => {
-        this.props.setSelectedUserId(userId)
+    onMessage = (userId) => {
+        axios.post(`http://${this.props.serverLink}/createDialog`, {
+            "token": localStorage.getItem("userToken"),
+            "userId": userId
+        })
     }
+
+    // onsetSelectedUserId = (userId) => {
+    //     this.props.setSelectedUserId(userId)
+    // }
 
 
     render() {
@@ -93,6 +100,7 @@ class UsersPageService extends React.Component {
                        usersData={this.props.usersData}
                        onUnfollow={this.onUnfollow}
                        onFollow={this.onFollow}
+                       onMessage = {this.onMessage}
             />
 
         </>

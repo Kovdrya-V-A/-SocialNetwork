@@ -6,7 +6,6 @@ const MyPosts = (props) => {
 
     let postsItems =
         props.postsData.map(p => <Post avaImg={props.avaImg} text={p.text} key={p.idPost}/>)
-
     let text = React.createRef()
 
     return (
@@ -18,7 +17,7 @@ const MyPosts = (props) => {
                     className={s.addPostButton}>Add new post
             </button>
             <h2>Ваши посты:</h2>
-            {postsItems}
+            {props.postsData.length > 0 ? postsItems : "У вас пока нет постов"}
         </div>
     )
 
