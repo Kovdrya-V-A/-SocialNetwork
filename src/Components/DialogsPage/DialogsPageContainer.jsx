@@ -40,7 +40,6 @@ let mapDispatchToProps = (dispatch) => {
 class DialogsPageService extends React.Component {
 
     componentDidMount() {
-
         axios.get(`http://${this.props.serverLink}/dialogs?token=${localStorage.getItem("userToken")}`)
             .then(response => {
                 if (response.data) {
@@ -59,6 +58,8 @@ class DialogsPageService extends React.Component {
             .then(response => {
                 if (response.data) {
                     this.props.setMessages(response.data.items)
+                } else if (response.data == null) {
+                    this.props.setMessages([])
                 }
             })
     }

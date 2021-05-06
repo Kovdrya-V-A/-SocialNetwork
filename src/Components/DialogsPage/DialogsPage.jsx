@@ -6,8 +6,8 @@ import Message from "./Message/Message";
 const DialogsPage = (props) => {
 
     let dialogsItems = props.dialogsData.map(d => <Dialog onSetCurrentDialog={props.onSetCurrentDialog}
-                                                          dialogAva={d.img} idDialog={d.idchat}
-                                                          chatName={d.chatName}/>)
+                                                          dialogAva={d.img} idDialog={d.idDialog}
+                                                          chatName={d.name}/>)
 
     let messagesItems = props.messagesData.map(m => <Message senderName={m.name}
                                                              text={m.text}

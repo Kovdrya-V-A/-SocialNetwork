@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from "react-redux";
 import {
     followActionCreator,
-    setCurrentPageActionCreator, setIsFetchingActionCreator,
+    setCurrentPageActionCreator, setIsFetchingActionCreator, setIsWroteActionCreator,
     setUsersActionCreator, setUserTotalCountActionCreator,
     unFollowActionCreator
 } from "../../Redux/Reducers/UsersPageReducer";
@@ -17,6 +17,7 @@ let mapStateToProps = (state) => {
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
+        isWrote: state.usersPage.isWrote,
         serverLink: state.authorizationPage.serverLink
     }
 }
@@ -41,6 +42,9 @@ let mapDispatchToProps = (dispatch) => {
         setIsFetching: (isFetch) => {
             dispatch(setIsFetchingActionCreator(isFetch))
         },
+        setIsWrote: (isWrote) => {
+            dispatch(setIsWroteActionCreator(isWrote))
+        }
     }
 }
 
@@ -48,16 +52,17 @@ let mapDispatchToProps = (dispatch) => {
 class UsersPageService extends React.Component {
 
     componentDidMount() {
+        this.props.setIsFetching(true)
+        axios.get(`http://${this.props.serverLink}/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setIsFetching(false)
+                this.props.setUsers(response.data.items)
+                this.props.setUserTotalCount(response.data.totalCount)
+            })
+    }
 
-        if (this.props.usersData.length === 0) {
-            this.props.setIsFetching(true)
-            axios.get(`http://${this.props.serverLink}/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-                .then(response => {
-                    this.props.setIsFetching(false)
-                    this.props.setUsers(response.data.items)
-                    this.props.setUserTotalCount(response.data.totalCount)
-                })
-        }
+    componentWillUnmount() {
+        this.props.setIsWrote(false)
     }
 
     onUnfollow = (userId) => {
@@ -84,6 +89,9 @@ class UsersPageService extends React.Component {
             "token": localStorage.getItem("userToken"),
             "userId": userId
         })
+            .then(() => {
+                this.props.setIsWrote(true)
+            })
     }
 
     // onsetSelectedUserId = (userId) => {
@@ -98,9 +106,10 @@ class UsersPageService extends React.Component {
                        pageSize={this.props.pageSize}
                        currentPage={this.props.currentPage}
                        usersData={this.props.usersData}
+                       isWrote={this.props.isWrote}
                        onUnfollow={this.onUnfollow}
                        onFollow={this.onFollow}
-                       onMessage = {this.onMessage}
+                       onMessage={this.onMessage}
             />
 
         </>

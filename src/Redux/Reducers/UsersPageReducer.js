@@ -3,14 +3,16 @@ const FOLLOW = "FOLLOW";
 const SET_USERS = "SET_USERS";
 const SET_USERS_TOTAL_COUNT = "SET_USERS_TOTAL_COUNT";
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
-const SET_IS_FETCHING = "SET_IS_FETCHING"
+const SET_IS_FETCHING = "SET_IS_FETCHING";
+const SET_IS_WROTE = "SET_IS_WROTE";
 
 let initialUsersPage = {
     usersData: [],
     currentPage: 1,
     pageSize: 7,
     totalUsersCount: 0,
-    isFetching: false
+    isFetching: false,
+    isWrote: false,
 };
 
 const usersPageReducer = (usersPage = initialUsersPage, action) => {
@@ -52,6 +54,9 @@ const usersPageReducer = (usersPage = initialUsersPage, action) => {
             return {
                 ...usersPage, totalUsersCount: action.count
             }
+
+        case SET_IS_WROTE:
+            return {...usersPage, isWrote: action.isWrote}
 
         default: {
             return usersPage
@@ -97,6 +102,12 @@ export const setIsFetchingActionCreator = (isFetch) => {
     return {
         type: SET_IS_FETCHING,
         isFetch
+    }
+}
+export const setIsWroteActionCreator = (isWrote) => {
+    return {
+        type: SET_IS_WROTE,
+        isWrote
     }
 }
 
