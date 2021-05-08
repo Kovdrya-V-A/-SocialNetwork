@@ -30,6 +30,7 @@ const usersPageReducer = (usersPage = initialUsersPage, action) => {
             }
 
         case FOLLOW:
+            alert (action.message)
             return {
                 ...usersPage,
                 usersData: usersPage.usersData.map(f => {
@@ -71,10 +72,11 @@ export const unFollowActionCreator = (userId) => {
     }
 }
 
-export const followActionCreator = (userId) => {
+export const followActionCreator = (userId, message) => {
     return {
         type: FOLLOW,
-        userId
+        userId,
+        message
     }
 }
 

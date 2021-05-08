@@ -1,0 +1,72 @@
+.friendsPage {
+    margin: 0 auto;
+    width: 100%;
+    background-color: darkslategray;
+}
+
+.friend {
+    min-width: 20%;
+    max-width: 40%;
+    display: flex;
+    background-color: grey;
+    margin: 10px auto;
+    border-radius: 10px;
+}
+
+.friendAva img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin-right: 7px;
+}
+
+.friendLink {
+    text-decoration: none;
+    color: white;
+    margin-bottom: 5px;
+}
+
+.button {
+    height: 25px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.toMessageButton {
+    margin-bottom: 3px;
+}
+
+.unfollowButton {
+    margin-bottom: 3px;
+}
+
+.followButton {
+    margin-bottom: 3px;
+}
+
+.friendInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.pageNumber {
+    padding: 3px;
+    cursor: pointer;
+}
+
+.selectedPage {
+    color: gold;
+    font-weight: bold;
+    border-bottom: 1px solid gold;
+}
+
+.selectingPageMenu {
+    text-align: center;
+    padding-top: 10px;
+}
+
+.searchFriends {
+    text-decoration: none;
+    color: white;
+}
+

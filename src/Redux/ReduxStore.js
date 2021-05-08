@@ -6,6 +6,7 @@ import usersPageReducer from "./Reducers/UsersPageReducer";
 import authorisationPageReducer from "./AuthoRegReducers/AuthorizationPageReducer";
 import registrationPageReducer from "./AuthoRegReducers/RegistrationPageReducer";
 import selectedProfilePageReducer from "./Reducers/SelectedUserProfilePageReducer";
+import friendsPageReducer from "./Reducers/FriendsPageReducer";
 
 let reducers = combineReducers({
     dialogsPage: dialogsPageReducer,
@@ -14,7 +15,8 @@ let reducers = combineReducers({
     newsPage: newsPageReducer,
     selectedProfilePage: selectedProfilePageReducer,
     authorizationPage: authorisationPageReducer,
-    registrationPage: registrationPageReducer
+    registrationPage: registrationPageReducer,
+    friendsPage: friendsPageReducer
 })
 const store = createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 

@@ -24,8 +24,8 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
     return {
-        follow: (userId) => {
-            dispatch(followActionCreator(userId))
+        follow: (userId, message) => {
+            dispatch(followActionCreator(userId, message))
         },
         unfollow: (userId) => {
             dispatch(unFollowActionCreator(userId))
@@ -70,7 +70,16 @@ class UsersPageService extends React.Component {
     }
 
     onFollow = (userId) => {
-        this.props.follow(userId)
+        axios.post(`http://${this.props.serverLink}/followFriend`,
+            {
+                "token": localStorage.getItem("userToken"),
+                "userId": userId
+
+            })
+            .then(response => {
+                console.log(response)
+                this.props.follow(userId, response.data.message)
+            })
     }
 
     onSetCurrentPage = (number) => {

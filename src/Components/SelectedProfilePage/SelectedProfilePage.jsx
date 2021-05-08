@@ -43,12 +43,10 @@ const UserPosts = (props) => {
             </div>
         </div>)
 
-    let text = React.createRef()
-
     return (
         <div className={s.userPosts}>
             <h2>Посты пользователя:</h2>
-            {postsItems}
+            {props.postsData.length > 0 ? postsItems: "У пользователя пока нет постов."}
         </div>
     )
 }

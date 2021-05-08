@@ -25,7 +25,7 @@ const UsersPage = (props) => {
                 </div>
                 <div className={s.userInfo}>
                     <NavLink className={s.userLink}
-                             to={"/AuthUser/UserPage/" + u.id}>{`${u.firstName} ${u.lastName}`}</NavLink>
+                             to={"/AuthUser/UserPage/" + u.id}>{`${u.name}`}</NavLink>
                     <button onClick={() => {
                         props.onMessage(u.id)
                     }} className={`${s.toMessageButton} ${s.button}`}>Message

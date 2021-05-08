@@ -37,20 +37,18 @@ class SelectedProfilePageService extends React.Component {
         axios.get(`http://${this.props.serverLink}/user?token=${localStorage.getItem("userToken")}&id=${userId[a]}`)
             .then(response => {
                 this.props.setUserProfileInfo(response.data.userInfo)
-                this.props.setUserPosts(response.data.posts)
+                if (response.data.posts[0]) {
+                    this.props.setUserPosts(response.data.posts)
+                }
             })
-        // axios.get(`http://${this.props.serverLink}/user?token=${localStorage.getItem("userToken")}&id=${userId[a]}`)
-        //     .then(response => {
-        //         this.props.setUserPosts(response.data.items)
-        //     })
     }
 
 
     render() {
         return (
             <SelectedProfilePage
-            postsData = {this.props.selectedProfilePage.postsData}
-            profileData = {this.props.selectedProfilePage.profileData}/>
+                postsData={this.props.selectedProfilePage.postsData}
+                profileData={this.props.selectedProfilePage.profileData}/>
         )
     }
 
