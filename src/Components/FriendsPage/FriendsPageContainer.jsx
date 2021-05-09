@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import * as axios from "axios";
 import FriendsPage from "./FriendsPage";
 import {
+    followActionCreator,
     setCurrentPageActionCreator,
     setFriendsActionCreator, setFriendsTotalCountActionCreator, setIsFetchingActionCreator, setIsWroteActionCreator,
     unFollowActionCreator
@@ -23,8 +24,11 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
     return {
-        unfollow: (userId) => {
-            dispatch(unFollowActionCreator(userId))
+        unfollow: (userId, message) => {
+            dispatch(unFollowActionCreator(userId, message))
+        },
+        follow: (userId, message) => {
+            dispatch(followActionCreator(userId, message))
         },
         setFriends: (friendsData) => {
             dispatch(setFriendsActionCreator(friendsData))
@@ -64,7 +68,30 @@ class FriendsPageService extends React.Component {
     }
 
     onUnfollow = (userId) => {
-        this.props.unfollow(userId)
+        axios.post(`http://${this.props.serverLink}/followFriend`,
+            {
+                "token": localStorage.getItem("userToken"),
+                "userId": userId,
+                "follow": false
+
+            })
+            .then(response => {
+                this.props.unfollow(userId, response.data.message)
+            })
+    }
+
+    onFollow = (userId) => {
+        axios.post(`http://${this.props.serverLink}/followFriend`,
+            {
+                "token": localStorage.getItem("userToken"),
+                "userId": userId,
+                "follow": true
+
+            })
+            .then(response => {
+                console.log(response)
+                this.props.follow(userId, response.data.message)
+            })
     }
 
     onSetCurrentPage = (number) => {
@@ -88,9 +115,6 @@ class FriendsPageService extends React.Component {
             })
     }
 
-    // onsetSelectedUserId = (userId) => {
-    //     this.props.setSelectedUserId(userId)
-    // }
 
 
     render() {
@@ -102,6 +126,7 @@ class FriendsPageService extends React.Component {
                          friendsData={this.props.friendsData}
                          isWrote={this.props.isWrote}
                          onUnfollow={this.onUnfollow}
+                         onFollow={this.onFollow}
                          onMessage={this.onMessage}
             />
 

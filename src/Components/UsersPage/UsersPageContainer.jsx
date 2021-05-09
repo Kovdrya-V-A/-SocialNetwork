@@ -24,11 +24,11 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
     return {
-        follow: (userId, message) => {
-            dispatch(followActionCreator(userId, message))
+        follow: (userId, message, error) => {
+            dispatch(followActionCreator(userId, message, error))
         },
-        unfollow: (userId) => {
-            dispatch(unFollowActionCreator(userId))
+        unfollow: (userId, message) => {
+            dispatch(unFollowActionCreator(userId, message))
         },
         setUsers: (usersData) => {
             dispatch(setUsersActionCreator(usersData))
@@ -53,7 +53,7 @@ class UsersPageService extends React.Component {
 
     componentDidMount() {
         this.props.setIsFetching(true)
-        axios.get(`http://${this.props.serverLink}/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+        axios.get(`http://${this.props.serverLink}/users?token=${localStorage.getItem("userToken")}&page=${this.props.currentPage}&count=${this.props.pageSize}`)
             .then(response => {
                 this.props.setIsFetching(false)
                 this.props.setUsers(response.data.items)
@@ -66,26 +66,36 @@ class UsersPageService extends React.Component {
     }
 
     onUnfollow = (userId) => {
-        this.props.unfollow(userId)
+        axios.post(`http://${this.props.serverLink}/followFriend`,
+            {
+                "token": localStorage.getItem("userToken"),
+                "userId": userId,
+                "follow": false
+
+            })
+            .then(response => {
+                console.log(response)
+                this.props.unfollow(userId, response.data.message)
+            })
     }
 
     onFollow = (userId) => {
         axios.post(`http://${this.props.serverLink}/followFriend`,
             {
                 "token": localStorage.getItem("userToken"),
-                "userId": userId
+                "userId": userId,
+                "follow": true
 
             })
             .then(response => {
-                console.log(response)
-                this.props.follow(userId, response.data.message)
+                this.props.follow(userId, response.data.message, response.data.error)
             })
     }
 
     onSetCurrentPage = (number) => {
         this.props.setCurrentPage(number)
         this.props.setIsFetching(true)
-        axios.get(`http://${this.props.serverLink}/users?page=${number}&count=${this.props.pageSize}`)
+        axios.get(`http://${this.props.serverLink}/users?token=${localStorage.getItem("userToken")}&page=${number}&count=${this.props.pageSize}`)
             .then(response => {
                 this.props.setIsFetching(false)
                 this.props.setUsers(response.data.items)

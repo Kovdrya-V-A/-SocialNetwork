@@ -38,6 +38,7 @@ const UsersPage = (props) => {
                                 className={`${s.unfollowButton} ${s.button}`}>Unfollow</button> :
                         <button onClick={() => props.onFollow(u.id)}
                                 className={`${s.followButton} ${s.button}`}>Follow</button>}
+                    {u.followed ? <div className={s.followedStatus}><p>Ваш друг.</p></div>:null}
                 </div>
             </div>
         </div>)
@@ -45,6 +46,7 @@ const UsersPage = (props) => {
 
     return (
         <div className={s.usersPage}>
+            <h3>Список пользователей:</h3>
             {userItem}
             <div className={s.selectingPageMenu}>{pageNumbersList}</div>
 

@@ -4,6 +4,7 @@ const SET_FRIENDS_TOTAL_COUNT = "SET_FRIENDS_TOTAL_COUNT";
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 const SET_IS_FETCHING = "SET_IS_FETCHING";
 const SET_IS_WROTE = "SET_IS_WROTE";
+const FOLLOW = "FOLLOW";
 
 let initialFriendsPage = {
     friendsData: [],
@@ -18,11 +19,24 @@ const friendsPageReducer = (friendsPage = initialFriendsPage, action) => {
 
     switch (action.type) {
         case UNFOLLOW:
+            alert (action.message)
             return {
                 ...friendsPage,
                 friendsData: friendsPage.friendsData.map(f => {
                     if (f.id === action.userId) {
                         return {...f, followed: false}
+                    }
+                    return f;
+                })
+            }
+
+        case FOLLOW:
+            alert (action.message)
+            return {
+                ...friendsPage,
+                friendsData: friendsPage.friendsData.map(f => {
+                    if (f.id === action.friendId) {
+                        return {...f, followed: true}
                     }
                     return f;
                 })
@@ -55,12 +69,6 @@ const friendsPageReducer = (friendsPage = initialFriendsPage, action) => {
     }
 }
 
-export const unFollowActionCreator = (userId) => {
-    return {
-        type: UNFOLLOW,
-        userId
-    }
-}
 
 export const setFriendsActionCreator = (friendsData) => {
     return {
@@ -92,6 +100,21 @@ export const setIsWroteActionCreator = (isWrote) => {
     return {
         type: SET_IS_WROTE,
         isWrote
+    }
+}
+export const followActionCreator = (friendId, message) => {
+    return {
+        type: FOLLOW,
+        friendId,
+        message
+    }
+}
+
+export const unFollowActionCreator = (userId, message) => {
+    return {
+        type: UNFOLLOW,
+        userId,
+        message
     }
 }
 

@@ -19,6 +19,7 @@ const usersPageReducer = (usersPage = initialUsersPage, action) => {
 
     switch (action.type) {
         case UNFOLLOW:
+            alert(action.message)
             return {
                 ...usersPage,
                 usersData: usersPage.usersData.map(f => {
@@ -30,16 +31,16 @@ const usersPageReducer = (usersPage = initialUsersPage, action) => {
             }
 
         case FOLLOW:
-            alert (action.message)
-            return {
-                ...usersPage,
-                usersData: usersPage.usersData.map(f => {
-                    if (f.id === action.userId) {
-                        return {...f, followed: true}
-                    }
-                    return f;
-                })
-            }
+            alert(action.message)
+                return {
+                    ...usersPage,
+                    usersData: usersPage.usersData.map(f => {
+                        if (f.id === action.userId) {
+                            return {...f, followed: !action.error ? true : false}
+                        }
+                        return f;
+                    })
+                }
 
         case SET_USERS:
             return {
@@ -65,18 +66,20 @@ const usersPageReducer = (usersPage = initialUsersPage, action) => {
     }
 }
 
-export const unFollowActionCreator = (userId) => {
+export const unFollowActionCreator = (userId, message) => {
     return {
         type: UNFOLLOW,
-        userId
+        userId,
+        message
     }
 }
 
-export const followActionCreator = (userId, message) => {
+export const followActionCreator = (userId, message, error) => {
     return {
         type: FOLLOW,
         userId,
-        message
+        message,
+        error,
     }
 }
 

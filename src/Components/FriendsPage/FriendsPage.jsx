@@ -38,6 +38,7 @@ const FriendsPage = (props) => {
                                 className={`${s.unfollowButton} ${s.button}`}>Unfollow</button> :
                         <button onClick={() => props.onFollow(f.id)}
                                 className={`${s.followButton} ${s.button}`}>Follow</button>}
+                    {!f.followed ? <div className={s.followedStatus}><p>Удален из друзей</p></div>:null}
                 </div>
             </div>
         </div>)
