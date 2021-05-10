@@ -6,7 +6,8 @@ const SelectedProfilePage = (props) => {
         <div>
             <UserProfileInfo profileData={props.profileData}/>
             <UserPosts postsData={props.postsData}
-                       avaImg={props.profileData[0].img}/>
+                       avaImg={props.profileData[0].img}
+            name = {props.profileData[0].name}/>
         </div>
     )
 }
@@ -20,7 +21,7 @@ const UserProfileInfo = (props) => {
                      src={props.profileData[0].img}/>
             </div>
             <div className={s.userData}>
-                <h4>{props.profileData[0].FirstName} {props.profileData[0].LastName}</h4>
+                <p className={s.name}>{props.profileData[0].name}</p>
                 <p>Age: {props.profileData[0].age}</p>
                 <p>Address: {props.profileData[0].address}</p>
             </div>
@@ -37,6 +38,7 @@ const UserPosts = (props) => {
                 <img src={props.avaImg} alt="avapost"/>
             </div>
             <div className={s.postContent}>
+                <div className={s.name}><p>{props.name}</p></div>
                 <div className={s.postText}>
                     {p.text}
                 </div>

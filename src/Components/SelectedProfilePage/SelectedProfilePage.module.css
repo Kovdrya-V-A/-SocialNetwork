@@ -22,7 +22,7 @@
 }
 
 .postText {
-    color: khaki;
+    color: white;
 }
 
 
@@ -61,4 +61,8 @@
 }
 .dateTime {
 
+}
+
+.name {
+    color: khaki;
 }
