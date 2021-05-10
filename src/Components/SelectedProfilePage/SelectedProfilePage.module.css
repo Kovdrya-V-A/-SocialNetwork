@@ -23,6 +23,7 @@
 
 .postText {
     color: white;
+    word-break: break-word;
 }
 
 

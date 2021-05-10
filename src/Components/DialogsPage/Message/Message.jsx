@@ -9,7 +9,7 @@ const Message = (props) => {
             </div>
             <div className={s.messageContent}>
                 <div className={s.senderName}>{props.senderName}</div>
-                <div className={s.text}>{props.text}</div>
+                <div className={s.text}><p>{props.text}</p></div>
                 <div className={s.time}>{props.time}</div>
             </div>
         </div>

@@ -15,13 +15,14 @@
     color: white;
 }
 
+.postText p {
+    word-break: break-word;
+}
+
 .value {
     color: coral;
 }
 
-.postLikeValue {
-
-}
 
 .avaPost img {
     width: 50px;
@@ -31,6 +32,8 @@
 }
 
 .postContent {
+    display: flex;
+    flex-direction: column;
     padding-left: 10px;
     flex: 50;
 }

@@ -9,7 +9,8 @@
     font-size: 18px;
 }
 
-.text {
+.text p {
+    word-break: break-word;
     color: white;
 }
 

@@ -10,7 +10,7 @@ const Post = (props) => {
             <div className={s.postContent}>
                 <div className={s.name}><p>{props.name}</p></div>
                 <div className={s.postText}>
-                    {props.text}
+                    <p>{props.text}</p>
                 </div>
                 <div className={s.dateTime}><p>{props.dateTime}</p>
                 </div>

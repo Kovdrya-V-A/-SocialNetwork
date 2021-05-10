@@ -53,6 +53,10 @@ class DialogsPageService extends React.Component {
 
     }
 
+    componentWillUnmount() {
+        this.props.setCurrentDialog("")
+    }
+
     onDeleteDialog = (idDialog) => {
         axios.post(`http://${this.props.serverLink}/createDialog`, {
             "token": localStorage.getItem("userToken"),

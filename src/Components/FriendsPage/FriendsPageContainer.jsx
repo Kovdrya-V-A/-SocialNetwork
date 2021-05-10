@@ -8,7 +8,6 @@ import {
     setFriendsActionCreator, setFriendsTotalCountActionCreator, setIsFetchingActionCreator, setIsWroteActionCreator,
     unFollowActionCreator
 } from "../../Redux/Reducers/FriendsPageReducer";
-// import {setSelectedUserIdActionCreator} from "../../Redux/Reducers/SelectedUserProfilePageReducer";
 
 let mapStateToProps = (state) => {
     return {
