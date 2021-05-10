@@ -22,7 +22,7 @@ const profilePageReducer = (profilePage = initialProfilePage, action) => {
             };
                 return {
                     ...profilePage,
-                    postsData: [...profilePage.postsData, newPost],
+                    postsData: [newPost, ...profilePage.postsData],
                     newPostText: ""
                 };
 
