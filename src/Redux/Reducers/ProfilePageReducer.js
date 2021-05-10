@@ -1,7 +1,8 @@
 const ADD_POST = "ADD_POST";
 const POST_TEXT_CHANGE = "POST_TEXT_CHANGE";
 const SET_POSTS = "SET_POSTS";
-const SET_PROFILE_INFO = "SET_PROFILE_INFO"
+const SET_PROFILE_INFO = "SET_PROFILE_INFO";
+const DELETE_POST = "DELETE_POST";
 
 let initialProfilePage = {
     postsData: [],
@@ -15,20 +16,27 @@ const profilePageReducer = (profilePage = initialProfilePage, action) => {
     switch (action.type) {
         case ADD_POST: {
             let newPost = {
-                text: profilePage.newPostText,
+                idPost: action.idPost,
+                text: action.text,
+                dateTime: action.dateTime
             };
-
-            if (newPost.text != "") {
                 return {
                     ...profilePage,
                     postsData: [...profilePage.postsData, newPost],
                     newPostText: ""
                 };
-            } else {
-                alert("Пост должен содержать контент !")
-                return profilePage;
-            }
 
+        }
+
+        case DELETE_POST: {
+            alert (action.message)
+            return {...profilePage,
+            postsData: profilePage.postsData.map(p => {
+                if (p.idPost == action.idPost) {
+                    return {...p, isDeleted:true}
+                }
+                return  p
+            })}
         }
 
         case POST_TEXT_CHANGE: {
@@ -61,11 +69,23 @@ const profilePageReducer = (profilePage = initialProfilePage, action) => {
 
 }
 
-export const addPostActionCreator = () => {
+export const addPostActionCreator = (idPost, text, dateTime) => {
     return {
-        type: ADD_POST
+        type: ADD_POST,
+        idPost: idPost,
+        text: text,
+        dateTime: dateTime
     }
 }
+
+export const deletePostActionCreator = (idPost, message) => {
+    return {
+        type: DELETE_POST,
+        idPost: idPost,
+        message: message
+    }
+}
+
 export const postTextChangeActionCreator = (text) => {
     return {
         type: POST_TEXT_CHANGE,

@@ -22,7 +22,8 @@ const dialogsPageReducer = (dialogsPage = initialDialogsPage, action) => {
                 id: action.id,
                 name: action.name,
                 text: action.text,
-                img: action.img
+                img: action.img,
+                time: action.time
             };
             return {
                 ...dialogsPage,
@@ -72,13 +73,14 @@ const dialogsPageReducer = (dialogsPage = initialDialogsPage, action) => {
 
 }
 
-export const sendMessageActionCreator = (name, img, id, text) => {
+export const sendMessageActionCreator = (name, img, id, text, time) => {
     return {
         type: SEND_MESSAGE,
         name: name,
         img: img,
         id: id,
         text: text,
+        time: time
     }
 }
 export const messageTextChangeActionCreator = (text) => {

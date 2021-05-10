@@ -11,7 +11,8 @@ const DialogsPage = (props) => {
 
     let messagesItems = props.messagesData.map(m => <Message senderName={m.name}
                                                              text={m.text}
-                                                             senderAva={m.img}/>)
+                                                             senderAva={m.img}
+                                                             time={m.time}/>)
     let text = React.createRef()
 
 
@@ -19,17 +20,18 @@ const DialogsPage = (props) => {
         <div className={s.dialogsPage}>
             {props.currentDialogId ?
                 <div className={s.messageBar}>
-                    {props.messagesData.length > 0 ? messagesItems: "В этом диалоге еще нет сообщений."}
+                    {props.messagesData.length > 0 ? messagesItems : "В этом диалоге еще нет сообщений."}
                     <textarea value={props.newMessageText}
                               onChange={() => props.onMessageTextChange(text)} ref={text}
                               name="новое сообщение" id="" cols="30" rows="10"/>
-                    <button className={s.sendMessageButton} onClick={() => props.onSendNewMessage(props.newMessageText)}>Send message
+                    <button className={s.sendMessageButton}
+                            onClick={() => props.onSendNewMessage(props.newMessageText)}>Send message
                     </button>
                 </div> : null}
 
             <div className={s.dialogList}>
                 <h3>Список диалогов:</h3>
-                {props.dialogsData.length > 0 ? dialogsItems: "У вас пока нет активых диалогов. Напишите кому - нибудь, и здесь появится диалог."}
+                {props.dialogsData.length > 0 ? dialogsItems : "У вас пока нет активых диалогов. Напишите кому - нибудь, и здесь появится диалог."}
                 {/*<button className={s.addDialogButton}>Start new dialog</button>*/}
             </div>
         </div>

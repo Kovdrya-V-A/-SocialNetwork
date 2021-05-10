@@ -18,8 +18,8 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
     return {
-        sendNewMessage: (name, img, id, text) => {
-            dispatch(sendMessageActionCreator(name, img, id, text))
+        sendNewMessage: (name, img, id, text, time) => {
+            dispatch(sendMessageActionCreator(name, img, id, text, time))
         },
         messageTextChange: (text) => {
             dispatch(messageTextChangeActionCreator(text))
@@ -76,7 +76,7 @@ class DialogsPageService extends React.Component {
                     "text": massageText
                 })
                 .then(response => {
-                    this.props.sendNewMessage(response.data[0].name, response.data[0].img, response.data[0].id, response.data[0].text);
+                    this.props.sendNewMessage(response.data[0].name, response.data[0].img, response.data[0].id, response.data[0].text, response.data[0].time);
                 })
         }
     }

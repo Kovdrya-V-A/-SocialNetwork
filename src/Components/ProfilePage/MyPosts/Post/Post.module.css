@@ -32,4 +32,14 @@
 
 .postContent {
     padding-left: 10px;
+    flex: 50;
+}
+
+.dateTime {}
+
+.deletePost {
+    cursor: pointer;
+    float: right;
+    color: red;
+    flex: 1;
 }

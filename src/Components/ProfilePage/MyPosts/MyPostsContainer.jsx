@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    addPostActionCreator,
+    addPostActionCreator, deletePostActionCreator,
     postTextChangeActionCreator,
     setPostsActionCreator
 } from "../../../Redux/Reducers/ProfilePageReducer";
@@ -18,14 +18,17 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
     return {
-        addNewPost: () => {
-            dispatch(addPostActionCreator())
+        addNewPost: (idPost, text, dateTime) => {
+            dispatch(addPostActionCreator(idPost, text, dateTime))
         },
         postTextChange: (text) => {
             dispatch(postTextChangeActionCreator(text))
         },
         setPosts: (postsData) => {
             dispatch(setPostsActionCreator(postsData))
+        },
+        deletePost: (idPost, message) => {
+            dispatch(deletePostActionCreator(idPost, message))
         }
     }
 }
@@ -42,12 +45,22 @@ class MyPostsService extends React.Component {
             })
     }
 
-    onAddNewPost = (token, postText) => {
-        this.props.addNewPost();
+    onAddNewPost = (postText) => {
         if (postText) {
-            axios.post(`http://${this.props.serverLink}/addPost`, {"token": token, "postText": postText}
+            axios.post(`http://${this.props.serverLink}/addPost`, {"token": localStorage.getItem("userToken"), "postText": postText, "isDelete": false}
             )
+                .then(response => {
+                    this.props.addNewPost(response.data[0].idPost, response.data[0].text, response.data[0].dateTime);
+                })
         }
+    }
+
+    onDeletePost = (idPost) => {
+        axios.post(`http://${this.props.serverLink}/addPost`, {"token": localStorage.getItem("userToken"), "idPost": idPost, "isDelete": true}
+        )
+            .then(response => {
+                this.props.deletePost(idPost, response.data.message)
+            })
     }
 
 
@@ -62,6 +75,7 @@ class MyPostsService extends React.Component {
                      newPostText = {this.props.profilePage.newPostText}
                      onPostTextChange = {this.onPostTextChange}
                      onAddNewPost = {this.onAddNewPost}
+                     onDeletePost = {this.onDeletePost}
                      avaImg = {this.props.profilePage.profileData[0].img}
                      postText = {this.props.profilePage.newPostText}
             />
