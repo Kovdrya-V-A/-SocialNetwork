@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    deleteDialogActionCreator,
     messageTextChangeActionCreator,
     sendMessageActionCreator, setCurrentDialogActionCreator, setDialogsActionCreator,
     setMessageActionCreator
@@ -32,6 +33,9 @@ let mapDispatchToProps = (dispatch) => {
         },
         setCurrentDialog: (selectedDialogId) => {
             dispatch(setCurrentDialogActionCreator(selectedDialogId))
+        },
+        deleteDialog: (idDialog, message) => {
+            dispatch(deleteDialogActionCreator(idDialog, message))
         }
     }
 }
@@ -47,6 +51,17 @@ class DialogsPageService extends React.Component {
                 }
             })
 
+    }
+
+    onDeleteDialog = (idDialog) => {
+        axios.post(`http://${this.props.serverLink}/createDialog`, {
+            "token": localStorage.getItem("userToken"),
+            "idDialog": idDialog,
+            "isDelete": true
+        })
+            .then(response => {
+                this.props.deleteDialog(idDialog, response.data.message)
+            })
     }
 
 
@@ -96,6 +111,7 @@ class DialogsPageService extends React.Component {
                          onSendNewMessage={this.onSendNewMessage}
                          currentDialogId={this.props.dialogsPage.currentDialogId}
                          onSetCurrentDialog={this.onSetCurrentDialog}
+                         onDeleteDialog = {this.onDeleteDialog}
 
             />
         )

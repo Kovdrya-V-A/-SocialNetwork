@@ -8,6 +8,7 @@ const Post = (props) => {
                 <img src={props.avaImg} alt="avapost"/>
             </div>
             <div className={s.postContent}>
+                <div className={s.name}><p>{props.name}</p></div>
                 <div className={s.postText}>
                     {props.text}
                 </div>

@@ -78,6 +78,7 @@ class MyPostsService extends React.Component {
                      onDeletePost = {this.onDeletePost}
                      avaImg = {this.props.profilePage.profileData[0].img}
                      postText = {this.props.profilePage.newPostText}
+                     name = {this.props.profilePage.profileData[0].name}
             />
         )
     }

@@ -3,15 +3,13 @@ const MESSAGE_TEXT_CHANGE = "MESSAGE_TEXT_CHANGE";
 const SET_MESSAGE = "SET_MESSAGE";
 const SET_DIALOGS = "SET_DIALOGS";
 const SET_CURRENT_DIALOG = "SET_CURRENT_DIALOG";
+const DELETE_DIALOG = "DELETE_DIALOG";
 // const CREATE_NEW_DIALOG = "CREATE_NEW_DIALOG"
 
 let initialDialogsPage = {
     dialogsData: [],
-
     newMessageText: "",
-
     messagesData: [],
-
     currentDialogId: ""
 };
 
@@ -32,9 +30,17 @@ const dialogsPageReducer = (dialogsPage = initialDialogsPage, action) => {
             };
 
             return dialogsPage;
-
         }
-
+        case DELETE_DIALOG: {
+            alert (action.message)
+            return {...dialogsPage,
+                dialogsData: dialogsPage.dialogsData.map(d => {
+                    if (d.idDialog == action.idDialog) {
+                        return {...d, isDeleted:true}
+                    }
+                    return  d
+                })}
+        }
         case MESSAGE_TEXT_CHANGE: {
             return {
                 ...dialogsPage,
@@ -63,10 +69,6 @@ const dialogsPageReducer = (dialogsPage = initialDialogsPage, action) => {
             }
         }
 
-        // case CREATE_NEW_DIALOG: {
-        //
-        // }
-
         default:
             return dialogsPage;
     }
@@ -81,6 +83,14 @@ export const sendMessageActionCreator = (name, img, id, text, time) => {
         id: id,
         text: text,
         time: time
+    }
+}
+export const deleteDialogActionCreator = (idDialog, message) => {
+    return {
+        type: DELETE_DIALOG,
+        idDialog: idDialog,
+        message:message
+
     }
 }
 export const messageTextChangeActionCreator = (text) => {

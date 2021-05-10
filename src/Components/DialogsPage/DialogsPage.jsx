@@ -5,9 +5,11 @@ import Message from "./Message/Message";
 
 const DialogsPage = (props) => {
 
-    let dialogsItems = props.dialogsData.map(d => <Dialog onSetCurrentDialog={props.onSetCurrentDialog}
-                                                          dialogAva={d.img} idDialog={d.idDialog}
-                                                          chatName={d.name}/>)
+    let dialogsItems = props.dialogsData.map(d => d.isDeleted ? null :
+        <Dialog onSetCurrentDialog={props.onSetCurrentDialog}
+                dialogAva={d.img} idDialog={d.idDialog}
+                chatName={d.name}
+                onDeleteDialog={props.onDeleteDialog}/>)
 
     let messagesItems = props.messagesData.map(m => <Message senderName={m.name}
                                                              text={m.text}

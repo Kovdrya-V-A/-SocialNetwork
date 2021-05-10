@@ -5,7 +5,7 @@ import Post from "./Post/Post";
 const MyPosts = (props) => {
 
     let postsItems =
-        props.postsData.map(p => p.isDeleted ? null : <Post avaImg={props.avaImg} text={p.text} dateTime = {p.dateTime} idPost={p.idPost} onDeletePost = {props.onDeletePost}/>)
+        props.postsData.map(p => p.isDeleted ? null : <Post avaImg={props.avaImg} name = {props.name} text={p.text} dateTime = {p.dateTime} idPost={p.idPost} onDeletePost = {props.onDeletePost}/>)
     let text = React.createRef()
 
 

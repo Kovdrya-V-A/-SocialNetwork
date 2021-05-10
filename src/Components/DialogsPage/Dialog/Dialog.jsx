@@ -9,6 +9,7 @@ const Dialog = (props) => {
             </div>
             <button onClick={() => props.onSetCurrentDialog(props.idDialog)} className={s.dialogLinkButton}><NavLink className={s.dialogLink} activeClassName={s.activeDialog}
                                                                                                to={`/AuthUser/DialogsPage/${props.idDialog}`}>{props.chatName}</NavLink></button>
+            <div className={s.deleteDialog}><p onClick={() => props.onDeleteDialog(props.idDialog)}>X</p></div>
         </div>
     )
 }

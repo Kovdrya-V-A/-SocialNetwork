@@ -106,7 +106,8 @@ class UsersPageService extends React.Component {
     onMessage = (userId) => {
         axios.post(`http://${this.props.serverLink}/createDialog`, {
             "token": localStorage.getItem("userToken"),
-            "userId": userId
+            "userId": userId,
+            "isDelete": false
         })
             .then(() => {
                 this.props.setIsWrote(true)

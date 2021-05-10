@@ -12,7 +12,7 @@ const ProfileInfo = (props) => {
                      src={props.profileData[0].img}/>
             </div>
             <div className={s.userData}>
-                <h4>{props.profileData[0].FirstName} {props.profileData[0].LastName}</h4>
+                <p className={s.name}>{props.profileData[0].name}</p>
                 <p>Age: {props.profileData[0].age}</p>
                 <p>Address: {props.profileData[0].address}</p>
             </div>
