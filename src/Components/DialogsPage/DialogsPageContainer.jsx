@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    deleteDialogActionCreator,
+    deleteDialogActionCreator, deleteMessageActionCreator,
     messageTextChangeActionCreator,
     sendMessageActionCreator, setCurrentDialogActionCreator, setDialogsActionCreator,
     setMessageActionCreator
@@ -36,6 +36,9 @@ let mapDispatchToProps = (dispatch) => {
         },
         deleteDialog: (idDialog, message) => {
             dispatch(deleteDialogActionCreator(idDialog, message))
+        },
+        deleteMessage: (idMessage, message) => {
+            dispatch(deleteMessageActionCreator(idMessage, message))
         }
     }
 }
@@ -68,6 +71,21 @@ class DialogsPageService extends React.Component {
             })
     }
 
+    onDeleteMassage = (idMessage) => {
+        let dialogId = window.location.pathname.split("/")
+        let a = dialogId.length - 1
+        axios.post(`http://${this.props.serverLink}/sendMessage`,
+            {
+                "token": localStorage.getItem("userToken"),
+                "idDialog": dialogId[a],
+                "idMessage": idMessage,
+                "isDelete": true
+            })
+            .then(response => {
+                this.props.deleteMessage(idMessage, response.data.message)
+            })
+    }
+
 
     onSetCurrentDialog = (selectedDialogId) => {
         this.props.setCurrentDialog(selectedDialogId)
@@ -92,7 +110,7 @@ class DialogsPageService extends React.Component {
                 {
                     "token": localStorage.getItem("userToken"),
                     "idDialog": dialogId[a],
-                    "text": massageText
+                    "text": massageText,
                 })
                 .then(response => {
                     this.props.sendNewMessage(response.data[0].name, response.data[0].img, response.data[0].id, response.data[0].text, response.data[0].time);
@@ -115,8 +133,8 @@ class DialogsPageService extends React.Component {
                          onSendNewMessage={this.onSendNewMessage}
                          currentDialogId={this.props.dialogsPage.currentDialogId}
                          onSetCurrentDialog={this.onSetCurrentDialog}
-                         onDeleteDialog = {this.onDeleteDialog}
-
+                         onDeleteDialog={this.onDeleteDialog}
+                         onDeleteMassage = {this.onDeleteMassage}
             />
         )
     }

@@ -4,7 +4,7 @@ const SET_MESSAGE = "SET_MESSAGE";
 const SET_DIALOGS = "SET_DIALOGS";
 const SET_CURRENT_DIALOG = "SET_CURRENT_DIALOG";
 const DELETE_DIALOG = "DELETE_DIALOG";
-// const CREATE_NEW_DIALOG = "CREATE_NEW_DIALOG"
+const DELETE_MESSAGE = "DELETE_MESSAGE";
 
 let initialDialogsPage = {
     dialogsData: [],
@@ -29,18 +29,10 @@ const dialogsPageReducer = (dialogsPage = initialDialogsPage, action) => {
                 newMessageText: ""
             };
 
-            return dialogsPage;
+            // return dialogsPage;
         }
-        case DELETE_DIALOG: {
-            alert (action.message)
-            return {...dialogsPage,
-                dialogsData: dialogsPage.dialogsData.map(d => {
-                    if (d.idDialog == action.idDialog) {
-                        return {...d, isDeleted:true}
-                    }
-                    return  d
-                })}
-        }
+
+
         case MESSAGE_TEXT_CHANGE: {
             return {
                 ...dialogsPage,
@@ -53,6 +45,28 @@ const dialogsPageReducer = (dialogsPage = initialDialogsPage, action) => {
                 ...dialogsPage,
                 messagesData: [...action.messagesData]
             }
+        }
+
+        case DELETE_DIALOG: {
+            alert (action.message)
+            return {...dialogsPage,
+                dialogsData: dialogsPage.dialogsData.map(d => {
+                    if (d.idDialog == action.idDialog) {
+                        return {...d, isDeleted:true}
+                    }
+                    return  d
+                })}
+        }
+
+        case DELETE_MESSAGE: {
+            alert (action.message)
+            return {...dialogsPage,
+                messagesData: dialogsPage.messagesData.map(m => {
+                    if (m.id == action.idMessage) {
+                        return {...m, isDeleted:true}
+                    }
+                    return  m
+                })}
         }
 
         case SET_DIALOGS: {
@@ -107,6 +121,14 @@ export const setMessageActionCreator = (messagesData) => {
     }
 }
 
+export const deleteMessageActionCreator = (idMessage, message) => {
+    return {
+        type: DELETE_MESSAGE,
+        idMessage,
+        message
+    }
+}
+
 export const setDialogsActionCreator = (dialogsData) => {
     return {
         type: SET_DIALOGS,
@@ -119,12 +141,6 @@ export const setCurrentDialogActionCreator = (selectedDialogId) => {
         selectedDialogId
     }
 }
-// export const createNewDialogActionCreator = (selectedDialogId) => {
-//     return {
-//         type: CREATE_NEW_DIALOG,
-//         selectedDialogId
-//     }
-// }
 
 
 export default dialogsPageReducer;

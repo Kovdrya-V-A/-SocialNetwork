@@ -12,6 +12,7 @@ const Message = (props) => {
                 <div className={s.text}><p>{props.text}</p></div>
                 <div className={s.time}>{props.time}</div>
             </div>
+            <div className={s.deleteMessage}><p onClick={() => props.onDeleteMessage(props.idMessage)}>X</p></div>
         </div>
     )
 }

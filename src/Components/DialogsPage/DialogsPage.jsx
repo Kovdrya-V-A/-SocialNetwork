@@ -11,10 +11,12 @@ const DialogsPage = (props) => {
                 chatName={d.name}
                 onDeleteDialog={props.onDeleteDialog}/>)
 
-    let messagesItems = props.messagesData.map(m => <Message senderName={m.name}
+    let messagesItems = props.messagesData.map(m => m.isDeleted ? null : <Message senderName={m.name}
                                                              text={m.text}
                                                              senderAva={m.img}
-                                                             time={m.time}/>)
+                                                             time={m.time}
+                                                             idMessage={m.id}
+                                                             onDeleteMessage={props.onDeleteMassage}/>)
     let text = React.createRef()
 
 
