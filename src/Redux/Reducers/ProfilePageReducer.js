@@ -4,6 +4,7 @@ const SET_POSTS = "SET_POSTS";
 const SET_PROFILE_INFO = "SET_PROFILE_INFO";
 const DELETE_POST = "DELETE_POST";
 
+
 let initialProfilePage = {
     postsData: [],
     profileData: [{}],
@@ -45,6 +46,7 @@ const profilePageReducer = (profilePage = initialProfilePage, action) => {
                 newPostText: action.enteredPostText
             }
         }
+
 
         case SET_PROFILE_INFO:
             console.log(action.profileData)

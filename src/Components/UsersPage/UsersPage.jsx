@@ -1,9 +1,10 @@
 import s from "./UsersPage.module.css"
-import React from "react";
+import React, {createRef} from "react";
 import {NavLink, Redirect} from "react-router-dom";
 import standUserAva from "../../Assets/standUserAva.png"
 
 const UsersPage = (props) => {
+    let searchText = React.createRef()
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
     let pageNumbers = []
     for (let i = 1; i <= pagesCount; i++) {
@@ -15,7 +16,6 @@ const UsersPage = (props) => {
             props.onSetCurrentPage(n)
         }}>{n}</span>)
     let userItem = props.usersData.map((u) => {
-        // let dialogWithUserLink = `/AuthUser/DialogsPage/${u.id}`
         return (<div key={u.id}>
             <div className={s.user}>
                 <div className={s.userAva}>
@@ -38,7 +38,7 @@ const UsersPage = (props) => {
                                 className={`${s.unfollowButton} ${s.button}`}>Unfollow</button> :
                         <button onClick={() => props.onFollow(u.id)}
                                 className={`${s.followButton} ${s.button}`}>Follow</button>}
-                    {u.followed ? <div className={s.followedStatus}><p>Ваш друг.</p></div>:null}
+                    {u.followed ? <div className={s.followedStatus}><p>Ваш друг.</p></div> : null}
                 </div>
             </div>
         </div>)
@@ -46,10 +46,21 @@ const UsersPage = (props) => {
 
     return (
         <div className={s.usersPage}>
-            <h3>Список пользователей:</h3>
-            {userItem}
+            <div className={s.searchArea}>
+                <div><p>Найти пользователя:</p>
+                    <textarea
+                        ref={searchText}
+                        className={s.inputSearchText}
+                        onChange={() => props.onSetSearchQueryText(searchText)}
+                        value={props.searchQueryText}
+                        name="searchTextArea" id="" cols="10" rows="5"/></div>
+                <div>
+                    <button onClick={() => props.searchQueryText ? props.onSearchUsers(props.searchQueryText):null} className={s.searchButton}>Search</button>
+                </div>
+            </div>
+            <div className={s.usersList}><h3>Список пользователей:</h3>
+                {userItem}</div>
             <div className={s.selectingPageMenu}>{pageNumbersList}</div>
-
         </div>
     )
 }

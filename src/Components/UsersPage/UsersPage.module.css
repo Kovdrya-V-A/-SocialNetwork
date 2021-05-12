@@ -68,3 +68,23 @@
 .followedStatus {
     color: lawngreen;
 }
+
+.usersList {
+}
+
+.usersList h3 {
+    text-align: center;
+}
+.searchArea {
+    text-align: right;
+    margin-right: 1%;
+}
+
+.searchButton {
+}
+
+.inputSearchText {
+    height: 20px;
+    width: 40%;
+    max-width: 200px;
+}

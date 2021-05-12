@@ -5,8 +5,11 @@ const SET_USERS_TOTAL_COUNT = "SET_USERS_TOTAL_COUNT";
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 const SET_IS_FETCHING = "SET_IS_FETCHING";
 const SET_IS_WROTE = "SET_IS_WROTE";
+const SEARCH_QUERY_TEXT_CHANGE = "const SEARCH_QUERY_TEXT_CHANGE";
 
 let initialUsersPage = {
+
+    searchQueryText: "",
     usersData: [],
     currentPage: 1,
     pageSize: 7,
@@ -18,6 +21,14 @@ let initialUsersPage = {
 const usersPageReducer = (usersPage = initialUsersPage, action) => {
 
     switch (action.type) {
+
+        case SEARCH_QUERY_TEXT_CHANGE: {
+            return {
+                ...usersPage,
+                searchQueryText: action.enteredText
+            }
+        }
+
         case UNFOLLOW:
             alert(action.message)
             return {
@@ -113,6 +124,12 @@ export const setIsWroteActionCreator = (isWrote) => {
     return {
         type: SET_IS_WROTE,
         isWrote
+    }
+}
+export const setSearchQueryTextActionCreator = (enteredText) => {
+    return {
+        type: SEARCH_QUERY_TEXT_CHANGE,
+        enteredText: enteredText.current.value
     }
 }
 
