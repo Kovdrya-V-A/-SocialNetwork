@@ -4,7 +4,7 @@
 }
 
 .user {
-    min-width: 20%;
+    min-width: 200px;
     max-width: 40%;
     display: flex;
     background-color: #333336;
@@ -13,10 +13,13 @@
 }
 
 .userAva img {
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-top: 5px;
     width: 70px;
     height: 70px;
     border-radius: 50%;
-    margin-right: 7px;
+
 }
 
 .userLink {
@@ -32,15 +35,27 @@
 }
 
 .toMessageButton {
+    min-width: 50px;
+    max-width: 70px;
     margin-bottom: 3px;
+    background-color: #D3D3D3;
+    border-radius: 4px;
 }
 
 .unfollowButton {
+    min-width: 50px;
+    max-width: 70px;
     margin-bottom: 3px;
+    background-color: #D3D3D3;
+    border-radius: 4px;
 }
 
 .followButton {
+    min-width: 50px;
+    max-width: 70px;
     margin-bottom: 3px;
+    background-color: #D3D3D3;
+    border-radius: 4px;
 }
 
 .userInfo {
@@ -66,25 +81,46 @@
 }
 
 .followedStatus {
-    color: lawngreen;
+    color: #D3D3D3;
 }
 
 .usersList {
 }
 
-.usersList h3 {
+.usersList h2 {
     text-align: center;
+    color: #D3D3D3;
 }
+
 .searchArea {
-    text-align: right;
+    padding-bottom: 20px;
     margin-right: 1%;
+    text-align: right;
+    display: flex;
+}
+
+.searchTextArea {
+    flex: 20;
+    padding-right: 5px;
+}
+
+.searchButtonWrap {
 }
 
 .searchButton {
+    background-color: #D3D3D3;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 .inputSearchText {
     height: 20px;
     width: 40%;
-    max-width: 200px;
+    max-width: 250px;
+    resize: none;
+    border-radius: 5px;
+    color: #ffffff;
+    background-color: #444446;
 }
+
+

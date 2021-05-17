@@ -38,7 +38,7 @@ const UsersPage = (props) => {
                                 className={`${s.unfollowButton} ${s.button}`}>Unfollow</button> :
                         <button onClick={() => props.onFollow(u.id)}
                                 className={`${s.followButton} ${s.button}`}>Follow</button>}
-                    {u.followed ? <div className={s.followedStatus}><p>Ваш друг.</p></div> : null}
+                    {u.followed ? <div className={s.followedStatus}><p>Ваш друг</p></div> : null}
                 </div>
             </div>
         </div>)
@@ -47,19 +47,19 @@ const UsersPage = (props) => {
     return (
         <div className={s.usersPage}>
             <div className={s.searchArea}>
-                <div><p>Найти пользователя:</p>
+                <div className={s.searchTextArea}>
                     <textarea
                         ref={searchText}
                         className={s.inputSearchText}
                         onChange={() => props.onSetSearchQueryText(searchText)}
                         value={props.searchQueryText}
                         name="searchTextArea" id="" cols="10" rows="5"/></div>
-                <div>
+                <div className={s.searchButtonWrap}>
                     <button onClick={() => props.searchQueryText ? props.onSearchUsers(props.searchQueryText):null} className={s.searchButton}>Search</button>
                 </div>
             </div>
-            <div className={s.usersList}><h3>Список пользователей:</h3>
-                {props.usersData.length > 0 ? userItem : <h3>Такой пользователь не найден</h3>}
+            <div className={s.usersList}><h2>Список пользователей:</h2>
+                {props.usersData.length > 0 ? userItem : <h2>Такой пользователь не найден</h2>}
                 </div>
             <div className={s.selectingPageMenu}>{pageNumbersList}</div>
         </div>

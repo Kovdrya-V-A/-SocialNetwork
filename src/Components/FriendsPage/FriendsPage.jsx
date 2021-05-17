@@ -15,7 +15,6 @@ const FriendsPage = (props) => {
             props.onSetCurrentPage(n)
         }}>{n}</span>)
     let friendsItems = props.friendsData.map((f) => {
-        // let dialogWithUserLink = `/AuthUser/DialogsPage/${u.id}`
         return (<div key={f.id}>
             <div className={s.friend}>
                 <div className={s.friendAva}>
@@ -38,7 +37,7 @@ const FriendsPage = (props) => {
                                 className={`${s.unfollowButton} ${s.button}`}>Unfollow</button> :
                         <button onClick={() => props.onFollow(f.id)}
                                 className={`${s.followButton} ${s.button}`}>Follow</button>}
-                    {!f.followed ? <div className={s.followedStatus}><p>Удален из друзей</p></div>:null}
+                    {!f.followed ? <div className={s.followedStatus}><p>Удален из друзей</p></div> : null}
                 </div>
             </div>
         </div>)
@@ -46,9 +45,8 @@ const FriendsPage = (props) => {
 
     return (
         <div className={s.friendsPage}>
-            <NavLink className={s.searchFriends} to="/AuthUser/UsersPage">Search friends</NavLink>
-            <div className={s.usersListArea}></div><h3>Ваши друзья:</h3>
-            {props.friendsData.length > 0 ? friendsItems : "У вас пока нет друзей"}
+            <div className={s.searchFriendsButtonWrap}><button className={s.searchFriendsButton}><NavLink className={s.searchFriends} to="/AuthUser/UsersPage">Search new friends</NavLink></button></div>
+            <div className={s.usersListArea}><h2>Ваши друзья:</h2>{props.friendsData.length > 0 ? friendsItems : "У вас пока нет друзей"}</div>
             <div className={s.selectingPageMenu}>{props.friendsData.length > 0 ? pageNumbersList : null}</div>
 
         </div>

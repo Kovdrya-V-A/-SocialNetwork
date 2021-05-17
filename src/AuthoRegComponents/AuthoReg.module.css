@@ -15,7 +15,6 @@
 .form {
     flex: 7;
     display: flex;
-    background-color: #222226;
 }
 
 .autoReg {
@@ -26,6 +25,7 @@
 }
 
 .authorisation {
+    min-width: 200px;
     display: flex;
     flex-direction: column;
     color: #D3D3D3;
@@ -39,6 +39,8 @@
 }
 
 .authorisation input {
+    min-width: 100px;
+    max-width: 95%;
     background-color: #444446;
     border-radius: 5px;
     color: #FFFFFF;
@@ -61,6 +63,7 @@
 }
 
 .registration {
+    min-width: 200px;
     display: flex;
     flex-direction: column;
     color: #D3D3D3;
@@ -74,6 +77,8 @@
 }
 
 .registration input {
+    min-width: 100px;
+    max-width: 95%;
     background-color: #444446;
     border-radius: 5px;
     color: #FFFFFF;
