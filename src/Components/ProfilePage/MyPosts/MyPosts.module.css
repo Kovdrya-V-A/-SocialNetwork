@@ -2,17 +2,27 @@
 .myPosts {
     display: flex;
     flex-direction: column;
-    background-color: darkslategray;
     padding-left: 10px;
     padding-right: 10px;
+    color: #CCD2CA;
+}
+
+h2 {
+    color: #D3D3D3;
 }
 
 .addPostButton {
-    margin-left: 38%;
-    margin-right: 38%;
+    margin-left: 40%;
+    margin-right: 40%;
+    background-color: #D3D3D3;
+    border-radius: 4px;
     cursor: pointer;
 }
 
 .inputPostText {
+    resize: none;
+    border-radius: 5px;
     margin-bottom: 5px;
+    color: #ffffff;
+    background-color: #444446;
 }

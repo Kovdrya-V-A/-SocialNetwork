@@ -26,7 +26,7 @@ const DialogsPage = (props) => {
                 <div className={s.messageBar}>
                     {props.messagesData.length > 0 ? messagesItems : "В этом диалоге еще нет сообщений."}
                     <textarea value={props.newMessageText}
-                              onChange={() => props.onMessageTextChange(text)} ref={text}
+                              onChange={() => props.onMessageTextChange(text)} placeholder="Ваше сообщение" ref={text}
                               name="новое сообщение" id="" cols="30" rows="10"/>
                     <button className={s.sendMessageButton}
                             onClick={() => props.onSendNewMessage(props.newMessageText)}>Send message
@@ -34,7 +34,7 @@ const DialogsPage = (props) => {
                 </div> : null}
 
             <div className={s.dialogList}>
-                <h3>Список диалогов:</h3>
+                <h2>Список диалогов:</h2>
                 {props.dialogsData.length > 0 ? dialogsItems : "У вас пока нет активых диалогов. Напишите кому - нибудь, и здесь появится диалог."}
                 {/*<button className={s.addDialogButton}>Start new dialog</button>*/}
             </div>

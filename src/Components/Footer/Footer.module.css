@@ -4,5 +4,7 @@
 }
 
 .footer {
-    background-color: grey;
+    background-color: #333336;
+    color: #D3D3C9;
+    text-align: center;
 }

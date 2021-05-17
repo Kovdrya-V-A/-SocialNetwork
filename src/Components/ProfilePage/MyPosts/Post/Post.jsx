@@ -15,7 +15,7 @@ const Post = (props) => {
                 <div className={s.dateTime}><p>{props.dateTime}</p>
                 </div>
             </div>
-            <div className={s.deletePost}><p onClick={() => props.onDeletePost(props.idPost)}>X</p></div>
+            <div className={s.deletePost}><p onClick={() => props.onDeletePost(props.idPost)}>×</p></div>
         </div>
     )
 }

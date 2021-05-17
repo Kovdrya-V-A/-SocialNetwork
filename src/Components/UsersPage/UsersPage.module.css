@@ -1,14 +1,13 @@
 .usersPage {
     margin: 0 auto;
     width: 100%;
-    background-color: darkslategray;
 }
 
 .user {
     min-width: 20%;
     max-width: 40%;
     display: flex;
-    background-color: grey;
+    background-color: #333336;
     margin: 10px auto;
     border-radius: 10px;
 }
@@ -61,6 +60,7 @@
 }
 
 .selectingPageMenu {
+    color: #D3D3C9;
     text-align: center;
     padding-top: 10px;
 }

@@ -2,17 +2,18 @@
 .dialogsPage {
     width: 100%;
     display: flex;
+    color: #CCD2CA;
 }
 
 .dialogList {
-    background-color: darkcyan;
     flex: 3;
+    margin-left: 5px;
 }
 
 .messageBar {
     display: flex;
     flex-direction: column;
-    background-color: darkslategray;
+    background-color: #333336;
     flex: 10;
 }
 
@@ -21,6 +22,9 @@
     margin-left: 5%;
     max-width: 100%;
     max-height: 60px;
+    resize: none;
+    color: #ffffff;
+    background-color: #444446;
 }
 
 .messageBar button {
@@ -29,10 +33,12 @@
     margin-top: 7px;
 }
 
-.addDialogButton {
+.sendMessageButton {
+    background-color: #D3D3D3;
+    border-radius: 4px;
     cursor: pointer;
 }
 
-.sendMessageButton {
-    cursor: pointer;
+h2 {
+    color: #D3D3D3;
 }

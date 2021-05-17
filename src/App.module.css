@@ -4,18 +4,17 @@
     font-size: 17px;
 }
 .AppWrapper {
-    display: flex;
-    flex-direction: column;
-    max-width: 1200px;
-    margin: 0 auto;
 }
 
 .main {
+    padding-top: 10px;
     display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .content {
     flex: 7;
     display: flex;
-    background-color: darkslategray;
+    /*background-color: #ffffff;*/
 }

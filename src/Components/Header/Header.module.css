@@ -4,14 +4,27 @@
 }
 
 .header {
-    background-color: skyblue;
+    background-color: #333336;
+    display: flex;
 }
 
 .logo {
+    flex: 1;
     margin: 3px;
     width: 50px;
-    border: 3px solid darkslategray;
-    border-radius: 50%;
+}
+
+
+.title {
+    position: relative;
+    color: #D3D3C9;
+    flex: 100;
+    padding-top: 20px;
+}
+.title p{
+    position: absolute;
+    top: 50%;
+    margin-top: -0.625em;
 }
 
 .logo img {

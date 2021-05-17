@@ -59,7 +59,7 @@ const UsersPage = (props) => {
                 </div>
             </div>
             <div className={s.usersList}><h3>Список пользователей:</h3>
-                {props.usersData.length > 0 ? userItem : "Такой пользователь не найден"}
+                {props.usersData.length > 0 ? userItem : <h3>Такой пользователь не найден</h3>}
                 </div>
             <div className={s.selectingPageMenu}>{pageNumbersList}</div>
         </div>

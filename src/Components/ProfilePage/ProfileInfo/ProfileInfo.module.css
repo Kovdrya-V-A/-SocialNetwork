@@ -1,8 +1,8 @@
 .profileInfo {
     display: flex;
-    padding-right: 10px;
-    padding-left: 10px;
-    padding-bottom: 10px;
+    margin-bottom: 10px;
+    padding: 5px 10px 5px 10px;
+    background-color: #333336;
 }
 
 .ava {
@@ -11,15 +11,15 @@
 
 .ava img {
     width: 130px;
-    border: 2px solid grey;
-    border-radius: 20px;
 }
 
 .userData {
     flex: 10;
     padding-left: 10px;
     padding-top: 10px;
+    color: #CAD2CA;
 }
 .name {
-    color: khaki;
+    color: #ffffff;
+    padding-bottom: 5px;
 }

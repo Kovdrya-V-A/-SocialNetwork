@@ -3,7 +3,7 @@ import s from "./SelectedProfilePage.module.css";
 
 const SelectedProfilePage = (props) => {
     return (
-        <div>
+        <div className={s.selectedProfilePage}>
             <UserProfileInfo profileData={props.profileData}/>
             <UserPosts postsData={props.postsData}
                        avaImg={props.profileData[0].img}
@@ -21,7 +21,7 @@ const UserProfileInfo = (props) => {
                      src={props.profileData[0].img}/>
             </div>
             <div className={s.userData}>
-                <p className={s.name}>{props.profileData[0].name}</p>
+                <p className={s.userName}>{props.profileData[0].name}</p>
                 <p>Age: {props.profileData[0].age}</p>
                 <p>Address: {props.profileData[0].address}</p>
             </div>

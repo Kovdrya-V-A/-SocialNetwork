@@ -47,7 +47,7 @@ const FriendsPage = (props) => {
     return (
         <div className={s.friendsPage}>
             <NavLink className={s.searchFriends} to="/AuthUser/UsersPage">Search friends</NavLink>
-            <h3>Ваши друзья:</h3>
+            <div className={s.usersListArea}></div><h3>Ваши друзья:</h3>
             {props.friendsData.length > 0 ? friendsItems : "У вас пока нет друзей"}
             <div className={s.selectingPageMenu}>{props.friendsData.length > 0 ? pageNumbersList : null}</div>
 

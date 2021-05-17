@@ -13,7 +13,7 @@ const AuthorizationPage = (props) => {
             <div className={s.main}>
                 <div className={s.form}>
                     <div className={s.authorisation}>
-                        <h3>Авторицация</h3>
+                        <h3>Авторизация</h3>
                         <div className={s.enterLogin}>
                             <p>Введите логин:</p>
                             <input value={props.introducedLogin} onChange={() => props.onInputLogin(enterLogin)}
@@ -37,7 +37,7 @@ const AuthorizationPage = (props) => {
                             </button>
                         </div>
                         <div className={s.regLink}>
-                            <p>Еще не зарегистрированы ? <NavLink to="/RegistrationPage">Регистрация</NavLink></p>
+                            <p>Еще не зарегистрированы ? <NavLink className = {s.link} to="/RegistrationPage">Регистрация</NavLink></p>
                         </div>
                     </div>
                 </div>

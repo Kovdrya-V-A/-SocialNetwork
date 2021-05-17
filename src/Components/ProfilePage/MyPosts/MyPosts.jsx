@@ -12,7 +12,7 @@ const MyPosts = (props) => {
     return (
         <div className={s.myPosts}>
             <textarea onChange={() => props.onPostTextChange(text)} value={props.newPostText} ref={text}
-                      className={s.inputPostText}
+                      className={s.inputPostText} placeholder="Есть что нового ?"
                       name="addPost" id="" cols="10" rows="5"/>
             <button onClick={() => props.onAddNewPost(props.postText)}
                     className={s.addPostButton}>Add new post

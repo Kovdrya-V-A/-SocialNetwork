@@ -24,40 +24,40 @@ const RegistrationPage = (props) => {
                         <div className={s.interLogin}>
                             <p>Придумайте логин:</p>
                             <input value={props.introducedLogin} onChange={() => props.onInputLogin(enterLogin)}
-                                   ref={enterLogin} type="text"/>
+                                   ref={enterLogin} type="text" placeholder="Логин"/>
                         </div>
                         <div className={s.interEmail}>
                             <p>Введите ваш Email:</p>
                             <input value={props.introducedEmail} onChange={() => props.onInputEmail(enterEmail)}
-                                   ref={enterEmail} type="text"/>
+                                   ref={enterEmail} type="text" placeholder="Email"/>
                         </div>
                         <div className={s.interName}>
                             <p>Введите имя:</p>
                             <input value={props.introducedFirstName}
                                    onChange={() => props.onInputFirstName(enterFirstName)} ref={enterFirstName}
-                                   type="text"/>
+                                   type="text" placeholder="Имя"/>
                         </div>
                         <div className={s.interFirstname}>
                             <p>Введите фамилию:</p>
                             <input value={props.introducedLastName}
                                    onChange={() => props.onInputLastName(enterLastName)} ref={enterLastName}
-                                   type="text"/>
+                                   type="text" placeholder="Фамилия"/>
                         </div>
                         <div className={s.interAddress}>
                             <p>Введите ваш город:</p>
                             <input value={props.introducedAddress} onChange={() => props.onInputAddress(enterAddress)}
-                                   ref={enterAddress} type="text"/>
+                                   ref={enterAddress} type="text" placeholder="Город"/>
                         </div>
                         <div className={s.interAge}>
                             <p>Укажите ваш возраст:</p>
                             <input value={props.introducedAge} onChange={() => props.onInputAge(enterAge)}
-                                   ref={enterAge} type="text"/>
+                                   ref={enterAge} type="text" placeholder="Возраст" />
                         </div>
                         <div className={s.interPassword}>
                             <p>Придумайте пароль:</p>
                             <input value={props.introducedPassword}
                                    onChange={() => props.onInputPassword(enterPassword)} ref={enterPassword}
-                                   type="password"/>
+                                   type="password" placeholder="Пароль"/>
                         </div>
                         <div className={s.regButton}>
                             <button onClick={() => props.onRegistrationUser(
@@ -71,7 +71,7 @@ const RegistrationPage = (props) => {
                             </button>
                         </div>
                         <div className={s.authLink}>
-                            <p>Уже есть аккаунт ? <NavLink to="/">Авторизация</NavLink></p>
+                            <p>Уже есть аккаунт ? <NavLink className = {s.link} to="/">Авторизация</NavLink></p>
                         </div>
                     </div>
                 </div>

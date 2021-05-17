@@ -1,19 +1,21 @@
-.wrapper {
-    display: flex;
-    flex-direction: column;
-    max-width: 1200px;
-    margin: 0 auto;
-}
+/*.wrapper {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    max-width: 1200px;*/
+/*    margin: 0 auto;*/
+/*}*/
 
 .main {
     display: flex;
+    margin: 0 auto;
+    max-width: 1200px;
 }
 
 
 .form {
     flex: 7;
     display: flex;
-    background-color: darkslategray;
+    background-color: #222226;
 }
 
 .autoReg {
@@ -24,13 +26,23 @@
 }
 
 .authorisation {
-    background-color: cadetblue;
+    display: flex;
+    flex-direction: column;
+    color: #D3D3D3;
+    padding-left: 5px;
+    background-color: #333336;
     max-width: 45%;
     margin: auto;
-    border: 3px solid grey;
-    border-radius: 15px;
+    border-radius: 10px;
     margin-top: 100px;
-    margin-bottom: 70px;
+    margin-bottom: 70px;;
+}
+
+.authorisation input {
+    background-color: #444446;
+    border-radius: 5px;
+    color: #FFFFFF;
+    margin-bottom: 3px;
 }
 
 .entryButton {
@@ -38,21 +50,53 @@
     text-align: center;
 }
 
+.entryButton button{
+    background-color: #D3D3D3;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
 .registration h3 {
     text-align: center;
 }
 
 .registration {
-    background-color: cadetblue;
+    display: flex;
+    flex-direction: column;
+    color: #D3D3D3;
+    padding-left: 5px;
+    background-color: #333336;
     max-width: 45%;
     margin: auto;
-    border: 3px solid grey;
-    border-radius: 15px;
+    border-radius: 10px;
     margin-top: 100px;
     margin-bottom: 70px;
+}
+
+.registration input {
+    background-color: #444446;
+    border-radius: 5px;
+    color: #FFFFFF;
+    margin-bottom: 3px;
 }
 
 .regButton {
     margin-top: 5px;
     text-align: center;
+}
+
+.regButton button {
+    background-color: #D3D3D3;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+.authLink {
+    padding-bottom: 5px;
+}
+
+.link {
+    text-decoration: none;
+    color: #FFFFFF;
 }
