@@ -12,7 +12,7 @@ let initialFriendsPage = {
     pageSize: 7,
     totalFriendsCount: 0,
     isFetching: false,
-    isWrote: false,
+    isWrote: false
 };
 
 const friendsPageReducer = (friendsPage = initialFriendsPage, action) => {

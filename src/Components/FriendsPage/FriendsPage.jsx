@@ -30,7 +30,7 @@ const FriendsPage = (props) => {
                     }} className={`${s.toMessageButton} ${s.button}`}>Message
                     </button>
                     {
-                        props.isWrote ? <Redirect to="/AuthUser/DialogsPage"/> : null
+                        props.isWrote && props.currentDialogId ? <Redirect to={"/AuthUser/DialogsPage/" + props.currentDialogId}/> : null
                     }
                     {f.followed ?
                         <button onClick={() => props.onUnfollow(f.id)}
@@ -48,7 +48,6 @@ const FriendsPage = (props) => {
             <div className={s.searchFriendsButtonWrap}><button className={s.searchFriendsButton}><NavLink className={s.searchFriends} to="/AuthUser/UsersPage">Search new friends</NavLink></button></div>
             <div className={s.usersListArea}><h2>Ваши друзья:</h2>{props.friendsData.length > 0 ? friendsItems : "У вас пока нет друзей"}</div>
             <div className={s.selectingPageMenu}>{props.friendsData.length > 0 ? pageNumbersList : null}</div>
-
         </div>
     )
 }

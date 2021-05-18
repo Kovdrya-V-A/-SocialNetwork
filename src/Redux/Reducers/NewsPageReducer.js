@@ -1,15 +1,63 @@
+const SET_NEWS = "SET_NEWS";
+const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
+const SET_NEWS_TOTAL_COUNT = "SET_NEWS_TOTAL_COUNT";
+const SET_IS_FETCHING = "SET_IS_FETCHING";
 let initialNewsPage = {
-    newsData: [
-        {newsHeading: "Заголовок 1", newsText: "Текст новости 1", newsDate: "12.12.21", id: 1},
-        {newsHeading: "Заголовок 2", newsText: "Текст новости 2", newsDate: "12.13.21", id: 2},
-        {newsHeading: "Заголовок 3", newsText: "Текст новости 3", newsDate: "12.14.21", id: 3},
-        {newsHeading: "Заголовок 4", newsText: "Текст новости 4", newsDate: "12.15.21", id: 4}
-    ]
+    newsData: [],
+    currentPage: 1,
+    pageSize: 7,
+    totalNewsCount: 0,
+    // isFetching: false,
 };
 
 const newsPageReducer = (newsPage = initialNewsPage, action) => {
+    switch (action.type) {
 
-    return newsPage;
+        case SET_NEWS:
+                return {
+                    ...newsPage, newsData: [...action.newsData]
+                }
+
+        case SET_CURRENT_PAGE:
+            return {
+                ...newsPage, currentPage: action.number
+            }
+
+        case SET_NEWS_TOTAL_COUNT:
+            return {
+                ...newsPage, totalNewsCount: action.count
+            }
+
+        default:
+            return newsPage;
+    }
+}
+
+
+
+export const setNewsActionCreator = (newsData) => {
+    return {
+        type: SET_NEWS,
+        newsData
+    }
+}
+
+export const setCurrentPageActionCreator = (number) => {
+    return {
+        type: SET_CURRENT_PAGE,
+        number
+    }
+}
+
+export const setNewsTotalCountActionCreator = (count) => {
+    return {
+        type: SET_NEWS_TOTAL_COUNT,
+        count
+    }
 }
 
 export default newsPageReducer;
+
+
+
+

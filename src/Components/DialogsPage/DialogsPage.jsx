@@ -2,8 +2,10 @@ import React from 'react';
 import s from './DialogsPage.module.css'
 import Dialog from "./Dialog/Dialog";
 import Message from "./Message/Message";
+import {Redirect} from "react-router-dom";
 
 const DialogsPage = (props) => {
+
 
     let dialogsItems = props.dialogsData.map(d => d.isDeleted ? null :
         <Dialog onSetCurrentDialog={props.onSetCurrentDialog}
@@ -21,6 +23,7 @@ const DialogsPage = (props) => {
 
 
     return <>
+        {!props.currentDialogId ?  <Redirect to={"/AuthUser/DialogsPage" + props.currentDialogId}/>:null}
         <div className={s.dialogsPage}>
             {props.currentDialogId ?
                 <div className={s.messageBar}>

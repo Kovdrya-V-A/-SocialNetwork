@@ -4,15 +4,18 @@ import React from 'react';
 const News = (props) => {
     return (
         <div className={s.news}>
-            <div className={s.newsHeading}>
-                <h3>{props.newsHeading}</h3>
+            <div className={s.newsContent}>
+                <div className={s.name}>
+                    <h2>{props.name}</h2>
+                </div>
+                <div className={s.newsText}>
+                    <p>{props.text}</p>
+                </div>
+                <div className={s.newsDateTime}>
+                    <p>{props.dateTime}</p>
+                </div>
             </div>
-            <div className={s.newsText}>
-                <p>{props.newsText}</p>
-            </div>
-            <div className={s.newsDate}>
-                <h4>{props.newsDate}</h4>
-            </div>
+
         </div>
     )
 }

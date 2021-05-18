@@ -1,7 +1,6 @@
 import React from 'react';
 import Footer from './Components/Footer/Footer';
 import Header from './Components/Header/Header';
-import Nav from "./Components/Nav/Nav";
 import s from './App.module.css';
 import {Route} from "react-router-dom";
 import Settings from "./Components/Settings/Settings";
@@ -11,6 +10,7 @@ import UsersPageContainer from "./Components/UsersPage/UsersPageContainer";
 import ProfilePageContainer from "./Components/ProfilePage/ProfilePageContainer";
 import SelectedProfilePageContainer from "./Components/SelectedProfilePage/SelectedProfilePageContainer";
 import FriendsPageContainer from "./Components/FriendsPage/FriendsPageContainer";
+import NavContainer from "./Components/Nav/NavContainer";
 
 
 const App = () => {
@@ -18,7 +18,7 @@ const App = () => {
             <div className={s.AppWrapper}>
                 <Header/>
                 <div className={s.main}>
-                    <Nav/>
+                    <NavContainer/>
                     <div className={s.content}>
                         <Route exact path="/AuthUser" render={() => <ProfilePageContainer/>}/>
                         <Route path="/AuthUser/ProfilePage" render={() => <ProfilePageContainer/>}/>

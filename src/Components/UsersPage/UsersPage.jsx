@@ -15,6 +15,7 @@ const UsersPage = (props) => {
         onClick={() => {
             props.onSetCurrentPage(n)
         }}>{n}</span>)
+
     let userItem = props.usersData.map((u) => {
         return (<div key={u.id}>
             <div className={s.user}>
@@ -31,7 +32,7 @@ const UsersPage = (props) => {
                     }} className={`${s.toMessageButton} ${s.button}`}>Message
                     </button>
                     {
-                        props.isWrote ? <Redirect to="/AuthUser/DialogsPage"/> : null
+                        props.isWrote && props.currentDialogId ? <Redirect to={"/AuthUser/DialogsPage/" + props.currentDialogId}/> : null
                     }
                     {u.followed ?
                         <button onClick={() => props.onUnfollow(u.id)}

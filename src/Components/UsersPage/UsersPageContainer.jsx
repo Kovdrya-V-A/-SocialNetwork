@@ -8,6 +8,7 @@ import {
 } from "../../Redux/Reducers/UsersPageReducer";
 import * as axios from "axios";
 import UsersPage from "./UsersPage";
+import {setCurrentDialogActionCreator} from "../../Redux/Reducers/DialogsPageReducer";
 // import {setSelectedUserIdActionCreator} from "../../Redux/Reducers/SelectedUserProfilePageReducer";
 
 let mapStateToProps = (state) => {
@@ -20,6 +21,7 @@ let mapStateToProps = (state) => {
         isFetching: state.usersPage.isFetching,
         isWrote: state.usersPage.isWrote,
         serverLink: state.authorizationPage.serverLink,
+        currentDialogId: state.dialogsPage.currentDialogId
 
     }
 }
@@ -49,7 +51,10 @@ let mapDispatchToProps = (dispatch) => {
         },
         setSearchQueryText: (enteredText) => {
             dispatch(setSearchQueryTextActionCreator(enteredText))
-        }
+        },
+        setCurrentDialog: (selectedDialogId) => {
+            dispatch(setCurrentDialogActionCreator(selectedDialogId))
+        },
     }
 }
 
@@ -127,8 +132,9 @@ class UsersPageService extends React.Component {
             "userId": userId,
             "isDelete": false
         })
-            .then(() => {
+            .then((response) => {
                 this.props.setIsWrote(true)
+                this.props.setCurrentDialog(response.data.idDialog)
             })
     }
 
@@ -148,6 +154,7 @@ class UsersPageService extends React.Component {
                 onFollow={this.onFollow}
                 onMessage={this.onMessage}
                 onSearchUsers = {this.onSearchUsers}
+                currentDialogId ={this.props.currentDialogId}
             />
 
         </>

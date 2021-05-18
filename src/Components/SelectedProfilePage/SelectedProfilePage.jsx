@@ -40,7 +40,7 @@ const UserPosts = (props) => {
             <div className={s.postContent}>
                 <div className={s.name}><p>{props.name}</p></div>
                 <div className={s.postText}>
-                    {p.text}
+                    <p>{p.text}</p>
                 </div>
                 <div className={s.dateTime}><p>{p.dateTime}</p>
                 </div>

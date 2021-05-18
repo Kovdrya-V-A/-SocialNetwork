@@ -8,6 +8,7 @@ import {
     setFriendsActionCreator, setFriendsTotalCountActionCreator, setIsFetchingActionCreator, setIsWroteActionCreator,
     unFollowActionCreator
 } from "../../Redux/Reducers/FriendsPageReducer";
+import {setCurrentDialogActionCreator} from "../../Redux/Reducers/DialogsPageReducer";
 
 let mapStateToProps = (state) => {
     return {
@@ -17,7 +18,8 @@ let mapStateToProps = (state) => {
         currentPage: state.friendsPage.currentPage,
         isFetching: state.friendsPage.isFetching,
         isWrote: state.friendsPage.isWrote,
-        serverLink: state.authorizationPage.serverLink
+        serverLink: state.authorizationPage.serverLink,
+        currentDialogId: state.dialogsPage.currentDialogId
     }
 }
 
@@ -43,7 +45,10 @@ let mapDispatchToProps = (dispatch) => {
         },
         setIsWrote: (isWrote) => {
             dispatch(setIsWroteActionCreator(isWrote))
-        }
+        },
+        setCurrentDialog: (selectedDialogId) => {
+            dispatch(setCurrentDialogActionCreator(selectedDialogId))
+        },
     }
 }
 
@@ -64,6 +69,7 @@ class FriendsPageService extends React.Component {
 
     componentWillUnmount() {
         this.props.setIsWrote(false)
+        this.props.setCurrentPage(1)
     }
 
     onUnfollow = (userId) => {
@@ -109,24 +115,26 @@ class FriendsPageService extends React.Component {
             "token": localStorage.getItem("userToken"),
             "userId": userId
         })
-            .then(() => {
+            .then((response) => {
                 this.props.setIsWrote(true)
+                this.props.setCurrentDialog(response.data.idDialog)
             })
     }
 
 
-
     render() {
         return <>
-            <FriendsPage onSetCurrentPage={this.onSetCurrentPage}
-                         totalFriendsCount={this.props.totalFriendsCount}
-                         pageSize={this.props.pageSize}
-                         currentPage={this.props.currentPage}
-                         friendsData={this.props.friendsData}
-                         isWrote={this.props.isWrote}
-                         onUnfollow={this.onUnfollow}
-                         onFollow={this.onFollow}
-                         onMessage={this.onMessage}
+            <FriendsPage
+                totalFriendsCount={this.props.totalFriendsCount}
+                pageSize={this.props.pageSize}
+                currentPage={this.props.currentPage}
+                friendsData={this.props.friendsData}
+                isWrote={this.props.isWrote}
+                currentDialogId={this.props.currentDialogId}
+                onSetCurrentPage={this.onSetCurrentPage}
+                onUnfollow={this.onUnfollow}
+                onFollow={this.onFollow}
+                onMessage={this.onMessage}
             />
 
         </>

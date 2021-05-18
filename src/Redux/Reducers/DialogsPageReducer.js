@@ -28,8 +28,6 @@ const dialogsPageReducer = (dialogsPage = initialDialogsPage, action) => {
                 messagesData: [...dialogsPage.messagesData, newMessage],
                 newMessageText: ""
             };
-
-            // return dialogsPage;
         }
 
 

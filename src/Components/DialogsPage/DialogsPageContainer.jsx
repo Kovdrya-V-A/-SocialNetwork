@@ -52,8 +52,20 @@ class DialogsPageService extends React.Component {
                 if (response.data) {
                     this.props.setDialogs(response.data.items)
                 }
+                if (this.props.dialogsPage.currentDialogId) {
+                    axios.get(`http://${this.props.serverLink}/messages?token=${localStorage.getItem("userToken")}&idDialog=${this.props.dialogsPage.currentDialogId}`)
+                        .then(response => {
+                            if (response.data) {
+                                this.props.setMessages(response.data.items)
+                            } else if (response.data == null) {
+                                this.props.setMessages([])
+                            }
+                        })
+                }
             })
+    }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
     }
 
     componentWillUnmount() {
