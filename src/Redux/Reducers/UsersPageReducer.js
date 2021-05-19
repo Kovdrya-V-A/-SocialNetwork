@@ -30,7 +30,6 @@ const usersPageReducer = (usersPage = initialUsersPage, action) => {
         }
 
         case UNFOLLOW:
-            alert(action.message)
             return {
                 ...usersPage,
                 usersData: usersPage.usersData.map(f => {
@@ -42,7 +41,6 @@ const usersPageReducer = (usersPage = initialUsersPage, action) => {
             }
 
         case FOLLOW:
-            alert(action.message)
             return {
                 ...usersPage,
                 usersData: usersPage.usersData.map(f => {

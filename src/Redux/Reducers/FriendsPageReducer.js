@@ -19,7 +19,6 @@ const friendsPageReducer = (friendsPage = initialFriendsPage, action) => {
 
     switch (action.type) {
         case UNFOLLOW:
-            alert (action.message)
             return {
                 ...friendsPage,
                 friendsData: friendsPage.friendsData.map(f => {
@@ -31,7 +30,6 @@ const friendsPageReducer = (friendsPage = initialFriendsPage, action) => {
             }
 
         case FOLLOW:
-            alert (action.message)
             return {
                 ...friendsPage,
                 friendsData: friendsPage.friendsData.map(f => {

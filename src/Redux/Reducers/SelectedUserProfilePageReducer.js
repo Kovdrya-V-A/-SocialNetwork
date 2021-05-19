@@ -18,7 +18,6 @@ const selectedProfilePageReducer = (selectedProfilePage = initialSelectedUserPro
     switch (action.type) {
 
         case UNFOLLOW:
-            alert (action.message)
             return {
                 ...selectedProfilePage,
                 profileData: selectedProfilePage.profileData.map(f => {
@@ -27,7 +26,6 @@ const selectedProfilePageReducer = (selectedProfilePage = initialSelectedUserPro
             }
 
         case FOLLOW:
-            alert (action.message)
             return {
                 ...selectedProfilePage,
                 profileData: selectedProfilePage.profileData.map(f => {

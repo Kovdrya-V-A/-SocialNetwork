@@ -30,7 +30,6 @@ const profilePageReducer = (profilePage = initialProfilePage, action) => {
         }
 
         case DELETE_POST: {
-            alert (action.message)
             return {...profilePage,
                 postsData: profilePage.postsData.map(p => {
                     if (p.idPost == action.idPost) {
@@ -49,7 +48,6 @@ const profilePageReducer = (profilePage = initialProfilePage, action) => {
 
 
         case SET_PROFILE_INFO:
-            console.log(action.profileData)
             return {
                 ...profilePage,
                 profileData: [action.profileData]
