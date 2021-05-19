@@ -1,17 +1,42 @@
 const SET_USER_POSTS = "SET_USER_POSTS";
 const SET_USER_PROFILE_INFO = "SET_USER_PROFILE_INFO";
 const SET_SELECTED_USER_ID =" SET_SELECTED_USER_ID";
+const SET_IS_WROTE = "SET_IS_WROTE";
+const UNFOLLOW = "UNFOLLOW";
+const FOLLOW = "FOLLOW";
 
 let initialSelectedUserProfilePage = {
     userId: "",
     postsData: [],
     profileData: [{}],
+    isWrote: false
 };
 
 
 const selectedProfilePageReducer = (selectedProfilePage = initialSelectedUserProfilePage, action) => {
 
     switch (action.type) {
+
+        case UNFOLLOW:
+            alert (action.message)
+            return {
+                ...selectedProfilePage,
+                profileData: selectedProfilePage.profileData.map(f => {
+                    return {...f, followed: false}
+                })
+            }
+
+        case FOLLOW:
+            alert (action.message)
+            return {
+                ...selectedProfilePage,
+                profileData: selectedProfilePage.profileData.map(f => {
+                        return {...f, followed: true}
+                })
+            }
+
+        case SET_IS_WROTE:
+            return {...selectedProfilePage, isWrote: action.isWrote}
 
         case SET_SELECTED_USER_ID:
             return {
@@ -55,10 +80,26 @@ export const setUserProfileInfoActionCreator = (profileData) => {
     }
 }
 
-export const setSelectedUserIdActionCreator = (userId) => {
+
+export const setIsWroteActionCreator = (isWrote) => {
     return {
-        type: SET_SELECTED_USER_ID,
-        userId
+        type: SET_IS_WROTE,
+        isWrote
+    }
+}
+export const followActionCreator = (userId, message) => {
+    return {
+        type: FOLLOW,
+        userId,
+        message
+    }
+}
+
+export const unFollowActionCreator = (userId, message) => {
+    return {
+        type: UNFOLLOW,
+        userId,
+        message
     }
 }
 

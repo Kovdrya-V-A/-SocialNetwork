@@ -2,7 +2,7 @@ const UNFOLLOW = "UNFOLLOW";
 const FOLLOW = "FOLLOW";
 const SET_USERS = "SET_USERS";
 const SET_USERS_TOTAL_COUNT = "SET_USERS_TOTAL_COUNT";
-const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
+const SET_CURRENT_USERS_PAGE = "SET_CURRENT_USERS_PAGE";
 const SET_IS_FETCHING = "SET_IS_FETCHING";
 const SET_IS_WROTE = "SET_IS_WROTE";
 const SEARCH_QUERY_TEXT_CHANGE = "const SEARCH_QUERY_TEXT_CHANGE";
@@ -43,22 +43,22 @@ const usersPageReducer = (usersPage = initialUsersPage, action) => {
 
         case FOLLOW:
             alert(action.message)
-                return {
-                    ...usersPage,
-                    usersData: usersPage.usersData.map(f => {
-                        if (f.id === action.userId) {
-                            return {...f, followed: !action.error ? true : false}
-                        }
-                        return f;
-                    })
-                }
+            return {
+                ...usersPage,
+                usersData: usersPage.usersData.map(f => {
+                    if (f.id === action.userId) {
+                        return {...f, followed: !action.error ? true : false}
+                    }
+                    return f;
+                })
+            }
 
         case SET_USERS:
             return {
                 ...usersPage, usersData: [...action.usersData]
             }
 
-        case SET_CURRENT_PAGE:
+        case SET_CURRENT_USERS_PAGE:
             return {
                 ...usersPage, currentPage: action.number
             }
@@ -103,7 +103,7 @@ export const setUsersActionCreator = (usersData) => {
 
 export const setCurrentPageActionCreator = (number) => {
     return {
-        type: SET_CURRENT_PAGE,
+        type: SET_CURRENT_USERS_PAGE,
         number
     }
 }

@@ -8,22 +8,25 @@ const DialogsPage = (props) => {
 
 
     let dialogsItems = props.dialogsData.map(d => d.isDeleted ? null :
-        <Dialog onSetCurrentDialog={props.onSetCurrentDialog}
-                dialogAva={d.img} idDialog={d.idDialog}
-                chatName={d.name}
-                onDeleteDialog={props.onDeleteDialog}/>)
+        <Dialog
+            onSetCurrentDialog={props.onSetCurrentDialog}
+            dialogAva={d.img} idDialog={d.idDialog}
+            chatName={d.name}
+            onDeleteDialog={props.onDeleteDialog}/>)
 
     let messagesItems = props.messagesData.map(m => m.isDeleted ? null : <Message senderName={m.name}
-                                                             text={m.text}
-                                                             senderAva={m.img}
-                                                             time={m.time}
-                                                             idMessage={m.id}
-                                                             onDeleteMessage={props.onDeleteMassage}/>)
+                                                                                  text={m.text}
+                                                                                  senderAva={m.img}
+                                                                                  time={m.time}
+                                                                                  idMessage={m.id}
+                                                                                  onDeleteMessage={props.onDeleteMassage}
+                                                                                  id={m.id}
+                                                                                  senderId={m.senderId}/>)
     let text = React.createRef()
 
 
     return <>
-        {!props.currentDialogId ?  <Redirect to={"/AuthUser/DialogsPage" + props.currentDialogId}/>:null}
+        {!props.currentDialogId ? <Redirect to={"/AuthUser/DialogsPage" + props.currentDialogId}/> : null}
         <div className={s.dialogsPage}>
             {props.currentDialogId ?
                 <div className={s.messageBar}>
@@ -39,7 +42,6 @@ const DialogsPage = (props) => {
             <div className={s.dialogList}>
                 <h2>Список диалогов:</h2>
                 {props.dialogsData.length > 0 ? dialogsItems : "У вас пока нет активых диалогов. Напишите кому - нибудь, и здесь появится диалог."}
-                {/*<button className={s.addDialogButton}>Start new dialog</button>*/}
             </div>
         </div>
     </>

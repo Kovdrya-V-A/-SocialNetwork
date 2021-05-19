@@ -21,23 +21,23 @@ const profilePageReducer = (profilePage = initialProfilePage, action) => {
                 text: action.text,
                 dateTime: action.dateTime
             };
-                return {
-                    ...profilePage,
-                    postsData: [newPost, ...profilePage.postsData],
-                    newPostText: ""
-                };
+            return {
+                ...profilePage,
+                postsData: [newPost, ...profilePage.postsData],
+                newPostText: ""
+            };
 
         }
 
         case DELETE_POST: {
             alert (action.message)
             return {...profilePage,
-            postsData: profilePage.postsData.map(p => {
-                if (p.idPost == action.idPost) {
-                    return {...p, isDeleted:true}
-                }
-                return  p
-            })}
+                postsData: profilePage.postsData.map(p => {
+                    if (p.idPost == action.idPost) {
+                        return {...p, isDeleted:true}
+                    }
+                    return  p
+                })}
         }
 
         case POST_TEXT_CHANGE: {

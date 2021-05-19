@@ -4,13 +4,15 @@
     display: flex;
 }
 
-.senderName {
+.senderLink {
+    text-decoration: none;
     color: #D3D3D3;
     font-size: 16px;
 }
 
 .text p {
     word-break: break-word;
+    font-size: 16px;
     color: white;
 }
 
@@ -23,6 +25,8 @@
     height: 45px;
     border-radius: 50%;
 }
+.senderName {}
+
 
 .messageContent {
     padding-left: 5px;

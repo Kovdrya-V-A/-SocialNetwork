@@ -31,6 +31,9 @@ let mapDispatchToProps = (dispatch) => {
         follow: (userId, message) => {
             dispatch(followActionCreator(userId, message))
         },
+        setIsWrote: (isWrote) => {
+            dispatch(setIsWroteActionCreator(isWrote))
+        },
         setFriends: (friendsData) => {
             dispatch(setFriendsActionCreator(friendsData))
         },
@@ -42,9 +45,6 @@ let mapDispatchToProps = (dispatch) => {
         },
         setIsFetching: (isFetch) => {
             dispatch(setIsFetchingActionCreator(isFetch))
-        },
-        setIsWrote: (isWrote) => {
-            dispatch(setIsWroteActionCreator(isWrote))
         },
         setCurrentDialog: (selectedDialogId) => {
             dispatch(setCurrentDialogActionCreator(selectedDialogId))
@@ -129,9 +129,9 @@ class FriendsPageService extends React.Component {
                 pageSize={this.props.pageSize}
                 currentPage={this.props.currentPage}
                 friendsData={this.props.friendsData}
-                isWrote={this.props.isWrote}
                 currentDialogId={this.props.currentDialogId}
                 onSetCurrentPage={this.onSetCurrentPage}
+                isWrote={this.props.isWrote}
                 onUnfollow={this.onUnfollow}
                 onFollow={this.onFollow}
                 onMessage={this.onMessage}

@@ -1,5 +1,6 @@
 import s from "./Message.module.css";
 import React from "react";
+import {NavLink} from "react-router-dom";
 
 const Message = (props) => {
     return (
@@ -8,7 +9,11 @@ const Message = (props) => {
                 <img src={props.senderAva} alt="senderava"/>
             </div>
             <div className={s.messageContent}>
-                <div className={s.senderName}>{props.senderName}</div>
+
+                <div className={s.senderName}>
+                    <NavLink className={s.senderLink}
+                                to={"/AuthUser/UserPage/" + props.senderId}>{props.senderName}</NavLink>
+                </div>
                 <div className={s.text}><p>{props.text}</p></div>
                 <div className={s.time}>{props.time}</div>
             </div>

@@ -80,6 +80,9 @@ class DialogsPageService extends React.Component {
         })
             .then(response => {
                 this.props.deleteDialog(idDialog, response.data.message)
+                if (this.props.dialogsPage.currentDialogId == idDialog) {
+                    this.props.setCurrentDialog("")
+                }
             })
     }
 

@@ -1,13 +1,31 @@
 import React from 'react';
 import s from "./SelectedProfilePage.module.css";
+import {Redirect} from "react-router-dom";
 
 const SelectedProfilePage = (props) => {
     return (
         <div className={s.selectedProfilePage}>
+
             <UserProfileInfo profileData={props.profileData}/>
+
+            <div className={s.activity}>
+                {
+                    props.isWrote && props.currentDialogId ? <Redirect to={"/AuthUser/DialogsPage/" + props.currentDialogId}/> : null
+                }
+                <button onClick={() => {
+                    props.onMessage(props.profileData[0].userId)
+                }} className={`${s.toMessageButton} ${s.button}`}>Message
+                </button>
+                {props.profileData[0].followed ?
+                    <button onClick={() => props.onUnfollow(props.profileData[0].userId)}
+                            className={`${s.unfollowButton} ${s.button}`}>Unfollow</button> :
+                    <button onClick={() => props.onFollow(props.profileData[0].userId)}
+                            className={`${s.followButton} ${s.button}`}>Follow</button>}
+            </div>
+
             <UserPosts postsData={props.postsData}
                        avaImg={props.profileData[0].img}
-            name = {props.profileData[0].name}/>
+                       name = {props.profileData[0].name}/>
         </div>
     )
 }
@@ -24,6 +42,7 @@ const UserProfileInfo = (props) => {
                 <p className={s.userName}>{props.profileData[0].name}</p>
                 <p>Age: {props.profileData[0].age}</p>
                 <p>Address: {props.profileData[0].address}</p>
+                {props.profileData[0].followed ? <div className={s.followedStatus}><p>Ваш друг</p></div> : null}
             </div>
         </div>
     )

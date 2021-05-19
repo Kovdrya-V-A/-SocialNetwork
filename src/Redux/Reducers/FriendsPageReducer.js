@@ -1,9 +1,9 @@
-const UNFOLLOW = "UNFOLLOW";
 const SET_FRIENDS = "SET_FRIENDS";
 const SET_FRIENDS_TOTAL_COUNT = "SET_FRIENDS_TOTAL_COUNT";
-const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
+const SET_CURRENT_FRIENDS_PAGE = "SET_CURRENT_FRIENDS_PAGE";
 const SET_IS_FETCHING = "SET_IS_FETCHING";
 const SET_IS_WROTE = "SET_IS_WROTE";
+const UNFOLLOW = "UNFOLLOW";
 const FOLLOW = "FOLLOW";
 
 let initialFriendsPage = {
@@ -42,6 +42,9 @@ const friendsPageReducer = (friendsPage = initialFriendsPage, action) => {
                 })
             }
 
+        case SET_IS_WROTE:
+            return {...friendsPage, isWrote: action.isWrote}
+
 
         case SET_FRIENDS:
             if (action.friendsData) {
@@ -50,7 +53,7 @@ const friendsPageReducer = (friendsPage = initialFriendsPage, action) => {
                 }
             }
 
-        case SET_CURRENT_PAGE:
+        case SET_CURRENT_FRIENDS_PAGE:
             return {
                 ...friendsPage, currentPage: action.number
             }
@@ -60,8 +63,6 @@ const friendsPageReducer = (friendsPage = initialFriendsPage, action) => {
                 ...friendsPage, totalFriendsCount: action.count
             }
 
-        case SET_IS_WROTE:
-            return {...friendsPage, isWrote: action.isWrote}
 
         default: {
             return friendsPage
@@ -79,7 +80,7 @@ export const setFriendsActionCreator = (friendsData) => {
 
 export const setCurrentPageActionCreator = (number) => {
     return {
-        type: SET_CURRENT_PAGE,
+        type: SET_CURRENT_FRIENDS_PAGE,
         number
     }
 }
