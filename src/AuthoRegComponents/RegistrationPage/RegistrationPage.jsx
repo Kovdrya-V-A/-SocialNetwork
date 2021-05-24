@@ -3,6 +3,7 @@ import React from "react";
 import {NavLink} from "react-router-dom";
 import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
+import FileUploadService from "./addImg";
 
 const RegistrationPage = (props) => {
     let enterLogin = React.createRef();
@@ -51,13 +52,16 @@ const RegistrationPage = (props) => {
                         <div className={s.interAge}>
                             <p>Укажите ваш возраст:</p>
                             <input value={props.introducedAge} onChange={() => props.onInputAge(enterAge)}
-                                   ref={enterAge} type="text" placeholder="Возраст" />
+                                   ref={enterAge} type="text" placeholder="Возраст"/>
                         </div>
                         <div className={s.interPassword}>
                             <p>Придумайте пароль:</p>
                             <input value={props.introducedPassword}
                                    onChange={() => props.onInputPassword(enterPassword)} ref={enterPassword}
                                    type="password" placeholder="Пароль"/>
+                        </div>
+                        <div className={s.addImg}>
+                            <FileUploadService/>
                         </div>
                         <div className={s.regButton}>
                             <button onClick={() => props.onRegistrationUser(
@@ -71,7 +75,7 @@ const RegistrationPage = (props) => {
                             </button>
                         </div>
                         <div className={s.authLink}>
-                            <p>Уже есть аккаунт ? <NavLink className = {s.link} to="/">Авторизация</NavLink></p>
+                            <p>Уже есть аккаунт ? <NavLink className={s.link} to="/">Авторизация</NavLink></p>
                         </div>
                     </div>
                 </div>

@@ -43,6 +43,9 @@ let mapDispatchToProps = (dispatch) => {
     }
 }
 
+
+
+
 class RegistrationGageService extends React.Component {
 
     onInputEmail = (email) => {
@@ -94,6 +97,12 @@ class RegistrationGageService extends React.Component {
     }
 
     render() {
+        // axios.post(`http://${this.props.serverLink}/img`, {
+        //     "img": this.state.file
+        // },)
+        //     .then(response => {
+        //         console.log(response.data.error)
+        //     })
         return (
             <RegistrationPage
                 introducedLogin={this.props.registrationPage.introducedLogin}
