@@ -26,9 +26,6 @@ let mapDispatchToProps = (dispatch) => {
         setChangeAvaStatus: (status) => {
             dispatch(setChangeAvaStatusActionCreator(status))
         },
-        setNewAva: (img) => {
-            dispatch(setNewAvaActionCreator(img))
-        }
     }
 }
 
@@ -39,6 +36,9 @@ class FileUploadService extends React.Component {
 
     onSetChangeAvaIsActive = (changeAvaIsActive) => {
         this.props.setChangeAvaIsActive(changeAvaIsActive)
+        if (!changeAvaIsActive) {
+            window.location.reload()
+        }
     }
 
     onSetChangeAvaStatus = (status) => {
@@ -87,10 +87,6 @@ class FileUploadService extends React.Component {
             )
                 .then(response => {
                     this.onSetChangeAvaStatus(response.data.message || response.data.error)
-                    if (response.data.message) {
-                        this.props.setNewAva(response.data.img)
-                    }
-
                 })
         }
     }
