@@ -3,7 +3,7 @@ import React from "react";
 import {NavLink} from "react-router-dom";
 import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
-import FileUploadService from "./addImg";
+import FileUploadService from "../../Components/ProfilePage/ProfileInfo/addImg"
 
 const RegistrationPage = (props) => {
     let enterLogin = React.createRef();
@@ -59,9 +59,6 @@ const RegistrationPage = (props) => {
                             <input value={props.introducedPassword}
                                    onChange={() => props.onInputPassword(enterPassword)} ref={enterPassword}
                                    type="password" placeholder="Пароль"/>
-                        </div>
-                        <div className={s.addImg}>
-                            <FileUploadService/>
                         </div>
                         <div className={s.regButton}>
                             <button onClick={() => props.onRegistrationUser(

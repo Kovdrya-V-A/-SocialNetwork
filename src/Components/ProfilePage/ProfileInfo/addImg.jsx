@@ -1,7 +1,7 @@
 import React from "react";
 import * as axios from "axios";
 import {connect} from "react-redux";
-import s from "../AuthoReg.module.css";
+import s from "./ProfileInfo.module.css"
 let mapStateToProps = (state) => {
     return {
         registrationPage: state.registrationPage,
@@ -14,7 +14,7 @@ let mapDispatchToProps = (dispatch) => {
 }
 
 
-class FileUpload extends React.Component {
+class FileUploadService extends React.Component {
 
     // API Endpoints
     custom_file_upload_url = `http://${this.props.serverLink}/img`;
@@ -44,7 +44,7 @@ class FileUpload extends React.Component {
 
         if (this.state.image_file !== null) {
             let formData = new FormData();
-            formData.append('img', this.state.image_file);
+            formData.append('file', this.state.image_file);
             // the image field name should be similar to your api endpoint field name
             // in my case here the field name is customFile
 
@@ -55,7 +55,7 @@ class FileUpload extends React.Component {
                 formData,
                 {
                     headers: {
-                        "Authorization": "YOUR_API_AUTHORIZATION_KEY_SHOULD_GOES_HERE_IF_HAVE",
+                        "Accept": "application/json",
                         "Content-type": "multipart/form-data",
                     },
                 }
@@ -73,7 +73,7 @@ class FileUpload extends React.Component {
     // render from here
     render() {
         return (
-            <div>
+            <div className={s.addImg}>
                 {/* image preview */}
                 <img className={s.loadedImg} src={this.state.image_preview} alt="image preview"/>
 
@@ -89,5 +89,5 @@ class FileUpload extends React.Component {
     }
 }
 
-const FileUploadService = connect(mapStateToProps, mapDispatchToProps)(FileUpload);
-export default FileUploadService
+const FileUploadContainer = connect(mapStateToProps, mapDispatchToProps)(FileUploadService);
+export default FileUploadContainer

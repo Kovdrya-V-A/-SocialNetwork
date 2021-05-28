@@ -1,9 +1,12 @@
-.profileInfo {
+.profileInfoWrap {
     border-radius: 5px;
-    display: flex;
     margin-bottom: 10px;
     padding: 5px 10px 5px 10px;
     background-color: #333336;
+}
+
+.profileInfo {
+    display: flex;
 }
 
 .ava {
@@ -23,4 +26,15 @@
 .name {
     color: #ffffff;
     padding-bottom: 5px;
+}
+
+.changeAva {
+    background-color: darkcyan;
+}
+
+.addImg {
+}
+
+.loadedImg {
+    width: 80px;
 }
