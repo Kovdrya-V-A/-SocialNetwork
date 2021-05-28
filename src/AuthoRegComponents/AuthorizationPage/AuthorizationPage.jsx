@@ -33,7 +33,7 @@ const AuthorizationPage = (props) => {
                                 }}>
                                 {props.dataIsCorrect ? <Redirect to="/AuthUser/ProfilePage"/> : null}
                                 {props.dataIsCorrect ? props.onResetVerification() : null}
-                                Entry
+                                Вход
                             </button>
                         </div>
                         <div className={s.regLink}>

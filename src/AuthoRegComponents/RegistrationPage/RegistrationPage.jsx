@@ -68,7 +68,7 @@ const RegistrationPage = (props) => {
                                 props.introducedLastName,
                                 props.introducedAddress,
                                 props.introducedAge,
-                                props.introducedEmail)}>register
+                                props.introducedEmail)}>Регистрация
                             </button>
                         </div>
                         <div className={s.authLink}>

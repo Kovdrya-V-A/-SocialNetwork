@@ -4,14 +4,17 @@ import {connect} from "react-redux";
 import s from "./ProfileInfo.module.css"
 import {
     setChangeAvaIsActiveActionCreator,
-    setProfileInfoActionCreator
+    setChangeAvaStatusActionCreator,
+    setNewAvaActionCreator,
+    setProfileInfoActionCreator,
 } from "../../../Redux/Reducers/ProfilePageReducer";
 
 let mapStateToProps = (state) => {
     return {
         changeAvaIsActive: state.profilePage.changeAvaIsActive,
+        changeAvaStatus: state.profilePage.changeAvaStatus,
         registrationPage: state.registrationPage,
-        serverLink: state.authorizationPage.serverLink
+        serverLink: state.authorizationPage.serverLink,
     }
 }
 
@@ -20,22 +23,27 @@ let mapDispatchToProps = (dispatch) => {
         setChangeAvaIsActive: (changeAvaIsActive) => {
             dispatch(setChangeAvaIsActiveActionCreator(changeAvaIsActive))
         },
-        setProfileInfo: (profileData) => {
-            dispatch(setProfileInfoActionCreator(profileData))
+        setChangeAvaStatus: (status) => {
+            dispatch(setChangeAvaStatusActionCreator(status))
         },
+        setNewAva: (img) => {
+            dispatch(setNewAvaActionCreator(img))
+        }
     }
 }
 
 
 class FileUploadService extends React.Component {
 
-    // API Endpoints
     custom_file_upload_url = `http://${this.props.serverLink}/uploadImg`;
 
     onSetChangeAvaIsActive = (changeAvaIsActive) => {
         this.props.setChangeAvaIsActive(changeAvaIsActive)
     }
 
+    onSetChangeAvaStatus = (status) => {
+        this.props.setChangeAvaStatus(status)
+    }
 
     constructor(props) {
         super(props);
@@ -78,18 +86,16 @@ class FileUploadService extends React.Component {
                 }
             )
                 .then(response => {
-                    axios.get(`http://${this.props.serverLink}/authProfileInfo?token=${localStorage.getItem("userToken")}`)
-                        .then(response => {
-                            if (!response.data.error){
-                                this.props.setProfileInfo(response.data)
-                            }
-                        })
+                    this.onSetChangeAvaStatus(response.data.message || response.data.error)
+                    if (response.data.message) {
+                        this.props.setNewAva(response.data.img)
+                    }
+
                 })
         }
     }
 
 
-    // render from here
     render() {
         return (
             <div className={s.modal} onClick={() => this.onSetChangeAvaIsActive(false)}>
@@ -100,9 +106,9 @@ class FileUploadService extends React.Component {
                         type="file"
                         onChange={this.handleImagePreview}/>
                     <img className={s.loadedImg} src={this.state.image_preview}/>
-                    <input className={s.submitInput} type="submit" onClick={this.handleSubmitFile} value="Submit"/>
+                    <div className={s.changeAvaStatus}><p>{this.props.changeAvaStatus}</p></div>
+                    <input className={s.submitInput} type="submit" onClick={this.handleSubmitFile} value="Загрузить"/>
                 </div>
-                {/*<div className={s.exit}><p onClick={() => this.onSetChangeAvaIsActive(false)}>×</p></div>*/}
             </div>
 
         );

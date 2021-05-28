@@ -7,21 +7,21 @@ const Nav = (props) => {
         <nav className={s.nav}>
             <div className={s.navItem}>
                 <p><NavLink className={s.link} activeClassName={s.activeLink}
-                            to="/AuthUser/ProfilePage">Profile</NavLink></p>
+                            to="/AuthUser/ProfilePage">Профиль</NavLink></p>
             </div>
             <div className={s.navItem}>
                 <p onClick={() => props.onGoToDialogsPage("")}><NavLink className={s.link} activeClassName={s.activeLink}
-                            to="/AuthUser/DialogsPage">Dialogs</NavLink></p>
+                            to="/AuthUser/DialogsPage">Диалоги</NavLink></p>
             </div>
             <div className={s.navItem}>
                 <p><NavLink className={s.link} activeClassName={s.activeLink}
-                            to="/AuthUser/FriendsPage">Friends</NavLink></p>
+                            to="/AuthUser/FriendsPage">Друзья</NavLink></p>
             </div>
             <div className={s.navItem}>
-                <p><NavLink className={s.link} activeClassName={s.activeLink} to="/AuthUser/NewsPage">News</NavLink></p>
+                <p><NavLink className={s.link} activeClassName={s.activeLink} to="/AuthUser/NewsPage">Новости</NavLink></p>
             </div>
             <div className={s.navItem}>
-                <p><NavLink className={s.link} activeClassName={s.activeLink} to="/AuthUser/Settings">Settings</NavLink>
+                <p><NavLink className={s.link} activeClassName={s.activeLink} to="/AuthUser/Settings">Настройки</NavLink>
                 </p>
             </div>
             <div className={s.navItem}>
@@ -29,7 +29,7 @@ const Nav = (props) => {
                 <button className={s.logoutButton} onClick={() => {
                     window.location.reload();
                     localStorage.removeItem("userToken")
-                }}><NavLink className={`${s.link} ${s.logoutLink}`} to="/">Log out</NavLink></button>
+                }}><NavLink className={`${s.link} ${s.logoutLink}`} to="/">Выйти</NavLink></button>
 
             </div>
         </nav>

@@ -4,8 +4,6 @@ import FileUploadContainer from "./addImg";
 
 
 const ProfileInfo = (props) => {
-
-
     return (
         <div className={s.profileInfoWrap}>
             <div className={s.profileInfo}>
@@ -15,8 +13,8 @@ const ProfileInfo = (props) => {
                 </div>
                 <div className={s.userData}>
                     <p className={s.name}>{props.profileData[0].name}</p>
-                    <p>Age: {props.profileData[0].age}</p>
-                    <p>Address: {props.profileData[0].address}</p>
+                    <p>Возраст: {props.profileData[0].age}</p>
+                    <p>Адрес: {props.profileData[0].address}</p>
                 </div>
             </div>
             <button onClick={() => props.onSetChangeAvaIsActive(true)} className={s.changeAvaButton}>Обновить фото</button>

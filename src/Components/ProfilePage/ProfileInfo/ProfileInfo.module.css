@@ -80,23 +80,19 @@
 
 .submitInput {
     flex: 1;
-    max-width: 75px;
+    max-width: 85px;
     max-height: 25px;
-    margin-left: 40%;
-    margin-right: 40%;
+    margin-left: 37%;
+    margin-right: 37%;
     bottom: 0;
 }
 
-/*exit {*/
-/*    flex: 1;*/
-/*}*/
-
-/*.exit p {*/
-/*    color: #D3D3D3;*/
-/*    font-size: 20px;*/
-/*    cursor: pointer;*/
-/*    background-color: red;*/
-/*}*/
+.changeAvaStatus {
+    flex: 1;
+    margin: 0 auto;
+    color: #D3D3C9;
+    padding-bottom: 5px;
+}
 
 .loadedImg {
     margin: 0 auto;

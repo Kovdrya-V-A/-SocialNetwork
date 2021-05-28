@@ -15,7 +15,7 @@ const MyPosts = (props) => {
                       className={s.inputPostText} placeholder="Есть что нового ?"
                       name="addPost" id="" cols="10" rows="5"/>
             <button onClick={() => props.onAddNewPost(props.postText)}
-                    className={s.addPostButton}>Add new post
+                    className={s.addPostButton}>Опубликовать
             </button>
             <h2>Ваши посты:</h2>
             {props.postsData.length > 0 ? postsItems : "У вас пока нет постов"}

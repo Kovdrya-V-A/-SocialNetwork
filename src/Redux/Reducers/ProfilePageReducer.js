@@ -4,6 +4,8 @@ const SET_POSTS = "SET_POSTS";
 const SET_PROFILE_INFO = "SET_PROFILE_INFO";
 const DELETE_POST = "DELETE_POST";
 const SET_CHANGE_AVA_IS_ACTIVE = "SET_CHANGE_AVA_IS_ACTIVE";
+const SET_CHANGE_AVA_STATUS = "SET_CHANGE_AVA_STATUS";
+const SET_NEW_AVA = "SET_NEW_AVA";
 
 
 let initialProfilePage = {
@@ -11,6 +13,7 @@ let initialProfilePage = {
     profileData: [{}],
     newPostText: "",
     changeAvaIsActive:false,
+    changeAvaStatus: null,
 };
 
 
@@ -31,10 +34,25 @@ const profilePageReducer = (profilePage = initialProfilePage, action) => {
 
         }
 
+        case SET_NEW_AVA: {
+            return {
+                ...profilePage,
+                profileData: [...profilePage.profileData,
+                [0].img = action.img],
+            }
+        }
+
         case SET_CHANGE_AVA_IS_ACTIVE : {
             return {
                 ...profilePage,
                 changeAvaIsActive: action.changeAvaIsActive
+            }
+        }
+
+        case SET_CHANGE_AVA_STATUS: {
+            return {
+                ...profilePage,
+                changeAvaStatus: action.status
             }
         }
 
@@ -119,6 +137,18 @@ export const setChangeAvaIsActiveActionCreator = (changeAvaIsActive) => {
     return {
         type: SET_CHANGE_AVA_IS_ACTIVE,
         changeAvaIsActive
+    }
+}
+export const setChangeAvaStatusActionCreator = (status) => {
+    return {
+        type: SET_CHANGE_AVA_STATUS,
+        status
+    }
+}
+export const setNewAvaActionCreator = (img) => {
+    return {
+        type: SET_NEW_AVA,
+        img
     }
 }
 

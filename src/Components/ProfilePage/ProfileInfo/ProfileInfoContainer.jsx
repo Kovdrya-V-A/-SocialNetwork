@@ -39,6 +39,7 @@ class ProfileInfoService extends React.Component {
         this.props.setChangeAvaIsActive(changeAvaIsActive)
     }
 
+
     render() {
         return (
             <ProfileInfo

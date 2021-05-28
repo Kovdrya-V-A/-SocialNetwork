@@ -29,16 +29,16 @@ const UsersPage = (props) => {
                              to={"/AuthUser/UserPage/" + u.id}>{u.name}</NavLink>
                     <button onClick={() => {
                         props.onMessage(u.id)
-                    }} className={`${s.toMessageButton} ${s.button}`}>Message
+                    }} className={`${s.toMessageButton} ${s.button}`}>Написать
                     </button>
                     {
                         props.isWrote && props.currentDialogId ? <Redirect to={"/AuthUser/DialogsPage/" + props.currentDialogId}/> : null
                     }
                     {u.followed ?
                         <button onClick={() => props.onUnfollow(u.id)}
-                                className={`${s.unfollowButton} ${s.button}`}>Unfollow</button> :
+                                className={`${s.unfollowButton} ${s.button}`}>Удалить</button> :
                         <button onClick={() => props.onFollow(u.id)}
-                                className={`${s.followButton} ${s.button}`}>Follow</button>}
+                                className={`${s.followButton} ${s.button}`}>Добавить</button>}
                     {u.followed ? <div className={s.followedStatus}><p>Ваш друг</p></div> : null}
                 </div>
             </div>

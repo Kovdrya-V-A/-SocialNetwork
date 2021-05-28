@@ -14,13 +14,13 @@ const SelectedProfilePage = (props) => {
                 }
                 <button onClick={() => {
                     props.onMessage(props.profileData[0].userId)
-                }} className={`${s.toMessageButton} ${s.button}`}>Message
+                }} className={`${s.toMessageButton} ${s.button}`}>Написать
                 </button>
                 {props.profileData[0].followed ?
                     <button onClick={() => props.onUnfollow(props.profileData[0].userId)}
-                            className={`${s.unfollowButton} ${s.button}`}>Unfollow</button> :
+                            className={`${s.unfollowButton} ${s.button}`}>Удалить</button> :
                     <button onClick={() => props.onFollow(props.profileData[0].userId)}
-                            className={`${s.followButton} ${s.button}`}>Follow</button>}
+                            className={`${s.followButton} ${s.button}`}>Добавить</button>}
             </div>
 
             <UserPosts postsData={props.postsData}
