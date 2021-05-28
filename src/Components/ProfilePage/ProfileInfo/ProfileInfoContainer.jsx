@@ -1,7 +1,10 @@
 import React from 'react';
 import {connect} from "react-redux";
 import ProfileInfo from "./ProfileInfo";
-import {setProfileInfoActionCreator} from "../../../Redux/Reducers/ProfilePageReducer";
+import {
+    setChangeAvaIsActiveActionCreator,
+    setProfileInfoActionCreator
+} from "../../../Redux/Reducers/ProfilePageReducer";
 import * as axios from "axios";
 
 
@@ -16,6 +19,9 @@ let mapDispatchToProps = (dispatch) => {
     return {
         setProfileInfo: (profileData) => {
             dispatch(setProfileInfoActionCreator(profileData))
+        },
+        setChangeAvaIsActive: (changeAvaIsActive) => {
+            dispatch(setChangeAvaIsActiveActionCreator(changeAvaIsActive))
         }
     }
 }
@@ -25,13 +31,20 @@ class ProfileInfoService extends React.Component {
     componentDidMount() {
         axios.get(`http://${this.props.serverLink}/authProfileInfo?token=${localStorage.getItem("userToken")}`)
             .then(response => {
-                    this.props.setProfileInfo(response.data)
+                this.props.setProfileInfo(response.data)
             })
+    }
+
+    onSetChangeAvaIsActive = (changeAvaIsActive) => {
+        this.props.setChangeAvaIsActive(changeAvaIsActive)
     }
 
     render() {
         return (
-            <ProfileInfo profileData = {this.props.profilePage.profileData}/>
+            <ProfileInfo
+                changeAvaIsActive={this.props.profilePage.changeAvaIsActive}
+                profileData={this.props.profilePage.profileData}
+                onSetChangeAvaIsActive={this.onSetChangeAvaIsActive}/>
         )
     }
 }

@@ -100,7 +100,8 @@ h2 {
 }
 
 .ava img {
-    width: 130px;
+    max-width: 150px;
+    max-height: 150px;
 }
 
 .userData {

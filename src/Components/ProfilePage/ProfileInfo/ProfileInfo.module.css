@@ -14,7 +14,8 @@
 }
 
 .ava img {
-    width: 130px;
+    max-width: 150px;
+    max-height: 150px;
 }
 
 .userData {
@@ -23,18 +24,83 @@
     padding-top: 10px;
     color: #CAD2CA;
 }
+
 .name {
     color: #ffffff;
     padding-bottom: 5px;
 }
 
-.changeAva {
-    background-color: darkcyan;
+.changeAvaButton {
+    background-color: #D3D3D3;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
-.addImg {
+.modal {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
 }
+
+.modalName {
+    text-align: center;
+    flex: 1;
+}
+
+.choiceFile {}
+
+.modalName p {
+    color: white;
+}
+
+.modalContent {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #333336;
+    min-height: 200px;
+    min-width: 200px;
+}
+
+.addImgInput {
+    background-color: #444446;
+    flex: 5;
+    margin: 0 auto;
+    color: #D3D3C9;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.submitInput {
+    flex: 1;
+    max-width: 75px;
+    max-height: 25px;
+    margin-left: 40%;
+    margin-right: 40%;
+    bottom: 0;
+}
+
+/*exit {*/
+/*    flex: 1;*/
+/*}*/
+
+/*.exit p {*/
+/*    color: #D3D3D3;*/
+/*    font-size: 20px;*/
+/*    cursor: pointer;*/
+/*    background-color: red;*/
+/*}*/
 
 .loadedImg {
-    width: 80px;
+    margin: 0 auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    max-width: 200px;
 }

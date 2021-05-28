@@ -19,9 +19,8 @@ const ProfileInfo = (props) => {
                     <p>Address: {props.profileData[0].address}</p>
                 </div>
             </div>
-            <div className={s.changeAva}>
-                <FileUploadContainer/>
-            </div>
+            <button onClick={() => props.onSetChangeAvaIsActive(true)} className={s.changeAvaButton}>Обновить фото</button>
+                {props.changeAvaIsActive ? <FileUploadContainer/> : null}
         </div>
     )
 

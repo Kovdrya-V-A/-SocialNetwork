@@ -2,22 +2,39 @@ import React from "react";
 import * as axios from "axios";
 import {connect} from "react-redux";
 import s from "./ProfileInfo.module.css"
+import {
+    setChangeAvaIsActiveActionCreator,
+    setProfileInfoActionCreator
+} from "../../../Redux/Reducers/ProfilePageReducer";
+
 let mapStateToProps = (state) => {
     return {
+        changeAvaIsActive: state.profilePage.changeAvaIsActive,
         registrationPage: state.registrationPage,
         serverLink: state.authorizationPage.serverLink
     }
 }
 
 let mapDispatchToProps = (dispatch) => {
-    return {}
+    return {
+        setChangeAvaIsActive: (changeAvaIsActive) => {
+            dispatch(setChangeAvaIsActiveActionCreator(changeAvaIsActive))
+        },
+        setProfileInfo: (profileData) => {
+            dispatch(setProfileInfoActionCreator(profileData))
+        },
+    }
 }
 
 
 class FileUploadService extends React.Component {
 
     // API Endpoints
-    custom_file_upload_url = `http://${this.props.serverLink}/img`;
+    custom_file_upload_url = `http://${this.props.serverLink}/uploadImg`;
+
+    onSetChangeAvaIsActive = (changeAvaIsActive) => {
+        this.props.setChangeAvaIsActive(changeAvaIsActive)
+    }
 
 
     constructor(props) {
@@ -44,11 +61,11 @@ class FileUploadService extends React.Component {
 
         if (this.state.image_file !== null) {
             let formData = new FormData();
-            formData.append('file', this.state.image_file);
+            formData.append('file', this.state.image_file,);
+            formData.append('token', localStorage.getItem("userToken"))
             // the image field name should be similar to your api endpoint field name
             // in my case here the field name is customFile
 
-            console.log( this.state.image_file)
 
             axios.post(
                 this.custom_file_upload_url,
@@ -61,10 +78,12 @@ class FileUploadService extends React.Component {
                 }
             )
                 .then(response => {
-                    console.log(`Success` + response.data);
-                })
-                .catch(err => {
-                    console.log(err);
+                    axios.get(`http://${this.props.serverLink}/authProfileInfo?token=${localStorage.getItem("userToken")}`)
+                        .then(response => {
+                            if (!response.data.error){
+                                this.props.setProfileInfo(response.data)
+                            }
+                        })
                 })
         }
     }
@@ -73,18 +92,19 @@ class FileUploadService extends React.Component {
     // render from here
     render() {
         return (
-            <div className={s.addImg}>
-                {/* image preview */}
-                <img className={s.loadedImg} src={this.state.image_preview} alt="image preview"/>
-
-                {/* image input field */}
-                <input
-                    type="file"
-                    onChange={this.handleImagePreview}
-                />
-                <label>Upload file</label>
-                <input type="submit" onClick={this.handleSubmitFile} value="Submit"/>
+            <div className={s.modal} onClick={() => this.onSetChangeAvaIsActive(false)}>
+                <div className={s.modalContent} onClick={e => e.stopPropagation()}>
+                    <div className={s.modalName}><p>Загрузка нового фото</p></div>
+                    <input
+                        className={s.addImgInput}
+                        type="file"
+                        onChange={this.handleImagePreview}/>
+                    <img className={s.loadedImg} src={this.state.image_preview}/>
+                    <input className={s.submitInput} type="submit" onClick={this.handleSubmitFile} value="Submit"/>
+                </div>
+                {/*<div className={s.exit}><p onClick={() => this.onSetChangeAvaIsActive(false)}>×</p></div>*/}
             </div>
+
         );
     }
 }
