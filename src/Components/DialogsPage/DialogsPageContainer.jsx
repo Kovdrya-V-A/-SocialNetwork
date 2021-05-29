@@ -65,8 +65,6 @@ class DialogsPageService extends React.Component {
             })
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-    }
 
     componentWillUnmount() {
         this.props.setCurrentDialog("")
@@ -139,7 +137,6 @@ class DialogsPageService extends React.Component {
 
 
     render() {
-
         return (
             <DialogsPage dialogsData={this.props.dialogsPage.dialogsData}
                          messagesData={this.props.dialogsPage.messagesData}
@@ -149,7 +146,7 @@ class DialogsPageService extends React.Component {
                          currentDialogId={this.props.dialogsPage.currentDialogId}
                          onSetCurrentDialog={this.onSetCurrentDialog}
                          onDeleteDialog={this.onDeleteDialog}
-                         onDeleteMassage = {this.onDeleteMassage}
+                         onDeleteMassage={this.onDeleteMassage}
             />
         )
     }

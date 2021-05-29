@@ -10,6 +10,14 @@
     border-radius: 5px;
 }
 
+.dialog:hover{
+    background-color: #444446;
+}
+
+.dialog:hover .deleteDialog {
+    display: block;
+}
+
 .dialogLink {
     padding-top: 10px;
     text-align: left;
@@ -50,6 +58,7 @@
 }
 
 .deleteDialog {
+    display: none;
     flex: 1;
 }
 

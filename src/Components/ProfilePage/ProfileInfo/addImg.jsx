@@ -36,7 +36,7 @@ class FileUploadService extends React.Component {
 
     onSetChangeAvaIsActive = (changeAvaIsActive) => {
         this.props.setChangeAvaIsActive(changeAvaIsActive)
-        if (!changeAvaIsActive) {
+        if (!changeAvaIsActive && this.props.changeAvaStatus) {
             window.location.reload()
         }
     }

@@ -1,7 +1,14 @@
 
 .message {
-    padding: 7px;
+    padding: 8px;
     display: flex;
+}
+
+.message:hover{
+    background-color: #444446;
+}
+.message:hover .deleteMessage {
+    display: block;
 }
 
 .senderLink {
@@ -40,6 +47,7 @@
 }
 
 .deleteMessage {
+    display: none;
 }
 
 .deleteMessage p {

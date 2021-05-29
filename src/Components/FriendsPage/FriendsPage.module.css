@@ -12,6 +12,10 @@
     border-radius: 10px;
 }
 
+.friend:hover{
+    background-color: #444446;
+}
+
 .friendAva img {
     margin-right: 5px;
     margin-left: 5px;

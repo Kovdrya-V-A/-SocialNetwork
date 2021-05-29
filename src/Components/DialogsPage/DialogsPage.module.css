@@ -10,6 +10,12 @@
     margin-left: 5px;
 }
 
+.nullMessagesMesssage {
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 100px;
+}
+
 .messageBar {
     display: flex;
     flex-direction: column;

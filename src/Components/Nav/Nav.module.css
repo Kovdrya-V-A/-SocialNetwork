@@ -13,14 +13,16 @@
 }
 
 .navItem {
-
     margin-bottom: 5px;
-
 }
 
 .link {
     color: #D3D3C9;
     text-decoration: none;
+}
+
+.nav div:hover{
+    background-color: #444446;
 }
 
 .logoutLink {

@@ -14,6 +14,7 @@ let initialDialogsPage = {
 };
 
 const dialogsPageReducer = (dialogsPage = initialDialogsPage, action) => {
+
     switch (action.type) {
         case SEND_MESSAGE: {
             let newMessage = {

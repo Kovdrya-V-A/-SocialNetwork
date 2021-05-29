@@ -40,8 +40,8 @@ const UserProfileInfo = (props) => {
             </div>
             <div className={s.userData}>
                 <p className={s.userName}>{props.profileData[0].name}</p>
-                <p>Age: {props.profileData[0].age}</p>
-                <p>Address: {props.profileData[0].address}</p>
+                <p>Возраст: {props.profileData[0].age}</p>
+                <p>Адрес: {props.profileData[0].address}</p>
                 {props.profileData[0].followed ? <div className={s.followedStatus}><p>Ваш друг</p></div> : null}
             </div>
         </div>

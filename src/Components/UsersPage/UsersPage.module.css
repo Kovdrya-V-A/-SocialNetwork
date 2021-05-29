@@ -12,6 +12,10 @@
     border-radius: 10px;
 }
 
+.user:hover{
+    background-color: #444446;
+}
+
 .userAva img {
     margin-right: 5px;
     margin-left: 5px;
