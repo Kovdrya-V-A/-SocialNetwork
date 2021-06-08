@@ -10,12 +10,14 @@ let initialDialogsPage = {
     dialogsData: [],
     newMessageText: "",
     messagesData: [],
-    currentDialogId: ""
+    currentDialogId: "",
 };
 
 const dialogsPageReducer = (dialogsPage = initialDialogsPage, action) => {
 
     switch (action.type) {
+
+
         case SEND_MESSAGE: {
             let newMessage = {
                 id: action.id,

@@ -46,7 +46,7 @@ let mapDispatchToProps = (dispatch) => {
 
 class DialogsPageService extends React.Component {
 
-    componentDidMount() {
+    componentDidMount = () => {
         axios.get(`http://${this.props.serverLink}/dialogs?token=${localStorage.getItem("userToken")}`)
             .then(response => {
                 if (response.data) {
@@ -65,10 +65,13 @@ class DialogsPageService extends React.Component {
             })
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+    }
 
-    componentWillUnmount() {
+    componentWillUnmount = () => {
         this.props.setCurrentDialog("")
     }
+
 
     onDeleteDialog = (idDialog) => {
         axios.post(`http://${this.props.serverLink}/createDialog`, {
@@ -137,6 +140,7 @@ class DialogsPageService extends React.Component {
 
 
     render() {
+
         return (
             <DialogsPage dialogsData={this.props.dialogsPage.dialogsData}
                          messagesData={this.props.dialogsPage.messagesData}

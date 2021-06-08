@@ -12,7 +12,6 @@ import SelectedProfilePageContainer from "./Components/SelectedProfilePage/Selec
 import FriendsPageContainer from "./Components/FriendsPage/FriendsPageContainer";
 import NavContainer from "./Components/Nav/NavContainer";
 
-
 const App = () => {
     return (
             <div className={s.AppWrapper}>
