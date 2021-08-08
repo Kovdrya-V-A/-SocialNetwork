@@ -17,32 +17,6 @@ let mapStateToProps = (state) => {
     }
 }
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        sendNewMessage: (name, img, id, text, time) => {
-            dispatch(sendMessageActionCreator(name, img, id, text, time))
-        },
-        messageTextChange: (text) => {
-            dispatch(messageTextChangeActionCreator(text))
-        },
-        setMessages: (messagesData) => {
-            dispatch(setMessageActionCreator(messagesData))
-        },
-        setDialogs: (dialogsData) => {
-            dispatch(setDialogsActionCreator(dialogsData))
-        },
-        setCurrentDialog: (selectedDialogId) => {
-            dispatch(setCurrentDialogActionCreator(selectedDialogId))
-        },
-        deleteDialog: (idDialog, message) => {
-            dispatch(deleteDialogActionCreator(idDialog, message))
-        },
-        deleteMessage: (idMessage, message) => {
-            dispatch(deleteMessageActionCreator(idMessage, message))
-        }
-    }
-}
-
 
 class DialogsPageService extends React.Component {
 
@@ -156,6 +130,14 @@ class DialogsPageService extends React.Component {
     }
 }
 
-const DialogsPageContainer = connect(mapStateToProps, mapDispatchToProps)(DialogsPageService)
+const DialogsPageContainer = connect(mapStateToProps, {
+    sendNewMessage: sendMessageActionCreator,
+    messageTextChange: messageTextChangeActionCreator,
+    setMessages: setMessageActionCreator,
+    setDialogs: setDialogsActionCreator,
+    setCurrentDialog: setCurrentDialogActionCreator,
+    deleteDialog: deleteDialogActionCreator,
+    deleteMessage: deleteMessageActionCreator
+})(DialogsPageService)
 
 export default DialogsPageContainer;

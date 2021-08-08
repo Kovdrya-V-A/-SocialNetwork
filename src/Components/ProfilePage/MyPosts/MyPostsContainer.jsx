@@ -16,23 +16,6 @@ let mapStateToProps = (state) => {
     }
 }
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        addNewPost: (idPost, text, dateTime) => {
-            dispatch(addPostActionCreator(idPost, text, dateTime))
-        },
-        postTextChange: (text) => {
-            dispatch(postTextChangeActionCreator(text))
-        },
-        setPosts: (postsData) => {
-            dispatch(setPostsActionCreator(postsData))
-        },
-        deletePost: (idPost, message) => {
-            dispatch(deletePostActionCreator(idPost, message))
-        }
-    }
-}
-
 
 class MyPostsService extends React.Component {
 
@@ -84,6 +67,11 @@ class MyPostsService extends React.Component {
     }
 }
 
-const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPostsService)
+const MyPostsContainer = connect(mapStateToProps, {
+    addNewPost: addPostActionCreator,
+    postTextChange: postTextChangeActionCreator,
+    setPosts:setPostsActionCreator,
+    deletePost:deletePostActionCreator
+})(MyPostsService)
 
 export default MyPostsContainer

@@ -26,38 +26,6 @@ let mapStateToProps = (state) => {
     }
 }
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        follow: (userId, message, error) => {
-            dispatch(followActionCreator(userId, message, error))
-        },
-        unfollow: (userId, message) => {
-            dispatch(unFollowActionCreator(userId, message))
-        },
-        setUsers: (usersData) => {
-            dispatch(setUsersActionCreator(usersData))
-        },
-        setCurrentPage: (number) => {
-            dispatch(setCurrentPageActionCreator(number))
-        },
-        setUserTotalCount: (count) => {
-            dispatch(setUserTotalCountActionCreator(count))
-        },
-        setIsFetching: (isFetch) => {
-            dispatch(setIsFetchingActionCreator(isFetch))
-        },
-        setIsWrote: (isWrote) => {
-            dispatch(setIsWroteActionCreator(isWrote))
-        },
-        setSearchQueryText: (enteredText) => {
-            dispatch(setSearchQueryTextActionCreator(enteredText))
-        },
-        setCurrentDialog: (selectedDialogId) => {
-            dispatch(setCurrentDialogActionCreator(selectedDialogId))
-        },
-    }
-}
-
 
 class UsersPageService extends React.Component {
 
@@ -162,6 +130,16 @@ class UsersPageService extends React.Component {
 }
 
 
-const UsersPageContainer = connect(mapStateToProps, mapDispatchToProps)(UsersPageService)
+const UsersPageContainer = connect(mapStateToProps, {
+    follow:followActionCreator,
+    unfollow:unFollowActionCreator,
+    setUsers:setUsersActionCreator,
+    setCurrentPage:setCurrentPageActionCreator,
+    setUserTotalCount: setUserTotalCountActionCreator,
+    setIsFetching: setIsFetchingActionCreator,
+    setIsWrote:setIsWroteActionCreator,
+    setSearchQueryText: setSearchQueryTextActionCreator,
+    setCurrentDialog: setCurrentDialogActionCreator
+})(UsersPageService)
 
 export default UsersPageContainer;

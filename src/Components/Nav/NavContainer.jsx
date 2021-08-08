@@ -8,14 +8,6 @@ import {setCurrentDialogActionCreator} from "../../Redux/Reducers/DialogsPageRed
 let mapStateToProps = (state) => {
 }
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        setCurrentDialog: (selectedDialogId) => {
-            dispatch(setCurrentDialogActionCreator(selectedDialogId))
-        }
-    }
-}
-
 
 class NavService extends React.Component {
 
@@ -32,6 +24,8 @@ class NavService extends React.Component {
     }
 }
 
-const NavContainer = connect(mapStateToProps, mapDispatchToProps)(NavService)
+const NavContainer = connect(mapStateToProps, {
+    setCurrentDialog: setCurrentDialogActionCreator
+})(NavService)
 
 export default NavContainer;

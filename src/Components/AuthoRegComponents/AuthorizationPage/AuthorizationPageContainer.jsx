@@ -15,27 +15,6 @@ let mapStateToProps = (state) => {
     }
 }
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        setToken: (token) => {
-            dispatch(setUserTokenActionCreator(token))
-        },
-        inputLogin: (introducedLogin) => {
-            dispatch(inputLoginActionCreator(introducedLogin))
-        },
-        inputPassword: (introducedPassword) => {
-            dispatch(inputPasswordActionCreator(introducedPassword))
-        },
-        userVerification: (isFits) => {
-            dispatch(userVerificationActionCreator(isFits))
-        },
-
-        resetVerification: () => {
-            dispatch(resetVerificationActionCreator())
-        }
-
-    }
-}
 
 
 class AuthorizationPageService extends React.Component {
@@ -78,6 +57,13 @@ class AuthorizationPageService extends React.Component {
     }
 }
 
-const AuthorizationPageContainer = connect(mapStateToProps, mapDispatchToProps)(AuthorizationPageService)
+const AuthorizationPageContainer = connect(mapStateToProps, {
+    setToken: setUserTokenActionCreator,
+    inputLogin: inputLoginActionCreator,
+    inputPassword:inputPasswordActionCreator,
+    userVerification: userVerificationActionCreator,
+    resetVerification:resetVerificationActionCreator
+
+})(AuthorizationPageService)
 
 export default AuthorizationPageContainer

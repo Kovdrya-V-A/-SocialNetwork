@@ -8,11 +8,6 @@ let mapStateToProps = (state) => {
         profilePage: state.profilePage,
     }
 }
-let mapDispatchToProps = (dispatch) => {
-    return {}
-
-
-}
 
 
 class profilePageService extends React.Component {
@@ -30,6 +25,6 @@ class profilePageService extends React.Component {
 
 }
 
-const ProfilePageContainer = connect(mapStateToProps, mapDispatchToProps)(profilePageService)
+const ProfilePageContainer = connect(mapStateToProps, {})(profilePageService)
 
 export default ProfilePageContainer;

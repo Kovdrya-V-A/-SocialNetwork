@@ -15,17 +15,6 @@ let mapStateToProps = (state) => {
     }
 }
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        setProfileInfo: (profileData) => {
-            dispatch(setProfileInfoActionCreator(profileData))
-        },
-        setChangeAvaIsActive: (changeAvaIsActive) => {
-            dispatch(setChangeAvaIsActiveActionCreator(changeAvaIsActive))
-        }
-    }
-}
-
 class ProfileInfoService extends React.Component {
 
     componentDidMount() {
@@ -51,6 +40,9 @@ class ProfileInfoService extends React.Component {
     }
 }
 
-const ProfileInfoContainer = connect(mapStateToProps, mapDispatchToProps)(ProfileInfoService)
+const ProfileInfoContainer = connect(mapStateToProps, {
+    setProfileInfo:setProfileInfoActionCreator,
+    setChangeAvaIsActive: setChangeAvaIsActiveActionCreator
+})(ProfileInfoService)
 
 export default ProfileInfoContainer;

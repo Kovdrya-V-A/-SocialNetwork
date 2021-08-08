@@ -16,22 +16,6 @@ let mapStateToProps = (state) => {
     }
 }
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        setNews: (newsData) => {
-            dispatch(setNewsActionCreator(newsData))
-        },
-
-        setCurrentPage: (number) => {
-            dispatch(setCurrentPageActionCreator(number))
-        },
-
-        setNewsTotalCount: (count) => {
-            dispatch(setNewsTotalCountActionCreator(count))
-        }
-    }
-}
-
 
 class NewsPageService extends React.Component {
 
@@ -44,7 +28,6 @@ class NewsPageService extends React.Component {
                 }
             })
     }
-
 
 
     onSetCurrentPage = (number) => {
@@ -68,6 +51,10 @@ class NewsPageService extends React.Component {
 }
 
 
-const NewsPageContainer = connect(mapStateToProps, mapDispatchToProps)(NewsPageService)
+const NewsPageContainer = connect(mapStateToProps, {
+    setNews: setNewsActionCreator,
+    setCurrentPage: setCurrentPageActionCreator,
+    setNewsTotalCount: setNewsTotalCountActionCreator
+})(NewsPageService)
 
 export default NewsPageContainer

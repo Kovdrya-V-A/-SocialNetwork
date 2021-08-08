@@ -23,34 +23,6 @@ let mapStateToProps = (state) => {
     }
 }
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        unfollow: (userId, message) => {
-            dispatch(unFollowActionCreator(userId, message))
-        },
-        follow: (userId, message) => {
-            dispatch(followActionCreator(userId, message))
-        },
-        setIsWrote: (isWrote) => {
-            dispatch(setIsWroteActionCreator(isWrote))
-        },
-        setFriends: (friendsData) => {
-            dispatch(setFriendsActionCreator(friendsData))
-        },
-        setCurrentPage: (number) => {
-            dispatch(setCurrentPageActionCreator(number))
-        },
-        setFriendsTotalCount: (count) => {
-            dispatch(setFriendsTotalCountActionCreator(count))
-        },
-        setIsFetching: (isFetch) => {
-            dispatch(setIsFetchingActionCreator(isFetch))
-        },
-        setCurrentDialog: (selectedDialogId) => {
-            dispatch(setCurrentDialogActionCreator(selectedDialogId))
-        },
-    }
-}
 
 
 class FriendsPageService extends React.Component {
@@ -142,6 +114,15 @@ class FriendsPageService extends React.Component {
 }
 
 
-const FriendsPageContainer = connect(mapStateToProps, mapDispatchToProps)(FriendsPageService)
+const FriendsPageContainer = connect(mapStateToProps, {
+    unfollow: unFollowActionCreator,
+    follow: followActionCreator,
+    setIsWrote: setIsWroteActionCreator,
+    setFriends:setFriendsActionCreator,
+    setCurrentPage:setCurrentPageActionCreator,
+    setFriendsTotalCount:setFriendsTotalCountActionCreator,
+    setIsFetching: setIsFetchingActionCreator,
+    setCurrentDialog:setCurrentDialogActionCreator
+})(FriendsPageService)
 
 export default FriendsPageContainer;

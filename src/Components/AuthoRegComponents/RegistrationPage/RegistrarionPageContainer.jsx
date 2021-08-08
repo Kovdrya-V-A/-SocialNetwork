@@ -17,34 +17,6 @@ let mapStateToProps = (state) => {
     }
 }
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        inputLogin: (introducedLogin) => {
-            dispatch(inputLoginActionCreator(introducedLogin))
-        },
-        inputPassword: (introducedPassword) => {
-            dispatch(inputPasswordActionCreator(introducedPassword))
-        },
-        inputFirstName: (introducedFirstName) => {
-            dispatch(inputFirstNameActionCreator(introducedFirstName))
-        },
-        inputLastName: (introducedLastName) => {
-            dispatch(inputLastNameActionCreator(introducedLastName))
-        },
-        inputAddress: (address) => {
-            dispatch(inputAddressActionCreator(address))
-        },
-        inputAge: (age) => {
-            dispatch(inputAgeActionCreator(age))
-        },
-        inputEmail: (email) => {
-            dispatch(inputEmailActionCreator(email))
-        }
-    }
-}
-
-
-
 
 class RegistrationGageService extends React.Component {
 
@@ -125,6 +97,14 @@ class RegistrationGageService extends React.Component {
     }
 }
 
-const RegistrationPageContainer = connect(mapStateToProps, mapDispatchToProps)(RegistrationGageService)
+const RegistrationPageContainer = connect(mapStateToProps, {
+    inputLogin: inputLoginActionCreator,
+    inputPassword: inputPasswordActionCreator,
+    inputFirstName: inputFirstNameActionCreator,
+    inputLastName: inputLastNameActionCreator,
+    inputAddress: inputAddressActionCreator,
+    inputAge: inputAgeActionCreator,
+    inputEmail: inputEmailActionCreator
+})(RegistrationGageService)
 
 export default RegistrationPageContainer

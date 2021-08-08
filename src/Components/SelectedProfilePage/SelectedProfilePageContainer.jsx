@@ -18,32 +18,6 @@ let mapStateToProps = (state) => {
         currentDialogId: state.dialogsPage.currentDialogId
     }
 }
-let mapDispatchToProps = (dispatch) => {
-    return {
-        setUserPosts: (postsData) => {
-            dispatch(setUserPostsActionCreator(postsData))
-        },
-
-        setUserProfileInfo: (profileData) => {
-            dispatch(setUserProfileInfoActionCreator(profileData))
-        },
-        unfollow: (userId, message) => {
-            dispatch(unFollowActionCreator(userId, message))
-        },
-        follow: (userId, message) => {
-            dispatch(followActionCreator(userId, message))
-        },
-        setIsWrote: (isWrote) => {
-            dispatch(setIsWroteActionCreator(isWrote))
-        },
-        setCurrentDialog: (selectedDialogId) => {
-            dispatch(setCurrentDialogActionCreator(selectedDialogId))
-        },
-
-    }
-
-
-}
 
 class SelectedProfilePageService extends React.Component {
 
@@ -114,6 +88,15 @@ class SelectedProfilePageService extends React.Component {
 
 }
 
-const SelectedProfilePageContainer = connect(mapStateToProps, mapDispatchToProps)(SelectedProfilePageService)
+const SelectedProfilePageContainer = connect(mapStateToProps, {
+    setUserPosts: setUserPostsActionCreator,
+
+    setUserProfileInfo:setUserProfileInfoActionCreator,
+    unfollow: unFollowActionCreator,
+    follow: followActionCreator,
+    setIsWrote: setIsWroteActionCreator,
+    setCurrentDialog: setCurrentDialogActionCreator,
+
+})(SelectedProfilePageService)
 
 export default SelectedProfilePageContainer;
