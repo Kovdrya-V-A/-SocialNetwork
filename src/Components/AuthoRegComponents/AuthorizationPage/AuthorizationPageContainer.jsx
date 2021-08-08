@@ -4,7 +4,7 @@ import AuthorizationPage from "./AuthorizationPage";
 import {
     inputLoginActionCreator,
     inputPasswordActionCreator, resetVerificationActionCreator, setUserTokenActionCreator, userVerificationActionCreator
-} from "../../Redux/AuthoRegReducers/AuthorizationPageReducer";
+} from "../../../Redux/AuthoRegReducers/AuthorizationPageReducer";
 import * as axios from "axios";
 
 

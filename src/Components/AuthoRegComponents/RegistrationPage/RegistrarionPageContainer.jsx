@@ -5,7 +5,7 @@ import {
     inputFirstNameActionCreator, inputLastNameActionCreator,
     inputLoginActionCreator,
     inputPasswordActionCreator
-} from "../../Redux/AuthoRegReducers/RegistrationPageReducer";
+} from "../../../Redux/AuthoRegReducers/RegistrationPageReducer";
 import RegistrationPage from "./RegistrationPage";
 import * as axios from "axios";
 

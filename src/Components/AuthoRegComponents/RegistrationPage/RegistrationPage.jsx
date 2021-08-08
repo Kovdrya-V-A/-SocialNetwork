@@ -1,9 +1,9 @@
 import s from "../AuthoReg.module.css";
 import React from "react";
 import {NavLink} from "react-router-dom";
-import Header from "../../Components/Header/Header";
-import Footer from "../../Components/Footer/Footer";
-import FileUploadService from "../../Components/ProfilePage/ProfileInfo/addImg"
+import Header from "../../Header/Header";
+import Footer from "../../Footer/Footer";
+import FileUploadService from "../../ProfilePage/ProfileInfo/addImg"
 
 const RegistrationPage = (props) => {
     let enterLogin = React.createRef();

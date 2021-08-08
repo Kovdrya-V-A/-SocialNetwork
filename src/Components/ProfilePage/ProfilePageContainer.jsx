@@ -18,6 +18,7 @@ let mapDispatchToProps = (dispatch) => {
 class profilePageService extends React.Component {
 
     componentDidMount() {
+
     }
 
 

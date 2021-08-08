@@ -1,8 +1,8 @@
 import s from '../AuthoReg.module.css';
 import React from 'react';
 import {NavLink, Redirect} from "react-router-dom";
-import Header from "../../Components/Header/Header";
-import Footer from "../../Components/Footer/Footer";
+import Header from "../../Header/Header";
+import Footer from "../../Footer/Footer";
 
 const AuthorizationPage = (props) => {
     let enterLogin = React.createRef();
