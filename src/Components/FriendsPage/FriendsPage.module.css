@@ -3,69 +3,6 @@
     width: 100%;
 }
 
-.friend {
-    min-width: 200px;
-    max-width: 40%;
-    display: flex;
-    background-color: #333336;
-    margin: 10px auto;
-    border-radius: 10px;
-}
-
-.friend:hover{
-    background-color: #444446;
-}
-
-.friendAva img {
-    margin-right: 5px;
-    margin-left: 5px;
-    margin-top: 5px;
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-}
-
-.friendLink {
-    text-decoration: none;
-    color: white;
-    margin-bottom: 5px;
-}
-
-.button {
-    height: 25px;
-    font-size: 15px;
-    cursor: pointer;
-}
-
-.toMessageButton {
-    min-width: 50px;
-    max-width: 70px;
-    margin-bottom: 3px;
-    background-color: #D3D3D3;
-    border-radius: 4px;
-}
-
-.unfollowButton {
-    min-width: 50px;
-    max-width: 70px;
-    margin-bottom: 3px;
-    background-color: #D3D3D3;
-    border-radius: 4px
-}
-
-.followButton {
-    min-width: 50px;
-    max-width: 70px;
-    margin-bottom: 3px;
-    background-color: #D3D3D3;
-    border-radius: 4px;
-}
-
-.friendInfo {
-    display: flex;
-    flex-direction: column;
-}
-
 .pageNumber {
     padding: 3px;
     cursor: pointer;
@@ -77,6 +14,12 @@
     border-bottom: 1px solid gold;
 }
 
+
+
+.searchFriends {
+    text-decoration: none;
+    color: black;
+}
 .selectingPageMenu {
     color: #D3D3C9;
     text-align: center;
@@ -87,15 +30,6 @@
     text-align: right;
     padding-bottom: 20px;
     margin-right: 1%;
-}
-
-.searchFriends {
-    text-decoration: none;
-    color: black;
-}
-
-.followedStatus {
-    color: #D3D3D3;
 }
 
 .usersListArea {

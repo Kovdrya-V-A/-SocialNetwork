@@ -1,7 +1,7 @@
 import s from "./FriendsPage.module.css"
 import React from "react";
-import {NavLink, Redirect} from "react-router-dom";
-import standUserAva from "../../Assets/standUserAva.png"
+import {NavLink} from "react-router-dom";
+import FriendList from "./FriendList/FriendList";
 
 const FriendsPage = (props) => {
     let pagesCount = Math.ceil(props.totalFriendsCount / props.pageSize)
@@ -14,39 +14,20 @@ const FriendsPage = (props) => {
         onClick={() => {
             props.onSetCurrentPage(n)
         }}>{n}</span>)
-    let friendsItems = props.friendsData.map((f) => {
-        return (<div key={f.id}>
-            <div className={s.friend}>
-                <div className={s.friendAva}>
-                    <img
-                        src={f.img != null ? f.img : standUserAva}
-                        alt="userAva"/>
-                </div>
-                <div className={s.friendInfo}>
-                    <NavLink className={s.friendLink}
-                             to={"/AuthUser/UserPage/" + f.id}>{`${f.name}`}</NavLink>
-                    <button onClick={() => {
-                        props.onMessage(f.id)
-                    }} className={`${s.toMessageButton} ${s.button}`}>Написать
-                    </button>
-                    {
-                        props.isWrote && props.currentDialogId ? <Redirect to={"/AuthUser/DialogsPage/" + props.currentDialogId}/> : null
-                    }
-                    {f.followed ?
-                        <button onClick={() => props.onUnfollow(f.id)}
-                                className={`${s.unfollowButton} ${s.button}`}>Удалить</button> :
-                        <button onClick={() => props.onFollow(f.id)}
-                                className={`${s.followButton} ${s.button}`}>Добавить</button>}
-                    {!f.followed ? <div className={s.followedStatus}><p>Удален из друзей</p></div> : null}
-                </div>
-            </div>
-        </div>)
-    })
 
     return (
         <div className={s.friendsPage}>
-            <div className={s.searchFriendsButtonWrap}><button className={s.searchFriendsButton}><NavLink className={s.searchFriends} to="/AuthUser/UsersPage">Search new friends</NavLink></button></div>
-            <div className={s.usersListArea}><h2>Ваши друзья:</h2>{props.friendsData.length > 0 ? friendsItems : "У вас пока нет друзей"}</div>
+            <div className={s.searchFriendsButtonWrap}>
+                <button className={s.searchFriendsButton}><NavLink className={s.searchFriends} to="/AuthUser/UsersPage">Search
+                    new friends</NavLink></button>
+            </div>
+            <div className={s.usersListArea}><h2>Ваши друзья:</h2><FriendList friendsData={props.friendsData}
+                                                                              onMessage={props.onMessage}
+                                                                              isWrote={props.isWrote}
+                                                                              currentDialogId={props.currentDialogId}
+                                                                              onUnfollow={props.onUnfollow}
+                                                                              onFollow={props.onFollow}/>
+            </div>
             <div className={s.selectingPageMenu}>{props.friendsData.length > 0 ? pageNumbersList : null}</div>
         </div>
     )
