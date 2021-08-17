@@ -4,14 +4,15 @@ import Nav from "./Nav";
 import {setCurrentDialogActionCreator} from "../../Redux/Reducers/DialogsPageReducer";
 
 
-
 let mapStateToProps = (state) => {
+    return {}
 }
 
 
 class NavService extends React.Component {
 
-    componentDidMount() {}
+    componentDidMount() {
+    }
 
     onGoToDialogsPage = (number) => {
         this.props.setCurrentDialog(number)

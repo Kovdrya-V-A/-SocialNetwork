@@ -7,6 +7,7 @@ const DialogList = (props) => {
 
     let dialogsItems = props.dialogsData.map(d => d.isDeleted ? null :
         <Dialog
+            key = {d.idDialog}
             onSetCurrentDialog={props.onSetCurrentDialog}
             dialogAva={d.img} idDialog={d.idDialog}
             chatName={d.name}

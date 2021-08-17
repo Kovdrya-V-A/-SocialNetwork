@@ -5,8 +5,6 @@ import s from "./ProfileInfo.module.css"
 import {
     setChangeAvaIsActiveActionCreator,
     setChangeAvaStatusActionCreator,
-    setNewAvaActionCreator,
-    setProfileInfoActionCreator,
 } from "../../../Redux/Reducers/ProfilePageReducer";
 
 let mapStateToProps = (state) => {

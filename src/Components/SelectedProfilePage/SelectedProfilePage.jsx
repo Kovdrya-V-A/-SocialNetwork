@@ -52,7 +52,7 @@ const UserProfileInfo = (props) => {
 const UserPosts = (props) => {
 
     let postsItems =
-        props.postsData.map(p => <div className={s.postBox}>
+        props.postsData.map(p => <div  key={p.idPost} className={s.postBox}>
             <div className={s.avaPost}>
                 <img src={props.avaImg} alt="avapost"/>
             </div>

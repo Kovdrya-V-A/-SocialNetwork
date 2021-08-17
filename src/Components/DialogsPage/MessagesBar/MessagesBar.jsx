@@ -2,9 +2,11 @@ import s from "../DialogsPage.module.css";
 import React from "react";
 import Message from "./Message/Message";
 
+
 const MessagesBar = (props) => {
 
-    let messagesItems = props.messagesData.map(m => m.isDeleted ? null : <Message senderName={m.name}
+    let messagesItems = props.messagesData.map(m => m.isDeleted ? null : <Message key={m.id}
+                                                                                  senderName={m.name}
                                                                                   text={m.text}
                                                                                   senderAva={m.img}
                                                                                   time={m.time}

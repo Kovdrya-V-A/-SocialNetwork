@@ -6,22 +6,19 @@ import App from "./App";
 import store from "./Redux/ReduxStore";
 import {BrowserRouter, Route} from "react-router-dom";
 import {Provider} from "react-redux";
-import RegistrationPage from "./Components/AuthoRegComponents/RegistrationPage/RegistrationPage";
 import AuthorizationPageContainer from "./Components/AuthoRegComponents/AuthorizationPage/AuthorizationPageContainer";
 import RegistrationPageContainer from "./Components/AuthoRegComponents/RegistrationPage/RegistrarionPageContainer";
 
 
 ReactDOM.render(
-    <React.StrictMode>
+
         <BrowserRouter>
             <Provider store={store}>
                 <Route path="/AuthUser" render={() => <App/>}/>
                 <Route exact path="/" render={() => <AuthorizationPageContainer/>}/>
                 <Route path="/RegistrationPage" render={() => <RegistrationPageContainer/>}/>
             </Provider>
-        </BrowserRouter>
-
-    </React.StrictMode>,
+        </BrowserRouter>,
     document.getElementById('root')
 );
 

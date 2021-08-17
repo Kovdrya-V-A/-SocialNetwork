@@ -11,6 +11,7 @@ const UsersPage = (props) => {
         pageNumbers.push(i)
     }
     let pageNumbersList = pageNumbers.map((n) => <span
+        key = {n}
         className={n === props.currentPage ? `${s.selectedPage} ${s.pageNumber}` : s.pageNumber}
         onClick={() => {
             props.onSetCurrentPage(n)

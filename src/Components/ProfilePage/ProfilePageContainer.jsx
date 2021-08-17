@@ -19,7 +19,7 @@ class profilePageService extends React.Component {
 
     render() {
         return (
-            <ProfilePage/>
+            <ProfilePage key = {112}/>
         )
     }
 

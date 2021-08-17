@@ -90,7 +90,6 @@ class SelectedProfilePageService extends React.Component {
 
 const SelectedProfilePageContainer = connect(mapStateToProps, {
     setUserPosts: setUserPostsActionCreator,
-
     setUserProfileInfo:setUserProfileInfoActionCreator,
     unfollow: unFollowActionCreator,
     follow: followActionCreator,

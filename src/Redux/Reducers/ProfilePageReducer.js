@@ -49,7 +49,7 @@ const profilePageReducer = (profilePage = initialProfilePage, action) => {
         case DELETE_POST: {
             return {...profilePage,
                 postsData: profilePage.postsData.map(p => {
-                    if (p.idPost == action.idPost) {
+                    if (p.idPost === action.idPost) {
                         return {...p, isDeleted:true}
                     }
                     return  p

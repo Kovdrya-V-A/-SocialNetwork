@@ -51,7 +51,7 @@ const dialogsPageReducer = (dialogsPage = initialDialogsPage, action) => {
         case DELETE_DIALOG: {
             return {...dialogsPage,
                 dialogsData: dialogsPage.dialogsData.map(d => {
-                    if (d.idDialog == action.idDialog) {
+                    if (d.idDialog === action.idDialog) {
                         return {...d, isDeleted:true}
                     }
                     return  d
@@ -61,7 +61,7 @@ const dialogsPageReducer = (dialogsPage = initialDialogsPage, action) => {
         case DELETE_MESSAGE: {
             return {...dialogsPage,
                 messagesData: dialogsPage.messagesData.map(m => {
-                    if (m.id == action.idMessage) {
+                    if (m.id === action.idMessage) {
                         return {...m, isDeleted:true}
                     }
                     return  m

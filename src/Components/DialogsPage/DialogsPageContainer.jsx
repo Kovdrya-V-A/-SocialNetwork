@@ -6,7 +6,7 @@ import {
     setMessageActionCreator
 } from "../../Redux/Reducers/DialogsPageReducer";
 import {connect} from "react-redux";
-import DialogsPage from "./DialogsPage";
+import DialogsPage, {ws} from "./DialogsPage";
 import * as axios from "axios";
 
 
@@ -16,7 +16,6 @@ let mapStateToProps = (state) => {
         serverLink: state.authorizationPage.serverLink,
     }
 }
-
 
 class DialogsPageService extends React.Component {
 
@@ -31,7 +30,7 @@ class DialogsPageService extends React.Component {
                         .then(response => {
                             if (response.data) {
                                 this.props.setMessages(response.data.items)
-                            } else if (response.data == null) {
+                            } else if (response.data === null) {
                                 this.props.setMessages([])
                             }
                         })
@@ -55,7 +54,7 @@ class DialogsPageService extends React.Component {
         })
             .then(response => {
                 this.props.deleteDialog(idDialog, response.data.message)
-                if (this.props.dialogsPage.currentDialogId == idDialog) {
+                if (this.props.dialogsPage.currentDialogId === idDialog) {
                     this.props.setCurrentDialog("")
                 }
             })
@@ -85,22 +84,25 @@ class DialogsPageService extends React.Component {
             .then(response => {
                 if (response.data) {
                     this.props.setMessages(response.data.items)
-                } else if (response.data == null) {
+                } else if (response.data === null) {
                     this.props.setMessages([])
                 }
             })
     }
 
 
-    onSendNewMessage = (massageText) => {
-        if (massageText) {
+    onSendNewMessage = (messageText) => {
+        if (messageText) {
             let dialogId = window.location.pathname.split("/")
             let a = dialogId.length - 1
+
+            ws.send(messageText)
+
             axios.post(`http://${this.props.serverLink}/sendMessage`,
                 {
                     "token": localStorage.getItem("userToken"),
                     "idDialog": dialogId[a],
-                    "text": massageText,
+                    "text": messageText,
                 })
                 .then(response => {
                     this.props.sendNewMessage(response.data[0].name, response.data[0].img, response.data[0].id, response.data[0].text, response.data[0].time);
@@ -114,7 +116,6 @@ class DialogsPageService extends React.Component {
 
 
     render() {
-
         return (
             <DialogsPage dialogsData={this.props.dialogsPage.dialogsData}
                          messagesData={this.props.dialogsPage.messagesData}
