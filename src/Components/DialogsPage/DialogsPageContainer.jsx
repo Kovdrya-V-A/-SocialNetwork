@@ -80,6 +80,9 @@ class DialogsPageService extends React.Component {
         this.props.setCurrentDialog(selectedDialogId)
         let dialogId = window.location.pathname.split("/")
         let a = dialogId.length - 1
+
+        ws.send(JSON.stringify({idDialog: dialogId[a]}))
+
         axios.get(`http://${this.props.serverLink}/messages?token=${localStorage.getItem("userToken")}&idDialog=${dialogId[a]}`)
             .then(response => {
                 if (response.data) {
@@ -96,7 +99,9 @@ class DialogsPageService extends React.Component {
             let dialogId = window.location.pathname.split("/")
             let a = dialogId.length - 1
 
-            ws.send(messageText)
+            ws.send(JSON.stringify({text: messageText,
+                idDialog: dialogId[a]
+            }))
 
             axios.post(`http://${this.props.serverLink}/sendMessage`,
                 {
