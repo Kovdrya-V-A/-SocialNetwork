@@ -3,11 +3,12 @@ import {
     deleteDialogActionCreator, deleteMessageActionCreator,
     messageTextChangeActionCreator,
     sendMessageActionCreator, setCurrentDialogActionCreator, setDialogsActionCreator,
-    setMessageActionCreator
+    setMessageActionCreator,
 } from "../../Redux/Reducers/DialogsPageReducer";
 import {connect} from "react-redux";
-import DialogsPage, {ws} from "./DialogsPage";
+import DialogsPage from "./DialogsPage";
 import * as axios from "axios";
+import {withRouter} from "react-router-dom";
 
 
 let mapStateToProps = (state) => {
@@ -17,9 +18,10 @@ let mapStateToProps = (state) => {
     }
 }
 
-class DialogsPageService extends React.Component {
+class DialogsPageContainer extends React.Component {
 
     componentDidMount = () => {
+        debugger
         axios.get(`http://${this.props.serverLink}/dialogs?token=${localStorage.getItem("userToken")}`)
             .then(response => {
                 if (response.data) {
@@ -37,6 +39,17 @@ class DialogsPageService extends React.Component {
                 }
             })
     }
+
+
+    // shouldComponentUpdate(nextProps, nextState, nextContext) {
+    //
+    //     if (this.props.dialogsPage.messagesData === nextProps.dialogsPage.messagesData &&
+    //         this.props.dialogsPage.dialogsData === nextProps.dialogsPage.dialogsData
+    //     ) {
+    //         return false
+    //     }
+    //     return true
+    // }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
     }
@@ -61,12 +74,11 @@ class DialogsPageService extends React.Component {
     }
 
     onDeleteMassage = (idMessage) => {
-        let dialogId = window.location.pathname.split("/")
-        let a = dialogId.length - 1
+        let dialogId = this.props.match.params.dialogId
         axios.post(`http://${this.props.serverLink}/sendMessage`,
             {
                 "token": localStorage.getItem("userToken"),
-                "idDialog": dialogId[a],
+                "idDialog": dialogId,
                 "idMessage": idMessage,
                 "isDelete": true
             })
@@ -81,9 +93,11 @@ class DialogsPageService extends React.Component {
         let dialogId = window.location.pathname.split("/")
         let a = dialogId.length - 1
 
-        ws.send(JSON.stringify({
-            token: localStorage.getItem("userToken"),
-            command: "checkMessages", idDialog: dialogId[a]}))
+        // ws.send(JSON.stringify({
+        //     token: localStorage.getItem("userToken"),
+        //     command: "checkMessages", idDialog: dialogId[a]
+        // }))
+
 
         axios.get(`http://${this.props.serverLink}/messages?token=${localStorage.getItem("userToken")}&idDialog=${dialogId[a]}`)
             .then(response => {
@@ -98,19 +112,20 @@ class DialogsPageService extends React.Component {
 
     onSendNewMessage = (messageText) => {
         if (messageText) {
-            let dialogId = window.location.pathname.split("/")
-            let a = dialogId.length - 1
+            // let dialogId = window.location.pathname.split("/")
+            let dialogId = this.props.match.params.dialogId
+            // let a = dialogId.length - 1
 
-            ws.send(JSON.stringify({
-                token: localStorage.getItem("userToken"),
-                command: "sendMessage", text: messageText,
-                idDialog: dialogId[a]
-            }))
+            // ws.send(JSON.stringify({
+            //     token: localStorage.getItem("userToken"),
+            //     command: "sendMessage", text: messageText,
+            //     idDialog: dialogId[a]
+            // }))
 
             axios.post(`http://${this.props.serverLink}/sendMessage`,
                 {
                     "token": localStorage.getItem("userToken"),
-                    "idDialog": dialogId[a],
+                    "idDialog": dialogId,
                     "text": messageText,
                 })
                 .then(response => {
@@ -126,28 +141,31 @@ class DialogsPageService extends React.Component {
 
     render() {
         return (
-            <DialogsPage dialogsData={this.props.dialogsPage.dialogsData}
-                         messagesData={this.props.dialogsPage.messagesData}
-                         newMessageText={this.props.dialogsPage.newMessageText}
-                         onMessageTextChange={this.onMessageTextChange}
-                         onSendNewMessage={this.onSendNewMessage}
-                         currentDialogId={this.props.dialogsPage.currentDialogId}
-                         onSetCurrentDialog={this.onSetCurrentDialog}
-                         onDeleteDialog={this.onDeleteDialog}
-                         onDeleteMassage={this.onDeleteMassage}
+            <DialogsPage
+                dialogsData={this.props.dialogsPage.dialogsData}
+                messagesData={this.props.dialogsPage.messagesData}
+                newMessageText={this.props.dialogsPage.newMessageText}
+                onMessageTextChange={this.onMessageTextChange}
+                onSendNewMessage={this.onSendNewMessage}
+                currentDialogId={this.props.dialogsPage.currentDialogId}
+                onSetCurrentDialog={this.onSetCurrentDialog}
+                onDeleteDialog={this.onDeleteDialog}
+                onDeleteMassage={this.onDeleteMassage}
+                setMessages={this.props.setMessages}
             />
         )
     }
 }
 
-const DialogsPageContainer = connect(mapStateToProps, {
+let WithRouterDialogsPageContainer = withRouter(DialogsPageContainer)
+
+export default connect(mapStateToProps, {
     sendNewMessage: sendMessageActionCreator,
     messageTextChange: messageTextChangeActionCreator,
     setMessages: setMessageActionCreator,
     setDialogs: setDialogsActionCreator,
     setCurrentDialog: setCurrentDialogActionCreator,
     deleteDialog: deleteDialogActionCreator,
-    deleteMessage: deleteMessageActionCreator
-})(DialogsPageService)
+    deleteMessage: deleteMessageActionCreator,
 
-export default DialogsPageContainer;
+})(WithRouterDialogsPageContainer)

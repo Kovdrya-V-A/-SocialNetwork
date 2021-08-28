@@ -10,7 +10,7 @@ let initialAuthorisationPage = {
     introducedLogin: "",
     introducedPassword: "",
     dataIsCorrect: false,
-    serverLink: "188.32.105.146:8000",
+    serverLink: "188.32.105.146:8123",
     sessionIsStart:false,
 };
 

@@ -4,20 +4,28 @@ import {Redirect} from "react-router-dom";
 import MessagesBar from "./MessagesBar/MessagesBar";
 import DialogList from "./DialogList/DialogList"
 
-export let ws = new WebSocket(`ws://188.32.105.146:8000/ws`)
+// export let ws = new WebSocket(`ws://188.32.105.146:8000/ws`)
 
-const DialogsPage = (props) => {
 
-    useEffect(() => {
-        ws.addEventListener('message', (e) => {
-            console.log(JSON.parse(e.data))
-        })
-    })
+
+let DialogsPage = (props) => {
+
+    // useEffect(() => {
+    //     ws.addEventListener('message', (e) => {
+    //         let response = JSON.parse(e.data)
+    //         if (response.type === "checkMessages") {
+    //             console.log("Rabotayou")
+    //             props.setMessages(response.items)
+    //         }
+    //
+    //     })
+    // })
 
     return <>
         {!props.currentDialogId ? <Redirect to={"/AuthUser/DialogsPage" + props.currentDialogId}/> : null}
         <div className={s.dialogsPage}>
             {props.currentDialogId ? <MessagesBar
+                setMessages = {props.setMessages}
                 messagesData={props.messagesData}
                 newMessageText={props.newMessageText}
                 onMessageTextChange={props.onMessageTextChange}
@@ -26,6 +34,7 @@ const DialogsPage = (props) => {
 
             <DialogList
                 dialogsData={props.dialogsData}
+                onDeleteDialog = {props.onDeleteDialog}
                 onSetCurrentDialog={props.onSetCurrentDialog}/>
         </div>
     </>
@@ -33,4 +42,4 @@ const DialogsPage = (props) => {
 }
 
 
-export default DialogsPage;
+export default React.memo(DialogsPage);

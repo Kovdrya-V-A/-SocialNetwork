@@ -8,7 +8,9 @@ const Dialog = (props) => {
             <div className={s.dialogAva}>
                 <img src={props.dialogAva} alt="dialogAva"/>
             </div>
-            <button onClick={() => props.onSetCurrentDialog(props.idDialog)} className={s.dialogLinkButton}><NavLink
+            <button
+                onClick={() => props.onSetCurrentDialog(props.idDialog)}
+                className={s.dialogLinkButton}><NavLink
                 className={s.dialogLink} activeClassName={s.activeDialog}
                 to={`/AuthUser/DialogsPage/${props.idDialog}`}>{props.chatName}</NavLink></button>
             <div className={s.deleteDialog}><p onClick={() => props.onDeleteDialog(props.idDialog)}>×</p></div>

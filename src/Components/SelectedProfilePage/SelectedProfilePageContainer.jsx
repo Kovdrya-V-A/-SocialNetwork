@@ -8,6 +8,7 @@ import {
 } from "../../Redux/Reducers/SelectedUserProfilePageReducer";
 import * as axios from "axios";
 import {setCurrentDialogActionCreator} from "../../Redux/Reducers/DialogsPageReducer";
+import {withRouter} from "react-router-dom";
 
 
 let mapStateToProps = (state) => {
@@ -19,12 +20,11 @@ let mapStateToProps = (state) => {
     }
 }
 
-class SelectedProfilePageService extends React.Component {
+class SelectedProfilePageContainer extends React.Component {
 
     componentDidMount() {
-        let userId = window.location.pathname.split("/")
-        let a = userId.length - 1
-        axios.get(`http://${this.props.serverLink}/user?token=${localStorage.getItem("userToken")}&id=${userId[a]}`)
+        let userId = this.props.match.params.userId
+        axios.get(`http://${this.props.serverLink}/user?token=${localStorage.getItem("userToken")}&id=${userId}`)
             .then(response => {
                 this.props.setUserProfileInfo(response.data.userInfo)
                 if (response.data.posts[0]) {
@@ -88,7 +88,9 @@ class SelectedProfilePageService extends React.Component {
 
 }
 
-const SelectedProfilePageContainer = connect(mapStateToProps, {
+let WithRouterSelectedProfilePageContainer = withRouter(SelectedProfilePageContainer)
+
+export default connect(mapStateToProps, {
     setUserPosts: setUserPostsActionCreator,
     setUserProfileInfo:setUserProfileInfoActionCreator,
     unfollow: unFollowActionCreator,
@@ -96,6 +98,4 @@ const SelectedProfilePageContainer = connect(mapStateToProps, {
     setIsWrote: setIsWroteActionCreator,
     setCurrentDialog: setCurrentDialogActionCreator,
 
-})(SelectedProfilePageService)
-
-export default SelectedProfilePageContainer;
+})(WithRouterSelectedProfilePageContainer)

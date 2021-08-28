@@ -82,6 +82,7 @@ const dialogsPageReducer = (dialogsPage = initialDialogsPage, action) => {
             }
         }
 
+
         default:
             return dialogsPage;
     }
@@ -140,6 +141,7 @@ export const setCurrentDialogActionCreator = (selectedDialogId) => {
         selectedDialogId
     }
 }
+
 
 
 export default dialogsPageReducer;
