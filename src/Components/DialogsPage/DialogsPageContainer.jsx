@@ -21,7 +21,6 @@ let mapStateToProps = (state) => {
 class DialogsPageContainer extends React.Component {
 
     componentDidMount = () => {
-        debugger
         axios.get(`http://${this.props.serverLink}/dialogs?token=${localStorage.getItem("userToken")}`)
             .then(response => {
                 if (response.data) {
@@ -60,10 +59,11 @@ class DialogsPageContainer extends React.Component {
 
 
     onDeleteDialog = (idDialog) => {
-        axios.post(`http://${this.props.serverLink}/createDialog`, {
-            "token": localStorage.getItem("userToken"),
-            "idDialog": idDialog,
-            "isDelete": true
+        axios.delete(`http://${this.props.serverLink}/deleteDialog`, {
+            data: {
+                "token": localStorage.getItem("userToken"),
+                "idDialog": idDialog,
+            }
         })
             .then(response => {
                 this.props.deleteDialog(idDialog, response.data.message)

@@ -57,15 +57,15 @@ class UsersPageService extends React.Component {
     }
 
     onUnfollow = (userId) => {
-        axios.post(`http://${this.props.serverLink}/followFriend`,
+        axios.delete(`http://${this.props.serverLink}/unFollowFriend`,
             {
-                "token": localStorage.getItem("userToken"),
-                "userId": userId,
-                "follow": false
+                data: {
+                    "token": localStorage.getItem("userToken"),
+                    "userId": userId,
+                }
 
             })
             .then(response => {
-                console.log(response)
                 this.props.unfollow(userId, response.data.message)
             })
     }
@@ -75,7 +75,6 @@ class UsersPageService extends React.Component {
             {
                 "token": localStorage.getItem("userToken"),
                 "userId": userId,
-                "follow": true
 
             })
             .then(response => {
@@ -97,8 +96,7 @@ class UsersPageService extends React.Component {
     onMessage = (userId) => {
         axios.post(`http://${this.props.serverLink}/createDialog`, {
             "token": localStorage.getItem("userToken"),
-            "userId": userId,
-            "isDelete": false
+            "userId": userId
         })
             .then((response) => {
                 this.props.setIsWrote(true)
@@ -117,12 +115,12 @@ class UsersPageService extends React.Component {
                 currentPage={this.props.currentPage}
                 usersData={this.props.usersData}
                 isWrote={this.props.isWrote}
-                searchQueryText = {this.props.searchQueryText}
+                searchQueryText={this.props.searchQueryText}
                 onUnfollow={this.onUnfollow}
                 onFollow={this.onFollow}
                 onMessage={this.onMessage}
-                onSearchUsers = {this.onSearchUsers}
-                currentDialogId ={this.props.currentDialogId}
+                onSearchUsers={this.onSearchUsers}
+                currentDialogId={this.props.currentDialogId}
             />
 
         </>
@@ -131,13 +129,13 @@ class UsersPageService extends React.Component {
 
 
 const UsersPageContainer = connect(mapStateToProps, {
-    follow:followActionCreator,
-    unfollow:unFollowActionCreator,
-    setUsers:setUsersActionCreator,
-    setCurrentPage:setCurrentPageActionCreator,
+    follow: followActionCreator,
+    unfollow: unFollowActionCreator,
+    setUsers: setUsersActionCreator,
+    setCurrentPage: setCurrentPageActionCreator,
     setUserTotalCount: setUserTotalCountActionCreator,
     setIsFetching: setIsFetchingActionCreator,
-    setIsWrote:setIsWroteActionCreator,
+    setIsWrote: setIsWroteActionCreator,
     setSearchQueryText: setSearchQueryTextActionCreator,
     setCurrentDialog: setCurrentDialogActionCreator
 })(UsersPageService)
