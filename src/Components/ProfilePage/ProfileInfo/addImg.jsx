@@ -31,7 +31,7 @@ let mapDispatchToProps = (dispatch) => {
 
 class FileUploadService extends React.Component {
 
-    custom_file_upload_url = `http://${serverLink}/uploadImg`;
+    custom_file_upload_url = `${serverLink}/uploadImg`;
 
     onSetChangeAvaIsActive = (changeAvaIsActive) => {
         this.props.setChangeAvaIsActive(changeAvaIsActive)
