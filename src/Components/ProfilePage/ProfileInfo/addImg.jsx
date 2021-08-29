@@ -6,6 +6,7 @@ import {
     setChangeAvaIsActiveActionCreator,
     setChangeAvaStatusActionCreator,
 } from "../../../Redux/Reducers/ProfilePageReducer";
+import {serverLink} from "../../../DAL/ApiRequests";
 
 let mapStateToProps = (state) => {
     return {
@@ -30,7 +31,7 @@ let mapDispatchToProps = (dispatch) => {
 
 class FileUploadService extends React.Component {
 
-    custom_file_upload_url = `http://${this.props.serverLink}/uploadImg`;
+    custom_file_upload_url = `http://${serverLink}/uploadImg`;
 
     onSetChangeAvaIsActive = (changeAvaIsActive) => {
         this.props.setChangeAvaIsActive(changeAvaIsActive)
