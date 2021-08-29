@@ -9,6 +9,13 @@ import {
 import * as axios from "axios";
 import UsersPage from "./UsersPage";
 import {setCurrentDialogActionCreator} from "../../Redux/Reducers/DialogsPageReducer";
+import {
+    followRequest,
+    getUsersRequest,
+    goToDialogRequest,
+    searchUsersRequests,
+    unFollowRequest
+} from "../../DAL/ApiRequests";
 // import {setSelectedUserIdActionCreator} from "../../Redux/Reducers/SelectedUserProfilePageReducer";
 
 let mapStateToProps = (state) => {
@@ -31,11 +38,11 @@ class UsersPageService extends React.Component {
 
     componentDidMount() {
         this.props.setIsFetching(true)
-        axios.get(`http://${this.props.serverLink}/users?token=${localStorage.getItem("userToken")}&page=${this.props.currentPage}&count=${this.props.pageSize}`)
-            .then(response => {
+        getUsersRequest(this.props.currentPage, this.props.pageSize)
+            .then(data => {
                 this.props.setIsFetching(false)
-                this.props.setUsers(response.data.items)
-                this.props.setUserTotalCount(response.data.totalCount)
+                this.props.setUsers(data.items)
+                this.props.setUserTotalCount(data.totalCount)
             })
     }
 
@@ -49,58 +56,44 @@ class UsersPageService extends React.Component {
 
     onSearchUsers = (searchText) => {
         let isSearch = true;
-        axios.get(`http://${this.props.serverLink}/users?token=${localStorage.getItem("userToken")}&page=${this.props.currentPage}&count=${this.props.pageSize}&isSearch=${isSearch}&searchText=${searchText}`)
-            .then(response => {
-                this.props.setUsers(response.data.items)
-                this.props.setUserTotalCount(response.data.totalCount)
+        searchUsersRequests(this.props.currentPage, this.props.pageSize, isSearch, searchText)
+            .then(data => {
+                this.props.setUsers(data.items)
+                this.props.setUserTotalCount(data.totalCount)
             })
     }
 
     onUnfollow = (userId) => {
-        axios.delete(`http://${this.props.serverLink}/unFollowFriend`,
-            {
-                data: {
-                    "token": localStorage.getItem("userToken"),
-                    "userId": userId,
-                }
+        unFollowRequest(userId)
 
-            })
-            .then(response => {
-                this.props.unfollow(userId, response.data.message)
+            .then(data => {
+                this.props.unfollow(userId, data.data.message)
             })
     }
 
     onFollow = (userId) => {
-        axios.post(`http://${this.props.serverLink}/followFriend`,
-            {
-                "token": localStorage.getItem("userToken"),
-                "userId": userId,
-
-            })
-            .then(response => {
-                this.props.follow(userId, response.data.message, response.data.error)
+        followRequest(userId)
+            .then(data => {
+                this.props.follow(userId, data.message, data.error)
             })
     }
 
     onSetCurrentPage = (number) => {
         this.props.setCurrentPage(number)
         this.props.setIsFetching(true)
-        axios.get(`http://${this.props.serverLink}/users?token=${localStorage.getItem("userToken")}&page=${number}&count=${this.props.pageSize}`)
-            .then(response => {
+        getUsersRequest(number, this.props.pageSize)
+            .then(data => {
                 this.props.setIsFetching(false)
-                this.props.setUsers(response.data.items)
-                this.props.setUserTotalCount(response.data.totalCount)
+                this.props.setUsers(data.items)
+                this.props.setUserTotalCount(data.totalCount)
             })
     }
 
     onMessage = (userId) => {
-        axios.post(`http://${this.props.serverLink}/createDialog`, {
-            "token": localStorage.getItem("userToken"),
-            "userId": userId
-        })
-            .then((response) => {
+        goToDialogRequest(userId)
+            .then((data) => {
                 this.props.setIsWrote(true)
-                this.props.setCurrentDialog(response.data.idDialog)
+                this.props.setCurrentDialog(data.idDialog)
             })
     }
 

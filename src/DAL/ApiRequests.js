@@ -73,7 +73,6 @@ export const deleteMessageRequest = (dialogId, idMessage) => {
 }
 
 
-
 export const goToDialogRequest = (userId) => {
     return axios.post(`${serverLink}/createDialog`, {
         "token": localStorage.getItem("userToken"),
@@ -83,7 +82,6 @@ export const goToDialogRequest = (userId) => {
             return response.data
         })
 }
-
 
 
 export const sendNewMessageRequest = (dialogId, messageText) => {
@@ -135,6 +133,23 @@ export const followRequest = (userId) => {
         })
 }
 
+
+//USERS_PAGE
+
+export const getUsersRequest = (page, count) => {
+    return axios.get(`${serverLink}/users?token=${localStorage.getItem("userToken")}&page=${page}&count=${count}`)
+        .then(response => {
+            return response.data
+        })
+}
+
+export const searchUsersRequests = (page, count, isSearch, searchText) => {
+    return axios.get(`${serverLink}/users?token=${localStorage.getItem("userToken")}&page=${page}&count=${count}&isSearch=${isSearch}&searchText=${searchText}`)
+        .then(response => {
+            return response.data
+        })
+}
+
 //NEWS_PAGE
 
 export const getNewsRequest = (page, count) => {
@@ -149,20 +164,20 @@ export const getNewsRequest = (page, count) => {
 
 export const getMyProfileInfoRequest = () => {
     return axios.get(`${serverLink}/authProfileInfo?token=${localStorage.getItem("userToken")}`)
-        .then (response => {
+        .then(response => {
             return response.data
         })
 }
 
 export const getMyPostsRequest = () => {
-    return  axios.get(`${serverLink}/posts?token=${localStorage.getItem("userToken")}`)
-        .then (response => {
+    return axios.get(`${serverLink}/posts?token=${localStorage.getItem("userToken")}`)
+        .then(response => {
             return response.data
         })
 }
 
 export const addNewPostRequest = (postText) => {
-    return  axios.post(`${serverLink}/addPost`, {
+    return axios.post(`${serverLink}/addPost`, {
         "token": localStorage.getItem("userToken"),
         "postText": postText
     })
@@ -172,7 +187,7 @@ export const addNewPostRequest = (postText) => {
 }
 
 export const deletePostRequest = (idPost) => {
-    return  axios.delete(`${serverLink}/deletePost`, {
+    return axios.delete(`${serverLink}/deletePost`, {
             data: {
                 "token":
                     localStorage.getItem("userToken"),
@@ -189,7 +204,7 @@ export const deletePostRequest = (idPost) => {
 
 export const getSelectedUserProfileRequest = (id) => {
     return axios.get(`${serverLink}/user?token=${localStorage.getItem("userToken")}&id=${id}`)
-        .then (response => {
+        .then(response => {
             return response.data
         })
 }
