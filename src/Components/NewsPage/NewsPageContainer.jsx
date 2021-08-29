@@ -6,7 +6,7 @@ import {
     setNewsActionCreator,
     setNewsTotalCountActionCreator
 } from "../../Redux/Reducers/NewsPageReducer";
-import axios from "axios";
+import {getNewsRequest} from "../../DAL/ApiRequests";
 
 
 let mapStateToProps = (state) => {
@@ -20,11 +20,11 @@ let mapStateToProps = (state) => {
 class NewsPageService extends React.Component {
 
     componentDidMount() {
-        axios.get(`http://${this.props.serverLink}/news?token=${localStorage.getItem("userToken")}&page=${this.props.newsPage.currentPage}&count=${this.props.newsPage.pageSize}`)
-            .then(response => {
-                if (response.data) {
-                    this.props.setNews(response.data.items)
-                    this.props.setNewsTotalCount(response.data.totalCount)
+        getNewsRequest(this.props.newsPage.currentPage, this.props.newsPage.pageSize)
+            .then(data => {
+                if (data) {
+                    this.props.setNews(data.items)
+                    this.props.setNewsTotalCount(data.totalCount)
                 }
             })
     }
@@ -32,10 +32,10 @@ class NewsPageService extends React.Component {
 
     onSetCurrentPage = (number) => {
         this.props.setCurrentPage(number)
-        axios.get(`http://${this.props.serverLink}/news?token=${localStorage.getItem("userToken")}&page=${number}&count=${this.props.newsPage.pageSize}`)
-            .then(response => {
-                this.props.setNews(response.data.items)
-                this.props.setNewsTotalCount(response.data.totalCount)
+        getNewsRequest(number, this.props.newsPage.pageSize)
+            .then(data => {
+                this.props.setNews(data.items)
+                this.props.setNewsTotalCount(data.totalCount)
             })
     }
 

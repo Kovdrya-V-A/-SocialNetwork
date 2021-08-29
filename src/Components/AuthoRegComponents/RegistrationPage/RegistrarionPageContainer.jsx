@@ -7,7 +7,7 @@ import {
     inputPasswordActionCreator
 } from "../../../Redux/AuthoRegReducers/RegistrationPageReducer";
 import RegistrationPage from "./RegistrationPage";
-import * as axios from "axios";
+import {userRegistrationRequest} from "../../../DAL/ApiRequests";
 
 
 let mapStateToProps = (state) => {
@@ -50,31 +50,17 @@ class RegistrationGageService extends React.Component {
 
 
     onRegistrationUser = (login, password, firstName, lastName, address, age, email) => {
-        axios.post(`http://${this.props.serverLink}/reg`, {
-            "login": login,
-            "firstName": firstName,
-            "lastName": lastName,
-            "password": password,
-            "address": address,
-            "age": age,
-            "email": email,
-        },)
-            .then(response => {
-                if (response.data.itsFine) {
+        userRegistrationRequest(login, firstName, lastName, password, address, age, email)
+            .then(data => {
+                if (data.itsFine) {
                     alert("Пользователь успешно зарегистрирован")
                 } else (
-                    alert(`Пользователь не был зарегистрирован - ${response.data.error}`)
+                    alert(`Пользователь не был зарегистрирован - ${data.error}`)
                 )
             })
     }
 
     render() {
-        // axios.post(`http://${this.props.serverLink}/img`, {
-        //     "img": this.state.file
-        // },)
-        //     .then(response => {
-        //         console.log(response.data.error)
-        //     })
         return (
             <RegistrationPage
                 introducedLogin={this.props.registrationPage.introducedLogin}

@@ -6,7 +6,7 @@ import {
 } from "../../../Redux/Reducers/ProfilePageReducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
-import * as axios from "axios";
+import {addNewPostRequest, deletePostRequest, getMyPostsRequest} from "../../../DAL/ApiRequests";
 
 
 let mapStateToProps = (state) => {
@@ -20,38 +20,27 @@ let mapStateToProps = (state) => {
 class MyPostsService extends React.Component {
 
     componentDidMount() {
-        axios.get(`http://${this.props.serverLink}/posts?token=${localStorage.getItem("userToken")}`)
-            .then(response => {
-                if (response.data) {
-                    this.props.setPosts(response.data.items)
+        getMyPostsRequest()
+            .then(data => {
+                if (data) {
+                    this.props.setPosts(data.items)
                 }
             })
     }
 
     onAddNewPost = (postText) => {
         if (postText) {
-            axios.post(`http://${this.props.serverLink}/addPost`, {
-                    "token": localStorage.getItem("userToken"),
-                    "postText": postText
-                }
-            )
-                .then(response => {
-                    this.props.addNewPost(response.data[0].idPost, response.data[0].text, response.data[0].dateTime);
+            addNewPostRequest(postText)
+                .then(data => {
+                    this.props.addNewPost(data[0].idPost, data[0].text, data[0].dateTime);
                 })
         }
     }
 
     onDeletePost = (idPost) => {
-        axios.delete(`http://${this.props.serverLink}/deletePost`, {
-                data: {
-                    "token":
-                        localStorage.getItem("userToken"), "idPost":
-                    idPost
-                }
-            }
-        )
-            .then(response => {
-                this.props.deletePost(idPost, response.data.message)
+        deletePostRequest (idPost)
+            .then(data => {
+                this.props.deletePost(idPost, data.message)
             })
     }
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from "react-redux";
-import * as axios from "axios";
 import FriendsPage from "./FriendsPage";
 import {
     followActionCreator,
@@ -9,6 +8,7 @@ import {
     unFollowActionCreator
 } from "../../Redux/Reducers/FriendsPageReducer";
 import {setCurrentDialogActionCreator} from "../../Redux/Reducers/DialogsPageReducer";
+import {followRequest, getFriendsRequest, goToDialogRequest, unFollowRequest} from "../../DAL/ApiRequests";
 
 let mapStateToProps = (state) => {
     return {
@@ -24,17 +24,16 @@ let mapStateToProps = (state) => {
 }
 
 
-
 class FriendsPageService extends React.Component {
 
     componentDidMount() {
         this.props.setIsFetching(true)
-        axios.get(`http://${this.props.serverLink}/friends?token=${localStorage.getItem("userToken")}&page=${this.props.currentPage}&count=${this.props.pageSize}`)
-            .then(response => {
+        getFriendsRequest(this.props.currentPage, this.props.pageSize)
+            .then(data => {
                 this.props.setIsFetching(false)
-                if (response.data) {
-                    this.props.setFriends(response.data.items)
-                    this.props.setFriendsTotalCount(response.data.totalCount)
+                if (data) {
+                    this.props.setFriends(data.items)
+                    this.props.setFriendsTotalCount(data.totalCount)
                 }
             })
     }
@@ -45,51 +44,36 @@ class FriendsPageService extends React.Component {
     }
 
     onUnfollow = (userId) => {
-        axios.post(`http://${this.props.serverLink}/followFriend`,
-            {
-                "token": localStorage.getItem("userToken"),
-                "userId": userId,
-                "follow": false
-
-            })
-            .then(response => {
-                this.props.unfollow(userId, response.data.message)
+        unFollowRequest(userId)
+            .then(data => {
+                this.props.unfollow(userId, data.message)
             })
     }
 
     onFollow = (userId) => {
-        axios.post(`http://${this.props.serverLink}/followFriend`,
-            {
-                "token": localStorage.getItem("userToken"),
-                "userId": userId,
-                "follow": true
 
-            })
-            .then(response => {
-                console.log(response)
-                this.props.follow(userId, response.data.message)
+        followRequest(userId)
+            .then(data => {
+                this.props.follow(userId, data.message)
             })
     }
 
     onSetCurrentPage = (number) => {
         this.props.setCurrentPage(number)
         this.props.setIsFetching(true)
-        axios.get(`http://${this.props.serverLink}/friends?token=${localStorage.getItem("userToken")}&page=${number}&count=${this.props.pageSize}`)
-            .then(response => {
+        getFriendsRequest(number, this.props.pageSize)
+            .then(data => {
                 this.props.setIsFetching(false)
-                this.props.setFriends(response.data.items)
-                this.props.setFriendsTotalCount(response.data.totalCount)
+                this.props.setFriends(data.items)
+                this.props.setFriendsTotalCount(data.totalCount)
             })
     }
 
     onMessage = (userId) => {
-        axios.post(`http://${this.props.serverLink}/createDialog`, {
-            "token": localStorage.getItem("userToken"),
-            "userId": userId
-        })
-            .then((response) => {
+        goToDialogRequest(userId)
+            .then((data) => {
                 this.props.setIsWrote(true)
-                this.props.setCurrentDialog(response.data.idDialog)
+                this.props.setCurrentDialog(data.idDialog)
             })
     }
 
@@ -118,11 +102,11 @@ const FriendsPageContainer = connect(mapStateToProps, {
     unfollow: unFollowActionCreator,
     follow: followActionCreator,
     setIsWrote: setIsWroteActionCreator,
-    setFriends:setFriendsActionCreator,
-    setCurrentPage:setCurrentPageActionCreator,
-    setFriendsTotalCount:setFriendsTotalCountActionCreator,
+    setFriends: setFriendsActionCreator,
+    setCurrentPage: setCurrentPageActionCreator,
+    setFriendsTotalCount: setFriendsTotalCountActionCreator,
     setIsFetching: setIsFetchingActionCreator,
-    setCurrentDialog:setCurrentDialogActionCreator
+    setCurrentDialog: setCurrentDialogActionCreator
 })(FriendsPageService)
 
 export default FriendsPageContainer;

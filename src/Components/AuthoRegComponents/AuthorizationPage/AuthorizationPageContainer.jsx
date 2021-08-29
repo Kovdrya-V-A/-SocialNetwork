@@ -6,6 +6,7 @@ import {
     inputPasswordActionCreator, resetVerificationActionCreator, setUserTokenActionCreator, userVerificationActionCreator
 } from "../../../Redux/AuthoRegReducers/AuthorizationPageReducer";
 import * as axios from "axios";
+import {userVerificationRequest} from "../../../DAL/ApiRequests";
 
 
 let mapStateToProps = (state) => {
@@ -33,12 +34,14 @@ class AuthorizationPageService extends React.Component {
 
 
     onUserVerification = (login, password) => {
-        axios.post(`http://${this.props.serverLink}/auth`, {"login": login, "password": password})
-            .then(response => {
-                if (response.data.key_type) {
-                    this.props.setToken(response.data.access_token)
+
+        userVerificationRequest(login, password)
+            .then(data => {
+                console.log(data)
+                if (data.key_type) {
+                    this.props.setToken(data.access_token)
                 }
-                this.props.userVerification(response.data.key_type)
+                this.props.userVerification(data.key_type)
             })
     }
 

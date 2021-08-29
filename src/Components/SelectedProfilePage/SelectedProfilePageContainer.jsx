@@ -6,9 +6,9 @@ import {
     setUserPostsActionCreator,
     setUserProfileInfoActionCreator, unFollowActionCreator
 } from "../../Redux/Reducers/SelectedUserProfilePageReducer";
-import * as axios from "axios";
 import {setCurrentDialogActionCreator} from "../../Redux/Reducers/DialogsPageReducer";
 import {withRouter} from "react-router-dom";
+import {followRequest, getSelectedUserProfileRequest, goToDialogRequest, unFollowRequest} from "../../DAL/ApiRequests";
 
 
 let mapStateToProps = (state) => {
@@ -24,51 +24,36 @@ class SelectedProfilePageContainer extends React.Component {
 
     componentDidMount() {
         let userId = this.props.match.params.userId
-        axios.get(`http://${this.props.serverLink}/user?token=${localStorage.getItem("userToken")}&id=${userId}`)
-            .then(response => {
-                this.props.setUserProfileInfo(response.data.userInfo)
-                if (response.data.posts[0]) {
-                    this.props.setUserPosts(response.data.posts)
+        getSelectedUserProfileRequest (userId)
+            .then(data => {
+                this.props.setUserProfileInfo(data.userInfo)
+                if (data.posts[0]) {
+                    this.props.setUserPosts(data.posts)
                 }
             })
     }
 
 
     onUnfollow = (userId) => {
-        axios.post(`http://${this.props.serverLink}/followFriend`,
-            {
-                "token": localStorage.getItem("userToken"),
-                "userId": userId,
-                "follow": false
-
-            })
-            .then(response => {
-                this.props.unfollow(userId, response.data.message)
+        unFollowRequest(userId)
+            .then(data => {
+                this.props.unfollow(userId, data.message)
             })
     }
 
     onFollow = (userId) => {
-        axios.post(`http://${this.props.serverLink}/followFriend`,
-            {
-                "token": localStorage.getItem("userToken"),
-                "userId": userId,
-                "follow": true
-
-            })
-            .then(response => {
-                console.log(response)
-                this.props.follow(userId, response.data.message)
+       followRequest(userId)
+            .then(data => {
+                console.log(data)
+                this.props.follow(userId, data.message)
             })
     }
 
     onMessage = (userId) => {
-        axios.post(`http://${this.props.serverLink}/createDialog`, {
-            "token": localStorage.getItem("userToken"),
-            "userId": userId
-        })
-            .then((response) => {
+        goToDialogRequest(userId)
+            .then((data) => {
                 this.props.setIsWrote(true)
-                this.props.setCurrentDialog(response.data.idDialog)
+                this.props.setCurrentDialog(data.idDialog)
             })
     }
 

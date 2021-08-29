@@ -7,8 +7,14 @@ import {
 } from "../../Redux/Reducers/DialogsPageReducer";
 import {connect} from "react-redux";
 import DialogsPage from "./DialogsPage";
-import * as axios from "axios";
 import {withRouter} from "react-router-dom";
+import {
+    deleteDialogRequest,
+    deleteMessageRequest,
+    getDialogsRequest,
+    getMessagesRequest,
+    sendNewMessageRequest
+} from "../../DAL/ApiRequests";
 
 
 let mapStateToProps = (state) => {
@@ -21,17 +27,17 @@ let mapStateToProps = (state) => {
 class DialogsPageContainer extends React.Component {
 
     componentDidMount = () => {
-        axios.get(`http://${this.props.serverLink}/dialogs?token=${localStorage.getItem("userToken")}`)
-            .then(response => {
-                if (response.data) {
-                    this.props.setDialogs(response.data.items)
+        getDialogsRequest()
+            .then(data => {
+                if (data) {
+                    this.props.setDialogs(data.items)
                 }
                 if (this.props.dialogsPage.currentDialogId) {
-                    axios.get(`http://${this.props.serverLink}/messages?token=${localStorage.getItem("userToken")}&idDialog=${this.props.dialogsPage.currentDialogId}`)
-                        .then(response => {
-                            if (response.data) {
-                                this.props.setMessages(response.data.items)
-                            } else if (response.data === null) {
+                    getMessagesRequest(this.props.dialogsPage.currentDialogId)
+                        .then(data => {
+                            if (data) {
+                                this.props.setMessages(data.items)
+                            } else if (data === null) {
                                 this.props.setMessages([])
                             }
                         })
@@ -48,7 +54,7 @@ class DialogsPageContainer extends React.Component {
     //         return false
     //     }
     //     return true
-    // }
+    // } 
 
     componentDidUpdate(prevProps, prevState, snapshot) {
     }
@@ -59,14 +65,9 @@ class DialogsPageContainer extends React.Component {
 
 
     onDeleteDialog = (idDialog) => {
-        axios.delete(`http://${this.props.serverLink}/deleteDialog`, {
-            data: {
-                "token": localStorage.getItem("userToken"),
-                "idDialog": idDialog,
-            }
-        })
-            .then(response => {
-                this.props.deleteDialog(idDialog, response.data.message)
+        deleteDialogRequest(idDialog)
+            .then(data => {
+                this.props.deleteDialog(idDialog, data.message)
                 if (this.props.dialogsPage.currentDialogId === idDialog) {
                     this.props.setCurrentDialog("")
                 }
@@ -75,15 +76,9 @@ class DialogsPageContainer extends React.Component {
 
     onDeleteMassage = (idMessage) => {
         let dialogId = this.props.match.params.dialogId
-        axios.post(`http://${this.props.serverLink}/sendMessage`,
-            {
-                "token": localStorage.getItem("userToken"),
-                "idDialog": dialogId,
-                "idMessage": idMessage,
-                "isDelete": true
-            })
-            .then(response => {
-                this.props.deleteMessage(idMessage, response.data.message)
+        deleteMessageRequest(dialogId, idMessage)
+            .then(data => {
+                this.props.deleteMessage(idMessage, data.message)
             })
     }
 
@@ -99,11 +94,11 @@ class DialogsPageContainer extends React.Component {
         // }))
 
 
-        axios.get(`http://${this.props.serverLink}/messages?token=${localStorage.getItem("userToken")}&idDialog=${dialogId[a]}`)
-            .then(response => {
-                if (response.data) {
-                    this.props.setMessages(response.data.items)
-                } else if (response.data === null) {
+        getMessagesRequest(dialogId[a])
+            .then(data => {
+                if (data) {
+                    this.props.setMessages(data.items)
+                } else if (data === null) {
                     this.props.setMessages([])
                 }
             })
@@ -122,14 +117,9 @@ class DialogsPageContainer extends React.Component {
             //     idDialog: dialogId[a]
             // }))
 
-            axios.post(`http://${this.props.serverLink}/sendMessage`,
-                {
-                    "token": localStorage.getItem("userToken"),
-                    "idDialog": dialogId,
-                    "text": messageText,
-                })
-                .then(response => {
-                    this.props.sendNewMessage(response.data[0].name, response.data[0].img, response.data[0].id, response.data[0].text, response.data[0].time);
+            sendNewMessageRequest(dialogId, messageText)
+                .then(data => {
+                    this.props.sendNewMessage(data[0].name, data[0].img, data[0].id, data[0].text, data[0].time);
                 })
         }
     }

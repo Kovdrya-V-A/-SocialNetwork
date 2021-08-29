@@ -5,7 +5,7 @@ import {
     setChangeAvaIsActiveActionCreator,
     setProfileInfoActionCreator
 } from "../../../Redux/Reducers/ProfilePageReducer";
-import * as axios from "axios";
+import {getMyProfileInfoRequest} from "../../../DAL/ApiRequests";
 
 
 let mapStateToProps = (state) => {
@@ -18,10 +18,10 @@ let mapStateToProps = (state) => {
 class ProfileInfoService extends React.Component {
 
     componentDidMount() {
-        axios.get(`http://${this.props.serverLink}/authProfileInfo?token=${localStorage.getItem("userToken")}`)
-            .then(response => {
-                this.props.setProfileInfo(response.data)
-                localStorage.setItem("authUserId", response.data.id)
+        getMyProfileInfoRequest()
+            .then(data => {
+                this.props.setProfileInfo(data)
+                localStorage.setItem("authUserId", data.id)
             })
     }
 
