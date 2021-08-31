@@ -1,9 +1,15 @@
 import React from 'react';
 import {
-    deleteDialogActionCreator, deleteMessageActionCreator,
+    deleteDialogActionCreator,
+    deleteMessageActionCreator,
     messageTextChangeActionCreator,
-    sendMessageActionCreator, setCurrentDialogActionCreator, setDialogsActionCreator,
+    sendMessageActionCreator,
+    setCurrentDialogActionCreator,
+    setDialogsActionCreator,
     setMessageActionCreator,
+    toggleDeleteDialogProgressActionCreator,
+    toggleDeleteMessageProgressActionCreator,
+    toggleSetCurrentDialogProgressActionCreator,
 } from "../../Redux/Reducers/DialogsPageReducer";
 import {connect} from "react-redux";
 import DialogsPage from "./DialogsPage";
@@ -65,20 +71,24 @@ class DialogsPageContainer extends React.Component {
 
 
     onDeleteDialog = (idDialog) => {
+        this.props.toggleDeleteDialogProgress(true)
         deleteDialogRequest(idDialog)
             .then(data => {
                 this.props.deleteDialog(idDialog, data.message)
                 if (this.props.dialogsPage.currentDialogId === idDialog) {
                     this.props.setCurrentDialog("")
                 }
+                this.props.toggleDeleteDialogProgress(false)
             })
     }
 
     onDeleteMassage = (idMessage) => {
         let dialogId = this.props.match.params.dialogId
+        this.props.toggleDeleteMessageProgress(true)
         deleteMessageRequest(dialogId, idMessage)
             .then(data => {
                 this.props.deleteMessage(idMessage, data.message)
+                this.props.toggleDeleteMessageProgress(false)
             })
     }
 
@@ -93,7 +103,7 @@ class DialogsPageContainer extends React.Component {
         //     command: "checkMessages", idDialog: dialogId[a]
         // }))
 
-
+        this.props.toggleSetCurrentDialogProgress(true)
         getMessagesRequest(dialogId[a])
             .then(data => {
                 if (data) {
@@ -101,6 +111,7 @@ class DialogsPageContainer extends React.Component {
                 } else if (data === null) {
                     this.props.setMessages([])
                 }
+                this.props.toggleSetCurrentDialogProgress(false)
             })
     }
 
@@ -142,6 +153,9 @@ class DialogsPageContainer extends React.Component {
                 onDeleteDialog={this.onDeleteDialog}
                 onDeleteMassage={this.onDeleteMassage}
                 setMessages={this.props.setMessages}
+                setCurrentDialogInProgress={this.props.dialogsPage.setCurrentDialogInProgress}
+                deleteDialogInProgress={this.props.dialogsPage.deleteDialogInProgress}
+                deleteMessageInProgress={this.props.dialogsPage.deleteMessageInProgress}
             />
         )
     }
@@ -157,5 +171,8 @@ export default connect(mapStateToProps, {
     setCurrentDialog: setCurrentDialogActionCreator,
     deleteDialog: deleteDialogActionCreator,
     deleteMessage: deleteMessageActionCreator,
+    toggleSetCurrentDialogProgress: toggleSetCurrentDialogProgressActionCreator,
+    toggleDeleteDialogProgress: toggleDeleteDialogProgressActionCreator,
+    toggleDeleteMessageProgress: toggleDeleteMessageProgressActionCreator,
 
 })(WithRouterDialogsPageContainer)

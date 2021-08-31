@@ -7,6 +7,8 @@ const DialogList = (props) => {
 
     let dialogsItems = props.dialogsData.map(d => d.isDeleted ? null :
         <Dialog
+            deleteDialogInProgress = {props.deleteDialogInProgress}
+            setCurrentDialogInProgress = {props.setCurrentDialogInProgress}
             key = {d.idDialog}
             onSetCurrentDialog={props.onSetCurrentDialog}
             dialogAva={d.img} idDialog={d.idDialog}

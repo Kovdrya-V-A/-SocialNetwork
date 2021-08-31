@@ -2,7 +2,9 @@ import React from 'react';
 import {
     addPostActionCreator, deletePostActionCreator,
     postTextChangeActionCreator,
-    setPostsActionCreator
+    setPostsActionCreator,
+    toggleAddPostProgressActionCreator,
+    toggleDeletePostProgressActionCreator,
 } from "../../../Redux/Reducers/ProfilePageReducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
@@ -30,17 +32,21 @@ class MyPostsService extends React.Component {
 
     onAddNewPost = (postText) => {
         if (postText) {
+            this.props.toggleAddPostProgress(true)
             addNewPostRequest(postText)
                 .then(data => {
                     this.props.addNewPost(data[0].idPost, data[0].text, data[0].dateTime);
+                    this.props.toggleAddPostProgress(false)
                 })
         }
     }
 
     onDeletePost = (idPost) => {
-        deletePostRequest (idPost)
+        this.props.toggleDeletePostProgress(true)
+        deletePostRequest(idPost)
             .then(data => {
                 this.props.deletePost(idPost, data.message)
+                this.props.toggleDeletePostProgress(false)
             })
     }
 
@@ -59,6 +65,8 @@ class MyPostsService extends React.Component {
                      avaImg={this.props.profilePage.profileData[0].img}
                      postText={this.props.profilePage.newPostText}
                      name={this.props.profilePage.profileData[0].name}
+                     addPostInProgress={this.props.profilePage.addPostInProgress}
+                     deletePostInProgress={this.props.profilePage.deletePostInProgress}
             />
         )
     }
@@ -68,7 +76,9 @@ const MyPostsContainer = connect(mapStateToProps, {
     addNewPost: addPostActionCreator,
     postTextChange: postTextChangeActionCreator,
     setPosts: setPostsActionCreator,
-    deletePost: deletePostActionCreator
+    deletePost: deletePostActionCreator,
+    toggleAddPostProgress: toggleAddPostProgressActionCreator,
+    toggleDeletePostProgress: toggleDeletePostProgressActionCreator
 })(MyPostsService)
 
 export default MyPostsContainer

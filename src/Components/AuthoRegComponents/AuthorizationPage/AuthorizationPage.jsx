@@ -5,6 +5,7 @@ import Header from "../../Header/Header";
 import Footer from "../../Footer/Footer";
 
 const AuthorizationPage = (props) => {
+    console.log(props)
     let enterLogin = React.createRef();
     let enterPassword = React.createRef();
     return (
@@ -28,6 +29,7 @@ const AuthorizationPage = (props) => {
                         </div>
                         <div className={s.entryButton}>
                             <button
+                                disabled={props.authorisationInProgress}
                                 onClick={() => {
                                     props.onUserVerification(props.introducedLogin, props.introducedPassword)
                                 }}>

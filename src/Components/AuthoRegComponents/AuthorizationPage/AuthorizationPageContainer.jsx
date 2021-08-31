@@ -3,19 +3,20 @@ import {connect} from "react-redux";
 import AuthorizationPage from "./AuthorizationPage";
 import {
     inputLoginActionCreator,
-    inputPasswordActionCreator, resetVerificationActionCreator, setUserTokenActionCreator, userVerificationActionCreator
+    inputPasswordActionCreator,
+    resetVerificationActionCreator,
+    setUserTokenActionCreator,
+    toggleAuthorisationProgressActionCreator,
+    userVerificationActionCreator
 } from "../../../Redux/AuthoRegReducers/AuthorizationPageReducer";
-import * as axios from "axios";
 import {userVerificationRequest} from "../../../DAL/ApiRequests";
 
 
 let mapStateToProps = (state) => {
     return {
         authorizationPage: state.authorizationPage,
-        serverLink: state.authorizationPage.serverLink
     }
 }
-
 
 
 class AuthorizationPageService extends React.Component {
@@ -34,14 +35,14 @@ class AuthorizationPageService extends React.Component {
 
 
     onUserVerification = (login, password) => {
-
+        this.props.toggleAuthorisationProgress(true)
         userVerificationRequest(login, password)
             .then(data => {
-                console.log(data)
                 if (data.key_type) {
                     this.props.setToken(data.access_token)
                 }
                 this.props.userVerification(data.key_type)
+                this.props.toggleAuthorisationProgress(false)
             })
     }
 
@@ -55,6 +56,7 @@ class AuthorizationPageService extends React.Component {
                 onInputPassword={this.onInputPassword}
                 onUserVerification={this.onUserVerification}
                 onResetVerification={this.onResetVerification}
+                authorisationInProgress={this.props.authorizationPage.authorisationInProgress}
             />
         )
     }
@@ -63,9 +65,10 @@ class AuthorizationPageService extends React.Component {
 const AuthorizationPageContainer = connect(mapStateToProps, {
     setToken: setUserTokenActionCreator,
     inputLogin: inputLoginActionCreator,
-    inputPassword:inputPasswordActionCreator,
+    inputPassword: inputPasswordActionCreator,
     userVerification: userVerificationActionCreator,
-    resetVerification:resetVerificationActionCreator
+    resetVerification: resetVerificationActionCreator,
+    toggleAuthorisationProgress: toggleAuthorisationProgressActionCreator,
 
 })(AuthorizationPageService)
 

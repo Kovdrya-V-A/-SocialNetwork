@@ -28,7 +28,7 @@ const UsersPage = (props) => {
                 <div className={s.userInfo}>
                     <NavLink className={s.userLink}
                              to={"/AuthUser/UserPage/" + u.id}>{u.name}</NavLink>
-                    <button onClick={() => {
+                    <button disabled={props.setIsWroteInProgress} onClick={() => {
                         props.onMessage(u.id)
                     }} className={`${s.toMessageButton} ${s.button}`}>Написать
                     </button>
@@ -36,9 +36,9 @@ const UsersPage = (props) => {
                         props.isWrote && props.currentDialogId ? <Redirect to={"/AuthUser/DialogsPage/" + props.currentDialogId}/> : null
                     }
                     {u.followed ?
-                        <button onClick={() => props.onUnfollow(u.id)}
+                        <button disabled={props.followingInProgress} onClick={() => props.onUnfollow(u.id)}
                                 className={`${s.unfollowButton} ${s.button}`}>Удалить</button> :
-                        <button onClick={() => props.onFollow(u.id)}
+                        <button disabled={props.followingInProgress} onClick={() => props.onFollow(u.id)}
                                 className={`${s.followButton} ${s.button}`}>Добавить</button>}
                     {u.followed ? <div className={s.followedStatus}><p>Ваш друг</p></div> : null}
                 </div>
@@ -57,7 +57,7 @@ const UsersPage = (props) => {
                         value={props.searchQueryText}
                         name="searchTextArea" id="" cols="10" rows="5"/></div>
                 <div className={s.searchButtonWrap}>
-                    <button onClick={() => props.searchQueryText ? props.onSearchUsers(props.searchQueryText):null} className={s.searchButton}>Search</button>
+                    <button disabled={props.searchUsersInProgress} onClick={() => props.searchQueryText ? props.onSearchUsers(props.searchQueryText):null} className={s.searchButton}>Search</button>
                 </div>
             </div>
             <div className={s.usersList}><h2>Список пользователей:</h2>

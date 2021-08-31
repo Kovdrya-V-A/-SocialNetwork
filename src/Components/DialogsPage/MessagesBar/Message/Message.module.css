@@ -4,9 +4,10 @@
     display: flex;
 }
 
-.message:hover{
+.message:hover {
     background-color: #444446;
 }
+
 .message:hover .deleteMessage {
     display: block;
 }
@@ -32,7 +33,9 @@
     height: 45px;
     border-radius: 50%;
 }
-.senderName {}
+
+.senderName {
+}
 
 
 .messageContent {
@@ -50,8 +53,14 @@
     display: none;
 }
 
+.deleteMessage button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
 .deleteMessage p {
     color: #D3D3D3;
     font-size: 20px;
-    cursor: pointer;
 }
+

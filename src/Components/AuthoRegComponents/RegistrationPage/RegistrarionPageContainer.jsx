@@ -4,7 +4,7 @@ import {
     inputAddressActionCreator, inputAgeActionCreator, inputEmailActionCreator,
     inputFirstNameActionCreator, inputLastNameActionCreator,
     inputLoginActionCreator,
-    inputPasswordActionCreator
+    inputPasswordActionCreator, toggleRegistrationProgressActionCreator
 } from "../../../Redux/AuthoRegReducers/RegistrationPageReducer";
 import RegistrationPage from "./RegistrationPage";
 import {userRegistrationRequest} from "../../../DAL/ApiRequests";
@@ -50,6 +50,7 @@ class RegistrationGageService extends React.Component {
 
 
     onRegistrationUser = (login, password, firstName, lastName, address, age, email) => {
+        this.props.toggleRegistrationProgress(true)
         userRegistrationRequest(login, firstName, lastName, password, address, age, email)
             .then(data => {
                 if (data.itsFine) {
@@ -57,6 +58,7 @@ class RegistrationGageService extends React.Component {
                 } else (
                     alert(`Пользователь не был зарегистрирован - ${data.error}`)
                 )
+                this.props.toggleRegistrationProgress(false)
             })
     }
 
@@ -78,6 +80,7 @@ class RegistrationGageService extends React.Component {
                 onInputAddress={this.onInputAddress}
                 onInputAge={this.onInputAge}
                 onInputEmail={this.onInputEmail}
+                registrationInProgress = {this.props.registrationPage.registrationInProgress}
             />
         )
     }
@@ -90,7 +93,9 @@ const RegistrationPageContainer = connect(mapStateToProps, {
     inputLastName: inputLastNameActionCreator,
     inputAddress: inputAddressActionCreator,
     inputAge: inputAgeActionCreator,
-    inputEmail: inputEmailActionCreator
+    inputEmail: inputEmailActionCreator,
+    toggleRegistrationProgress: toggleRegistrationProgressActionCreator,
+
 })(RegistrationGageService)
 
 export default RegistrationPageContainer

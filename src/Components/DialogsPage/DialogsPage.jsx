@@ -25,6 +25,7 @@ let DialogsPage = (props) => {
         {!props.currentDialogId ? <Redirect to={"/AuthUser/DialogsPage" + props.currentDialogId}/> : null}
         <div className={s.dialogsPage}>
             {props.currentDialogId ? <MessagesBar
+                deleteMessageInProgress ={props.deleteMessageInProgress}
                 setMessages = {props.setMessages}
                 messagesData={props.messagesData}
                 newMessageText={props.newMessageText}
@@ -33,9 +34,11 @@ let DialogsPage = (props) => {
                 onDeleteMassage={props.onDeleteMassage}/> : null}
 
             <DialogList
+                setCurrentDialogInProgress = {props.setCurrentDialogInProgress}
                 dialogsData={props.dialogsData}
                 onDeleteDialog = {props.onDeleteDialog}
-                onSetCurrentDialog={props.onSetCurrentDialog}/>
+                onSetCurrentDialog={props.onSetCurrentDialog}
+                deleteDialogInProgress={props.deleteDialogInProgress}/>
         </div>
     </>
 

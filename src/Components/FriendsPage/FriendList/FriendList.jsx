@@ -16,7 +16,8 @@ const FriendList = (props) => {
             currentDialogId={props.currentDialogId}
             onUnfollow={props.onUnfollow}
             onFollow={props.onFollow}
-            followed={f.followed}/>
+            followed={f.followed}
+            followingInProgress = {props.followingInProgress}/>
     )
 
     return (

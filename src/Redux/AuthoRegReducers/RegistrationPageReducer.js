@@ -1,4 +1,3 @@
-import {resetFirstInputPolyfill} from "web-vitals/dist/modules/lib/polyfills/firstInputPolyfill";
 
 const INPUT_LOGIN_STATE = "INPUT_LOGIN_STATE";
 const INPUT_PASSWORD_STATE = "INPUT_PASSWORD_STATE";
@@ -6,7 +5,8 @@ const INPUT_FIRST_NAME_STATE = "INPUT_FIRST_NAME_STATE";
 const INPUT_LAST_NAME_STATE = "INPUT_LAST_NAME_STATE";
 const INPUT_ADDRESS_STATE = "INPUT_ADDRESS_STATE";
 const INPUT_AGE = "INPUT_AGE";
-const INPUT_EMAIL = "INPUT_EMAIL"
+const INPUT_EMAIL = "INPUT_EMAIL";
+const TOGGLE_REGISTRATION_PROGRESS = "TOGGLE_REGISTRATION_PROGRESS";
 
 let initialRegistrationPage = {
     introducedLogin: "",
@@ -16,6 +16,7 @@ let initialRegistrationPage = {
     introducedAddress: "",
     introducedAge: "",
     introducedEmail: "",
+    registrationInProgress: false,
 };
 
 const registrationPageReducer = (registrationPage = initialRegistrationPage, action) => {
@@ -62,6 +63,11 @@ const registrationPageReducer = (registrationPage = initialRegistrationPage, act
                 ...registrationPage,
                 introducedEmail: action. introducedEmail
             }
+        case TOGGLE_REGISTRATION_PROGRESS:
+            return {
+                ...registrationPage,
+                registrationInProgress: action.registrationInProgress
+            }
 
         default: {
             return registrationPage
@@ -74,6 +80,12 @@ export const inputLoginActionCreator = (login) => {
     return {
         type: INPUT_LOGIN_STATE,
         introducedLogin: login.current.value
+    }
+}
+export const toggleRegistrationProgressActionCreator = (registrationInProgress) => {
+    return {
+        type: TOGGLE_REGISTRATION_PROGRESS,
+        registrationInProgress: registrationInProgress
     }
 }
 

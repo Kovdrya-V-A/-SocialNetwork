@@ -62,8 +62,13 @@
     flex: 1;
 }
 
+.deleteDialog button {
+    background-color: transparent;
+    border: none;
+    cursor:pointer;
+}
+
 .deleteDialog p{
     color: #D3D3D3;
     font-size: 20px;
-    cursor: pointer;
 }

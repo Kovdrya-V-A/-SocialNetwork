@@ -143,7 +143,7 @@ export const getUsersRequest = (page, count) => {
         })
 }
 
-export const searchUsersRequests = (page, count, isSearch, searchText) => {
+export const searchUsersRequest = (page, count, isSearch, searchText) => {
     return axios.get(`${serverLink}/users?token=${localStorage.getItem("userToken")}&page=${page}&count=${count}&isSearch=${isSearch}&searchText=${searchText}`)
         .then(response => {
             return response.data

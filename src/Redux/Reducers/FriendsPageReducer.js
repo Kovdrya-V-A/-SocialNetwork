@@ -5,6 +5,7 @@ const SET_IS_FETCHING = "SET_IS_FETCHING";
 const SET_IS_WROTE = "SET_IS_WROTE";
 const UNFOLLOW = "UNFOLLOW";
 const FOLLOW = "FOLLOW";
+const TOGGLE_FOLLOWING_PROGRESS = "TOGGLE_FOLLOWING_PROGRESS";
 
 let initialFriendsPage = {
     friendsData: [],
@@ -12,6 +13,7 @@ let initialFriendsPage = {
     pageSize: 7,
     totalFriendsCount: 0,
     isFetching: false,
+    followingInProgress: false,
     isWrote: false
 };
 
@@ -59,6 +61,11 @@ const friendsPageReducer = (friendsPage = initialFriendsPage, action) => {
         case SET_FRIENDS_TOTAL_COUNT:
             return {
                 ...friendsPage, totalFriendsCount: action.count
+            }
+        case TOGGLE_FOLLOWING_PROGRESS:
+            return {
+                ...friendsPage,
+                followingInProgress: action.followingInProgress
             }
 
 
@@ -114,6 +121,13 @@ export const unFollowActionCreator = (userId, message) => {
         type: UNFOLLOW,
         userId,
         message
+    }
+}
+
+export const toggleFollowingProgressActionCreator = (followingInProgress) => {
+    return {
+        type: TOGGLE_FOLLOWING_PROGRESS,
+        followingInProgress: followingInProgress
     }
 }
 

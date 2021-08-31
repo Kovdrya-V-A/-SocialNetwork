@@ -2,18 +2,22 @@ import React from 'react';
 import {connect} from "react-redux";
 import {
     followActionCreator,
-    setCurrentPageActionCreator, setIsFetchingActionCreator, setIsWroteActionCreator, setSearchQueryTextActionCreator,
-    setUsersActionCreator, setUserTotalCountActionCreator,
+    setCurrentPageActionCreator,
+    setIsFetchingActionCreator,
+    setIsWroteActionCreator,
+    setSearchQueryTextActionCreator,
+    setUsersActionCreator,
+    setUserTotalCountActionCreator,
+    toggleFollowingProgressActionCreator, toggleSearchUsersProgressActionCreator,
+    toggleSetIsWroteProgressActionCreator,
     unFollowActionCreator
 } from "../../Redux/Reducers/UsersPageReducer";
-import * as axios from "axios";
 import UsersPage from "./UsersPage";
 import {setCurrentDialogActionCreator} from "../../Redux/Reducers/DialogsPageReducer";
 import {
     followRequest,
     getUsersRequest,
-    goToDialogRequest,
-    searchUsersRequests,
+    goToDialogRequest, searchUsersRequest,
     unFollowRequest
 } from "../../DAL/ApiRequests";
 // import {setSelectedUserIdActionCreator} from "../../Redux/Reducers/SelectedUserProfilePageReducer";
@@ -28,7 +32,10 @@ let mapStateToProps = (state) => {
         isFetching: state.usersPage.isFetching,
         isWrote: state.usersPage.isWrote,
         serverLink: state.authorizationPage.serverLink,
-        currentDialogId: state.dialogsPage.currentDialogId
+        currentDialogId: state.dialogsPage.currentDialogId,
+        followingInProgress: state.usersPage.followingInProgress,
+        setIsWroteInProgress: state.usersPage.setIsWroteInProgress,
+        searchUsersInProgress: state.usersPage.searchUsersInProgress
 
     }
 }
@@ -56,25 +63,30 @@ class UsersPageService extends React.Component {
 
     onSearchUsers = (searchText) => {
         let isSearch = true;
-        searchUsersRequests(this.props.currentPage, this.props.pageSize, isSearch, searchText)
+        this.props.toggleSearchUsersProgress(true)
+        searchUsersRequest(this.props.currentPage, this.props.pageSize, isSearch, searchText)
             .then(data => {
                 this.props.setUsers(data.items)
                 this.props.setUserTotalCount(data.totalCount)
+                this.props.toggleSearchUsersProgress(false)
             })
     }
 
     onUnfollow = (userId) => {
+        this.props.toggleFollowingProgress(true)
         unFollowRequest(userId)
-
             .then(data => {
                 this.props.unfollow(userId, data.data.message)
+                this.props.toggleFollowingProgress(false)
             })
     }
 
     onFollow = (userId) => {
+        this.props.toggleFollowingProgress(true)
         followRequest(userId)
             .then(data => {
                 this.props.follow(userId, data.message, data.error)
+                this.props.toggleFollowingProgress(false)
             })
     }
 
@@ -90,10 +102,12 @@ class UsersPageService extends React.Component {
     }
 
     onMessage = (userId) => {
+        this.props.toggleSetIsWroteProgress(true)
         goToDialogRequest(userId)
             .then((data) => {
                 this.props.setIsWrote(true)
                 this.props.setCurrentDialog(data.idDialog)
+                this.props.toggleSetIsWroteProgress(false)
             })
     }
 
@@ -114,6 +128,9 @@ class UsersPageService extends React.Component {
                 onMessage={this.onMessage}
                 onSearchUsers={this.onSearchUsers}
                 currentDialogId={this.props.currentDialogId}
+                followingInProgress={this.props.followingInProgress}
+                setIsWroteInProgress={this.props.setIsWroteInProgress}
+                searchUsersInProgress={this.props.searchUsersInProgress}
             />
 
         </>
@@ -130,7 +147,10 @@ const UsersPageContainer = connect(mapStateToProps, {
     setIsFetching: setIsFetchingActionCreator,
     setIsWrote: setIsWroteActionCreator,
     setSearchQueryText: setSearchQueryTextActionCreator,
-    setCurrentDialog: setCurrentDialogActionCreator
+    setCurrentDialog: setCurrentDialogActionCreator,
+    toggleSetIsWroteProgress: toggleSetIsWroteProgressActionCreator,
+    toggleFollowingProgress: toggleFollowingProgressActionCreator,
+    toggleSearchUsersProgress: toggleSearchUsersProgressActionCreator
 })(UsersPageService)
 
 export default UsersPageContainer;

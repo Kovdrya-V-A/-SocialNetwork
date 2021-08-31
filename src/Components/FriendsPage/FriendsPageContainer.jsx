@@ -4,7 +4,11 @@ import FriendsPage from "./FriendsPage";
 import {
     followActionCreator,
     setCurrentPageActionCreator,
-    setFriendsActionCreator, setFriendsTotalCountActionCreator, setIsFetchingActionCreator, setIsWroteActionCreator,
+    setFriendsActionCreator,
+    setFriendsTotalCountActionCreator,
+    setIsFetchingActionCreator,
+    setIsWroteActionCreator,
+    toggleFollowingProgressActionCreator,
     unFollowActionCreator
 } from "../../Redux/Reducers/FriendsPageReducer";
 import {setCurrentDialogActionCreator} from "../../Redux/Reducers/DialogsPageReducer";
@@ -19,7 +23,8 @@ let mapStateToProps = (state) => {
         isFetching: state.friendsPage.isFetching,
         isWrote: state.friendsPage.isWrote,
         serverLink: state.authorizationPage.serverLink,
-        currentDialogId: state.dialogsPage.currentDialogId
+        currentDialogId: state.dialogsPage.currentDialogId,
+        followingInProgress: state.friendsPage.followingInProgress
     }
 }
 
@@ -44,17 +49,20 @@ class FriendsPageService extends React.Component {
     }
 
     onUnfollow = (userId) => {
+        this.props.toggleFollowingProgress(true)
         unFollowRequest(userId)
             .then(data => {
                 this.props.unfollow(userId, data.message)
+                this.props.toggleFollowingProgress(false)
             })
     }
 
     onFollow = (userId) => {
-
+        this.props.toggleFollowingProgress(true)
         followRequest(userId)
             .then(data => {
                 this.props.follow(userId, data.message)
+                this.props.toggleFollowingProgress(false)
             })
     }
 
@@ -91,6 +99,7 @@ class FriendsPageService extends React.Component {
                 onUnfollow={this.onUnfollow}
                 onFollow={this.onFollow}
                 onMessage={this.onMessage}
+                followingInProgress={this.props.followingInProgress}
             />
 
         </>
@@ -106,7 +115,8 @@ const FriendsPageContainer = connect(mapStateToProps, {
     setCurrentPage: setCurrentPageActionCreator,
     setFriendsTotalCount: setFriendsTotalCountActionCreator,
     setIsFetching: setIsFetchingActionCreator,
-    setCurrentDialog: setCurrentDialogActionCreator
+    setCurrentDialog: setCurrentDialogActionCreator,
+    toggleFollowingProgress: toggleFollowingProgressActionCreator,
 })(FriendsPageService)
 
 export default FriendsPageContainer;

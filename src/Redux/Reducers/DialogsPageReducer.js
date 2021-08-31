@@ -5,12 +5,18 @@ const SET_DIALOGS = "SET_DIALOGS";
 const SET_CURRENT_DIALOG = "SET_CURRENT_DIALOG";
 const DELETE_DIALOG = "DELETE_DIALOG";
 const DELETE_MESSAGE = "DELETE_MESSAGE";
+const TOGGLE_SET_CURRENT_DIALOG_PROGRESS = "TOGGLE_SET_CURRENT_DIALOG_PROGRESS"
+const TOGGLE_DELETE_DIALOG_PROGRESS = "TOGGLE_DELETE_DIALOG_PROGRESS"
+const TOGGLE_DELETE_MESSAGE_PROGRESS = "TOGGLE_DELETE_MESSAGE_PROGRESS"
 
 let initialDialogsPage = {
     dialogsData: [],
     newMessageText: "",
     messagesData: [],
     currentDialogId: "",
+    setCurrentDialogInProgress: false,
+    deleteDialogInProgress: false,
+    deleteMessageInProgress: false,
 };
 
 const dialogsPageReducer = (dialogsPage = initialDialogsPage, action) => {
@@ -49,23 +55,27 @@ const dialogsPageReducer = (dialogsPage = initialDialogsPage, action) => {
         }
 
         case DELETE_DIALOG: {
-            return {...dialogsPage,
+            return {
+                ...dialogsPage,
                 dialogsData: dialogsPage.dialogsData.map(d => {
                     if (d.idDialog === action.idDialog) {
-                        return {...d, isDeleted:true}
+                        return {...d, isDeleted: true}
                     }
-                    return  d
-                })}
+                    return d
+                })
+            }
         }
 
         case DELETE_MESSAGE: {
-            return {...dialogsPage,
+            return {
+                ...dialogsPage,
                 messagesData: dialogsPage.messagesData.map(m => {
                     if (m.id === action.idMessage) {
-                        return {...m, isDeleted:true}
+                        return {...m, isDeleted: true}
                     }
-                    return  m
-                })}
+                    return m
+                })
+            }
         }
 
         case SET_DIALOGS: {
@@ -81,6 +91,23 @@ const dialogsPageReducer = (dialogsPage = initialDialogsPage, action) => {
                 currentDialogId: action.selectedDialogId
             }
         }
+
+        case TOGGLE_SET_CURRENT_DIALOG_PROGRESS:
+            return {
+                ...dialogsPage,
+                setCurrentDialogInProgress: action.setCurrentDialogInProgress
+            }
+        case TOGGLE_DELETE_DIALOG_PROGRESS:
+            return {
+                ...dialogsPage,
+                deleteDialogInProgress: action.deleteDialogInProgress
+            }
+
+        case TOGGLE_DELETE_MESSAGE_PROGRESS:
+            return {
+                ...dialogsPage,
+                deleteMessageInProgress: action.deleteMessageInProgress
+            }
 
 
         default:
@@ -103,7 +130,7 @@ export const deleteDialogActionCreator = (idDialog, message) => {
     return {
         type: DELETE_DIALOG,
         idDialog: idDialog,
-        message:message
+        message: message
 
     }
 }
@@ -135,6 +162,7 @@ export const setDialogsActionCreator = (dialogsData) => {
         dialogsData
     }
 }
+
 export const setCurrentDialogActionCreator = (selectedDialogId) => {
     return {
         type: SET_CURRENT_DIALOG,
@@ -142,6 +170,25 @@ export const setCurrentDialogActionCreator = (selectedDialogId) => {
     }
 }
 
+export const toggleSetCurrentDialogProgressActionCreator = (setCurrentDialogInProgress) => {
+    return {
+        type: TOGGLE_SET_CURRENT_DIALOG_PROGRESS,
+        setCurrentDialogInProgress
+    }
+}
+
+export const toggleDeleteDialogProgressActionCreator = (deleteDialogInProgress) => {
+    return {
+        type: TOGGLE_DELETE_DIALOG_PROGRESS,
+        deleteDialogInProgress
+    }
+}
+export const toggleDeleteMessageProgressActionCreator = (deleteMessageInProgress) => {
+    return {
+        type: TOGGLE_DELETE_MESSAGE_PROGRESS,
+        deleteMessageInProgress
+    }
+}
 
 
 export default dialogsPageReducer;

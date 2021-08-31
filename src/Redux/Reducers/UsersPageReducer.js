@@ -6,6 +6,9 @@ const SET_CURRENT_USERS_PAGE = "SET_CURRENT_USERS_PAGE";
 const SET_IS_FETCHING = "SET_IS_FETCHING";
 const SET_IS_WROTE = "SET_IS_WROTE";
 const SEARCH_QUERY_TEXT_CHANGE = "const SEARCH_QUERY_TEXT_CHANGE";
+const TOGGLE_SET_IS_WROTE_PROGRESS = "TOGGLE_SET_IS_WROTE_PROGRESS";
+const TOGGLE_FOLLOWING_PROGRESS = "TOGGLE_FOLLOWING_PROGRESS";
+const TOGGLE_SEARCH_USERS_PROGRESS = "TOGGLE_SEARCH_USERS_PROGRESS"
 
 let initialUsersPage = {
 
@@ -16,6 +19,9 @@ let initialUsersPage = {
     totalUsersCount: 0,
     isFetching: false,
     isWrote: false,
+    followingInProgress: false,
+    setIsWroteInProgress: false,
+    searchUsersInProgress: false,
 };
 
 const usersPageReducer = (usersPage = initialUsersPage, action) => {
@@ -68,6 +74,23 @@ const usersPageReducer = (usersPage = initialUsersPage, action) => {
 
         case SET_IS_WROTE:
             return {...usersPage, isWrote: action.isWrote}
+
+        case TOGGLE_SET_IS_WROTE_PROGRESS:
+            return {
+                ...usersPage,
+                setIsWroteInProgress: action.setIsWroteInProgress
+            }
+
+        case TOGGLE_FOLLOWING_PROGRESS:
+            return {
+                ...usersPage,
+                followingInProgress: action.followingInProgress
+            }
+        case TOGGLE_SEARCH_USERS_PROGRESS:
+            return {
+                ...usersPage,
+                searchUsersInProgress: action.searchUsersInProgress
+            }
 
         default: {
             return usersPage
@@ -128,6 +151,27 @@ export const setSearchQueryTextActionCreator = (enteredText) => {
     return {
         type: SEARCH_QUERY_TEXT_CHANGE,
         enteredText: enteredText.current.value
+    }
+}
+
+export const toggleSetIsWroteProgressActionCreator = (setIsWroteInProgress) => {
+    return {
+        type: TOGGLE_SET_IS_WROTE_PROGRESS,
+        setIsWroteInProgress
+
+    }
+}
+
+export const toggleFollowingProgressActionCreator = (followingInProgress) => {
+    return {
+        type: TOGGLE_FOLLOWING_PROGRESS,
+        followingInProgress: followingInProgress
+    }
+}
+export const toggleSearchUsersProgressActionCreator = (searchUsersInProgress) => {
+    return {
+        type: TOGGLE_SEARCH_USERS_PROGRESS,
+        searchUsersInProgress: searchUsersInProgress
     }
 }
 

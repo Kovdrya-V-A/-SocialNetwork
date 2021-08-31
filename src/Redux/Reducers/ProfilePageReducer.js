@@ -5,13 +5,17 @@ const SET_PROFILE_INFO = "SET_PROFILE_INFO";
 const DELETE_POST = "DELETE_POST";
 const SET_CHANGE_AVA_IS_ACTIVE = "SET_CHANGE_AVA_IS_ACTIVE";
 const SET_CHANGE_AVA_STATUS = "SET_CHANGE_AVA_STATUS";
+const TOGGLE_ADD_POST_PROGRESS = "TOGGLE_ADD_POST_PROGRESS";
+const TOGGLE_DELETE_POST_PROGRESS = "TOGGLE_DELETE_POST_PROGRESS";
 
 let initialProfilePage = {
     postsData: [],
     profileData: [{}],
     newPostText: "",
-    changeAvaIsActive:false,
+    changeAvaIsActive: false,
     changeAvaStatus: null,
+    addPostInProgress: false,
+    deletePostInProgress: false,
 };
 
 
@@ -47,13 +51,15 @@ const profilePageReducer = (profilePage = initialProfilePage, action) => {
         }
 
         case DELETE_POST: {
-            return {...profilePage,
+            return {
+                ...profilePage,
                 postsData: profilePage.postsData.map(p => {
                     if (p.idPost === action.idPost) {
-                        return {...p, isDeleted:true}
+                        return {...p, isDeleted: true}
                     }
-                    return  p
-                })}
+                    return p
+                })
+            }
         }
 
         case POST_TEXT_CHANGE: {
@@ -77,6 +83,17 @@ const profilePageReducer = (profilePage = initialProfilePage, action) => {
                     ...profilePage,
                     postsData: [...action.postsData]
                 }
+            }
+        case TOGGLE_ADD_POST_PROGRESS:
+            return {
+                ...profilePage,
+                addPostInProgress: action.addPostInProgress
+            }
+
+        case TOGGLE_DELETE_POST_PROGRESS:
+            return {
+                ...profilePage,
+                deletePostInProgress: action.deletePostInProgress
             }
 
         default:
@@ -135,5 +152,18 @@ export const setChangeAvaStatusActionCreator = (status) => {
         status
     }
 }
+export const toggleAddPostProgressActionCreator = (addPostInProgress) => {
+    return {
+        type: TOGGLE_ADD_POST_PROGRESS,
+        addPostInProgress
+    }
+}
+export const toggleDeletePostProgressActionCreator = (deletePostInProgress) => {
+    return {
+        type: TOGGLE_DELETE_POST_PROGRESS,
+        deletePostInProgress
+    }
+}
+
 
 export default profilePageReducer;

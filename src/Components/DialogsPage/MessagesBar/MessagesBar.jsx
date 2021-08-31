@@ -3,19 +3,20 @@ import React from "react";
 import Message from "./Message/Message";
 
 
-
 const MessagesBar = (props) => {
 
 
-    let messagesItems = props.messagesData.map(m => m.isDeleted ? null : <Message key={m.id}
-                                                                                  senderName={m.name}
-                                                                                  text={m.text}
-                                                                                  senderAva={m.img}
-                                                                                  time={m.time}
-                                                                                  idMessage={m.id}
-                                                                                  onDeleteMessage={props.onDeleteMassage}
-                                                                                  id={m.id}
-                                                                                  senderId={m.senderId}/>)
+    let messagesItems = props.messagesData.map(m => m.isDeleted ? null : <Message
+        deleteMessageInProgress={props.deleteMessageInProgress}
+        key={m.id}
+        senderName={m.name}
+        text={m.text}
+        senderAva={m.img}
+        time={m.time}
+        idMessage={m.id}
+        onDeleteMessage={props.onDeleteMassage}
+        id={m.id}
+        senderId={m.senderId}/>)
     let text = React.createRef()
 
     return (

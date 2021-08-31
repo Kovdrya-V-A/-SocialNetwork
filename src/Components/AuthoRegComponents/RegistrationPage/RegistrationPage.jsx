@@ -61,7 +61,7 @@ const RegistrationPage = (props) => {
                                    type="password" placeholder="Пароль"/>
                         </div>
                         <div className={s.regButton}>
-                            <button onClick={() => props.onRegistrationUser(
+                            <button disabled={props.registrationInProgress} onClick={() => props.onRegistrationUser(
                                 props.introducedLogin,
                                 props.introducedPassword,
                                 props.introducedFirstName,

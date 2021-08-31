@@ -4,12 +4,17 @@ const SET_SELECTED_USER_ID =" SET_SELECTED_USER_ID";
 const SET_IS_WROTE = "SET_IS_WROTE";
 const UNFOLLOW = "UNFOLLOW";
 const FOLLOW = "FOLLOW";
+const TOGGLE_SET_IS_WROTE_PROGRESS = "TOGGLE_SET_IS_WROTE_PROGRESS";
+const TOGGLE_FOLLOWING_PROGRESS = "TOGGLE_FOLLOWING_PROGRESS";
 
 let initialSelectedUserProfilePage = {
     userId: "",
     postsData: [],
     profileData: [{}],
-    isWrote: false
+    isWrote: false,
+    setIsWroteInProgress: false,
+    followingInProgress: false,
+
 };
 
 
@@ -57,6 +62,18 @@ const selectedProfilePageReducer = (selectedProfilePage = initialSelectedUserPro
                 }
             }
 
+        case TOGGLE_SET_IS_WROTE_PROGRESS:
+            return {
+                ...selectedProfilePage,
+                setIsWroteInProgress: action.setIsWroteInProgress
+            }
+
+        case TOGGLE_FOLLOWING_PROGRESS:
+            return {
+                ...selectedProfilePage,
+                followingInProgress: action.followingInProgress
+            }
+
         default:
             return selectedProfilePage;
     }
@@ -98,6 +115,21 @@ export const unFollowActionCreator = (userId, message) => {
         type: UNFOLLOW,
         userId,
         message
+    }
+}
+
+export const toggleSetIsWroteProgressActionCreator = (setIsWroteInProgress) => {
+    return {
+        type: TOGGLE_SET_IS_WROTE_PROGRESS,
+        setIsWroteInProgress
+
+    }
+}
+
+export const toggleFollowingProgressActionCreator = (followingInProgress) => {
+    return {
+        type: TOGGLE_FOLLOWING_PROGRESS,
+        followingInProgress: followingInProgress
     }
 }
 

@@ -4,13 +4,15 @@ const USER_VERIFICATION = "USER_VERIFICATION";
 const RESET_VERIFICATION = "RESET_VERIFICATION";
 const SET_USER_TOKEN = "SET_USER_TOKEN";
 const SET_SESSION_IS_START = "SET_SESSION_IS_START";
+const TOGGLE_AUTHORISATION_PROGRESS = "TOGGLE_AUTHORISATION_PROGRESS"
 
 
 let initialAuthorisationPage = {
     introducedLogin: "",
     introducedPassword: "",
     dataIsCorrect: false,
-    sessionIsStart:false,
+    sessionIsStart: false,
+    authorisationInProgress: false,
 };
 
 const authorisationPageReducer = (authorisationPage = initialAuthorisationPage, action) => {
@@ -51,10 +53,15 @@ const authorisationPageReducer = (authorisationPage = initialAuthorisationPage, 
             return authorisationPage
         }
         case SET_SESSION_IS_START:
-            return  {
+            return {
                 ...authorisationPage,
                 sessionIsStart: true
 
+            }
+        case TOGGLE_AUTHORISATION_PROGRESS:
+            return {
+                ...authorisationPage,
+                authorisationInProgress: action.authorisationInProgress
             }
 
     }
@@ -91,6 +98,12 @@ export const setUserTokenActionCreator = (token) => {
     return {
         type: SET_USER_TOKEN,
         token
+    }
+}
+export const toggleAuthorisationProgressActionCreator = (authorisationInProgress) => {
+    return {
+        type: TOGGLE_AUTHORISATION_PROGRESS,
+        authorisationInProgress: authorisationInProgress
     }
 }
 

@@ -42,11 +42,17 @@
     flex: 1;
 }
 
+.deletePost button {
+        background-color: Transparent;
+        border: none;
+        cursor:pointer;
+}
+
 .deletePost p {
     color: #D3D3D3;
     font-size: 20px;
-    cursor: pointer;
 }
+
 .name {
     font-size: 16px;
     padding-top: 5px;

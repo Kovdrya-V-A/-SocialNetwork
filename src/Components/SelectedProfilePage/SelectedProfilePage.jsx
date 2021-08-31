@@ -10,22 +10,25 @@ const SelectedProfilePage = (props) => {
 
             <div className={s.activity}>
                 {
-                    props.isWrote && props.currentDialogId ? <Redirect to={"/AuthUser/DialogsPage/" + props.currentDialogId}/> : null
+                    props.isWrote && props.currentDialogId ?
+                        <Redirect to={"/AuthUser/DialogsPage/" + props.currentDialogId}/> : null
                 }
-                <button onClick={() => {
+                <button disabled={props.setIsWroteInProgress} onClick={() => {
                     props.onMessage(props.profileData[0].userId)
                 }} className={`${s.toMessageButton} ${s.button}`}>Написать
                 </button>
                 {props.profileData[0].followed ?
-                    <button onClick={() => props.onUnfollow(props.profileData[0].userId)}
+                    <button disabled={props.followingInProgress}
+                            onClick={() => props.onUnfollow(props.profileData[0].userId)}
                             className={`${s.unfollowButton} ${s.button}`}>Удалить</button> :
-                    <button onClick={() => props.onFollow(props.profileData[0].userId)}
+                    <button disabled={props.followingInProgress}
+                            onClick={() => props.onFollow(props.profileData[0].userId)}
                             className={`${s.followButton} ${s.button}`}>Добавить</button>}
             </div>
 
             <UserPosts postsData={props.postsData}
                        avaImg={props.profileData[0].img}
-                       name = {props.profileData[0].name}/>
+                       name={props.profileData[0].name}/>
         </div>
     )
 }
@@ -52,7 +55,7 @@ const UserProfileInfo = (props) => {
 const UserPosts = (props) => {
 
     let postsItems =
-        props.postsData.map(p => <div  key={p.idPost} className={s.postBox}>
+        props.postsData.map(p => <div key={p.idPost} className={s.postBox}>
             <div className={s.avaPost}>
                 <img src={props.avaImg} alt="avapost"/>
             </div>
@@ -69,7 +72,7 @@ const UserPosts = (props) => {
     return (
         <div className={s.userPosts}>
             <h2>Посты пользователя:</h2>
-            {props.postsData.length > 0 ? postsItems: "У пользователя пока нет постов."}
+            {props.postsData.length > 0 ? postsItems : "У пользователя пока нет постов."}
         </div>
     )
 }
