@@ -3,7 +3,6 @@ import React from 'react';
 import {NavLink} from "react-router-dom";
 
 const News = (props) => {
-    console.log(props)
     return (
         <div className={s.news}>
 

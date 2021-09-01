@@ -26,7 +26,7 @@ const MessagesBar = (props) => {
             <textarea value={props.newMessageText}
                       onChange={() => props.onMessageTextChange(text)} placeholder="Ваше сообщение" ref={text}
                       name="новое сообщение" id="" cols="30" rows="10"/>
-            <button className={s.sendMessageButton}
+            <button disabled={props.sendMessageInProgress} className={s.sendMessageButton}
                     onClick={() => props.onSendNewMessage(props.newMessageText)}>Send message
             </button>
         </div>

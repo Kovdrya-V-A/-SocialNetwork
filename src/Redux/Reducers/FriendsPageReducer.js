@@ -5,7 +5,8 @@ const SET_IS_FETCHING = "SET_IS_FETCHING";
 const SET_IS_WROTE = "SET_IS_WROTE";
 const UNFOLLOW = "UNFOLLOW";
 const FOLLOW = "FOLLOW";
-const TOGGLE_FOLLOWING_PROGRESS = "TOGGLE_FOLLOWING_PROGRESS";
+const FP_TOGGLE_FOLLOWING_PROGRESS = "FP_TOGGLE_FOLLOWING_PROGRESS";
+const FP_TOGGLE_IS_WROTE_PROGRESS = "FP_TOGGLE_IS_WROTE_PROGRESS";
 
 let initialFriendsPage = {
     friendsData: [],
@@ -13,8 +14,9 @@ let initialFriendsPage = {
     pageSize: 7,
     totalFriendsCount: 0,
     isFetching: false,
-    followingInProgress: false,
-    isWrote: false
+    followingInProgress: [],
+    isWrote: false,
+    isWroteInProgress: false,
 };
 
 const friendsPageReducer = (friendsPage = initialFriendsPage, action) => {
@@ -62,11 +64,15 @@ const friendsPageReducer = (friendsPage = initialFriendsPage, action) => {
             return {
                 ...friendsPage, totalFriendsCount: action.count
             }
-        case TOGGLE_FOLLOWING_PROGRESS:
+        case FP_TOGGLE_FOLLOWING_PROGRESS:
             return {
                 ...friendsPage,
-                followingInProgress: action.followingInProgress
+                followingInProgress: action.inProgress ? [...friendsPage.followingInProgress, action.userId] :
+                    friendsPage.followingInProgress.filter(id => id != action.userId)
             }
+
+        case FP_TOGGLE_IS_WROTE_PROGRESS:
+            return {...friendsPage, isWroteInProgress: action.isWroteInProgress}
 
 
         default: {
@@ -124,12 +130,21 @@ export const unFollowActionCreator = (userId, message) => {
     }
 }
 
-export const toggleFollowingProgressActionCreator = (followingInProgress) => {
+export const toggleFollowingProgressActionCreator = (inProgress, userId) => {
     return {
-        type: TOGGLE_FOLLOWING_PROGRESS,
-        followingInProgress: followingInProgress
+        type: FP_TOGGLE_FOLLOWING_PROGRESS,
+        inProgress,
+        userId
     }
 }
+
+export const toggleIsWroteProgressActionCreator = (isWroteInProgress) => {
+    return {
+        type: FP_TOGGLE_IS_WROTE_PROGRESS,
+        isWroteInProgress
+    }
+}
+
 
 
 export default friendsPageReducer;

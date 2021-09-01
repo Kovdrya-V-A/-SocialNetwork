@@ -5,9 +5,10 @@ const SET_DIALOGS = "SET_DIALOGS";
 const SET_CURRENT_DIALOG = "SET_CURRENT_DIALOG";
 const DELETE_DIALOG = "DELETE_DIALOG";
 const DELETE_MESSAGE = "DELETE_MESSAGE";
-const TOGGLE_SET_CURRENT_DIALOG_PROGRESS = "TOGGLE_SET_CURRENT_DIALOG_PROGRESS"
-const TOGGLE_DELETE_DIALOG_PROGRESS = "TOGGLE_DELETE_DIALOG_PROGRESS"
-const TOGGLE_DELETE_MESSAGE_PROGRESS = "TOGGLE_DELETE_MESSAGE_PROGRESS"
+const TOGGLE_SET_CURRENT_DIALOG_PROGRESS = "TOGGLE_SET_CURRENT_DIALOG_PROGRESS";
+const TOGGLE_DELETE_DIALOG_PROGRESS = "TOGGLE_DELETE_DIALOG_PROGRESS";
+const TOGGLE_DELETE_MESSAGE_PROGRESS = "TOGGLE_DELETE_MESSAGE_PROGRESS";
+const TOGGLE_SEND_MESSAGE_PROGRESS = "TOGGLE_SEND_MESSAGE_PROGRESS";
 
 let initialDialogsPage = {
     dialogsData: [],
@@ -17,6 +18,7 @@ let initialDialogsPage = {
     setCurrentDialogInProgress: false,
     deleteDialogInProgress: false,
     deleteMessageInProgress: false,
+    sendMessageInProgress: false,
 };
 
 const dialogsPageReducer = (dialogsPage = initialDialogsPage, action) => {
@@ -109,6 +111,12 @@ const dialogsPageReducer = (dialogsPage = initialDialogsPage, action) => {
                 deleteMessageInProgress: action.deleteMessageInProgress
             }
 
+            case TOGGLE_SEND_MESSAGE_PROGRESS:
+            return {
+                ...dialogsPage,
+                sendMessageInProgress: action.sendMessageInProgress
+            }
+
 
         default:
             return dialogsPage;
@@ -187,6 +195,13 @@ export const toggleDeleteMessageProgressActionCreator = (deleteMessageInProgress
     return {
         type: TOGGLE_DELETE_MESSAGE_PROGRESS,
         deleteMessageInProgress
+    }
+}
+
+export const toggleSendMessageProgressActionCreator = (sendMessageInProgress) => {
+    return {
+        type: TOGGLE_SEND_MESSAGE_PROGRESS,
+        sendMessageInProgress
     }
 }
 

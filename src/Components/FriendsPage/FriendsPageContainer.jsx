@@ -8,7 +8,7 @@ import {
     setFriendsTotalCountActionCreator,
     setIsFetchingActionCreator,
     setIsWroteActionCreator,
-    toggleFollowingProgressActionCreator,
+    toggleFollowingProgressActionCreator, toggleIsWroteProgressActionCreator,
     unFollowActionCreator
 } from "../../Redux/Reducers/FriendsPageReducer";
 import {setCurrentDialogActionCreator} from "../../Redux/Reducers/DialogsPageReducer";
@@ -24,7 +24,8 @@ let mapStateToProps = (state) => {
         isWrote: state.friendsPage.isWrote,
         serverLink: state.authorizationPage.serverLink,
         currentDialogId: state.dialogsPage.currentDialogId,
-        followingInProgress: state.friendsPage.followingInProgress
+        followingInProgress: state.friendsPage.followingInProgress,
+        isWroteInProgress: state.friendsPage.isWroteInProgress,
     }
 }
 
@@ -49,20 +50,20 @@ class FriendsPageService extends React.Component {
     }
 
     onUnfollow = (userId) => {
-        this.props.toggleFollowingProgress(true)
+        this.props.toggleFollowingProgress(true, userId)
         unFollowRequest(userId)
             .then(data => {
                 this.props.unfollow(userId, data.message)
-                this.props.toggleFollowingProgress(false)
+                this.props.toggleFollowingProgress(false, userId)
             })
     }
 
     onFollow = (userId) => {
-        this.props.toggleFollowingProgress(true)
+        this.props.toggleFollowingProgress(true, userId)
         followRequest(userId)
             .then(data => {
                 this.props.follow(userId, data.message)
-                this.props.toggleFollowingProgress(false)
+                this.props.toggleFollowingProgress(false, userId)
             })
     }
 
@@ -78,10 +79,12 @@ class FriendsPageService extends React.Component {
     }
 
     onMessage = (userId) => {
+        this.props.toggleIsWroteProgress(true)
         goToDialogRequest(userId)
             .then((data) => {
                 this.props.setIsWrote(true)
                 this.props.setCurrentDialog(data.idDialog)
+                this.props.toggleIsWroteProgress(false)
             })
     }
 
@@ -100,6 +103,7 @@ class FriendsPageService extends React.Component {
                 onFollow={this.onFollow}
                 onMessage={this.onMessage}
                 followingInProgress={this.props.followingInProgress}
+                isWroteInProgress={this.props.isWroteInProgress}
             />
 
         </>
@@ -117,6 +121,7 @@ const FriendsPageContainer = connect(mapStateToProps, {
     setIsFetching: setIsFetchingActionCreator,
     setCurrentDialog: setCurrentDialogActionCreator,
     toggleFollowingProgress: toggleFollowingProgressActionCreator,
+    toggleIsWroteProgress: toggleIsWroteProgressActionCreator,
 })(FriendsPageService)
 
 export default FriendsPageContainer;

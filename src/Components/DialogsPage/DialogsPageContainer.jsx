@@ -8,7 +8,7 @@ import {
     setDialogsActionCreator,
     setMessageActionCreator,
     toggleDeleteDialogProgressActionCreator,
-    toggleDeleteMessageProgressActionCreator,
+    toggleDeleteMessageProgressActionCreator, toggleSendMessageProgressActionCreator,
     toggleSetCurrentDialogProgressActionCreator,
 } from "../../Redux/Reducers/DialogsPageReducer";
 import {connect} from "react-redux";
@@ -127,10 +127,11 @@ class DialogsPageContainer extends React.Component {
             //     command: "sendMessage", text: messageText,
             //     idDialog: dialogId[a]
             // }))
-
+            this.props.toggleSendMessageProgress(true)
             sendNewMessageRequest(dialogId, messageText)
                 .then(data => {
                     this.props.sendNewMessage(data[0].name, data[0].img, data[0].id, data[0].text, data[0].time);
+                    this.props.toggleSendMessageProgress(false)
                 })
         }
     }
@@ -156,6 +157,7 @@ class DialogsPageContainer extends React.Component {
                 setCurrentDialogInProgress={this.props.dialogsPage.setCurrentDialogInProgress}
                 deleteDialogInProgress={this.props.dialogsPage.deleteDialogInProgress}
                 deleteMessageInProgress={this.props.dialogsPage.deleteMessageInProgress}
+                sendMessageInProgress={this.props.dialogsPage.sendMessageInProgress}
             />
         )
     }
@@ -174,5 +176,6 @@ export default connect(mapStateToProps, {
     toggleSetCurrentDialogProgress: toggleSetCurrentDialogProgressActionCreator,
     toggleDeleteDialogProgress: toggleDeleteDialogProgressActionCreator,
     toggleDeleteMessageProgress: toggleDeleteMessageProgressActionCreator,
+    toggleSendMessageProgress: toggleSendMessageProgressActionCreator,
 
 })(WithRouterDialogsPageContainer)

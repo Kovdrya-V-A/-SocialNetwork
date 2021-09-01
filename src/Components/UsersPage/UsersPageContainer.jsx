@@ -73,20 +73,20 @@ class UsersPageService extends React.Component {
     }
 
     onUnfollow = (userId) => {
-        this.props.toggleFollowingProgress(true)
+        this.props.toggleFollowingProgress(true, userId)
         unFollowRequest(userId)
             .then(data => {
                 this.props.unfollow(userId, data.data.message)
-                this.props.toggleFollowingProgress(false)
+                this.props.toggleFollowingProgress(false, userId)
             })
     }
 
     onFollow = (userId) => {
-        this.props.toggleFollowingProgress(true)
+        this.props.toggleFollowingProgress(true, userId)
         followRequest(userId)
             .then(data => {
                 this.props.follow(userId, data.message, data.error)
-                this.props.toggleFollowingProgress(false)
+                this.props.toggleFollowingProgress(false, userId)
             })
     }
 

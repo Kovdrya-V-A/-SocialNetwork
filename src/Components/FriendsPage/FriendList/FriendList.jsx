@@ -17,7 +17,8 @@ const FriendList = (props) => {
             onUnfollow={props.onUnfollow}
             onFollow={props.onFollow}
             followed={f.followed}
-            followingInProgress = {props.followingInProgress}/>
+            followingInProgress = {props.followingInProgress}
+            isWroteInProgress ={props.isWroteInProgress} />
     )
 
     return (

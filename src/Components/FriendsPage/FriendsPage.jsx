@@ -28,7 +28,8 @@ const FriendsPage = (props) => {
                                                                               currentDialogId={props.currentDialogId}
                                                                               onUnfollow={props.onUnfollow}
                                                                               onFollow={props.onFollow}
-                                                                              followingInProgress = {props.followingInProgress}/>
+                                                                              followingInProgress={props.followingInProgress}
+                                                                              isWroteInProgress={props.isWroteInProgress}/>
             </div>
             <div className={s.selectingPageMenu}>{props.friendsData.length > 0 ? pageNumbersList : null}</div>
         </div>

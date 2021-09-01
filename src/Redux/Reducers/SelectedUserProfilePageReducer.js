@@ -1,11 +1,11 @@
 const SET_USER_POSTS = "SET_USER_POSTS";
 const SET_USER_PROFILE_INFO = "SET_USER_PROFILE_INFO";
-const SET_SELECTED_USER_ID =" SET_SELECTED_USER_ID";
+const SET_SELECTED_USER_ID = " SET_SELECTED_USER_ID";
 const SET_IS_WROTE = "SET_IS_WROTE";
 const UNFOLLOW = "UNFOLLOW";
 const FOLLOW = "FOLLOW";
-const TOGGLE_SET_IS_WROTE_PROGRESS = "TOGGLE_SET_IS_WROTE_PROGRESS";
-const TOGGLE_FOLLOWING_PROGRESS = "TOGGLE_FOLLOWING_PROGRESS";
+const SP_TOGGLE_IS_WROTE_PROGRESS = "SP_TOGGLE_IS_WROTE_PROGRESS";
+const SP_TOGGLE_FOLLOWING_PROGRESS = "SP_TOGGLE_FOLLOWING_PROGRESS";
 
 let initialSelectedUserProfilePage = {
     userId: "",
@@ -34,7 +34,7 @@ const selectedProfilePageReducer = (selectedProfilePage = initialSelectedUserPro
             return {
                 ...selectedProfilePage,
                 profileData: selectedProfilePage.profileData.map(f => {
-                        return {...f, followed: true}
+                    return {...f, followed: true}
                 })
             }
 
@@ -62,13 +62,13 @@ const selectedProfilePageReducer = (selectedProfilePage = initialSelectedUserPro
                 }
             }
 
-        case TOGGLE_SET_IS_WROTE_PROGRESS:
+        case SP_TOGGLE_IS_WROTE_PROGRESS:
             return {
                 ...selectedProfilePage,
                 setIsWroteInProgress: action.setIsWroteInProgress
             }
 
-        case TOGGLE_FOLLOWING_PROGRESS:
+        case SP_TOGGLE_FOLLOWING_PROGRESS:
             return {
                 ...selectedProfilePage,
                 followingInProgress: action.followingInProgress
@@ -120,7 +120,7 @@ export const unFollowActionCreator = (userId, message) => {
 
 export const toggleSetIsWroteProgressActionCreator = (setIsWroteInProgress) => {
     return {
-        type: TOGGLE_SET_IS_WROTE_PROGRESS,
+        type: SP_TOGGLE_IS_WROTE_PROGRESS,
         setIsWroteInProgress
 
     }
@@ -128,7 +128,7 @@ export const toggleSetIsWroteProgressActionCreator = (setIsWroteInProgress) => {
 
 export const toggleFollowingProgressActionCreator = (followingInProgress) => {
     return {
-        type: TOGGLE_FOLLOWING_PROGRESS,
+        type: SP_TOGGLE_FOLLOWING_PROGRESS,
         followingInProgress: followingInProgress
     }
 }
