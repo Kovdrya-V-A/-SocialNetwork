@@ -2,10 +2,9 @@ import React from 'react';
 import {connect} from "react-redux";
 import ProfileInfo from "./ProfileInfo";
 import {
-    setChangeAvaIsActiveActionCreator,
-    setProfileInfoActionCreator
+    setChangeAvaIsActive,
+    setProfileInfoThunkCreator
 } from "../../../Redux/Reducers/ProfilePageReducer";
-import {getMyProfileInfoRequest} from "../../../DAL/ApiRequests";
 
 
 let mapStateToProps = (state) => {
@@ -18,11 +17,7 @@ let mapStateToProps = (state) => {
 class ProfileInfoService extends React.Component {
 
     componentDidMount() {
-        getMyProfileInfoRequest()
-            .then(data => {
-                this.props.setProfileInfo(data)
-                localStorage.setItem("authUserId", data.id)
-            })
+        this.props.setProfileInfoThunkCreator()
     }
 
     onSetChangeAvaIsActive = (changeAvaIsActive) => {
@@ -41,8 +36,8 @@ class ProfileInfoService extends React.Component {
 }
 
 const ProfileInfoContainer = connect(mapStateToProps, {
-    setProfileInfo:setProfileInfoActionCreator,
-    setChangeAvaIsActive: setChangeAvaIsActiveActionCreator
+    setChangeAvaIsActive,
+    setProfileInfoThunkCreator,
 })(ProfileInfoService)
 
 export default ProfileInfoContainer;

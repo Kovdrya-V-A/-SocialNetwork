@@ -1,3 +1,5 @@
+import {addNewPostRequest, deletePostRequest, getMyPostsRequest, getMyProfileInfoRequest} from "../../DAL/ApiRequests";
+
 const ADD_POST = "ADD_POST";
 const POST_TEXT_CHANGE = "POST_TEXT_CHANGE";
 const SET_POSTS = "SET_POSTS";
@@ -103,7 +105,7 @@ const profilePageReducer = (profilePage = initialProfilePage, action) => {
 
 }
 
-export const addPostActionCreator = (idPost, text, dateTime) => {
+export const addPost = (idPost, text, dateTime) => {
     return {
         type: ADD_POST,
         idPost: idPost,
@@ -112,7 +114,7 @@ export const addPostActionCreator = (idPost, text, dateTime) => {
     }
 }
 
-export const deletePostActionCreator = (idPost, message) => {
+export const deletePost = (idPost, message) => {
     return {
         type: DELETE_POST,
         idPost: idPost,
@@ -120,48 +122,92 @@ export const deletePostActionCreator = (idPost, message) => {
     }
 }
 
-export const postTextChangeActionCreator = (text) => {
+export const postTextChange = (text) => {
     return {
         type: POST_TEXT_CHANGE,
         enteredPostText: text.current.value
     }
 }
 
-export const setPostsActionCreator = (postsData) => {
+export const setPosts = (postsData) => {
     return {
         type: SET_POSTS,
         postsData
     }
 }
 
-export const setProfileInfoActionCreator = (profileData) => {
+export const setProfileInfo = (profileData) => {
     return {
         type: SET_PROFILE_INFO,
         profileData
     }
 }
-export const setChangeAvaIsActiveActionCreator = (changeAvaIsActive) => {
+export const setChangeAvaIsActive = (changeAvaIsActive) => {
     return {
         type: SET_CHANGE_AVA_IS_ACTIVE,
         changeAvaIsActive
     }
 }
-export const setChangeAvaStatusActionCreator = (status) => {
+export const setChangeAvaStatus = (status) => {
     return {
         type: SET_CHANGE_AVA_STATUS,
         status
     }
 }
-export const toggleAddPostProgressActionCreator = (addPostInProgress) => {
+export const toggleAddPostProgress = (addPostInProgress) => {
     return {
         type: TOGGLE_ADD_POST_PROGRESS,
         addPostInProgress
     }
 }
-export const toggleDeletePostProgressActionCreator = (deletePostInProgress) => {
+export const toggleDeletePostProgress = (deletePostInProgress) => {
     return {
         type: TOGGLE_DELETE_POST_PROGRESS,
         deletePostInProgress
+    }
+}
+
+
+export const setPostsThunkCreator = () => {
+    return (dispatch) => {
+        getMyPostsRequest()
+            .then(data => {
+                if (data) {
+                    dispatch(setPosts(data.items))
+                }
+            })
+    }
+}
+
+export const addPostThunkCreator = (postText) => {
+    return (dispatch) => {
+        dispatch(toggleAddPostProgress(true))
+        addNewPostRequest(postText)
+            .then(data => {
+                dispatch(addPost(data[0].idPost, data[0].text, data[0].dateTime))
+                dispatch(toggleAddPostProgress(false))
+            })
+    }
+}
+
+export const deletePostThunkCreator = (idPost) => {
+    return (dispatch) => {
+        dispatch(toggleDeletePostProgress(true))
+        deletePostRequest(idPost)
+            .then(data => {
+                dispatch(deletePost(idPost, data.message))
+                dispatch(toggleDeletePostProgress(false))
+            })
+    }
+}
+
+export const setProfileInfoThunkCreator = () => {
+    return (dispatch) => {
+        getMyProfileInfoRequest()
+            .then(data => {
+                dispatch(setProfileInfo(data))
+                localStorage.setItem("authUserId", data.id)
+            })
     }
 }
 

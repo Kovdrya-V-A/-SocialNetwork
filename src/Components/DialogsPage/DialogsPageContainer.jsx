@@ -1,26 +1,27 @@
 import React from 'react';
-import {
-    deleteDialogActionCreator,
-    deleteMessageActionCreator,
-    messageTextChangeActionCreator,
-    sendMessageActionCreator,
-    setCurrentDialogActionCreator,
-    setDialogsActionCreator,
-    setMessageActionCreator,
-    toggleDeleteDialogProgressActionCreator,
-    toggleDeleteMessageProgressActionCreator, toggleSendMessageProgressActionCreator,
-    toggleSetCurrentDialogProgressActionCreator,
-} from "../../Redux/Reducers/DialogsPageReducer";
 import {connect} from "react-redux";
 import DialogsPage from "./DialogsPage";
 import {withRouter} from "react-router-dom";
 import {
     deleteDialogRequest,
     deleteMessageRequest,
-    getDialogsRequest,
     getMessagesRequest,
     sendNewMessageRequest
 } from "../../DAL/ApiRequests";
+import {
+    cetCurrentDialogThunkCreator,
+    deleteDialog, deleteDialogThunkCreator,
+    deleteMessage, deleteMessageThunkCreator,
+    messageTextChange,
+    sendMessage, sendMessageThunkCreator,
+    setCurrentDialog,
+    setDialogs, setDialogsThunkCreator,
+    setMessages,
+    toggleDeleteDialogProgress,
+    toggleDeleteMessageProgress,
+    toggleSendMessageProgress,
+    toggleSetCurrentDialogProgress
+} from "../../Redux/Reducers/DialogsPageReducer";
 
 
 let mapStateToProps = (state) => {
@@ -33,24 +34,8 @@ let mapStateToProps = (state) => {
 class DialogsPageContainer extends React.Component {
 
     componentDidMount = () => {
-        getDialogsRequest()
-            .then(data => {
-                if (data) {
-                    this.props.setDialogs(data.items)
-                }
-                if (this.props.dialogsPage.currentDialogId) {
-                    getMessagesRequest(this.props.dialogsPage.currentDialogId)
-                        .then(data => {
-                            if (data) {
-                                this.props.setMessages(data.items)
-                            } else if (data === null) {
-                                this.props.setMessages([])
-                            }
-                        })
-                }
-            })
+        this.props.setDialogsThunkCreator(this.props.dialogsPage.currentDialogId)
     }
-
 
     // shouldComponentUpdate(nextProps, nextState, nextContext) {
     //
@@ -71,25 +56,12 @@ class DialogsPageContainer extends React.Component {
 
 
     onDeleteDialog = (idDialog) => {
-        this.props.toggleDeleteDialogProgress(true)
-        deleteDialogRequest(idDialog)
-            .then(data => {
-                this.props.deleteDialog(idDialog, data.message)
-                if (this.props.dialogsPage.currentDialogId === idDialog) {
-                    this.props.setCurrentDialog("")
-                }
-                this.props.toggleDeleteDialogProgress(false)
-            })
+        this.props.deleteDialogThunkCreator(idDialog, this.props.dialogsPage.currentDialogId)
     }
 
     onDeleteMassage = (idMessage) => {
         let dialogId = this.props.match.params.dialogId
-        this.props.toggleDeleteMessageProgress(true)
-        deleteMessageRequest(dialogId, idMessage)
-            .then(data => {
-                this.props.deleteMessage(idMessage, data.message)
-                this.props.toggleDeleteMessageProgress(false)
-            })
+        this.props.deleteMessageThunkCreator(dialogId, idMessage)
     }
 
 
@@ -97,42 +69,27 @@ class DialogsPageContainer extends React.Component {
         this.props.setCurrentDialog(selectedDialogId)
         let dialogId = window.location.pathname.split("/")
         let a = dialogId.length - 1
+        let idDialog = dialogId[a]
+        this.props.cetCurrentDialogThunkCreator(idDialog)
 
         // ws.send(JSON.stringify({
         //     token: localStorage.getItem("userToken"),
         //     command: "checkMessages", idDialog: dialogId[a]
         // }))
 
-        this.props.toggleSetCurrentDialogProgress(true)
-        getMessagesRequest(dialogId[a])
-            .then(data => {
-                if (data) {
-                    this.props.setMessages(data.items)
-                } else if (data === null) {
-                    this.props.setMessages([])
-                }
-                this.props.toggleSetCurrentDialogProgress(false)
-            })
     }
 
 
     onSendNewMessage = (messageText) => {
         if (messageText) {
-            // let dialogId = window.location.pathname.split("/")
             let dialogId = this.props.match.params.dialogId
-            // let a = dialogId.length - 1
+            this.props.sendMessageThunkCreator(dialogId, messageText)
 
             // ws.send(JSON.stringify({
             //     token: localStorage.getItem("userToken"),
             //     command: "sendMessage", text: messageText,
             //     idDialog: dialogId[a]
             // }))
-            this.props.toggleSendMessageProgress(true)
-            sendNewMessageRequest(dialogId, messageText)
-                .then(data => {
-                    this.props.sendNewMessage(data[0].name, data[0].img, data[0].id, data[0].text, data[0].time);
-                    this.props.toggleSendMessageProgress(false)
-                })
         }
     }
 
@@ -166,16 +123,15 @@ class DialogsPageContainer extends React.Component {
 let WithRouterDialogsPageContainer = withRouter(DialogsPageContainer)
 
 export default connect(mapStateToProps, {
-    sendNewMessage: sendMessageActionCreator,
-    messageTextChange: messageTextChangeActionCreator,
-    setMessages: setMessageActionCreator,
-    setDialogs: setDialogsActionCreator,
-    setCurrentDialog: setCurrentDialogActionCreator,
-    deleteDialog: deleteDialogActionCreator,
-    deleteMessage: deleteMessageActionCreator,
-    toggleSetCurrentDialogProgress: toggleSetCurrentDialogProgressActionCreator,
-    toggleDeleteDialogProgress: toggleDeleteDialogProgressActionCreator,
-    toggleDeleteMessageProgress: toggleDeleteMessageProgressActionCreator,
-    toggleSendMessageProgress: toggleSendMessageProgressActionCreator,
-
+    messageTextChange,
+    setCurrentDialog,
+    toggleSetCurrentDialogProgress,
+    toggleDeleteDialogProgress,
+    toggleDeleteMessageProgress,
+    toggleSendMessageProgress,
+    setDialogsThunkCreator,
+    deleteDialogThunkCreator,
+    deleteMessageThunkCreator,
+    cetCurrentDialogThunkCreator,
+    sendMessageThunkCreator,
 })(WithRouterDialogsPageContainer)

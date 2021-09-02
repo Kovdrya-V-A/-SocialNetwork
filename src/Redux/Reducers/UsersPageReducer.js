@@ -5,7 +5,7 @@ import {
     searchUsersRequest,
     unFollowRequest
 } from "../../DAL/ApiRequests";
-import {setCurrentDialogActionCreator} from "./DialogsPageReducer";
+import {setCurrentDialog} from "./DialogsPageReducer";
 
 const UNFOLLOW = "UNFOLLOW";
 const FOLLOW = "FOLLOW";
@@ -256,7 +256,7 @@ export const goToDialogThunkCreator = (userId) => {
         goToDialogRequest(userId)
             .then((data) => {
                 dispatch(setIsWrote(true))
-                dispatch(setCurrentDialogActionCreator(data.idDialog))
+                dispatch(setCurrentDialog(data.idDialog))
                 dispatch(toggleSetIsWroteProgress(false, userId))
             })
     }

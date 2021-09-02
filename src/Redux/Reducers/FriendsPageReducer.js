@@ -1,3 +1,13 @@
+import {
+    followRequest,
+    getFriendsRequest,
+    getUsersRequest,
+    goToDialogRequest,
+    unFollowRequest
+} from "../../DAL/ApiRequests";
+import {setUsers, setUserTotalCount} from "./UsersPageReducer";
+import {setCurrentDialog} from "./DialogsPageReducer";
+
 const SET_FRIENDS = "SET_FRIENDS";
 const SET_FRIENDS_TOTAL_COUNT = "SET_FRIENDS_TOTAL_COUNT";
 const SET_CURRENT_FRIENDS_PAGE = "SET_CURRENT_FRIENDS_PAGE";
@@ -72,8 +82,11 @@ const friendsPageReducer = (friendsPage = initialFriendsPage, action) => {
             }
 
         case FP_TOGGLE_IS_WROTE_PROGRESS:
-            return {...friendsPage, isWroteInProgress: action.inProgress ? [...friendsPage.isWroteInProgress, action.userId]:
-            friendsPage.isWroteInProgress.filter(id=> id!= action.userId)}
+            return {
+                ...friendsPage,
+                isWroteInProgress: action.inProgress ? [...friendsPage.isWroteInProgress, action.userId] :
+                    friendsPage.isWroteInProgress.filter(id => id != action.userId)
+            }
 
 
         default: {
@@ -83,39 +96,39 @@ const friendsPageReducer = (friendsPage = initialFriendsPage, action) => {
 }
 
 
-export const setFriendsActionCreator = (friendsData) => {
+export const setFriends = (friendsData) => {
     return {
         type: SET_FRIENDS,
         friendsData
     }
 }
 
-export const setCurrentPageActionCreator = (number) => {
+export const setCurrentPage = (number) => {
     return {
         type: SET_CURRENT_FRIENDS_PAGE,
         number
     }
 }
-export const setFriendsTotalCountActionCreator = (count) => {
+export const setFriendsTotalCount = (count) => {
     return {
         type: SET_FRIENDS_TOTAL_COUNT,
         count
     }
 }
 
-export const setIsFetchingActionCreator = (isFetch) => {
+export const setIsFetching = (isFetch) => {
     return {
         type: SET_IS_FETCHING,
         isFetch
     }
 }
-export const setIsWroteActionCreator = (isWrote) => {
+export const setIsWrote = (isWrote) => {
     return {
         type: SET_IS_WROTE,
         isWrote
     }
 }
-export const followActionCreator = (friendId, message) => {
+export const follow = (friendId, message) => {
     return {
         type: FOLLOW,
         friendId,
@@ -123,7 +136,7 @@ export const followActionCreator = (friendId, message) => {
     }
 }
 
-export const unFollowActionCreator = (userId, message) => {
+export const unFollow = (userId, message) => {
     return {
         type: UNFOLLOW,
         userId,
@@ -131,7 +144,7 @@ export const unFollowActionCreator = (userId, message) => {
     }
 }
 
-export const toggleFollowingProgressActionCreator = (inProgress, userId) => {
+export const toggleFollowingProgress = (inProgress, userId) => {
     return {
         type: FP_TOGGLE_FOLLOWING_PROGRESS,
         inProgress,
@@ -139,7 +152,7 @@ export const toggleFollowingProgressActionCreator = (inProgress, userId) => {
     }
 }
 
-export const toggleIsWroteProgressActionCreator = (inProgress, userId) => {
+export const toggleIsWroteProgress = (inProgress, userId) => {
     return {
         type: FP_TOGGLE_IS_WROTE_PROGRESS,
         inProgress,
@@ -148,5 +161,66 @@ export const toggleIsWroteProgressActionCreator = (inProgress, userId) => {
 }
 
 
+export const setFriendsThunkCreator = (currentPage, pageSize) => {
+    return (dispatch) => {
+        dispatch(setIsFetching(true))
+        getFriendsRequest(currentPage, pageSize)
+            .then(data => {
+                dispatch(setIsFetching(false))
+                if (data) {
+                    dispatch(setFriends(data.items))
+                    dispatch(setFriendsTotalCount(data.totalCount))
+                }
+            })
+    }
+
+}
+
+export const unFollowThunkActionCreator = (userId) => {
+    return (dispatch) => {
+        dispatch(toggleFollowingProgress(true, userId))
+        unFollowRequest(userId)
+            .then(data => {
+                dispatch(unFollow(userId, data.message))
+                dispatch(toggleFollowingProgress(false, userId))
+            })
+    }
+}
+
+export const followThunkActionCreator = (userId) => {
+    return (dispatch) => {
+        dispatch(toggleFollowingProgress(true, userId))
+        followRequest(userId)
+            .then(data => {
+                dispatch(follow(userId, data.message))
+                dispatch(toggleFollowingProgress(false, userId))
+            })
+    }
+}
+
+export const setCurrentPageThunkActionCreator = (number, pageSize) => {
+    return (dispatch) => {
+        dispatch(setCurrentPage(number))
+        dispatch(setIsFetching(true))
+        getFriendsRequest(number, pageSize)
+            .then(data => {
+                dispatch(setIsFetching(false))
+                dispatch(setFriends(data.items))
+                dispatch(setFriendsTotalCount(data.totalCount))
+            })
+    }
+}
+
+export const goToDialogThunkActionCreator = (userId) => {
+    return (dispatch) => {
+        dispatch(toggleIsWroteProgress(true, userId))
+        goToDialogRequest(userId)
+            .then((data) => {
+                dispatch(setIsWrote(true))
+                dispatch(setCurrentDialog(data.idDialog))
+                dispatch(toggleIsWroteProgress(false, userId))
+            })
+    }
+}
 
 export default friendsPageReducer;

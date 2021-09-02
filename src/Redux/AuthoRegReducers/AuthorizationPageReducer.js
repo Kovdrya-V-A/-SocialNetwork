@@ -1,3 +1,5 @@
+import {userVerificationRequest} from "../../DAL/ApiRequests";
+
 const INPUT_LOGIN_STATE = "INPUT_LOGIN_STATE";
 const INPUT_PASSWORD_STATE = "INPUT_PASSWORD_STATE";
 const USER_VERIFICATION = "USER_VERIFICATION";
@@ -68,42 +70,56 @@ const authorisationPageReducer = (authorisationPage = initialAuthorisationPage, 
 }
 
 
-export const inputLoginActionCreator = (login) => {
+export const inputLogin = (login) => {
     return {
         type: INPUT_LOGIN_STATE,
         introducedLogin: login.current.value
     }
 }
 
-export const inputPasswordActionCreator = (password) => {
+export const inputPassword = (password) => {
     return {
         type: INPUT_PASSWORD_STATE,
         introducedPassword: password.current.value
     }
 }
 
-export const userVerificationActionCreator = (isFits) => {
+export const userVerification = (isFits) => {
     return {
         type: USER_VERIFICATION,
         dataIsCorrect: isFits
     }
 }
-export const resetVerificationActionCreator = () => {
+export const resetVerification = () => {
     return {
         type: RESET_VERIFICATION
     }
 
 }
-export const setUserTokenActionCreator = (token) => {
+export const setUserToken = (token) => {
     return {
         type: SET_USER_TOKEN,
         token
     }
 }
-export const toggleAuthorisationProgressActionCreator = (authorisationInProgress) => {
+export const toggleAuthorisationProgress = (authorisationInProgress) => {
     return {
         type: TOGGLE_AUTHORISATION_PROGRESS,
         authorisationInProgress: authorisationInProgress
+    }
+}
+
+export const userVerificationThunkCreator = (login, password) => {
+    return (dispatch) => {
+      dispatch(toggleAuthorisationProgress(true))
+        userVerificationRequest(login, password)
+            .then(data => {
+                if (data.key_type) {
+                  dispatch(setUserToken(data.access_token))
+                }
+                dispatch(userVerification(data.key_type))
+               dispatch(toggleAuthorisationProgress(false))
+            })
     }
 }
 

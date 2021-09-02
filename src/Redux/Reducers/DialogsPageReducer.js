@@ -1,6 +1,14 @@
+import {
+    deleteDialogRequest,
+    deleteMessageRequest,
+    getDialogsRequest,
+    getMessagesRequest,
+    sendNewMessageRequest
+} from "../../DAL/ApiRequests";
+
 const SEND_MESSAGE = "SEND_MESSAGE";
 const MESSAGE_TEXT_CHANGE = "MESSAGE_TEXT_CHANGE";
-const SET_MESSAGE = "SET_MESSAGE";
+const SET_MESSAGES = "SET_MESSAGES";
 const SET_DIALOGS = "SET_DIALOGS";
 const SET_CURRENT_DIALOG = "SET_CURRENT_DIALOG";
 const DELETE_DIALOG = "DELETE_DIALOG";
@@ -49,7 +57,7 @@ const dialogsPageReducer = (dialogsPage = initialDialogsPage, action) => {
             };
         }
 
-        case SET_MESSAGE: {
+        case SET_MESSAGES: {
             return {
                 ...dialogsPage,
                 messagesData: [...action.messagesData]
@@ -124,7 +132,7 @@ const dialogsPageReducer = (dialogsPage = initialDialogsPage, action) => {
 
 }
 
-export const sendMessageActionCreator = (name, img, id, text, time) => {
+export const sendMessage = (name, img, id, text, time) => {
     return {
         type: SEND_MESSAGE,
         name: name,
@@ -134,7 +142,7 @@ export const sendMessageActionCreator = (name, img, id, text, time) => {
         time: time
     }
 }
-export const deleteDialogActionCreator = (idDialog, message) => {
+export const deleteDialog = (idDialog, message) => {
     return {
         type: DELETE_DIALOG,
         idDialog: idDialog,
@@ -142,21 +150,21 @@ export const deleteDialogActionCreator = (idDialog, message) => {
 
     }
 }
-export const messageTextChangeActionCreator = (text) => {
+export const messageTextChange = (text) => {
     return {
         type: MESSAGE_TEXT_CHANGE,
         enteredMessageText: text.current.value,
     }
 }
 
-export const setMessageActionCreator = (messagesData) => {
+export const setMessages = (messagesData) => {
     return {
-        type: SET_MESSAGE,
+        type: SET_MESSAGES,
         messagesData
     }
 }
 
-export const deleteMessageActionCreator = (idMessage, message) => {
+export const deleteMessage = (idMessage, message) => {
     return {
         type: DELETE_MESSAGE,
         idMessage,
@@ -164,44 +172,116 @@ export const deleteMessageActionCreator = (idMessage, message) => {
     }
 }
 
-export const setDialogsActionCreator = (dialogsData) => {
+export const setDialogs = (dialogsData) => {
     return {
         type: SET_DIALOGS,
         dialogsData
     }
 }
 
-export const setCurrentDialogActionCreator = (selectedDialogId) => {
+export const setCurrentDialog = (selectedDialogId) => {
     return {
         type: SET_CURRENT_DIALOG,
         selectedDialogId
     }
 }
 
-export const toggleSetCurrentDialogProgressActionCreator = (setCurrentDialogInProgress) => {
+export const toggleSetCurrentDialogProgress = (setCurrentDialogInProgress) => {
     return {
         type: TOGGLE_SET_CURRENT_DIALOG_PROGRESS,
         setCurrentDialogInProgress
     }
 }
 
-export const toggleDeleteDialogProgressActionCreator = (deleteDialogInProgress) => {
+export const toggleDeleteDialogProgress = (deleteDialogInProgress) => {
     return {
         type: TOGGLE_DELETE_DIALOG_PROGRESS,
         deleteDialogInProgress
     }
 }
-export const toggleDeleteMessageProgressActionCreator = (deleteMessageInProgress) => {
+export const toggleDeleteMessageProgress = (deleteMessageInProgress) => {
     return {
         type: TOGGLE_DELETE_MESSAGE_PROGRESS,
         deleteMessageInProgress
     }
 }
 
-export const toggleSendMessageProgressActionCreator = (sendMessageInProgress) => {
+export const toggleSendMessageProgress = (sendMessageInProgress) => {
     return {
         type: TOGGLE_SEND_MESSAGE_PROGRESS,
         sendMessageInProgress
+    }
+}
+
+export const setDialogsThunkCreator = (currentDialogId) => {
+    return (dispatch) => {
+        getDialogsRequest()
+            .then(data => {
+                if (data) {
+                  dispatch(  setDialogs(data.items))
+                }
+                if (currentDialogId) {
+                    getMessagesRequest(currentDialogId)
+                        .then(data => {
+                            if (data) {
+                                dispatch(setMessages(data.items))
+                            } else if (data === null) {
+                                dispatch(setMessages([]))
+                            }
+                        })
+                }
+            })
+    }
+}
+
+export const deleteDialogThunkCreator = (idDialog, currentDialogId) => {
+    return (dispatch) => {
+        dispatch(toggleDeleteDialogProgress(true))
+        deleteDialogRequest(idDialog)
+            .then(data => {
+                dispatch(deleteDialog(idDialog, data.message))
+                if (currentDialogId === idDialog) {
+                    dispatch(setCurrentDialog(""))
+                }
+                dispatch(toggleDeleteDialogProgress(false))
+            })
+    }
+}
+
+export const deleteMessageThunkCreator = (dialogId, idMessage) => {
+    return (dispatch) => {
+        dispatch(toggleDeleteMessageProgress(true))
+        deleteMessageRequest(dialogId, idMessage)
+            .then(data => {
+                dispatch(deleteMessage(idMessage, data.message))
+                dispatch(toggleDeleteMessageProgress(false))
+            })
+    }
+}
+
+export const cetCurrentDialogThunkCreator = (idDialog) => {
+    return (dispatch) => {
+        dispatch(toggleSetCurrentDialogProgress(true))
+        getMessagesRequest(idDialog)
+            .then(data => {
+                if (data) {
+                   dispatch( setMessages(data.items))
+                } else if (data === null) {
+                    dispatch(setMessages([]))
+                }
+                dispatch(toggleSetCurrentDialogProgress(false))
+            })
+    }
+}
+
+export const sendMessageThunkCreator = (dialogId, messageText) => {
+    return (dispatch) => {
+        dispatch(toggleSendMessageProgress(true))
+        sendNewMessageRequest(dialogId, messageText)
+            .then(data => {
+              dispatch(sendMessage(data[0].name, data[0].img, data[0].id, data[0].text, data[0].time))
+              dispatch(toggleSendMessageProgress(false))
+            })
     }
 }
 

@@ -2,11 +2,9 @@ import React from 'react';
 import NewsPage from "./NewsPage";
 import {connect} from "react-redux";
 import {
-    setCurrentPageActionCreator,
-    setNewsActionCreator,
-    setNewsTotalCountActionCreator
+    setCurrentPageThunkCreator,
+    setNewsThunkCreator,
 } from "../../Redux/Reducers/NewsPageReducer";
-import {getNewsRequest} from "../../DAL/ApiRequests";
 
 
 let mapStateToProps = (state) => {
@@ -20,23 +18,12 @@ let mapStateToProps = (state) => {
 class NewsPageService extends React.Component {
 
     componentDidMount() {
-        getNewsRequest(this.props.newsPage.currentPage, this.props.newsPage.pageSize)
-            .then(data => {
-                if (data) {
-                    this.props.setNews(data.items)
-                    this.props.setNewsTotalCount(data.totalCount)
-                }
-            })
+        this.props.setNewsThunkCreator(this.props.newsPage.currentPage, this.props.newsPage.pageSize)
     }
 
 
     onSetCurrentPage = (number) => {
-        this.props.setCurrentPage(number)
-        getNewsRequest(number, this.props.newsPage.pageSize)
-            .then(data => {
-                this.props.setNews(data.items)
-                this.props.setNewsTotalCount(data.totalCount)
-            })
+        this.props.setCurrentPageThunkCreator(number, this.props.newsPage.pageSize)
     }
 
     render() {
@@ -52,9 +39,8 @@ class NewsPageService extends React.Component {
 
 
 const NewsPageContainer = connect(mapStateToProps, {
-    setNews: setNewsActionCreator,
-    setCurrentPage: setCurrentPageActionCreator,
-    setNewsTotalCount: setNewsTotalCountActionCreator
+    setNewsThunkCreator,
+    setCurrentPageThunkCreator
 })(NewsPageService)
 
 export default NewsPageContainer

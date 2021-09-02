@@ -1,14 +1,13 @@
 import React from 'react';
-import {
-    addPostActionCreator, deletePostActionCreator,
-    postTextChangeActionCreator,
-    setPostsActionCreator,
-    toggleAddPostProgressActionCreator,
-    toggleDeletePostProgressActionCreator,
-} from "../../../Redux/Reducers/ProfilePageReducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
-import {addNewPostRequest, deletePostRequest, getMyPostsRequest} from "../../../DAL/ApiRequests";
+import {
+    addPostThunkCreator,
+    deletePostThunkCreator,
+    postTextChange,
+    setPostsThunkCreator,
+
+} from "../../../Redux/Reducers/ProfilePageReducer";
 
 
 let mapStateToProps = (state) => {
@@ -22,32 +21,18 @@ let mapStateToProps = (state) => {
 class MyPostsService extends React.Component {
 
     componentDidMount() {
-        getMyPostsRequest()
-            .then(data => {
-                if (data) {
-                    this.props.setPosts(data.items)
-                }
-            })
+        this.props.setPostsThunkCreator()
+
     }
 
     onAddNewPost = (postText) => {
         if (postText) {
-            this.props.toggleAddPostProgress(true)
-            addNewPostRequest(postText)
-                .then(data => {
-                    this.props.addNewPost(data[0].idPost, data[0].text, data[0].dateTime);
-                    this.props.toggleAddPostProgress(false)
-                })
+            this.props.addPostThunkCreator(postText)
         }
     }
 
     onDeletePost = (idPost) => {
-        this.props.toggleDeletePostProgress(true)
-        deletePostRequest(idPost)
-            .then(data => {
-                this.props.deletePost(idPost, data.message)
-                this.props.toggleDeletePostProgress(false)
-            })
+        this.props.deletePostThunkCreator(idPost)
     }
 
 
@@ -73,12 +58,10 @@ class MyPostsService extends React.Component {
 }
 
 const MyPostsContainer = connect(mapStateToProps, {
-    addNewPost: addPostActionCreator,
-    postTextChange: postTextChangeActionCreator,
-    setPosts: setPostsActionCreator,
-    deletePost: deletePostActionCreator,
-    toggleAddPostProgress: toggleAddPostProgressActionCreator,
-    toggleDeletePostProgress: toggleDeletePostProgressActionCreator
+    postTextChange,
+    setPostsThunkCreator,
+    addPostThunkCreator,
+    deletePostThunkCreator
 })(MyPostsService)
 
 export default MyPostsContainer

@@ -1,3 +1,6 @@
+import {followRequest, getSelectedUserProfileRequest, goToDialogRequest, unFollowRequest} from "../../DAL/ApiRequests";
+import {setCurrentDialog} from "./DialogsPageReducer";
+
 const SET_USER_POSTS = "SET_USER_POSTS";
 const SET_USER_PROFILE_INFO = "SET_USER_PROFILE_INFO";
 const SET_SELECTED_USER_ID = " SET_SELECTED_USER_ID";
@@ -81,14 +84,14 @@ const selectedProfilePageReducer = (selectedProfilePage = initialSelectedUserPro
 
 }
 
-export const setUserPostsActionCreator = (postsData) => {
+export const setUserPosts = (postsData) => {
     return {
         type: SET_USER_POSTS,
         postsData
     }
 }
 
-export const setUserProfileInfoActionCreator = (profileData) => {
+export const setUserProfileInfo = (profileData) => {
     return {
         type: SET_USER_PROFILE_INFO,
         profileData
@@ -96,13 +99,13 @@ export const setUserProfileInfoActionCreator = (profileData) => {
 }
 
 
-export const setIsWroteActionCreator = (isWrote) => {
+export const setIsWrote = (isWrote) => {
     return {
         type: SET_IS_WROTE,
         isWrote
     }
 }
-export const followActionCreator = (userId, message) => {
+export const follow = (userId, message) => {
     return {
         type: FOLLOW,
         userId,
@@ -110,7 +113,7 @@ export const followActionCreator = (userId, message) => {
     }
 }
 
-export const unFollowActionCreator = (userId, message) => {
+export const unFollow = (userId, message) => {
     return {
         type: UNFOLLOW,
         userId,
@@ -118,7 +121,7 @@ export const unFollowActionCreator = (userId, message) => {
     }
 }
 
-export const toggleSetIsWroteProgressActionCreator = (setIsWroteInProgress) => {
+export const toggleSetIsWroteProgress = (setIsWroteInProgress) => {
     return {
         type: SP_TOGGLE_IS_WROTE_PROGRESS,
         setIsWroteInProgress
@@ -126,11 +129,59 @@ export const toggleSetIsWroteProgressActionCreator = (setIsWroteInProgress) => {
     }
 }
 
-export const toggleFollowingProgressActionCreator = (followingInProgress) => {
+export const toggleFollowingProgress = (followingInProgress) => {
     return {
         type: SP_TOGGLE_FOLLOWING_PROGRESS,
         followingInProgress: followingInProgress
     }
+}
+
+export const setSelectedUserProfileThunkCreator = (userId) => {
+    return (dispatch) => {
+        getSelectedUserProfileRequest(userId)
+            .then(data => {
+                dispatch(setUserProfileInfo(data.userInfo))
+                if (data.posts[0]) {
+                    dispatch(setUserPosts(data.posts))
+                }
+            })
+    }
+}
+
+export const unFollowThunkCreator = (userId) => {
+    return (dispatch) => {
+        dispatch(toggleFollowingProgress(true))
+        unFollowRequest(userId)
+            .then(data => {
+                dispatch(unFollow(userId, data.message))
+                dispatch(toggleFollowingProgress(false))
+            })
+    }
+}
+
+export const followThunkCreator = (userId) => {
+    return (dispatch) => {
+
+        followRequest(userId)
+            .then(data => {
+                dispatch(follow(userId, data.message))
+                dispatch(toggleFollowingProgress(false))
+            })
+    }
+}
+
+export const goToDialogThunkCreator = (userId) => {
+    return (dispatch) => {
+        dispatch(toggleSetIsWroteProgress(true))
+        goToDialogRequest(userId)
+            .then((data) => {
+                dispatch(setIsWrote(true))
+                dispatch(setCurrentDialog(data.idDialog))
+                dispatch(toggleSetIsWroteProgress(false))
+            })
+
+    }
+
 }
 
 export default selectedProfilePageReducer;

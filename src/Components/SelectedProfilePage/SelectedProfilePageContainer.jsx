@@ -1,18 +1,16 @@
 import React from 'react';
 import {connect} from "react-redux";
 import SelectedProfilePage from "./SelectedProfilePage";
-import {
-    followActionCreator,
-    setIsWroteActionCreator,
-    setUserPostsActionCreator,
-    setUserProfileInfoActionCreator,
-    toggleFollowingProgressActionCreator,
-    toggleSetIsWroteProgressActionCreator,
-    unFollowActionCreator
-} from "../../Redux/Reducers/SelectedUserProfilePageReducer";
-import {setCurrentDialogActionCreator} from "../../Redux/Reducers/DialogsPageReducer";
+import {setCurrentDialog, setCurrentDialogActionCreator} from "../../Redux/Reducers/DialogsPageReducer";
 import {withRouter} from "react-router-dom";
 import {followRequest, getSelectedUserProfileRequest, goToDialogRequest, unFollowRequest} from "../../DAL/ApiRequests";
+import {
+    follow, followThunkCreator, goToDialogThunkCreator,
+    setIsWrote, setSelectedUserProfileThunkCreator,
+    setUserPosts,
+    setUserProfileInfo, toggleFollowingProgress, toggleSetIsWroteProgress,
+    unFollow, unFollowThunkCreator
+} from "../../Redux/Reducers/SelectedUserProfilePageReducer";
 
 
 let mapStateToProps = (state) => {
@@ -31,13 +29,7 @@ class SelectedProfilePageContainer extends React.Component {
 
     componentDidMount() {
         let userId = this.props.match.params.userId
-        getSelectedUserProfileRequest(userId)
-            .then(data => {
-                this.props.setUserProfileInfo(data.userInfo)
-                if (data.posts[0]) {
-                    this.props.setUserPosts(data.posts)
-                }
-            })
+        this.props.setSelectedUserProfileThunkCreator(userId)
     }
 
     componentWillUnmount() {
@@ -46,32 +38,15 @@ class SelectedProfilePageContainer extends React.Component {
 
 
     onUnfollow = (userId) => {
-        this.props.toggleFollowingProgress(true)
-        unFollowRequest(userId)
-            .then(data => {
-                this.props.unfollow(userId, data.message)
-                this.props.toggleFollowingProgress(false)
-            })
+        this.props.unFollowThunkCreator(userId)
     }
 
     onFollow = (userId) => {
-        this.props.toggleFollowingProgress(true)
-        followRequest(userId)
-            .then(data => {
-                console.log(data)
-                this.props.follow(userId, data.message)
-                this.props.toggleFollowingProgress(false)
-            })
+        this.props.followThunkCreator(userId)
     }
 
     onMessage = (userId) => {
-        this.props.toggleSetIsWroteProgress(true)
-        goToDialogRequest(userId)
-            .then((data) => {
-                this.props.setIsWrote(true)
-                this.props.setCurrentDialog(data.idDialog)
-                this.props.toggleSetIsWroteProgress(false)
-            })
+        this.props.goToDialogThunkCreator(userId)
     }
 
 
@@ -95,13 +70,17 @@ class SelectedProfilePageContainer extends React.Component {
 let WithRouterSelectedProfilePageContainer = withRouter(SelectedProfilePageContainer)
 
 export default connect(mapStateToProps, {
-    setUserPosts: setUserPostsActionCreator,
-    setUserProfileInfo: setUserProfileInfoActionCreator,
-    unfollow: unFollowActionCreator,
-    follow: followActionCreator,
-    setIsWrote: setIsWroteActionCreator,
-    setCurrentDialog: setCurrentDialogActionCreator,
-    toggleSetIsWroteProgress: toggleSetIsWroteProgressActionCreator,
-    toggleFollowingProgress: toggleFollowingProgressActionCreator
+    setUserPosts,
+    setUserProfileInfo,
+    unFollow,
+    follow,
+    setIsWrote,
+    setCurrentDialog,
+    toggleSetIsWroteProgress,
+    toggleFollowingProgress,
+    setSelectedUserProfileThunkCreator,
+    followThunkCreator,
+    goToDialogThunkCreator,
+    unFollowThunkCreator
 
 })(WithRouterSelectedProfilePageContainer)

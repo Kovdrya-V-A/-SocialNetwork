@@ -1,3 +1,4 @@
+import {userRegistrationRequest} from "../../DAL/ApiRequests";
 
 const INPUT_LOGIN_STATE = "INPUT_LOGIN_STATE";
 const INPUT_PASSWORD_STATE = "INPUT_PASSWORD_STATE";
@@ -61,7 +62,7 @@ const registrationPageReducer = (registrationPage = initialRegistrationPage, act
         case INPUT_EMAIL:
             return {
                 ...registrationPage,
-                introducedEmail: action. introducedEmail
+                introducedEmail: action.introducedEmail
             }
         case TOGGLE_REGISTRATION_PROGRESS:
             return {
@@ -76,57 +77,71 @@ const registrationPageReducer = (registrationPage = initialRegistrationPage, act
 }
 
 
-export const inputLoginActionCreator = (login) => {
+export const inputLogin = (login) => {
     return {
         type: INPUT_LOGIN_STATE,
         introducedLogin: login.current.value
     }
 }
-export const toggleRegistrationProgressActionCreator = (registrationInProgress) => {
+export const toggleRegistrationProgress = (registrationInProgress) => {
     return {
         type: TOGGLE_REGISTRATION_PROGRESS,
         registrationInProgress: registrationInProgress
     }
 }
 
-export const inputPasswordActionCreator = (password) => {
+export const inputPassword = (password) => {
     return {
         type: INPUT_PASSWORD_STATE,
         introducedPassword: password.current.value
     }
 }
 
-export const inputFirstNameActionCreator = (firstName) => {
+export const inputFirstName = (firstName) => {
     return {
         type: INPUT_FIRST_NAME_STATE,
         introducedFirstName: firstName.current.value
     }
 }
 
-export const inputLastNameActionCreator = (lastName) => {
+export const inputLastName = (lastName) => {
     return {
         type: INPUT_LAST_NAME_STATE,
         introducedLastName: lastName.current.value
     }
 }
-export const inputAddressActionCreator = (address) => {
+export const inputAddress = (address) => {
     return {
         type: INPUT_ADDRESS_STATE,
         introducedAddress: address.current.value
     }
 }
-export const inputAgeActionCreator = (age) => {
+export const inputAge = (age) => {
     return {
         type: INPUT_AGE,
         introducedAge: age.current.value
     }
 }
-export const inputEmailActionCreator = (email) => {
+export const inputEmail = (email) => {
     return {
         type: INPUT_EMAIL,
         introducedEmail: email.current.value
     }
 }
 
+export const registrationUserThunkCreator = (login, password, firstName, lastName, address, age, email) => {
+    return (dispatch) => {
+        dispatch(toggleRegistrationProgress(true))
+        userRegistrationRequest(login, firstName, lastName, password, address, age, email)
+            .then(data => {
+                if (data.itsFine) {
+                    alert("Пользователь успешно зарегистрирован")
+                } else (
+                    alert(`Пользователь не был зарегистрирован - ${data.error}`)
+                )
+                dispatch(toggleRegistrationProgress(false))
+            })
+    }
+}
 
 export default registrationPageReducer;

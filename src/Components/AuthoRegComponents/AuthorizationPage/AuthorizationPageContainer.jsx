@@ -1,15 +1,13 @@
 import React from 'react';
 import {connect} from "react-redux";
 import AuthorizationPage from "./AuthorizationPage";
-import {
-    inputLoginActionCreator,
-    inputPasswordActionCreator,
-    resetVerificationActionCreator,
-    setUserTokenActionCreator,
-    toggleAuthorisationProgressActionCreator,
-    userVerificationActionCreator
-} from "../../../Redux/AuthoRegReducers/AuthorizationPageReducer";
 import {userVerificationRequest} from "../../../DAL/ApiRequests";
+import {
+    inputLogin,
+    inputPassword, resetVerification,
+    setUserToken, toggleAuthorisationProgress,
+    userVerification, userVerificationThunkCreator
+} from "../../../Redux/AuthoRegReducers/AuthorizationPageReducer";
 
 
 let mapStateToProps = (state) => {
@@ -35,15 +33,17 @@ class AuthorizationPageService extends React.Component {
 
 
     onUserVerification = (login, password) => {
-        this.props.toggleAuthorisationProgress(true)
-        userVerificationRequest(login, password)
-            .then(data => {
-                if (data.key_type) {
-                    this.props.setToken(data.access_token)
-                }
-                this.props.userVerification(data.key_type)
-                this.props.toggleAuthorisationProgress(false)
-            })
+        // this.props.toggleAuthorisationProgress(true)
+        // userVerificationRequest(login, password)
+        //     .then(data => {
+        //         if (data.key_type) {
+        //             this.props.setUserToken(data.access_token)
+        //         }
+        //         this.props.userVerification(data.key_type)
+        //         this.props.toggleAuthorisationProgress(false)
+        //     })
+
+        this.props.userVerificationThunkCreator(login, password)
     }
 
     render() {
@@ -63,12 +63,13 @@ class AuthorizationPageService extends React.Component {
 }
 
 const AuthorizationPageContainer = connect(mapStateToProps, {
-    setToken: setUserTokenActionCreator,
-    inputLogin: inputLoginActionCreator,
-    inputPassword: inputPasswordActionCreator,
-    userVerification: userVerificationActionCreator,
-    resetVerification: resetVerificationActionCreator,
-    toggleAuthorisationProgress: toggleAuthorisationProgressActionCreator,
+    setUserToken,
+    inputLogin,
+    inputPassword,
+    userVerification,
+    resetVerification,
+    toggleAuthorisationProgress,
+    userVerificationThunkCreator,
 
 })(AuthorizationPageService)
 

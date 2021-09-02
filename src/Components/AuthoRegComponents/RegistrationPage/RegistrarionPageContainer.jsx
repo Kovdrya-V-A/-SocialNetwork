@@ -1,13 +1,13 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {
-    inputAddressActionCreator, inputAgeActionCreator, inputEmailActionCreator,
-    inputFirstNameActionCreator, inputLastNameActionCreator,
-    inputLoginActionCreator,
-    inputPasswordActionCreator, toggleRegistrationProgressActionCreator
-} from "../../../Redux/AuthoRegReducers/RegistrationPageReducer";
 import RegistrationPage from "./RegistrationPage";
-import {userRegistrationRequest} from "../../../DAL/ApiRequests";
+import {
+    inputAddress, inputAge, inputEmail,
+    inputFirstName,
+    inputLastName,
+    inputLogin,
+    inputPassword, registrationUserThunkCreator, toggleRegistrationProgress
+} from "../../../Redux/AuthoRegReducers/RegistrationPageReducer";
 
 
 let mapStateToProps = (state) => {
@@ -50,16 +50,18 @@ class RegistrationGageService extends React.Component {
 
 
     onRegistrationUser = (login, password, firstName, lastName, address, age, email) => {
-        this.props.toggleRegistrationProgress(true)
-        userRegistrationRequest(login, firstName, lastName, password, address, age, email)
-            .then(data => {
-                if (data.itsFine) {
-                    alert("Пользователь успешно зарегистрирован")
-                } else (
-                    alert(`Пользователь не был зарегистрирован - ${data.error}`)
-                )
-                this.props.toggleRegistrationProgress(false)
-            })
+        this.props.registrationUserThunkCreator(login, password, firstName, lastName, address, age, email)
+
+        // this.props.toggleRegistrationProgress(true)
+        // userRegistrationRequest(login, firstName, lastName, password, address, age, email)
+        //     .then(data => {
+        //         if (data.itsFine) {
+        //             alert("Пользователь успешно зарегистрирован")
+        //         } else (
+        //             alert(`Пользователь не был зарегистрирован - ${data.error}`)
+        //         )
+        //         this.props.toggleRegistrationProgress(false)
+        //     })
     }
 
     render() {
@@ -87,15 +89,14 @@ class RegistrationGageService extends React.Component {
 }
 
 const RegistrationPageContainer = connect(mapStateToProps, {
-    inputLogin: inputLoginActionCreator,
-    inputPassword: inputPasswordActionCreator,
-    inputFirstName: inputFirstNameActionCreator,
-    inputLastName: inputLastNameActionCreator,
-    inputAddress: inputAddressActionCreator,
-    inputAge: inputAgeActionCreator,
-    inputEmail: inputEmailActionCreator,
-    toggleRegistrationProgress: toggleRegistrationProgressActionCreator,
-
+    inputLogin,
+    inputPassword,
+    inputFirstName,
+    inputLastName,
+    inputAddress,
+    inputAge,
+    inputEmail,
+    registrationUserThunkCreator,
 })(RegistrationGageService)
 
 export default RegistrationPageContainer

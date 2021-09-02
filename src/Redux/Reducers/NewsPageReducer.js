@@ -1,3 +1,5 @@
+import {getNewsRequest} from "../../DAL/ApiRequests";
+
 const SET_NEWS = "SET_NEWS";
 const SET_CURRENT_NEWS_PAGE = "SET_CURRENT_NEWS_PAGE";
 const SET_NEWS_TOTAL_COUNT = "SET_NEWS_TOTAL_COUNT";
@@ -34,25 +36,47 @@ const newsPageReducer = (newsPage = initialNewsPage, action) => {
 }
 
 
-
-export const setNewsActionCreator = (newsData) => {
+export const setNews = (newsData) => {
     return {
         type: SET_NEWS,
         newsData
     }
 }
 
-export const setCurrentPageActionCreator = (number) => {
+export const setCurrentPage = (number) => {
     return {
         type: SET_CURRENT_NEWS_PAGE,
         number
     }
 }
 
-export const setNewsTotalCountActionCreator = (count) => {
+export const setNewsTotalCount = (count) => {
     return {
         type: SET_NEWS_TOTAL_COUNT,
         count
+    }
+}
+
+export const setNewsThunkCreator = (currentPage, pageSize) => {
+    return (dispatch) => {
+        getNewsRequest(currentPage, pageSize)
+            .then(data => {
+                if (data) {
+                    dispatch(setNews(data.items))
+                    dispatch(setNewsTotalCount(data.totalCount))
+                }
+            })
+    }
+}
+
+export const setCurrentPageThunkCreator = (number, pageSize) => {
+    return (dispatch) => {
+        dispatch(setCurrentPage(number))
+        getNewsRequest(number, pageSize)
+            .then(data => {
+                dispatch(setNews(data.items))
+                dispatch(setNewsTotalCount(data.totalCount))
+            })
     }
 }
 

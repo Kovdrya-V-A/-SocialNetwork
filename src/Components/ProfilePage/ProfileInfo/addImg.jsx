@@ -2,11 +2,9 @@ import React from "react";
 import * as axios from "axios";
 import {connect} from "react-redux";
 import s from "./ProfileInfo.module.css"
-import {
-    setChangeAvaIsActiveActionCreator,
-    setChangeAvaStatusActionCreator,
-} from "../../../Redux/Reducers/ProfilePageReducer";
+
 import {serverLink} from "../../../DAL/ApiRequests";
+import {setChangeAvaIsActive, setChangeAvaStatus} from "../../../Redux/Reducers/ProfilePageReducer";
 
 let mapStateToProps = (state) => {
     return {
@@ -20,10 +18,10 @@ let mapStateToProps = (state) => {
 let mapDispatchToProps = (dispatch) => {
     return {
         setChangeAvaIsActive: (changeAvaIsActive) => {
-            dispatch(setChangeAvaIsActiveActionCreator(changeAvaIsActive))
+            dispatch(setChangeAvaIsActive(changeAvaIsActive))
         },
         setChangeAvaStatus: (status) => {
-            dispatch(setChangeAvaStatusActionCreator(status))
+            dispatch(setChangeAvaStatus(status))
         },
     }
 }

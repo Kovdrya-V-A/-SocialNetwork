@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import Nav from "./Nav";
-import {setCurrentDialogActionCreator} from "../../Redux/Reducers/DialogsPageReducer";
+import {setCurrentDialog} from "../../Redux/Reducers/DialogsPageReducer";
 
 
 let mapStateToProps = (state) => {
@@ -26,7 +26,7 @@ class NavService extends React.Component {
 }
 
 const NavContainer = connect(mapStateToProps, {
-    setCurrentDialog: setCurrentDialogActionCreator
+    setCurrentDialog,
 })(NavService)
 
 export default NavContainer;
