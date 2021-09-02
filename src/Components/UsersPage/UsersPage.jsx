@@ -28,7 +28,7 @@ const UsersPage = (props) => {
                 <div className={s.userInfo}>
                     <NavLink className={s.userLink}
                              to={"/AuthUser/UserPage/" + u.id}>{u.name}</NavLink>
-                    <button disabled={props.setIsWroteInProgress} onClick={() => {
+                    <button disabled={props.setIsWroteInProgress.some(id => id === u.id)} onClick={() => {
                         props.onMessage(u.id)
                     }} className={`${s.toMessageButton} ${s.button}`}>Написать
                     </button>

@@ -1,26 +1,18 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {
-    followActionCreator,
-    setCurrentPageActionCreator,
-    setIsFetchingActionCreator,
-    setIsWroteActionCreator,
-    setSearchQueryTextActionCreator,
-    setUsersActionCreator,
-    setUserTotalCountActionCreator,
-    toggleFollowingProgressActionCreator, toggleSearchUsersProgressActionCreator,
-    toggleSetIsWroteProgressActionCreator,
-    unFollowActionCreator
+    followThunkCreator, goToDialogThunkCreator, searchUsersThunkCreator,
+    setCurrentPageThunkCreator,
+    setIsWrote,
+    setSearchQueryText,
+    setUsersThunkCreator,
+    toggleFollowingProgress,
+    toggleSearchUsersProgress,
+    toggleSetIsWroteProgress,
+    unFollowThunkCreator,
+
 } from "../../Redux/Reducers/UsersPageReducer";
 import UsersPage from "./UsersPage";
-import {setCurrentDialogActionCreator} from "../../Redux/Reducers/DialogsPageReducer";
-import {
-    followRequest,
-    getUsersRequest,
-    goToDialogRequest, searchUsersRequest,
-    unFollowRequest
-} from "../../DAL/ApiRequests";
-// import {setSelectedUserIdActionCreator} from "../../Redux/Reducers/SelectedUserProfilePageReducer";
 
 let mapStateToProps = (state) => {
     return {
@@ -35,7 +27,7 @@ let mapStateToProps = (state) => {
         currentDialogId: state.dialogsPage.currentDialogId,
         followingInProgress: state.usersPage.followingInProgress,
         setIsWroteInProgress: state.usersPage.setIsWroteInProgress,
-        searchUsersInProgress: state.usersPage.searchUsersInProgress
+        searchUsersInProgress: state.usersPage.searchUsersInProgress,
 
     }
 }
@@ -44,13 +36,7 @@ let mapStateToProps = (state) => {
 class UsersPageService extends React.Component {
 
     componentDidMount() {
-        this.props.setIsFetching(true)
-        getUsersRequest(this.props.currentPage, this.props.pageSize)
-            .then(data => {
-                this.props.setIsFetching(false)
-                this.props.setUsers(data.items)
-                this.props.setUserTotalCount(data.totalCount)
-            })
+        this.props.setUsersThunkCreator(this.props.currentPage, this.props.pageSize)
     }
 
     componentWillUnmount() {
@@ -62,53 +48,23 @@ class UsersPageService extends React.Component {
     }
 
     onSearchUsers = (searchText) => {
-        let isSearch = true;
-        this.props.toggleSearchUsersProgress(true)
-        searchUsersRequest(this.props.currentPage, this.props.pageSize, isSearch, searchText)
-            .then(data => {
-                this.props.setUsers(data.items)
-                this.props.setUserTotalCount(data.totalCount)
-                this.props.toggleSearchUsersProgress(false)
-            })
+        this.props.searchUsersThunkCreator(this.props.currentPage, this.props.pageSize, searchText)
     }
 
     onUnfollow = (userId) => {
-        this.props.toggleFollowingProgress(true, userId)
-        unFollowRequest(userId)
-            .then(data => {
-                this.props.unfollow(userId, data.data.message)
-                this.props.toggleFollowingProgress(false, userId)
-            })
+        this.props.unFollowThunkCreator(userId)
     }
 
     onFollow = (userId) => {
-        this.props.toggleFollowingProgress(true, userId)
-        followRequest(userId)
-            .then(data => {
-                this.props.follow(userId, data.message, data.error)
-                this.props.toggleFollowingProgress(false, userId)
-            })
+        this.props.followThunkCreator(userId)
     }
 
     onSetCurrentPage = (number) => {
-        this.props.setCurrentPage(number)
-        this.props.setIsFetching(true)
-        getUsersRequest(number, this.props.pageSize)
-            .then(data => {
-                this.props.setIsFetching(false)
-                this.props.setUsers(data.items)
-                this.props.setUserTotalCount(data.totalCount)
-            })
+        this.props.setCurrentPageThunkCreator(number, this.props.pageSize)
     }
 
     onMessage = (userId) => {
-        this.props.toggleSetIsWroteProgress(true)
-        goToDialogRequest(userId)
-            .then((data) => {
-                this.props.setIsWrote(true)
-                this.props.setCurrentDialog(data.idDialog)
-                this.props.toggleSetIsWroteProgress(false)
-            })
+        this.props.goToDialogThunkCreator(userId)
     }
 
 
@@ -139,18 +95,17 @@ class UsersPageService extends React.Component {
 
 
 const UsersPageContainer = connect(mapStateToProps, {
-    follow: followActionCreator,
-    unfollow: unFollowActionCreator,
-    setUsers: setUsersActionCreator,
-    setCurrentPage: setCurrentPageActionCreator,
-    setUserTotalCount: setUserTotalCountActionCreator,
-    setIsFetching: setIsFetchingActionCreator,
-    setIsWrote: setIsWroteActionCreator,
-    setSearchQueryText: setSearchQueryTextActionCreator,
-    setCurrentDialog: setCurrentDialogActionCreator,
-    toggleSetIsWroteProgress: toggleSetIsWroteProgressActionCreator,
-    toggleFollowingProgress: toggleFollowingProgressActionCreator,
-    toggleSearchUsersProgress: toggleSearchUsersProgressActionCreator
+    setIsWrote,
+    setSearchQueryText,
+    toggleSetIsWroteProgress,
+    toggleFollowingProgress,
+    toggleSearchUsersProgress,
+    setUsersThunkCreator,
+    searchUsersThunkCreator,
+    unFollowThunkCreator,
+    followThunkCreator,
+    setCurrentPageThunkCreator,
+    goToDialogThunkCreator,
 })(UsersPageService)
 
 export default UsersPageContainer;

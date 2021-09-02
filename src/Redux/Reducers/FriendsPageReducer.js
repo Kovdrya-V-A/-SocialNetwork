@@ -16,7 +16,7 @@ let initialFriendsPage = {
     isFetching: false,
     followingInProgress: [],
     isWrote: false,
-    isWroteInProgress: false,
+    isWroteInProgress: [],
 };
 
 const friendsPageReducer = (friendsPage = initialFriendsPage, action) => {
@@ -72,7 +72,8 @@ const friendsPageReducer = (friendsPage = initialFriendsPage, action) => {
             }
 
         case FP_TOGGLE_IS_WROTE_PROGRESS:
-            return {...friendsPage, isWroteInProgress: action.isWroteInProgress}
+            return {...friendsPage, isWroteInProgress: action.inProgress ? [...friendsPage.isWroteInProgress, action.userId]:
+            friendsPage.isWroteInProgress.filter(id=> id!= action.userId)}
 
 
         default: {
@@ -138,10 +139,11 @@ export const toggleFollowingProgressActionCreator = (inProgress, userId) => {
     }
 }
 
-export const toggleIsWroteProgressActionCreator = (isWroteInProgress) => {
+export const toggleIsWroteProgressActionCreator = (inProgress, userId) => {
     return {
         type: FP_TOGGLE_IS_WROTE_PROGRESS,
-        isWroteInProgress
+        inProgress,
+        userId
     }
 }
 

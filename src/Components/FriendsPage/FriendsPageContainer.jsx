@@ -79,12 +79,12 @@ class FriendsPageService extends React.Component {
     }
 
     onMessage = (userId) => {
-        this.props.toggleIsWroteProgress(true)
+        this.props.toggleIsWroteProgress(true, userId)
         goToDialogRequest(userId)
             .then((data) => {
                 this.props.setIsWrote(true)
                 this.props.setCurrentDialog(data.idDialog)
-                this.props.toggleIsWroteProgress(false)
+                this.props.toggleIsWroteProgress(false, userId)
             })
     }
 

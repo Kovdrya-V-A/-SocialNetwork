@@ -1,3 +1,12 @@
+import {
+    followRequest,
+    getUsersRequest,
+    goToDialogRequest,
+    searchUsersRequest,
+    unFollowRequest
+} from "../../DAL/ApiRequests";
+import {setCurrentDialogActionCreator} from "./DialogsPageReducer";
+
 const UNFOLLOW = "UNFOLLOW";
 const FOLLOW = "FOLLOW";
 const SET_USERS = "SET_USERS";
@@ -8,7 +17,7 @@ const SET_IS_WROTE = "SET_IS_WROTE";
 const SEARCH_QUERY_TEXT_CHANGE = "const SEARCH_QUERY_TEXT_CHANGE";
 const UP_TOGGLE_IS_WROTE_PROGRESS = "UP_TOGGLE_IS_WROTE_PROGRESS";
 const UP_TOGGLE_FOLLOWING_PROGRESS = "UP_TOGGLE_FOLLOWING_PROGRESS";
-const TOGGLE_SEARCH_USERS_PROGRESS = "TOGGLE_SEARCH_USERS_PROGRESS"
+const TOGGLE_SEARCH_USERS_PROGRESS = "TOGGLE_SEARCH_USERS_PROGRESS";
 
 let initialUsersPage = {
 
@@ -20,7 +29,7 @@ let initialUsersPage = {
     isFetching: false,
     isWrote: false,
     followingInProgress: [],
-    setIsWroteInProgress: false,
+    setIsWroteInProgress: [],
     searchUsersInProgress: false,
 };
 
@@ -34,6 +43,7 @@ const usersPageReducer = (usersPage = initialUsersPage, action) => {
                 searchQueryText: action.enteredText
             }
         }
+
 
         case UNFOLLOW:
             return {
@@ -78,13 +88,14 @@ const usersPageReducer = (usersPage = initialUsersPage, action) => {
         case UP_TOGGLE_IS_WROTE_PROGRESS:
             return {
                 ...usersPage,
-                setIsWroteInProgress: action.setIsWroteInProgress
+                setIsWroteInProgress: action.inProgress ? [...usersPage.setIsWroteInProgress, action.userId] :
+                    usersPage.setIsWroteInProgress.filter(id => id != action.userId)
             }
 
         case UP_TOGGLE_FOLLOWING_PROGRESS:
             return {
                 ...usersPage,
-                followingInProgress: action.isAddition ? [...usersPage.followingInProgress, action.userId] :
+                followingInProgress: action.inProgress ? [...usersPage.followingInProgress, action.userId] :
                     usersPage.followingInProgress.filter(id => id !== action.userId)
             }
         case TOGGLE_SEARCH_USERS_PROGRESS:
@@ -99,7 +110,7 @@ const usersPageReducer = (usersPage = initialUsersPage, action) => {
     }
 }
 
-export const unFollowActionCreator = (userId, message) => {
+export const unFollow = (userId, message) => {
     return {
         type: UNFOLLOW,
         userId,
@@ -107,7 +118,8 @@ export const unFollowActionCreator = (userId, message) => {
     }
 }
 
-export const followActionCreator = (userId, message, error) => {
+
+export const follow = (userId, message, error) => {
     return {
         type: FOLLOW,
         userId,
@@ -116,64 +128,137 @@ export const followActionCreator = (userId, message, error) => {
     }
 }
 
-export const setUsersActionCreator = (usersData) => {
+export const setUsers = (usersData) => {
     return {
         type: SET_USERS,
         usersData
     }
 }
 
-export const setCurrentPageActionCreator = (number) => {
+export const setCurrentPage = (number) => {
     return {
         type: SET_CURRENT_USERS_PAGE,
         number
     }
 }
-export const setUserTotalCountActionCreator = (count) => {
+export const setUserTotalCount = (count) => {
     return {
         type: SET_USERS_TOTAL_COUNT,
         count
     }
 }
 
-export const setIsFetchingActionCreator = (isFetch) => {
+export const setIsFetching = (isFetch) => {
     return {
         type: SET_IS_FETCHING,
         isFetch
     }
 }
-export const setIsWroteActionCreator = (isWrote) => {
+export const setIsWrote = (isWrote) => {
     return {
         type: SET_IS_WROTE,
         isWrote
     }
 }
-export const setSearchQueryTextActionCreator = (enteredText) => {
+export const setSearchQueryText = (enteredText) => {
     return {
         type: SEARCH_QUERY_TEXT_CHANGE,
         enteredText: enteredText.current.value
     }
 }
 
-export const toggleSetIsWroteProgressActionCreator = (setIsWroteInProgress) => {
+
+export const toggleSetIsWroteProgress = (inProgress, userId) => {
     return {
         type: UP_TOGGLE_IS_WROTE_PROGRESS,
-        setIsWroteInProgress
-
-    }
-}
-
-export const toggleFollowingProgressActionCreator = (isAddition, userId) => {
-    return {
-        type: UP_TOGGLE_FOLLOWING_PROGRESS,
-        isAddition,
+        inProgress,
         userId
     }
 }
-export const toggleSearchUsersProgressActionCreator = (searchUsersInProgress) => {
+
+export const toggleFollowingProgress = (inProgress, userId) => {
+    return {
+        type: UP_TOGGLE_FOLLOWING_PROGRESS,
+        inProgress,
+        userId
+    }
+}
+export const toggleSearchUsersProgress = (searchUsersInProgress) => {
     return {
         type: TOGGLE_SEARCH_USERS_PROGRESS,
         searchUsersInProgress: searchUsersInProgress
+    }
+}
+
+export const setUsersThunkCreator = (currentPage, pageSize) => {
+    return (dispatch) => {
+        dispatch(setIsFetching(true))
+        getUsersRequest(currentPage, pageSize)
+            .then(data => {
+                dispatch(setIsFetching(false))
+                dispatch(setUsers(data.items))
+                dispatch(setUserTotalCount(data.totalCount))
+            })
+    }
+}
+
+export const searchUsersThunkCreator = (currentPage, pageSize, searchText) => {
+    return (dispatch) => {
+        let isSearch = true;
+        toggleSearchUsersProgress(true)
+        searchUsersRequest(currentPage, pageSize, isSearch, searchText)
+            .then(data => {
+                dispatch(setUsers(data.items))
+                dispatch(setUserTotalCount(data.totalCount))
+                dispatch(toggleSearchUsersProgress(false))
+            })
+    }
+}
+
+export const unFollowThunkCreator = (userId) => {
+    return (dispatch) => {
+        dispatch(toggleFollowingProgress(true, userId))
+        unFollowRequest(userId)
+            .then(data => {
+                dispatch(unFollow(userId, data.message))
+                dispatch(toggleFollowingProgress(false, userId))
+            })
+    }
+}
+
+export const followThunkCreator = (userId) => {
+    return (dispatch) => {
+        dispatch(toggleFollowingProgress(true, userId))
+        followRequest(userId)
+            .then(data => {
+                dispatch(follow(userId, data.message, data.error))
+                dispatch(toggleFollowingProgress(false, userId))
+            })
+    }
+}
+
+export const setCurrentPageThunkCreator = (number, pageSize) => {
+    return (dispatch) => {
+        dispatch(setCurrentPage(number))
+        dispatch(setIsFetching(true))
+        getUsersRequest(number, pageSize)
+            .then(data => {
+                dispatch(setIsFetching(false))
+                dispatch(setUsers(data.items))
+                dispatch(setUserTotalCount(data.totalCount))
+            })
+    }
+}
+
+export const goToDialogThunkCreator = (userId) => {
+    return (dispatch) => {
+        dispatch(toggleSetIsWroteProgress(true, userId))
+        goToDialogRequest(userId)
+            .then((data) => {
+                dispatch(setIsWrote(true))
+                dispatch(setCurrentDialogActionCreator(data.idDialog))
+                dispatch(toggleSetIsWroteProgress(false, userId))
+            })
     }
 }
 

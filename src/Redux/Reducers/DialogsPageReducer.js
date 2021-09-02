@@ -111,7 +111,7 @@ const dialogsPageReducer = (dialogsPage = initialDialogsPage, action) => {
                 deleteMessageInProgress: action.deleteMessageInProgress
             }
 
-            case TOGGLE_SEND_MESSAGE_PROGRESS:
+        case TOGGLE_SEND_MESSAGE_PROGRESS:
             return {
                 ...dialogsPage,
                 sendMessageInProgress: action.sendMessageInProgress
