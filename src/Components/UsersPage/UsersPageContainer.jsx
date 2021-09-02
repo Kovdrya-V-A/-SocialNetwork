@@ -88,7 +88,6 @@ class UsersPageService extends React.Component {
                 setIsWroteInProgress={this.props.setIsWroteInProgress}
                 searchUsersInProgress={this.props.searchUsersInProgress}
             />
-
         </>
     }
 }
