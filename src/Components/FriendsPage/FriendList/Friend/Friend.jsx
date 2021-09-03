@@ -4,6 +4,11 @@ import {NavLink, Redirect} from "react-router-dom";
 import React from "react";
 
 const Friend = (props) => {
+    if (props.isWrote && props.currentDialogId) {
+        return <Redirect to={"/AuthUser/DialogsPage/" + props.currentDialogId}/>
+    }
+
+
     return (
         <div className={s.friend}>
             <div className={s.friendAva}>
@@ -18,9 +23,6 @@ const Friend = (props) => {
                     props.onMessage(props.id)
                 }} className={`${s.toMessageButton} ${s.button}`}>Написать
                 </button>
-                {
-                    props.isWrote && props.currentDialogId ? <Redirect to={"/AuthUser/DialogsPage/" + props.currentDialogId}/> : null
-                }
                 {props.followed ?
                     <button disabled={props.followingInProgress.some(id => id === props.id)} onClick={() => props.onUnfollow(props.id)}
                             className={`${s.unfollowButton} ${s.button}`}>Удалить</button> :

@@ -12,7 +12,7 @@ const TOGGLE_AUTHORISATION_PROGRESS = "TOGGLE_AUTHORISATION_PROGRESS"
 let initialAuthorisationPage = {
     introducedLogin: "",
     introducedPassword: "",
-    dataIsCorrect: false,
+    auth: false,
     sessionIsStart: false,
     authorisationInProgress: false,
 };
@@ -34,20 +34,21 @@ const authorisationPageReducer = (authorisationPage = initialAuthorisationPage, 
             }
 
         case USER_VERIFICATION:
-            if (action.dataIsCorrect) {
+            if (action.auth) {
                 alert("Добро пожаловать !")
                 return {
                     ...authorisationPage,
-                    dataIsCorrect: action.dataIsCorrect
+                    auth: action.auth
                 }
             } else {
                 alert("Неверный логин или пароль")
             }
 
         case RESET_VERIFICATION:
+            localStorage.removeItem("userToken")
             return {
                 ...authorisationPage,
-                dataIsCorrect: false
+                auth: false
             }
         case SET_USER_TOKEN:
             localStorage.setItem("userToken", action.token)
@@ -87,7 +88,7 @@ export const inputPassword = (password) => {
 export const userVerification = (isFits) => {
     return {
         type: USER_VERIFICATION,
-        dataIsCorrect: isFits
+        auth: isFits
     }
 }
 export const resetVerification = () => {

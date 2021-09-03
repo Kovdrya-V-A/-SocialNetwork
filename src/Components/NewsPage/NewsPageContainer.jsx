@@ -5,12 +5,13 @@ import {
     setCurrentPageThunkCreator,
     setNewsThunkCreator,
 } from "../../Redux/Reducers/NewsPageReducer";
+import {CheckAuthRedirect} from "../../HOC/CheckAuth";
 
 
 let mapStateToProps = (state) => {
     return {
         newsPage: state.newsPage,
-        serverLink: state.authorizationPage.serverLink
+        serverLink: state.authorizationPage.serverLink,
     }
 }
 
@@ -37,10 +38,12 @@ class NewsPageService extends React.Component {
     }
 }
 
+let CheckAuthNewsPage = CheckAuthRedirect (NewsPageService)
+
 
 const NewsPageContainer = connect(mapStateToProps, {
     setNewsThunkCreator,
     setCurrentPageThunkCreator
-})(NewsPageService)
+})(CheckAuthNewsPage)
 
 export default NewsPageContainer

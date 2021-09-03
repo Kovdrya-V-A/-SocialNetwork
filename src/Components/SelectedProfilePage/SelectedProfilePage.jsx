@@ -3,16 +3,19 @@ import s from "./SelectedProfilePage.module.css";
 import {Redirect} from "react-router-dom";
 
 const SelectedProfilePage = (props) => {
+    if (props.isWrote && props.currentDialogId) {
+        return <Redirect to={"/AuthUser/DialogsPage/" + props.currentDialogId}/>
+    }
+
+
+
     return (
         <div className={s.selectedProfilePage}>
 
             <UserProfileInfo profileData={props.profileData}/>
 
             <div className={s.activity}>
-                {
-                    props.isWrote && props.currentDialogId ?
-                        <Redirect to={"/AuthUser/DialogsPage/" + props.currentDialogId}/> : null
-                }
+
                 <button disabled={props.setIsWroteInProgress} onClick={() => {
                     props.onMessage(props.profileData[0].userId)
                 }} className={`${s.toMessageButton} ${s.button}`}>Написать

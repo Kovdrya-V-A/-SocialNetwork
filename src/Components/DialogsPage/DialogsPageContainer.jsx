@@ -3,25 +3,17 @@ import {connect} from "react-redux";
 import DialogsPage from "./DialogsPage";
 import {withRouter} from "react-router-dom";
 import {
-    deleteDialogRequest,
-    deleteMessageRequest,
-    getMessagesRequest,
-    sendNewMessageRequest
-} from "../../DAL/ApiRequests";
-import {
     cetCurrentDialogThunkCreator,
-    deleteDialog, deleteDialogThunkCreator,
-    deleteMessage, deleteMessageThunkCreator,
+    deleteDialogThunkCreator,
+    deleteMessageThunkCreator,
     messageTextChange,
-    sendMessage, sendMessageThunkCreator,
+    sendMessageThunkCreator,
     setCurrentDialog,
-    setDialogs, setDialogsThunkCreator,
-    setMessages,
-    toggleDeleteDialogProgress,
-    toggleDeleteMessageProgress,
-    toggleSendMessageProgress,
-    toggleSetCurrentDialogProgress
+    setDialogsThunkCreator,
+
+
 } from "../../Redux/Reducers/DialogsPageReducer";
+import {CheckAuthRedirect} from "../../HOC/CheckAuth";
 
 
 let mapStateToProps = (state) => {
@@ -122,16 +114,14 @@ class DialogsPageContainer extends React.Component {
 
 let WithRouterDialogsPageContainer = withRouter(DialogsPageContainer)
 
+let CheckAuthDialogsPage = CheckAuthRedirect(WithRouterDialogsPageContainer)
+
 export default connect(mapStateToProps, {
     messageTextChange,
     setCurrentDialog,
-    toggleSetCurrentDialogProgress,
-    toggleDeleteDialogProgress,
-    toggleDeleteMessageProgress,
-    toggleSendMessageProgress,
     setDialogsThunkCreator,
     deleteDialogThunkCreator,
     deleteMessageThunkCreator,
     cetCurrentDialogThunkCreator,
     sendMessageThunkCreator,
-})(WithRouterDialogsPageContainer)
+})(CheckAuthDialogsPage)

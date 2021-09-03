@@ -10,26 +10,32 @@ const Nav = (props) => {
                             to="/AuthUser/ProfilePage">Профиль</NavLink></p>
             </div>
             <div className={s.navItem}>
-                <p onClick={() => props.onGoToDialogsPage("")}><NavLink className={s.link} activeClassName={s.activeLink}
-                            to="/AuthUser/DialogsPage">Диалоги</NavLink></p>
+                <p onClick={() => props.onGoToDialogsPage("")}><NavLink className={s.link}
+                                                                        activeClassName={s.activeLink}
+                                                                        to="/AuthUser/DialogsPage">Диалоги</NavLink></p>
             </div>
             <div className={s.navItem}>
                 <p><NavLink className={s.link} activeClassName={s.activeLink}
                             to="/AuthUser/FriendsPage">Друзья</NavLink></p>
             </div>
             <div className={s.navItem}>
-                <p><NavLink className={s.link} activeClassName={s.activeLink} to="/AuthUser/NewsPage">Новости</NavLink></p>
+                <p><NavLink className={s.link} activeClassName={s.activeLink} to="/AuthUser/NewsPage">Новости</NavLink>
+                </p>
             </div>
             <div className={s.navItem}>
-                <p><NavLink className={s.link} activeClassName={s.activeLink} to="/AuthUser/Settings">Настройки</NavLink>
+                <p><NavLink className={s.link} activeClassName={s.activeLink}
+                            to="/AuthUser/Settings">Настройки</NavLink>
                 </p>
             </div>
             <div className={s.navItem}>
 
                 <button className={s.logoutButton} onClick={() => {
-                    window.location.reload();
-                    localStorage.removeItem("userToken")
-                }}><NavLink className={`${s.link} ${s.logoutLink}`} to="/">Выйти</NavLink></button>
+                    props.onExit()
+                    // window.location.reload();
+                }}>
+                    Выйти
+                    {/*<NavLink className={`${s.link} ${s.logoutLink}`} to="/">Выйти</NavLink>*/}
+                </button>
 
             </div>
         </nav>

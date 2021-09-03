@@ -33,16 +33,6 @@ class AuthorizationPageService extends React.Component {
 
 
     onUserVerification = (login, password) => {
-        // this.props.toggleAuthorisationProgress(true)
-        // userVerificationRequest(login, password)
-        //     .then(data => {
-        //         if (data.key_type) {
-        //             this.props.setUserToken(data.access_token)
-        //         }
-        //         this.props.userVerification(data.key_type)
-        //         this.props.toggleAuthorisationProgress(false)
-        //     })
-
         this.props.userVerificationThunkCreator(login, password)
     }
 
@@ -51,7 +41,7 @@ class AuthorizationPageService extends React.Component {
             <AuthorizationPage
                 introducedLogin={this.props.authorizationPage.introducedLogin}
                 introducedPassword={this.props.authorizationPage.introducedPassword}
-                dataIsCorrect={this.props.authorizationPage.dataIsCorrect}
+                auth={this.props.authorizationPage.auth}
                 onInputLogin={this.onInputLogin}
                 onInputPassword={this.onInputPassword}
                 onUserVerification={this.onUserVerification}

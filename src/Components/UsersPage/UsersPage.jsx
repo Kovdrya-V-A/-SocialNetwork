@@ -4,6 +4,10 @@ import {NavLink, Redirect} from "react-router-dom";
 import standUserAva from "../../Assets/standUserAva.png"
 
 const UsersPage = (props) => {
+    if (props.isWrote && props.currentDialogId) {
+        return <Redirect to={"/AuthUser/DialogsPage/" + props.currentDialogId}/>
+    }
+
     let searchText = React.createRef()
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
     let pageNumbers = []
@@ -32,10 +36,6 @@ const UsersPage = (props) => {
                         props.onMessage(u.id)
                     }} className={`${s.toMessageButton} ${s.button}`}>Написать
                     </button>
-                    {
-                        props.isWrote && props.currentDialogId ?
-                            <Redirect to={"/AuthUser/DialogsPage/" + props.currentDialogId}/> : null
-                    }
                     {u.followed ?
                         <button disabled={props.followingInProgress.some(id => id === u.id)}
                                 onClick={() => props.onUnfollow(u.id)}

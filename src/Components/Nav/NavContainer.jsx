@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from "react-redux";
 import Nav from "./Nav";
 import {setCurrentDialog} from "../../Redux/Reducers/DialogsPageReducer";
+import {resetVerification} from "../../Redux/AuthoRegReducers/AuthorizationPageReducer";
 
 
 let mapStateToProps = (state) => {
@@ -18,15 +19,20 @@ class NavService extends React.Component {
         this.props.setCurrentDialog(number)
     }
 
+    onExit = () => {
+        this.props.resetVerification()
+    }
+
     render() {
         return (
-            <Nav onGoToDialogsPage={this.onGoToDialogsPage}/>
+            <Nav onGoToDialogsPage={this.onGoToDialogsPage}
+                 onExit = {this.onExit}/>
         )
     }
 }
 
 const NavContainer = connect(mapStateToProps, {
-    setCurrentDialog,
+    setCurrentDialog, resetVerification,
 })(NavService)
 
 export default NavContainer;

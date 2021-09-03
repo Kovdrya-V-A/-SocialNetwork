@@ -5,7 +5,12 @@ import Header from "../../Header/Header";
 import Footer from "../../Footer/Footer";
 
 const AuthorizationPage = (props) => {
-    console.log(props)
+
+    if (props.auth) {
+        return <Redirect to="/AuthUser/ProfilePage"/>
+        // props.onResetVerification()
+    }
+
     let enterLogin = React.createRef();
     let enterPassword = React.createRef();
     return (
@@ -33,13 +38,14 @@ const AuthorizationPage = (props) => {
                                 onClick={() => {
                                     props.onUserVerification(props.introducedLogin, props.introducedPassword)
                                 }}>
-                                {props.dataIsCorrect ? <Redirect to="/AuthUser/ProfilePage"/> : null}
-                                {props.dataIsCorrect ? props.onResetVerification() : null}
+                                {/*{props.auth ? <Redirect to="/AuthUser/ProfilePage"/> : null}*/}
+                                {/*{props.auth ? props.onResetVerification() : null}*/}
                                 Вход
                             </button>
                         </div>
                         <div className={s.regLink}>
-                            <p>Еще не зарегистрированы ? <NavLink className = {s.link} to="/RegistrationPage">Регистрация</NavLink></p>
+                            <p>Еще не зарегистрированы ? <NavLink className={s.link}
+                                                                  to="/RegistrationPage">Регистрация</NavLink></p>
                         </div>
                     </div>
                 </div>

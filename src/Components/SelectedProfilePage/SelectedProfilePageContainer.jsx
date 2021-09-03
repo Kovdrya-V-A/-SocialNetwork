@@ -3,7 +3,6 @@ import {connect} from "react-redux";
 import SelectedProfilePage from "./SelectedProfilePage";
 import {setCurrentDialog, setCurrentDialogActionCreator} from "../../Redux/Reducers/DialogsPageReducer";
 import {withRouter} from "react-router-dom";
-import {followRequest, getSelectedUserProfileRequest, goToDialogRequest, unFollowRequest} from "../../DAL/ApiRequests";
 import {
     follow, followThunkCreator, goToDialogThunkCreator,
     setIsWrote, setSelectedUserProfileThunkCreator,
@@ -11,6 +10,7 @@ import {
     setUserProfileInfo, toggleFollowingProgress, toggleSetIsWroteProgress,
     unFollow, unFollowThunkCreator
 } from "../../Redux/Reducers/SelectedUserProfilePageReducer";
+import {CheckAuthRedirect} from "../../HOC/CheckAuth";
 
 
 let mapStateToProps = (state) => {
@@ -20,7 +20,7 @@ let mapStateToProps = (state) => {
         serverLink: state.authorizationPage.serverLink,
         currentDialogId: state.dialogsPage.currentDialogId,
         setIsWroteInProgress: state.selectedProfilePage.setIsWroteInProgress,
-        followingInProgress: state.selectedProfilePage.followingInProgress
+        followingInProgress: state.selectedProfilePage.followingInProgress,
 
     }
 }
@@ -69,6 +69,9 @@ class SelectedProfilePageContainer extends React.Component {
 
 let WithRouterSelectedProfilePageContainer = withRouter(SelectedProfilePageContainer)
 
+let CheckAuthSelectedProfilePage = CheckAuthRedirect(WithRouterSelectedProfilePageContainer)
+
+
 export default connect(mapStateToProps, {
     setUserPosts,
     setUserProfileInfo,
@@ -83,4 +86,4 @@ export default connect(mapStateToProps, {
     goToDialogThunkCreator,
     unFollowThunkCreator
 
-})(WithRouterSelectedProfilePageContainer)
+})(CheckAuthSelectedProfilePage)

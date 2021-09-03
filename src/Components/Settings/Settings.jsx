@@ -1,5 +1,21 @@
 import React from 'react';
 import s from './Settings.module.css'
+import {CheckAuthRedirect} from "../../HOC/CheckAuth";
+import {connect} from "react-redux";
+
+
+let mapStateToProps = (state) => {
+    return {
+    }
+}
+
+class SettingsContainer extends  React.Component {
+    render() {
+        return <Settings/>
+    }
+}
+
+
 
 const Settings = () => {
     return (
@@ -9,4 +25,6 @@ const Settings = () => {
     )
 }
 
-export default Settings;
+let CheckAuthSettings = CheckAuthRedirect (SettingsContainer)
+
+export default connect(mapStateToProps, {})(CheckAuthSettings)

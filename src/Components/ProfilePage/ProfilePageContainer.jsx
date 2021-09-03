@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import ProfilePage from "./ProfilePage";
+import {CheckAuthRedirect} from "../../HOC/CheckAuth.jsx";
 
 
 let mapStateToProps = (state) => {
@@ -25,6 +26,8 @@ class profilePageService extends React.Component {
 
 }
 
-const ProfilePageContainer = connect(mapStateToProps, {})(profilePageService)
+let CheckAuthProfilePage = CheckAuthRedirect(profilePageService)
+
+const ProfilePageContainer = connect(mapStateToProps, {})(CheckAuthProfilePage)
 
 export default ProfilePageContainer;

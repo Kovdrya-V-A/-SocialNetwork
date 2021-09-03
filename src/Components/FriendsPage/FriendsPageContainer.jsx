@@ -8,6 +8,7 @@ import {
     setIsWrote,
     unFollowThunkActionCreator
 } from "../../Redux/Reducers/FriendsPageReducer";
+import {CheckAuthRedirect} from "../../HOC/CheckAuth";
 
 let mapStateToProps = (state) => {
     return {
@@ -21,6 +22,7 @@ let mapStateToProps = (state) => {
         currentDialogId: state.dialogsPage.currentDialogId,
         followingInProgress: state.friendsPage.followingInProgress,
         isWroteInProgress: state.friendsPage.isWroteInProgress,
+        auth: state.authorizationPage.auth
     }
 }
 
@@ -75,6 +77,8 @@ class FriendsPageService extends React.Component {
     }
 }
 
+let CheckAuthFriendsPage = CheckAuthRedirect(FriendsPageService)
+
 
 const FriendsPageContainer = connect(mapStateToProps, {
     setIsWrote,
@@ -84,6 +88,6 @@ const FriendsPageContainer = connect(mapStateToProps, {
     followThunkActionCreator,
     setCurrentPageThunkActionCreator,
     goToDialogThunkActionCreator
-})(FriendsPageService)
+})(CheckAuthFriendsPage)
 
 export default FriendsPageContainer;
