@@ -6,6 +6,7 @@ import {
     setNewsThunkCreator,
 } from "../../Redux/Reducers/NewsPageReducer";
 import {CheckAuthRedirect} from "../../HOC/CheckAuth";
+import {compose} from "redux";
 
 
 let mapStateToProps = (state) => {
@@ -16,7 +17,7 @@ let mapStateToProps = (state) => {
 }
 
 
-class NewsPageService extends React.Component {
+class NewsPageContainer extends React.Component {
 
     componentDidMount() {
         this.props.setNewsThunkCreator(this.props.newsPage.currentPage, this.props.newsPage.pageSize)
@@ -38,12 +39,10 @@ class NewsPageService extends React.Component {
     }
 }
 
-let CheckAuthNewsPage = CheckAuthRedirect (NewsPageService)
-
-
-const NewsPageContainer = connect(mapStateToProps, {
-    setNewsThunkCreator,
-    setCurrentPageThunkCreator
-})(CheckAuthNewsPage)
-
-export default NewsPageContainer
+export default compose(
+    connect(mapStateToProps, {
+        setNewsThunkCreator,
+        setCurrentPageThunkCreator
+    }),
+    CheckAuthRedirect
+)(NewsPageContainer)

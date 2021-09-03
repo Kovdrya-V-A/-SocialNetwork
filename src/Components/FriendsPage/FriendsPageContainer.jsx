@@ -9,6 +9,7 @@ import {
     unFollowThunkActionCreator
 } from "../../Redux/Reducers/FriendsPageReducer";
 import {CheckAuthRedirect} from "../../HOC/CheckAuth";
+import {compose} from "redux";
 
 let mapStateToProps = (state) => {
     return {
@@ -27,7 +28,7 @@ let mapStateToProps = (state) => {
 }
 
 
-class FriendsPageService extends React.Component {
+class FriendsPageContainer extends React.Component {
 
     componentDidMount() {
 
@@ -77,17 +78,15 @@ class FriendsPageService extends React.Component {
     }
 }
 
-let CheckAuthFriendsPage = CheckAuthRedirect(FriendsPageService)
-
-
-const FriendsPageContainer = connect(mapStateToProps, {
-    setIsWrote,
-    setCurrentPage,
-    setFriendsThunkCreator,
-    unFollowThunkActionCreator,
-    followThunkActionCreator,
-    setCurrentPageThunkActionCreator,
-    goToDialogThunkActionCreator
-})(CheckAuthFriendsPage)
-
-export default FriendsPageContainer;
+export default compose(
+    connect(mapStateToProps, {
+        setIsWrote,
+        setCurrentPage,
+        setFriendsThunkCreator,
+        unFollowThunkActionCreator,
+        followThunkActionCreator,
+        setCurrentPageThunkActionCreator,
+        goToDialogThunkActionCreator
+    }),
+    CheckAuthRedirect
+)(FriendsPageContainer)

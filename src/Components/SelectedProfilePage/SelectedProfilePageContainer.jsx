@@ -11,6 +11,7 @@ import {
     unFollow, unFollowThunkCreator
 } from "../../Redux/Reducers/SelectedUserProfilePageReducer";
 import {CheckAuthRedirect} from "../../HOC/CheckAuth";
+import {compose} from "redux";
 
 
 let mapStateToProps = (state) => {
@@ -67,23 +68,22 @@ class SelectedProfilePageContainer extends React.Component {
 
 }
 
-let WithRouterSelectedProfilePageContainer = withRouter(SelectedProfilePageContainer)
+export default compose(
+    connect(mapStateToProps, {
+        setUserPosts,
+        setUserProfileInfo,
+        unFollow,
+        follow,
+        setIsWrote,
+        setCurrentDialog,
+        toggleSetIsWroteProgress,
+        toggleFollowingProgress,
+        setSelectedUserProfileThunkCreator,
+        followThunkCreator,
+        goToDialogThunkCreator,
+        unFollowThunkCreator
 
-let CheckAuthSelectedProfilePage = CheckAuthRedirect(WithRouterSelectedProfilePageContainer)
-
-
-export default connect(mapStateToProps, {
-    setUserPosts,
-    setUserProfileInfo,
-    unFollow,
-    follow,
-    setIsWrote,
-    setCurrentDialog,
-    toggleSetIsWroteProgress,
-    toggleFollowingProgress,
-    setSelectedUserProfileThunkCreator,
-    followThunkCreator,
-    goToDialogThunkCreator,
-    unFollowThunkCreator
-
-})(CheckAuthSelectedProfilePage)
+    }),
+    CheckAuthRedirect,
+    withRouter
+)(SelectedProfilePageContainer)

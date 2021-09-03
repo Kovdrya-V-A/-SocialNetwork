@@ -14,6 +14,7 @@ import {
 
 } from "../../Redux/Reducers/DialogsPageReducer";
 import {CheckAuthRedirect} from "../../HOC/CheckAuth";
+import {compose} from "redux";
 
 
 let mapStateToProps = (state) => {
@@ -112,16 +113,18 @@ class DialogsPageContainer extends React.Component {
     }
 }
 
-let WithRouterDialogsPageContainer = withRouter(DialogsPageContainer)
+export default compose(
+    connect(mapStateToProps, {
+        messageTextChange,
+        setCurrentDialog,
+        setDialogsThunkCreator,
+        deleteDialogThunkCreator,
+        deleteMessageThunkCreator,
+        cetCurrentDialogThunkCreator,
+        sendMessageThunkCreator,
+    }),
+    CheckAuthRedirect,
+    withRouter
+)(DialogsPageContainer)
 
-let CheckAuthDialogsPage = CheckAuthRedirect(WithRouterDialogsPageContainer)
 
-export default connect(mapStateToProps, {
-    messageTextChange,
-    setCurrentDialog,
-    setDialogsThunkCreator,
-    deleteDialogThunkCreator,
-    deleteMessageThunkCreator,
-    cetCurrentDialogThunkCreator,
-    sendMessageThunkCreator,
-})(CheckAuthDialogsPage)

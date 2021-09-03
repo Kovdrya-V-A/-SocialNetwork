@@ -13,6 +13,8 @@ import {
 
 } from "../../Redux/Reducers/UsersPageReducer";
 import UsersPage from "./UsersPage";
+import {compose} from "redux";
+import {CheckAuthRedirect} from "../../HOC/CheckAuth";
 
 let mapStateToProps = (state) => {
     return {
@@ -33,7 +35,7 @@ let mapStateToProps = (state) => {
 }
 
 
-class UsersPageService extends React.Component {
+class UsersPageContainer extends React.Component {
 
     componentDidMount() {
         this.props.setUsersThunkCreator(this.props.currentPage, this.props.pageSize)
@@ -92,19 +94,19 @@ class UsersPageService extends React.Component {
     }
 }
 
-
-const UsersPageContainer = connect(mapStateToProps, {
-    setIsWrote,
-    setSearchQueryText,
-    toggleSetIsWroteProgress,
-    toggleFollowingProgress,
-    toggleSearchUsersProgress,
-    setUsersThunkCreator,
-    searchUsersThunkCreator,
-    unFollowThunkCreator,
-    followThunkCreator,
-    setCurrentPageThunkCreator,
-    goToDialogThunkCreator,
-})(UsersPageService)
-
-export default UsersPageContainer;
+export default compose(
+    connect(mapStateToProps, {
+        setIsWrote,
+        setSearchQueryText,
+        toggleSetIsWroteProgress,
+        toggleFollowingProgress,
+        toggleSearchUsersProgress,
+        setUsersThunkCreator,
+        searchUsersThunkCreator,
+        unFollowThunkCreator,
+        followThunkCreator,
+        setCurrentPageThunkCreator,
+        goToDialogThunkCreator,
+    }),
+    CheckAuthRedirect
+)(UsersPageContainer)
