@@ -210,6 +210,13 @@ export const updateUserStatus = (newStatusText) => {
         })
 }
 
+export const getStatusRequest = () => {
+    return axios.get(`${serverLink}/status?token=${localStorage.getItem("userToken")}`)
+        .then(response => {
+            return response.data
+        })
+}
+
 //SELECTED_PROFILE_PAGE
 
 export const getSelectedUserProfileRequest = (id) => {

@@ -14,7 +14,11 @@
 }
 
 .statusValue {
+    cursor: pointer;
     font-size: 14px;
+}
+.statusValue:hover {
+    background-color: #444446;
 }
 
 .inputStatus {

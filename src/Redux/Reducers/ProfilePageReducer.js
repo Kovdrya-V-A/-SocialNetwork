@@ -2,7 +2,7 @@ import {
     addNewPostRequest,
     deletePostRequest,
     getMyPostsRequest,
-    getMyProfileInfoRequest,
+    getMyProfileInfoRequest, getStatusRequest,
     updateUserStatus
 } from "../../DAL/ApiRequests";
 
@@ -15,7 +15,7 @@ const SET_CHANGE_AVA_IS_ACTIVE = "SET_CHANGE_AVA_IS_ACTIVE";
 const SET_CHANGE_AVA_STATUS = "SET_CHANGE_AVA_STATUS";
 const TOGGLE_ADD_POST_PROGRESS = "TOGGLE_ADD_POST_PROGRESS";
 const TOGGLE_DELETE_POST_PROGRESS = "TOGGLE_DELETE_POST_PROGRESS";
-const SET_NEW_STATUS = "SET_NEW_STATUS"
+const SET_STATUS = "SET_STATUS"
 
 let initialProfilePage = {
     postsData: [],
@@ -25,6 +25,7 @@ let initialProfilePage = {
     changeAvaStatus: null,
     addPostInProgress: false,
     deletePostInProgress: false,
+    status: ""
 };
 
 
@@ -105,12 +106,10 @@ const profilePageReducer = (profilePage = initialProfilePage, action) => {
                 deletePostInProgress: action.deletePostInProgress
             }
 
-        case SET_NEW_STATUS:
+        case SET_STATUS:
             return {
                 ...profilePage,
-                profileData: profilePage.profileData.map(u => {
-                    return {...u, userStatus: action.newStatusText}
-                })
+                status: action.statusText
             }
 
         default:
@@ -119,10 +118,10 @@ const profilePageReducer = (profilePage = initialProfilePage, action) => {
 
 }
 
-export const setNewStatus = (newStatusText) => {
+export const setStatus = (statusText) => {
     return {
-        type: SET_NEW_STATUS,
-        newStatusText
+        type: SET_STATUS,
+        statusText
     }
 }
 
@@ -227,7 +226,12 @@ export const setProfileInfoThunkCreator = () => {
         getMyProfileInfoRequest()
             .then(data => {
                 dispatch(setProfileInfo(data))
+                dispatch(setStatus(data.userStatus))
                 localStorage.setItem("authUserId", data.id)
+            })
+        getStatusRequest()
+            .then(data => {
+                dispatch(setStatus(data.userStatus))
             })
     }
 }
@@ -237,8 +241,7 @@ export const setNewStatusThunkCreator = (newStatusText) => {
         updateUserStatus(newStatusText)
             .then((data) => {
                 if (!data.error) {
-                    alert('argarg')
-                    dispatch(setNewStatus(newStatusText))
+                    dispatch(setStatus(data.userStatus))
                 }
             })
     }

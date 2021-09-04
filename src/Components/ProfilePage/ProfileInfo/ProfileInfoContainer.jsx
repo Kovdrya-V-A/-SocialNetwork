@@ -33,6 +33,7 @@ class ProfileInfoService extends React.Component {
             <ProfileInfo
                 changeAvaIsActive={this.props.profilePage.changeAvaIsActive}
                 profileData={this.props.profilePage.profileData}
+                status={this.props.profilePage.status}
                 onSetChangeAvaIsActive={this.onSetChangeAvaIsActive}
                 onSetNewStatus={this.onSetNewStatus}
             />
