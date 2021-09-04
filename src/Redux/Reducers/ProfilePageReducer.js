@@ -1,4 +1,10 @@
-import {addNewPostRequest, deletePostRequest, getMyPostsRequest, getMyProfileInfoRequest} from "../../DAL/ApiRequests";
+import {
+    addNewPostRequest,
+    deletePostRequest,
+    getMyPostsRequest,
+    getMyProfileInfoRequest,
+    updateUserStatus
+} from "../../DAL/ApiRequests";
 
 const ADD_POST = "ADD_POST";
 const POST_TEXT_CHANGE = "POST_TEXT_CHANGE";
@@ -9,6 +15,7 @@ const SET_CHANGE_AVA_IS_ACTIVE = "SET_CHANGE_AVA_IS_ACTIVE";
 const SET_CHANGE_AVA_STATUS = "SET_CHANGE_AVA_STATUS";
 const TOGGLE_ADD_POST_PROGRESS = "TOGGLE_ADD_POST_PROGRESS";
 const TOGGLE_DELETE_POST_PROGRESS = "TOGGLE_DELETE_POST_PROGRESS";
+const SET_NEW_STATUS = "SET_NEW_STATUS"
 
 let initialProfilePage = {
     postsData: [],
@@ -98,11 +105,25 @@ const profilePageReducer = (profilePage = initialProfilePage, action) => {
                 deletePostInProgress: action.deletePostInProgress
             }
 
+        case SET_NEW_STATUS:
+            return {
+                ...profilePage,
+                profileData: profilePage.profileData.map(u => {
+                    return {...u, userStatus: action.newStatusText}
+                })
+            }
+
         default:
             return profilePage;
-    }
-    ;
+    };
 
+}
+
+export const setNewStatus = (newStatusText) => {
+    return {
+        type: SET_NEW_STATUS,
+        newStatusText
+    }
 }
 
 export const addPost = (idPost, text, dateTime) => {
@@ -207,6 +228,18 @@ export const setProfileInfoThunkCreator = () => {
             .then(data => {
                 dispatch(setProfileInfo(data))
                 localStorage.setItem("authUserId", data.id)
+            })
+    }
+}
+
+export const setNewStatusThunkCreator = (newStatusText) => {
+    return (dispatch) => {
+        updateUserStatus(newStatusText)
+            .then((data) => {
+                if (!data.error) {
+                    alert('argarg')
+                    dispatch(setNewStatus(newStatusText))
+                }
             })
     }
 }

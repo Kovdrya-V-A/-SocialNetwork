@@ -9,6 +9,25 @@
     display: flex;
 }
 
+.ProfileStatus {
+    padding-bottom: 8px;
+}
+
+.statusValue {
+    font-size: 14px;
+}
+
+.inputStatus {
+    background-color: #555556;
+    border: 0;
+    color: #CAD2CA;
+    font-size: 14px;
+}
+
+.inputStatusArea {
+    display: flex;
+}
+
 .ava {
     flex: 1;
 }
@@ -27,7 +46,6 @@
 
 .name {
     color: #ffffff;
-    padding-bottom: 5px;
 }
 
 .changeAvaButton {

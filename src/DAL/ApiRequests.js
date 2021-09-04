@@ -200,6 +200,16 @@ export const deletePostRequest = (idPost) => {
         })
 }
 
+export const updateUserStatus = (newStatusText) => {
+    return axios.put(`${serverLink}/updUserStatus`, {
+        "token": localStorage.getItem("userToken"),
+        "statusText": newStatusText
+    })
+        .then(response => {
+            return response.data
+        })
+}
+
 //SELECTED_PROFILE_PAGE
 
 export const getSelectedUserProfileRequest = (id) => {

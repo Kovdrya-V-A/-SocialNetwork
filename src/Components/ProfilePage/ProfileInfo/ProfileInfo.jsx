@@ -1,6 +1,7 @@
 import s from './ProfileInfo.module.css'
 import React from 'react';
 import FileUploadContainer from "./addImg";
+import ProfileStatus from "./ProfileStatus";
 
 
 const ProfileInfo = (props) => {
@@ -13,6 +14,7 @@ const ProfileInfo = (props) => {
                 </div>
                 <div className={s.userData}>
                     <p className={s.name}>{props.profileData[0].name}</p>
+                    <ProfileStatus onSetNewStatus ={props.onSetNewStatus} userStatus = {props.profileData[0].userStatus}/>
                     <p>Возраст: {props.profileData[0].age}</p>
                     <p>Адрес: {props.profileData[0].address}</p>
                 </div>

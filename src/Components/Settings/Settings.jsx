@@ -1,8 +1,8 @@
 import React from 'react';
 import s from './Settings.module.css'
-import {CheckAuthRedirect} from "../../HOC/CheckAuth";
 import {connect} from "react-redux";
 import {compose} from "redux";
+import {CheckAuthRedirect} from "../../HOC/CheckAuth";
 
 
 let mapStateToProps = (state) => {

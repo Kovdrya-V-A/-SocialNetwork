@@ -2,8 +2,8 @@ import React from 'react';
 import {connect} from "react-redux";
 import ProfileInfo from "./ProfileInfo";
 import {
-    setChangeAvaIsActive,
-    setProfileInfoThunkCreator
+    setChangeAvaIsActive, setNewStatusThunkCreator,
+    setProfileInfoThunkCreator,
 } from "../../../Redux/Reducers/ProfilePageReducer";
 
 
@@ -24,13 +24,18 @@ class ProfileInfoService extends React.Component {
         this.props.setChangeAvaIsActive(changeAvaIsActive)
     }
 
+    onSetNewStatus = (newStatusText) => {
+        this.props.setNewStatusThunkCreator(newStatusText)
+    }
 
     render() {
         return (
             <ProfileInfo
                 changeAvaIsActive={this.props.profilePage.changeAvaIsActive}
                 profileData={this.props.profilePage.profileData}
-                onSetChangeAvaIsActive={this.onSetChangeAvaIsActive}/>
+                onSetChangeAvaIsActive={this.onSetChangeAvaIsActive}
+                onSetNewStatus={this.onSetNewStatus}
+            />
         )
     }
 }
@@ -38,6 +43,7 @@ class ProfileInfoService extends React.Component {
 const ProfileInfoContainer = connect(mapStateToProps, {
     setChangeAvaIsActive,
     setProfileInfoThunkCreator,
+    setNewStatusThunkCreator
 })(ProfileInfoService)
 
 export default ProfileInfoContainer;
