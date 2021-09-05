@@ -12,7 +12,7 @@ const SelectedProfilePage = (props) => {
     return (
         <div className={s.selectedProfilePage}>
 
-            <UserProfileInfo profileData={props.profileData}/>
+            <UserProfileInfo userStatus = {props.userStatus} profileData={props.profileData}/>
 
             <div className={s.activity}>
 
@@ -46,6 +46,9 @@ const UserProfileInfo = (props) => {
             </div>
             <div className={s.userData}>
                 <p className={s.userName}>{props.profileData[0].name}</p>
+                <span className={s.userStatusValue}>
+                    {props.userStatus}
+                </span>
                 <p>Возраст: {props.profileData[0].age}</p>
                 <p>Адрес: {props.profileData[0].address}</p>
                 {props.profileData[0].followed ? <div className={s.followedStatus}><p>Ваш друг</p></div> : null}
@@ -81,4 +84,4 @@ const UserPosts = (props) => {
 }
 
 
-export default SelectedProfilePage
+export default React.memo(SelectedProfilePage)

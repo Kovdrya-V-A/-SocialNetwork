@@ -9,8 +9,9 @@ import {
 
 let mapStateToProps = (state) => {
     return {
-        profilePage: state.profilePage,
-        serverLink: state.authorizationPage.serverLink
+        changeAvaIsActive: state.profilePage.changeAvaIsActive,
+        profileData:state.profilePage.profileData,
+        status: state.profilePage.status
     }
 }
 
@@ -18,6 +19,10 @@ class ProfileInfoService extends React.Component {
 
     componentDidMount() {
         this.props.setProfileInfoThunkCreator()
+    }
+
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
     }
 
     onSetChangeAvaIsActive = (changeAvaIsActive) => {
@@ -31,9 +36,9 @@ class ProfileInfoService extends React.Component {
     render() {
         return (
             <ProfileInfo
-                changeAvaIsActive={this.props.profilePage.changeAvaIsActive}
-                profileData={this.props.profilePage.profileData}
-                status={this.props.profilePage.status}
+                changeAvaIsActive={this.props.changeAvaIsActive}
+                profileData={this.props.profileData}
+                status={this.props.status}
                 onSetChangeAvaIsActive={this.onSetChangeAvaIsActive}
                 onSetNewStatus={this.onSetNewStatus}
             />

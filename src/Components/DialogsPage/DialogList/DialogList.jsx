@@ -23,4 +23,4 @@ const DialogList = (props) => {
         </div>
     )
 }
-export default DialogList
+export default  React.memo(DialogList)

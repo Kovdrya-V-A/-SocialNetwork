@@ -18,10 +18,10 @@ let mapStateToProps = (state) => {
     return {
         isWrote: state.selectedProfilePage.isWrote,
         selectedProfilePage: state.selectedProfilePage,
-        serverLink: state.authorizationPage.serverLink,
         currentDialogId: state.dialogsPage.currentDialogId,
         setIsWroteInProgress: state.selectedProfilePage.setIsWroteInProgress,
         followingInProgress: state.selectedProfilePage.followingInProgress,
+        userStatus: state.selectedProfilePage.userStatus
 
     }
 }
@@ -54,6 +54,7 @@ class SelectedProfilePageContainer extends React.Component {
     render() {
         return (
             <SelectedProfilePage
+                userStatus = {this.props.userStatus}
                 currentDialogId={this.props.currentDialogId}
                 isWrote={this.props.isWrote}
                 onUnfollow={this.onUnfollow}

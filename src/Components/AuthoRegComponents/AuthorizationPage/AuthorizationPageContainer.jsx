@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from "react-redux";
 import AuthorizationPage from "./AuthorizationPage";
-import {userVerificationRequest} from "../../../DAL/ApiRequests";
 import {
     inputLogin,
     inputPassword, resetVerification,

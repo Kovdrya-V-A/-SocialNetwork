@@ -18,4 +18,4 @@ const Dialog = (props) => {
         </div>
     )
 }
-export default Dialog;
+export default React.memo(Dialog);

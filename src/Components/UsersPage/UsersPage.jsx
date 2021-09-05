@@ -74,4 +74,4 @@ const UsersPage = (props) => {
     )
 }
 
-export default UsersPage
+export default React.memo(UsersPage)

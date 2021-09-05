@@ -27,7 +27,7 @@ let DialogsPage = (props) => {
             {props.currentDialogId ? <MessagesBar
                 sendMessageInProgress = {props.sendMessageInProgress}
                 deleteMessageInProgress ={props.deleteMessageInProgress}
-                setMessages = {props.setMessages}
+                // setMessages = {props.setMessages}
                 messagesData={props.messagesData}
                 newMessageText={props.newMessageText}
                 onMessageTextChange={props.onMessageTextChange}

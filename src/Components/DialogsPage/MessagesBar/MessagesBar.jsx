@@ -15,8 +15,9 @@ const MessagesBar = (props) => {
         time={m.time}
         idMessage={m.id}
         onDeleteMessage={props.onDeleteMassage}
-        id={m.id}
-        senderId={m.senderId}/>)
+        // id={m.id}
+        senderId={m.senderId}
+/>)
     let text = React.createRef()
 
     return (
@@ -32,4 +33,4 @@ const MessagesBar = (props) => {
         </div>
     )
 }
-export default MessagesBar
+export default React.memo(MessagesBar)

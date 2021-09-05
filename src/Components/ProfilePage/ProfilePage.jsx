@@ -5,7 +5,6 @@ import ProfileInfoContainer from "./ProfileInfo/ProfileInfoContainer";
 
 
 const ProfilePage = (props) => {
-
     return (
         <div className={s.profilePage}>
             <ProfileInfoContainer/>
@@ -13,4 +12,4 @@ const ProfilePage = (props) => {
         </div>
     )
 }
-export default ProfilePage;
+export default React.memo(ProfilePage);

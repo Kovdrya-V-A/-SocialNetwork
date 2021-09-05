@@ -6,7 +6,7 @@ import {
     inputFirstName,
     inputLastName,
     inputLogin,
-    inputPassword, registrationUserThunkCreator, toggleRegistrationProgress
+    inputPassword, registrationUserThunkCreator,
 } from "../../../Redux/AuthoRegReducers/RegistrationPageReducer";
 
 

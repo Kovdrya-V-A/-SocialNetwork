@@ -1,4 +1,9 @@
-import {followRequest, getSelectedUserProfileRequest, goToDialogRequest, unFollowRequest} from "../../DAL/ApiRequests";
+import {
+    followRequest,
+    getSelectedUserProfileRequest, getSelectedUserStatusRequest, getStatusRequest,
+    goToDialogRequest,
+    unFollowRequest,
+} from "../../DAL/ApiRequests";
 import {setCurrentDialog} from "./DialogsPageReducer";
 
 const SET_USER_POSTS = "SET_USER_POSTS";
@@ -9,6 +14,8 @@ const UNFOLLOW = "UNFOLLOW";
 const FOLLOW = "FOLLOW";
 const SP_TOGGLE_IS_WROTE_PROGRESS = "SP_TOGGLE_IS_WROTE_PROGRESS";
 const SP_TOGGLE_FOLLOWING_PROGRESS = "SP_TOGGLE_FOLLOWING_PROGRESS";
+const SET_USER_STATUS = "SET_USER_STATUS";
+
 
 let initialSelectedUserProfilePage = {
     userId: "",
@@ -17,6 +24,7 @@ let initialSelectedUserProfilePage = {
     isWrote: false,
     setIsWroteInProgress: false,
     followingInProgress: false,
+    userStatus:""
 
 };
 
@@ -31,6 +39,12 @@ const selectedProfilePageReducer = (selectedProfilePage = initialSelectedUserPro
                 profileData: selectedProfilePage.profileData.map(f => {
                     return {...f, followed: false}
                 })
+            }
+
+        case SET_USER_STATUS:
+            return {
+                ...selectedProfilePage,
+                userStatus: action.statusText
             }
 
         case FOLLOW:
@@ -82,6 +96,13 @@ const selectedProfilePageReducer = (selectedProfilePage = initialSelectedUserPro
     }
     ;
 
+}
+
+export const setUserStatus = (statusText) => {
+    return {
+        type: SET_USER_STATUS,
+        statusText
+    }
 }
 
 export const setUserPosts = (postsData) => {
@@ -140,6 +161,10 @@ export const setSelectedUserProfileThunkCreator = (userId) => {
     return (dispatch) => {
         getSelectedUserProfileRequest(userId)
             .then(data => {
+                getSelectedUserStatusRequest(userId)
+                    .then(data => {
+                        dispatch(setUserStatus(data.userStatus))
+                    })
                 dispatch(setUserProfileInfo(data.userInfo))
                 if (data.posts[0]) {
                     dispatch(setUserPosts(data.posts))

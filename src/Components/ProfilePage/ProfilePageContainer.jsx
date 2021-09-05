@@ -7,12 +7,14 @@ import {compose} from "redux";
 
 let mapStateToProps = (state) => {
     return {
-        profilePage: state.profilePage,
     }
 }
 
 
 class profilePageContainer extends React.Component {
+    componentDidUpdate(prevProps, prevState, snapshot) {
+    }
+
 
     componentDidMount() {
 

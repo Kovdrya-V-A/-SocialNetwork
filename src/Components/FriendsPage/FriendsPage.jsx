@@ -36,4 +36,4 @@ const FriendsPage = (props) => {
     )
 }
 
-export default FriendsPage
+export default React.memo(FriendsPage)

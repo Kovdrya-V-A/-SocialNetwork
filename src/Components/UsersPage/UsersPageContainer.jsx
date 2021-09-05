@@ -25,7 +25,6 @@ let mapStateToProps = (state) => {
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
         isWrote: state.usersPage.isWrote,
-        serverLink: state.authorizationPage.serverLink,
         currentDialogId: state.dialogsPage.currentDialogId,
         followingInProgress: state.usersPage.followingInProgress,
         setIsWroteInProgress: state.usersPage.setIsWroteInProgress,
@@ -98,9 +97,6 @@ export default compose(
     connect(mapStateToProps, {
         setIsWrote,
         setSearchQueryText,
-        toggleSetIsWroteProgress,
-        toggleFollowingProgress,
-        toggleSearchUsersProgress,
         setUsersThunkCreator,
         searchUsersThunkCreator,
         unFollowThunkCreator,

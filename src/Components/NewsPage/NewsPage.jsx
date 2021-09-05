@@ -27,4 +27,4 @@ const NewsPage = (props) => {
     )
 }
 
-export default NewsPage;
+export default React.memo(NewsPage);

@@ -8,7 +8,6 @@ const AuthorizationPage = (props) => {
 
     if (props.auth) {
         return <Redirect to="/AuthUser/ProfilePage"/>
-        // props.onResetVerification()
     }
 
     let enterLogin = React.createRef();
@@ -55,7 +54,6 @@ const AuthorizationPage = (props) => {
     );
 }
 
-<a href="/S">Регистрация</a>
 
 
-export default AuthorizationPage;
+export default React.memo(AuthorizationPage);

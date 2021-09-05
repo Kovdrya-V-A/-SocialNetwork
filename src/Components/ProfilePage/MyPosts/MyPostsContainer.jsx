@@ -13,7 +13,6 @@ import {
 let mapStateToProps = (state) => {
     return {
         profilePage: state.profilePage,
-        serverLink: state.authorizationPage.serverLink
     }
 }
 

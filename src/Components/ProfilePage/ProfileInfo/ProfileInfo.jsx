@@ -28,4 +28,4 @@ const ProfileInfo = (props) => {
 
 }
 
-export default ProfileInfo;
+export default React.memo(ProfileInfo);

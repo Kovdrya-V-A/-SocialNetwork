@@ -5,6 +5,11 @@
 .activity {
     margin-bottom: 10px;
 }
+.userStatusValue {
+    padding-bottom: 8px;
+    font-size: 14px;
+}
+
 
 .toMessageButton {
     min-width: 50px;
@@ -117,7 +122,6 @@ h2 {
 
 .userName {
     color: #ffffff;
-    padding-bottom: 5px;
 }
 
 .name {

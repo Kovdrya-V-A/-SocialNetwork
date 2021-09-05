@@ -82,4 +82,4 @@ const RegistrationPage = (props) => {
     );
 }
 
-export default RegistrationPage
+export default React.memo(RegistrationPage)

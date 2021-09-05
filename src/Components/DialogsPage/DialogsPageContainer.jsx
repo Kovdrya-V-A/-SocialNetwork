@@ -20,7 +20,6 @@ import {compose} from "redux";
 let mapStateToProps = (state) => {
     return {
         dialogsPage: state.dialogsPage,
-        serverLink: state.authorizationPage.serverLink,
     }
 }
 
@@ -94,7 +93,7 @@ class DialogsPageContainer extends React.Component {
     render() {
         return (
             <DialogsPage
-                dialogsData={this.props.dialogsPage.dialogsData}
+               dialogsData={this.props.dialogsPage.dialogsData}
                 messagesData={this.props.dialogsPage.messagesData}
                 newMessageText={this.props.dialogsPage.newMessageText}
                 onMessageTextChange={this.onMessageTextChange}
@@ -103,7 +102,7 @@ class DialogsPageContainer extends React.Component {
                 onSetCurrentDialog={this.onSetCurrentDialog}
                 onDeleteDialog={this.onDeleteDialog}
                 onDeleteMassage={this.onDeleteMassage}
-                setMessages={this.props.setMessages}
+                // setMessages={this.props.setMessages}
                 setCurrentDialogInProgress={this.props.dialogsPage.setCurrentDialogInProgress}
                 deleteDialogInProgress={this.props.dialogsPage.deleteDialogInProgress}
                 deleteMessageInProgress={this.props.dialogsPage.deleteMessageInProgress}

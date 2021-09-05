@@ -1,11 +1,19 @@
 import React from "react"
 import s from "./ProfileInfo.module.css"
 
-class ProfileStatus extends React.Component {
+class ProfileStatus extends React.PureComponent {
 
     state = {
         status: this.props.status,
         editMode: false,
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.status !== this.props.status) {
+            this.setState({
+                status: this.props.status
+            })
+        }
     }
 
     onStatusTextChange = (e) => {

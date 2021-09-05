@@ -12,7 +12,6 @@ import {compose} from "redux";
 let mapStateToProps = (state) => {
     return {
         newsPage: state.newsPage,
-        serverLink: state.authorizationPage.serverLink,
     }
 }
 
