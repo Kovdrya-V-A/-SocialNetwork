@@ -37,8 +37,6 @@ const AuthorizationPage = (props) => {
                                 onClick={() => {
                                     props.onUserVerification(props.introducedLogin, props.introducedPassword)
                                 }}>
-                                {/*{props.auth ? <Redirect to="/AuthUser/ProfilePage"/> : null}*/}
-                                {/*{props.auth ? props.onResetVerification() : null}*/}
                                 Вход
                             </button>
                         </div>
@@ -54,6 +52,31 @@ const AuthorizationPage = (props) => {
     );
 }
 
+
+let AuthorizationForm = () => {
+    return (
+        <form>
+            <div className={s.enterLogin}>
+                <p>Введите логин:</p>
+                <input type="text" placeholder="Логин"/>
+            </div>
+            <div className={s.enterPassword}>
+                <p>Введите пароль:</p>
+                <input type="password" placeholder="Пароль"/>
+            </div>
+            <div className={s.entryButton}>
+                <button
+                    // disabled={props.authorisationInProgress}
+                    // onClick={() => {
+                    //     props.onUserVerification(props.introducedLogin, props.introducedPassword)
+                    // }}
+                >
+                    Вход
+                </button>
+            </div>
+        </form>
+    )
+}
 
 
 export default React.memo(AuthorizationPage);
