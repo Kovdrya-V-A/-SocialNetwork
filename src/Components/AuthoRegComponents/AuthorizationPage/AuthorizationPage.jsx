@@ -12,7 +12,6 @@ const AuthorizationPage = (props) => {
         return <Redirect to="/AuthUser/ProfilePage"/>
     }
     const onSubmit = (formData) => {
-        console.log(formData)
         props.onUserVerification(formData.login, formData.password)
     }
     return (
@@ -71,9 +70,6 @@ let AuthorizationForm = (props) => {
             <div className={s.entryButton}>
                 <button
                     disabled={props.authorisationInProgress}
-                    // onClick={() => {
-                    //     props.onUserVerification(props.introducedLogin, props.introducedPassword)
-                    // }}
                 >
                     Вход
                 </button>
