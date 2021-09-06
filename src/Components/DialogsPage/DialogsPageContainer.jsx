@@ -102,7 +102,6 @@ class DialogsPageContainer extends React.Component {
                 onSetCurrentDialog={this.onSetCurrentDialog}
                 onDeleteDialog={this.onDeleteDialog}
                 onDeleteMassage={this.onDeleteMassage}
-                // setMessages={this.props.setMessages}
                 setCurrentDialogInProgress={this.props.dialogsPage.setCurrentDialogInProgress}
                 deleteDialogInProgress={this.props.dialogsPage.deleteDialogInProgress}
                 deleteMessageInProgress={this.props.dialogsPage.deleteMessageInProgress}

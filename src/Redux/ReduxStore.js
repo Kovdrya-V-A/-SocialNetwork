@@ -7,7 +7,9 @@ import authorisationPageReducer from "./AuthoRegReducers/AuthorizationPageReduce
 import registrationPageReducer from "./AuthoRegReducers/RegistrationPageReducer";
 import selectedProfilePageReducer from "./Reducers/SelectedUserProfilePageReducer";
 import friendsPageReducer from "./Reducers/FriendsPageReducer";
-import thunkMiddleware from "redux-thunk"
+import thunkMiddleware from "redux-thunk";
+import {reducer as formReducer} from "redux-form"
+
 
 const enchansers = [applyMiddleware(thunkMiddleware), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()]
 let reducers = combineReducers({
@@ -18,7 +20,8 @@ let reducers = combineReducers({
     selectedProfilePage: selectedProfilePageReducer,
     authorizationPage: authorisationPageReducer,
     registrationPage: registrationPageReducer,
-    friendsPage: friendsPageReducer
+    friendsPage: friendsPageReducer,
+    form: formReducer
 })
 const store = createStore(reducers, compose(...enchansers) );
 

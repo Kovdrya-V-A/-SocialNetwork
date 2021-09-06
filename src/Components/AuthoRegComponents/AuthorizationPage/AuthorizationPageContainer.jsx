@@ -57,7 +57,6 @@ const AuthorizationPageContainer = connect(mapStateToProps, {
     inputPassword,
     userVerification,
     resetVerification,
-    toggleAuthorisationProgress,
     userVerificationThunkCreator,
 
 })(AuthorizationPageService)
