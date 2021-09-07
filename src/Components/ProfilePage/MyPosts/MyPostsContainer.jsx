@@ -4,7 +4,6 @@ import {connect} from "react-redux";
 import {
     addPostThunkCreator,
     deletePostThunkCreator,
-    postTextChange,
     setPostsThunkCreator,
 
 } from "../../../Redux/Reducers/ProfilePageReducer";
@@ -35,19 +34,12 @@ class MyPostsService extends React.Component {
     }
 
 
-    onPostTextChange = (text) => {
-        this.props.postTextChange(text)
-    }
-
     render() {
         return (
             <MyPosts postsData={this.props.profilePage.postsData}
-                     newPostText={this.props.profilePage.newPostText}
-                     onPostTextChange={this.onPostTextChange}
                      onAddNewPost={this.onAddNewPost}
                      onDeletePost={this.onDeletePost}
                      avaImg={this.props.profilePage.profileData[0].img}
-                     postText={this.props.profilePage.newPostText}
                      name={this.props.profilePage.profileData[0].name}
                      addPostInProgress={this.props.profilePage.addPostInProgress}
                      deletePostInProgress={this.props.profilePage.deletePostInProgress}
@@ -57,7 +49,6 @@ class MyPostsService extends React.Component {
 }
 
 const MyPostsContainer = connect(mapStateToProps, {
-    postTextChange,
     setPostsThunkCreator,
     addPostThunkCreator,
     deletePostThunkCreator

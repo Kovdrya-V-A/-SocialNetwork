@@ -144,10 +144,13 @@ export const getUsersRequest = (page, count) => {
 }
 
 export const searchUsersRequest = (page, count, isSearch, searchText) => {
-    return axios.get(`${serverLink}/users?token=${localStorage.getItem("userToken")}&page=${page}&count=${count}&isSearch=${isSearch}&searchText=${searchText}`)
-        .then(response => {
-            return response.data
-        })
+    if (searchText.length > 0) {
+        return axios.get(`${serverLink}/users?token=${localStorage.getItem("userToken")}&page=${page}&count=${count}&isSearch=${isSearch}&searchText=${searchText}`)
+            .then(response => {
+                return response.data
+            })
+    }
+    return getUsersRequest(page, count)
 }
 
 //NEWS_PAGE

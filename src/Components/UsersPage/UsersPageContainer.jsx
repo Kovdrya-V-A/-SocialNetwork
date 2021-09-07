@@ -4,11 +4,8 @@ import {
     followThunkCreator, goToDialogThunkCreator, searchUsersThunkCreator,
     setCurrentPageThunkCreator,
     setIsWrote,
-    setSearchQueryText,
     setUsersThunkCreator,
-    toggleFollowingProgress,
-    toggleSearchUsersProgress,
-    toggleSetIsWroteProgress,
+
     unFollowThunkCreator,
 
 } from "../../Redux/Reducers/UsersPageReducer";
@@ -18,7 +15,6 @@ import {CheckAuthRedirect} from "../../HOC/CheckAuth";
 
 let mapStateToProps = (state) => {
     return {
-        searchQueryText: state.usersPage.searchQueryText,
         usersData: state.usersPage.usersData,
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
@@ -42,10 +38,6 @@ class UsersPageContainer extends React.Component {
 
     componentWillUnmount() {
         this.props.setIsWrote(false)
-    }
-
-    onSetSearchQueryText = (enteredText) => {
-        this.props.setSearchQueryText(enteredText)
     }
 
     onSearchUsers = (searchText) => {
@@ -72,14 +64,12 @@ class UsersPageContainer extends React.Component {
     render() {
         return <>
             <UsersPage
-                onSetSearchQueryText={this.onSetSearchQueryText}
                 onSetCurrentPage={this.onSetCurrentPage}
                 totalUsersCount={this.props.totalUsersCount}
                 pageSize={this.props.pageSize}
                 currentPage={this.props.currentPage}
                 usersData={this.props.usersData}
                 isWrote={this.props.isWrote}
-                searchQueryText={this.props.searchQueryText}
                 onUnfollow={this.onUnfollow}
                 onFollow={this.onFollow}
                 onMessage={this.onMessage}
@@ -96,7 +86,6 @@ class UsersPageContainer extends React.Component {
 export default compose(
     connect(mapStateToProps, {
         setIsWrote,
-        setSearchQueryText,
         setUsersThunkCreator,
         searchUsersThunkCreator,
         unFollowThunkCreator,

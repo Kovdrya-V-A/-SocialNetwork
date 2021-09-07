@@ -1,9 +1,16 @@
 import s from "../DialogsPage.module.css";
 import React from "react";
 import Message from "./Message/Message";
+import {Field, reduxForm, reset} from "redux-form";
 
 
 const MessagesBar = (props) => {
+
+    const onSubmit = (formData, dispatch) => {
+        props.onSendNewMessage(formData.messageText)
+        dispatch(reset("sendMessage"))
+    }
+
 
 
     let messagesItems = props.messagesData.map(m => m.isDeleted ? null : <Message
@@ -15,22 +22,33 @@ const MessagesBar = (props) => {
         time={m.time}
         idMessage={m.id}
         onDeleteMessage={props.onDeleteMassage}
-        // id={m.id}
         senderId={m.senderId}
 />)
-    let text = React.createRef()
 
     return (
         <div className={s.messageBar}>
             {props.messagesData.length > 0 ? messagesItems :
                 <p className={s.nullMessagesMessage}>В этом диалоге пока нет сообщений</p>}
-            <textarea value={props.newMessageText}
-                      onChange={() => props.onMessageTextChange(text)} placeholder="Ваше сообщение" ref={text}
-                      name="новое сообщение" id="" cols="30" rows="10"/>
-            <button disabled={props.sendMessageInProgress} className={s.sendMessageButton}
-                    onClick={() => props.onSendNewMessage(props.newMessageText)}>Send message
-            </button>
+                <ReduxSendingMessageForm sendMessageInProgress = {props.sendMessageInProgress} onSubmit = {onSubmit}
+                />
         </div>
     )
 }
+
+const SendingMessageForm = (props) => {
+    return <form className={s.sendMessageForm} onSubmit={props.handleSubmit}>
+         <Field placeholder="Ваше сообщение"
+                   name="messageText" component={"textarea"}/>
+        <button disabled={props.sendMessageInProgress} className={s.sendMessageButton}>Send message
+        </button>
+    </form>
+}
+
+const ReduxSendingMessageForm = reduxForm({
+    form: "sendMessage",
+})(SendingMessageForm)
+
+
+
+
 export default React.memo(MessagesBar)

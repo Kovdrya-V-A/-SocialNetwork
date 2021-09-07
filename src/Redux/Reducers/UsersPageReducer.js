@@ -14,14 +14,12 @@ const SET_USERS_TOTAL_COUNT = "SET_USERS_TOTAL_COUNT";
 const SET_CURRENT_USERS_PAGE = "SET_CURRENT_USERS_PAGE";
 const SET_IS_FETCHING = "SET_IS_FETCHING";
 const SET_IS_WROTE = "SET_IS_WROTE";
-const SEARCH_QUERY_TEXT_CHANGE = "const SEARCH_QUERY_TEXT_CHANGE";
 const UP_TOGGLE_IS_WROTE_PROGRESS = "UP_TOGGLE_IS_WROTE_PROGRESS";
 const UP_TOGGLE_FOLLOWING_PROGRESS = "UP_TOGGLE_FOLLOWING_PROGRESS";
 const TOGGLE_SEARCH_USERS_PROGRESS = "TOGGLE_SEARCH_USERS_PROGRESS";
 
 let initialUsersPage = {
 
-    searchQueryText: "",
     usersData: [],
     currentPage: 1,
     pageSize: 7,
@@ -36,14 +34,6 @@ let initialUsersPage = {
 const usersPageReducer = (usersPage = initialUsersPage, action) => {
 
     switch (action.type) {
-
-        case SEARCH_QUERY_TEXT_CHANGE: {
-            return {
-                ...usersPage,
-                searchQueryText: action.enteredText
-            }
-        }
-
 
         case UNFOLLOW:
             return {
@@ -160,13 +150,6 @@ export const setIsWrote = (isWrote) => {
         isWrote
     }
 }
-export const setSearchQueryText = (enteredText) => {
-    return {
-        type: SEARCH_QUERY_TEXT_CHANGE,
-        enteredText: enteredText.current.value
-    }
-}
-
 
 export const toggleSetIsWroteProgress = (inProgress, userId) => {
     return {

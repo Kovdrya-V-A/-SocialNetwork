@@ -6,7 +6,6 @@ import {
     cetCurrentDialogThunkCreator,
     deleteDialogThunkCreator,
     deleteMessageThunkCreator,
-    messageTextChange,
     sendMessageThunkCreator,
     setCurrentDialog,
     setDialogsThunkCreator,
@@ -56,7 +55,6 @@ class DialogsPageContainer extends React.Component {
         this.props.deleteMessageThunkCreator(dialogId, idMessage)
     }
 
-
     onSetCurrentDialog = (selectedDialogId) => {
         this.props.setCurrentDialog(selectedDialogId)
         let dialogId = window.location.pathname.split("/")
@@ -85,18 +83,12 @@ class DialogsPageContainer extends React.Component {
         }
     }
 
-    onMessageTextChange = (text) => {
-        this.props.messageTextChange(text)
-    }
-
 
     render() {
         return (
             <DialogsPage
                dialogsData={this.props.dialogsPage.dialogsData}
                 messagesData={this.props.dialogsPage.messagesData}
-                newMessageText={this.props.dialogsPage.newMessageText}
-                onMessageTextChange={this.onMessageTextChange}
                 onSendNewMessage={this.onSendNewMessage}
                 currentDialogId={this.props.dialogsPage.currentDialogId}
                 onSetCurrentDialog={this.onSetCurrentDialog}
@@ -113,7 +105,6 @@ class DialogsPageContainer extends React.Component {
 
 export default compose(
     connect(mapStateToProps, {
-        messageTextChange,
         setCurrentDialog,
         setDialogsThunkCreator,
         deleteDialogThunkCreator,

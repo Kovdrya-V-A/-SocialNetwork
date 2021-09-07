@@ -7,7 +7,6 @@ import {
 } from "../../DAL/ApiRequests";
 
 const ADD_POST = "ADD_POST";
-const POST_TEXT_CHANGE = "POST_TEXT_CHANGE";
 const SET_POSTS = "SET_POSTS";
 const SET_PROFILE_INFO = "SET_PROFILE_INFO";
 const DELETE_POST = "DELETE_POST";
@@ -20,7 +19,6 @@ const SET_STATUS = "SET_STATUS"
 let initialProfilePage = {
     postsData: [],
     profileData: [{}],
-    newPostText: "",
     changeAvaIsActive: false,
     changeAvaStatus: null,
     addPostInProgress: false,
@@ -41,7 +39,6 @@ const profilePageReducer = (profilePage = initialProfilePage, action) => {
             return {
                 ...profilePage,
                 postsData: [newPost, ...profilePage.postsData],
-                newPostText: ""
             };
 
         }
@@ -69,13 +66,6 @@ const profilePageReducer = (profilePage = initialProfilePage, action) => {
                     }
                     return p
                 })
-            }
-        }
-
-        case POST_TEXT_CHANGE: {
-            return {
-                ...profilePage,
-                newPostText: action.enteredPostText
             }
         }
 
@@ -139,13 +129,6 @@ export const deletePost = (idPost, message) => {
         type: DELETE_POST,
         idPost: idPost,
         message: message
-    }
-}
-
-export const postTextChange = (text) => {
-    return {
-        type: POST_TEXT_CHANGE,
-        enteredPostText: text.current.value
     }
 }
 

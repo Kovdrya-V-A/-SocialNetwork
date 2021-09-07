@@ -1,12 +1,9 @@
 import React from 'react';
 import {connect} from "react-redux";
 import AuthorizationPage from "./AuthorizationPage";
-import {
-    inputLogin,
-    inputPassword, resetVerification,
-    setUserToken, toggleAuthorisationProgress,
-    userVerification, userVerificationThunkCreator
+import {userVerificationThunkCreator
 } from "../../../Redux/AuthoRegReducers/AuthorizationPageReducer";
+import {Redirect} from "react-router-dom";
 
 
 let mapStateToProps = (state) => {
@@ -18,33 +15,17 @@ let mapStateToProps = (state) => {
 
 class AuthorizationPageService extends React.Component {
 
-    onResetVerification = () => {
-        this.props.resetVerification()
-    }
-
-    onInputLogin = (enterLogin) => {
-        this.props.inputLogin(enterLogin)
-    }
-
-    onInputPassword = (enterPassword) => {
-        this.props.inputPassword(enterPassword)
-    }
-
-
     onUserVerification = (login, password) => {
         this.props.userVerificationThunkCreator(login, password)
     }
 
     render() {
+        if (this.props.authorizationPage.auth) {
+            return <Redirect to="/AuthUser/ProfilePage"/>
+        }
         return (
             <AuthorizationPage
-                introducedLogin={this.props.authorizationPage.introducedLogin}
-                introducedPassword={this.props.authorizationPage.introducedPassword}
-                auth={this.props.authorizationPage.auth}
-                onInputLogin={this.onInputLogin}
-                onInputPassword={this.onInputPassword}
                 onUserVerification={this.onUserVerification}
-                onResetVerification={this.onResetVerification}
                 authorisationInProgress={this.props.authorizationPage.authorisationInProgress}
             />
         )
@@ -52,11 +33,6 @@ class AuthorizationPageService extends React.Component {
 }
 
 const AuthorizationPageContainer = connect(mapStateToProps, {
-    setUserToken,
-    inputLogin,
-    inputPassword,
-    userVerification,
-    resetVerification,
     userVerificationThunkCreator,
 
 })(AuthorizationPageService)

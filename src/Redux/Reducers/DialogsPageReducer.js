@@ -7,7 +7,6 @@ import {
 } from "../../DAL/ApiRequests";
 
 const SEND_MESSAGE = "SEND_MESSAGE";
-const MESSAGE_TEXT_CHANGE = "MESSAGE_TEXT_CHANGE";
 const SET_MESSAGES = "SET_MESSAGES";
 const SET_DIALOGS = "SET_DIALOGS";
 const SET_CURRENT_DIALOG = "SET_CURRENT_DIALOG";
@@ -20,7 +19,6 @@ const TOGGLE_SEND_MESSAGE_PROGRESS = "TOGGLE_SEND_MESSAGE_PROGRESS";
 
 let initialDialogsPage = {
     dialogsData: [],
-    newMessageText: "",
     messagesData: [],
     currentDialogId: "",
     setCurrentDialogInProgress: false,
@@ -45,17 +43,9 @@ const dialogsPageReducer = (dialogsPage = initialDialogsPage, action) => {
             return {
                 ...dialogsPage,
                 messagesData: [...dialogsPage.messagesData, newMessage],
-                newMessageText: ""
             };
         }
 
-
-        case MESSAGE_TEXT_CHANGE: {
-            return {
-                ...dialogsPage,
-                newMessageText: action.enteredMessageText
-            };
-        }
 
         case SET_MESSAGES: {
             return {
@@ -148,12 +138,6 @@ export const deleteDialog = (idDialog, message) => {
         idDialog: idDialog,
         message: message
 
-    }
-}
-export const messageTextChange = (text) => {
-    return {
-        type: MESSAGE_TEXT_CHANGE,
-        enteredMessageText: text.current.value,
     }
 }
 

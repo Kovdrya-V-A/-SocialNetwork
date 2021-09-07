@@ -1,7 +1,4 @@
 import {userVerificationRequest} from "../../DAL/ApiRequests";
-
-const INPUT_LOGIN_STATE = "INPUT_LOGIN_STATE";
-const INPUT_PASSWORD_STATE = "INPUT_PASSWORD_STATE";
 const USER_VERIFICATION = "USER_VERIFICATION";
 const RESET_VERIFICATION = "RESET_VERIFICATION";
 const SET_USER_TOKEN = "SET_USER_TOKEN";
@@ -10,8 +7,6 @@ const TOGGLE_AUTHORISATION_PROGRESS = "TOGGLE_AUTHORISATION_PROGRESS"
 
 
 let initialAuthorisationPage = {
-    introducedLogin: "",
-    introducedPassword: "",
     auth: false,
     sessionIsStart: false,
     authorisationInProgress: false,
@@ -19,19 +14,6 @@ let initialAuthorisationPage = {
 
 const authorisationPageReducer = (authorisationPage = initialAuthorisationPage, action) => {
     switch (action.type) {
-        case INPUT_LOGIN_STATE:
-
-            return {
-                ...authorisationPage,
-                introducedLogin: action.introducedLogin
-            }
-
-        case INPUT_PASSWORD_STATE:
-
-            return {
-                ...authorisationPage,
-                introducedPassword: action.introducedPassword
-            }
 
         case USER_VERIFICATION:
             if (action.auth) {
@@ -71,20 +53,6 @@ const authorisationPageReducer = (authorisationPage = initialAuthorisationPage, 
 }
 
 
-export const inputLogin = (login) => {
-    return {
-        type: INPUT_LOGIN_STATE,
-        introducedLogin: login.current.value
-    }
-}
-
-export const inputPassword = (password) => {
-    return {
-        type: INPUT_PASSWORD_STATE,
-        introducedPassword: password.current.value
-    }
-}
-
 export const userVerification = (isFits) => {
     return {
         type: USER_VERIFICATION,
@@ -112,14 +80,14 @@ export const toggleAuthorisationProgress = (authorisationInProgress) => {
 
 export const userVerificationThunkCreator = (login, password) => {
     return (dispatch) => {
-      dispatch(toggleAuthorisationProgress(true))
+        dispatch(toggleAuthorisationProgress(true))
         userVerificationRequest(login, password)
             .then(data => {
                 if (data.key_type) {
-                  dispatch(setUserToken(data.access_token))
+                    dispatch(setUserToken(data.access_token))
                 }
                 dispatch(userVerification(data.key_type))
-               dispatch(toggleAuthorisationProgress(false))
+                dispatch(toggleAuthorisationProgress(false))
             })
     }
 }

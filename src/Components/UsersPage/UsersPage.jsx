@@ -2,13 +2,13 @@ import s from "./UsersPage.module.css"
 import React, {createRef} from "react";
 import {NavLink, Redirect} from "react-router-dom";
 import standUserAva from "../../Assets/standUserAva.png"
+import {Field, reduxForm} from "redux-form";
 
 const UsersPage = (props) => {
     if (props.isWrote && props.currentDialogId) {
         return <Redirect to={"/AuthUser/DialogsPage/" + props.currentDialogId}/>
     }
 
-    let searchText = React.createRef()
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
     let pageNumbers = []
     for (let i = 1; i <= pagesCount; i++) {
@@ -49,23 +49,13 @@ const UsersPage = (props) => {
         </div>)
     })
 
+    const onSubmit = (formData) => {
+        props.onSearchUsers(formData.searchText ? formData.searchText : "")
+    }
+
     return (
         <div className={s.usersPage}>
-            <div className={s.searchArea}>
-                <div className={s.searchTextArea}>
-                    <textarea
-                        ref={searchText}
-                        className={s.inputSearchText}
-                        onChange={() => props.onSetSearchQueryText(searchText)}
-                        value={props.searchQueryText}
-                        name="searchTextArea" id="" cols="10" rows="5"/></div>
-                <div className={s.searchButtonWrap}>
-                    <button disabled={props.searchUsersInProgress}
-                            onClick={() => props.searchQueryText ? props.onSearchUsers(props.searchQueryText) : null}
-                            className={s.searchButton}>Search
-                    </button>
-                </div>
-            </div>
+            <ReduxSearchUsersForm searchUsersInProgress = {props.searchUsersInProgress} onSubmit={onSubmit}/>
             <div className={s.usersList}><h2>Список пользователей:</h2>
                 {props.usersData.length > 0 ? userItem : <h2>Такой пользователь не найден</h2>}
             </div>
@@ -73,5 +63,24 @@ const UsersPage = (props) => {
         </div>
     )
 }
+
+const SearchUsersForm = (props) => {
+    return <form className={s.searchUsersForm} onSubmit={props.handleSubmit}>
+        <div className={s.searchTextArea}>
+            <Field
+                className={s.inputSearchText}
+                name="searchText" component={"textarea"}/></div>
+        <div className={s.searchButtonWrap}>
+            <button disabled={props.searchUsersInProgress}
+                    className={s.searchButton}>Search
+            </button>
+        </div>
+    </form>
+}
+
+const ReduxSearchUsersForm = reduxForm({
+    form: "searchUsers"
+})(SearchUsersForm)
+
 
 export default React.memo(UsersPage)
