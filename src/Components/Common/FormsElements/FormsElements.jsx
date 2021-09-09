@@ -8,10 +8,11 @@ export const Textarea = ({input, meta, ...props}) => {
 }
 
 export const Input = ({input, meta, ...props}) => {
+    const haveError = meta.touched && meta.error
     debugger
     return (<div className={s.inputBar}>
-        <input className={s.authRegInputs} {...input} {...props}/>
-        {meta.touched && meta.error ?
+        <input className={s.authRegInputs + " " + (haveError ? s.error: null)} {...input} {...props}/>
+        {haveError ?
             <span className={s.errorText}>{meta.error}</span>
             : null}
     </div>)
