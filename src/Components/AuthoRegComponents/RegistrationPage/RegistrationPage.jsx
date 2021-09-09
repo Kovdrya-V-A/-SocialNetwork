@@ -4,6 +4,8 @@ import {NavLink} from "react-router-dom";
 import Header from "../../Header/Header";
 import Footer from "../../Footer/Footer";
 import {Field, reduxForm} from "redux-form";
+import {Input} from "../../Common/FormsElements/FormsElements";
+import {checkLenghtCreator, requiredField} from "../../Common/Validators/Validators";
 
 const RegistrationPage = (props) => {
 
@@ -40,41 +42,44 @@ const RegistrationPage = (props) => {
     );
 }
 
+let requiredLengthFrom3to20 = checkLenghtCreator(3, 20)
+let requiredLengthFrom5to30 = checkLenghtCreator(5, 30)
+
 
 const RegistrationPageForm = (props) => {
     return <form onSubmit={props.handleSubmit}>
         <div className={s.interLogin}>
             <p>Придумайте логин:</p>
-            <Field name={"login"} component={"input"} type="text"
+            <Field name={"login"} validate={[requiredField, requiredLengthFrom3to20]} component={Input} type="text"
                    placeholder="Логин"/>
         </div>
         <div className={s.interEmail}>
             <p>Введите ваш Email:</p>
-            <Field name={"email"} component={"input"} type="text" placeholder="Email"/>
+            <Field name={"email"} validate={[requiredField]} component={Input} type="text" placeholder="Email"/>
         </div>
         <div className={s.interName}>
             <p>Введите имя:</p>
-            <Field name={"firstName"} component={"input"}
+            <Field name={"firstName"} validate={[requiredField,]} component={Input}
                    type="text" placeholder="Имя"/>
         </div>
         <div className={s.interFirstname}>
             <p>Введите фамилию:</p>
-            <Field name={"lastName"} component={"input"}
+            <Field name={"lastName"} validate={[requiredField,]} component={Input}
                    type="text" placeholder="Фамилия"/>
         </div>
         <div className={s.interAddress}>
             <p>Введите ваш город:</p>
-            <Field name={"address"} component={"input"}
+            <Field name={"address"} validate={[requiredField]} component={Input}
                    type="text" placeholder="Город"/>
         </div>
         <div className={s.interAge}>
             <p>Укажите ваш возраст:</p>
-            <Field name={"age"} component={"input"}
+            <Field name={"age"} validate={[requiredField]} component={Input}
                    type="text" placeholder="Возраст"/>
         </div>
         <div className={s.interPassword}>
             <p>Придумайте пароль:</p>
-            <Field name={"password"} component={"input"} type="password" placeholder="Пароль"/>
+            <Field name={"password"} validate={[requiredField, requiredLengthFrom5to30]} component={Input} type="password" placeholder="Пароль"/>
         </div>
         <div className={s.regButton}>
             <button disabled={props.registrationInProgress}

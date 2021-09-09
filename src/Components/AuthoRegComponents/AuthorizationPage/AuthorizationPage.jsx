@@ -4,6 +4,8 @@ import {NavLink} from "react-router-dom";
 import Header from "../../Header/Header";
 import Footer from "../../Footer/Footer";
 import {Field, reduxForm} from "redux-form";
+import {requiredField} from "../../Common/Validators/Validators";
+import {Input} from "../../Common/FormsElements/FormsElements";
 
 const AuthorizationPage = (props) => {
 
@@ -36,11 +38,11 @@ let AuthorizationForm = (props) => {
         <form onSubmit={props.handleSubmit}>
             <div className={s.enterLogin}>
                 <p>Введите логин:</p>
-                <Field type="text" placeholder="Логин" name ={"login"} component={"input"} />
+                <Field type="text" placeholder="Логин" name ={"login"} validate={[requiredField]} component={Input} />
             </div>
             <div className={s.enterPassword}>
                 <p>Введите пароль:</p>
-                <Field type="password" placeholder="Пароль" name ={"password"} component={"input"}/>
+                <Field type="password" placeholder="Пароль" name ={"password"} validate = {[requiredField]} component={Input}/>
             </div>
             <div className={s.entryButton}>
                 <button
