@@ -13,6 +13,7 @@ import WithRouterDialogsPageContainer from "./Components/DialogsPage/DialogsPage
 import WithRouterSelectedProfilePageContainer from "./Components/SelectedProfilePage/SelectedProfilePageContainer";
 import {connect} from "react-redux";
 import {checkAuthMeThunkCreator, setSessionIsStartThunkCreator} from "./Redux/Reducers/AppReducer";
+import {MainPreloader} from "./Assets/Preloaders/mainPreloader";
 
 const mapStateToProps = (state) => {
     return {
@@ -28,7 +29,10 @@ class App extends React.Component {
 
     render() {
         if (!this.props.sessionIsStart) {
-            return <div>ЖДИ, ЛОХ ЕБУЧИЙ</div>
+            return <div className={s.preloaderBar}>
+                <MainPreloader/>
+                {/*<img src={mainPreloader} alt=""/>*/}
+            </div>
         }
         return (
             <div className={s.AppWrapper}>
