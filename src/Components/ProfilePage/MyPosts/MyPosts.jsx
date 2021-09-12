@@ -2,6 +2,8 @@ import React from 'react';
 import s from './MyPosts.module.css'
 import Post from "./Post/Post";
 import {Field, reduxForm, reset} from "redux-form";
+import {CreateFormItem} from "../../Common/FormsElements/FormsElements";
+import {checkLenghtCreator} from "../../Common/Validators/Validators";
 
 const MyPosts = (props) => {
 
@@ -32,12 +34,16 @@ const MyPosts = (props) => {
 
 }
 
+const TextAreaForm = CreateFormItem("textarea")
+const requiredLength = checkLenghtCreator(0, 500)
+
 const AddPostForm = (props) => {
     return <form className={s.addPostForm} onSubmit={props.handleSubmit}>
-        <Field className={s.inputPostText} placeholder="Есть что нового ?"
-               name="postText" component={"textarea"}/>
-        <button disabled={props.addPostInProgress}
-                className={s.addPostButton}>Опубликовать
+        <Field placeholder="Есть что нового ?"
+               name="postText" validate={[requiredLength]} component={TextAreaForm}/>
+        <button
+            disabled={props.addPostInProgress}
+            className={s.addPostButton}>Опубликовать
         </button>
     </form>
 }

@@ -1,4 +1,5 @@
 import {applyMiddleware, combineReducers, compose, createStore} from "redux";
+import appReducer from "./Reducers/AppReducer";
 import dialogsPageReducer from "./Reducers/DialogsPageReducer";
 import profilePageReducer from "./Reducers/ProfilePageReducer";
 import newsPageReducer from "./Reducers/NewsPageReducer";
@@ -13,6 +14,7 @@ import {reducer as formReducer} from "redux-form"
 
 const enchansers = [applyMiddleware(thunkMiddleware), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()]
 let reducers = combineReducers({
+    app: appReducer,
     dialogsPage: dialogsPageReducer,
     profilePage: profilePageReducer,
     usersPage: usersPageReducer,
@@ -23,7 +25,7 @@ let reducers = combineReducers({
     friendsPage: friendsPageReducer,
     form: formReducer
 })
-const store = createStore(reducers, compose(...enchansers) );
+const store = createStore(reducers, compose(...enchansers));
 
 
 export default store

@@ -213,7 +213,6 @@ export const setProfileInfoThunkCreator = () => {
                         dispatch(setStatus(data.userStatus))
                     })
                 dispatch(setProfileInfo(data))
-                localStorage.setItem("authUserId", data.id)
             })
     }
 }

@@ -3,12 +3,12 @@
     font-size: 14px;
 }
 
-.inputBar {
+.formBar {
     display: flex;
     flex-direction: column;
 }
 
-.authRegInputs {
+.inputForm {
     min-width: 100px;
     max-width: 95%;
     background-color: #444446;
@@ -17,11 +17,23 @@
     margin-bottom: 3px;
 }
 
+.textareaForm {
+    resize: none;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    color: #ffffff;
+    background-color: #444446;
+}
+
+.summaryError {
+    color: red;
+}
+
 .error {
     border: 2px solid red;
 }
 
-.authRegInputs:-webkit-autofill
+.inputForm:-webkit-autofill
 {
     -webkit-box-shadow: 0 0 0 30px #444446 inset !important;
     -webkit-text-fill-color: #FFFFFF;

@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from "react-redux";
 import Nav from "./Nav";
 import {setCurrentDialog} from "../../Redux/Reducers/DialogsPageReducer";
-import {resetVerification} from "../../Redux/AuthoRegReducers/AuthorizationPageReducer";
+import {resetVerificationThunkCreator} from "../../Redux/AuthoRegReducers/AuthorizationPageReducer";
 
 
 let mapStateToProps = (state) => {
@@ -20,7 +20,7 @@ class NavService extends React.Component {
     }
 
     onExit = () => {
-        this.props.resetVerification()
+        this.props.resetVerificationThunkCreator()
     }
 
     render() {
@@ -32,7 +32,7 @@ class NavService extends React.Component {
 }
 
 const NavContainer = connect(mapStateToProps, {
-    setCurrentDialog, resetVerification,
+    setCurrentDialog, resetVerificationThunkCreator,
 })(NavService)
 
 export default NavContainer;

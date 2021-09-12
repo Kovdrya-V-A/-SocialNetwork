@@ -1,19 +1,16 @@
 import React from "react";
-import s from "./FormsElements.module.css"
+import sForm from "./FormsElements.module.css"
 
-export const Textarea = ({input, meta, ...props}) => {
-    return (<div>
-        <textarea {...input} {...props}/>
-    </div>)
-}
 
-export const Input = ({input, meta, ...props}) => {
+export const CreateFormItem = (Component) => ({input, meta, ...props}) => {
     const haveError = meta.touched && meta.error
-    debugger
-    return (<div className={s.inputBar}>
-        <input className={s.authRegInputs + " " + (haveError ? s.error: null)} {...input} {...props}/>
-        {haveError ?
-            <span className={s.errorText}>{meta.error}</span>
-            : null}
-    </div>)
+
+    return (
+        <div className={sForm.formBar}>
+            <Component {...input} {...props} className={Component === "textarea" ? sForm.textareaForm : sForm.inputForm + " " + (haveError ? sForm.error : null)}/>
+            {haveError ?
+                <span className={sForm.errorText}>{meta.error}</span>
+                : null}
+        </div>
+    )
 }

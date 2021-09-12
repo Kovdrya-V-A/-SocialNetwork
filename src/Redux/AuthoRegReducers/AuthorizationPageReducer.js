@@ -1,14 +1,18 @@
 import {userVerificationRequest} from "../../DAL/ApiRequests";
+import {setPosts, setProfileInfo, setStatus} from "../Reducers/ProfilePageReducer";
+import {setDialogs, setMessages} from "../Reducers/DialogsPageReducer";
+import {setFriends} from "../Reducers/FriendsPageReducer";
+import {setNews} from "../Reducers/NewsPageReducer";
+import {setUsers} from "../Reducers/UsersPageReducer";
+import {stopSubmit} from "redux-form";
 const USER_VERIFICATION = "USER_VERIFICATION";
 const RESET_VERIFICATION = "RESET_VERIFICATION";
 const SET_USER_TOKEN = "SET_USER_TOKEN";
-const SET_SESSION_IS_START = "SET_SESSION_IS_START";
 const TOGGLE_AUTHORISATION_PROGRESS = "TOGGLE_AUTHORISATION_PROGRESS"
 
 
 let initialAuthorisationPage = {
     auth: false,
-    sessionIsStart: false,
     authorisationInProgress: false,
 };
 
@@ -16,15 +20,10 @@ const authorisationPageReducer = (authorisationPage = initialAuthorisationPage, 
     switch (action.type) {
 
         case USER_VERIFICATION:
-            if (action.auth) {
-                alert("Добро пожаловать !")
                 return {
                     ...authorisationPage,
-                    auth: action.auth
+                    auth: true
                 }
-            } else {
-                alert("Неверный логин или пароль")
-            }
 
         case RESET_VERIFICATION:
             localStorage.removeItem("userToken")
@@ -37,12 +36,6 @@ const authorisationPageReducer = (authorisationPage = initialAuthorisationPage, 
         default: {
             return authorisationPage
         }
-        case SET_SESSION_IS_START:
-            return {
-                ...authorisationPage,
-                sessionIsStart: true
-
-            }
         case TOGGLE_AUTHORISATION_PROGRESS:
             return {
                 ...authorisationPage,
@@ -53,10 +46,9 @@ const authorisationPageReducer = (authorisationPage = initialAuthorisationPage, 
 }
 
 
-export const userVerification = (isFits) => {
+export const userVerification = () => {
     return {
         type: USER_VERIFICATION,
-        auth: isFits
     }
 }
 export const resetVerification = () => {
@@ -85,11 +77,28 @@ export const userVerificationThunkCreator = (login, password) => {
             .then(data => {
                 if (data.key_type) {
                     dispatch(setUserToken(data.access_token))
+                    dispatch(userVerification())
                 }
-                dispatch(userVerification(data.key_type))
+                else {
+                    let action = stopSubmit("authorization", {_error: data.message})
+                    dispatch(action)
+                }
                 dispatch(toggleAuthorisationProgress(false))
             })
     }
+}
+
+
+export const resetVerificationThunkCreator = () => (dispatch) => {
+    dispatch(resetVerification())
+    // dispatch(setProfileInfo([{}]))
+    // dispatch(setStatus(""))
+    // dispatch(setPosts([]))
+    // // dispatch(setMessages([]))
+    // // dispatch(setDialogs([]))
+    // // dispatch(setFriends([]))
+    // // dispatch(setNews([]))
+    // // dispatch(setUsers([]))
 }
 
 export default authorisationPageReducer;

@@ -25,6 +25,12 @@ h2 {
     flex-direction: column;
 }
 
+.addPostForm textarea {
+    max-width: 100%;
+    min-height: 70px;
+    max-height: 100px;
+}
+
 .inputPostText {
     min-height: 70px;
     margin-right: 1%;

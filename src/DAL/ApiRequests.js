@@ -12,6 +12,13 @@ export const userVerificationRequest = (login, password) => {
         })
 }
 
+export const checkAuthMeRequest = () => {
+    return axios.get(`${serverLink}/checkAuthMe?token=${localStorage.getItem("userToken")}`)
+        .then(response => {
+            return response.data
+        })
+}
+
 //REG
 
 export const userRegistrationRequest = (login, firstName, lastName, password, address, age, email) => {

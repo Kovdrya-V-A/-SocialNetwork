@@ -1,11 +1,12 @@
 import s from '../AuthoReg.module.css';
+import sForm from '../../Common/FormsElements/FormsElements.module.css';
 import React from 'react';
 import {NavLink} from "react-router-dom";
 import Header from "../../Header/Header";
 import Footer from "../../Footer/Footer";
 import {Field, reduxForm} from "redux-form";
 import {requiredField} from "../../Common/Validators/Validators";
-import {Input} from "../../Common/FormsElements/FormsElements";
+import {CreateFormItem} from "../../Common/FormsElements/FormsElements";
 
 const AuthorizationPage = (props) => {
 
@@ -32,22 +33,28 @@ const AuthorizationPage = (props) => {
     );
 }
 
+const InputForm = CreateFormItem("input")
 
 let AuthorizationForm = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div className={s.enterLogin}>
                 <p>Введите логин:</p>
-                <Field type="text" placeholder="Логин" name ={"login"} validate={[requiredField]} component={Input} />
+                <Field type="text" placeholder="Логин" name ={"login"} validate={[requiredField]} component={InputForm} />
             </div>
             <div className={s.enterPassword}>
                 <p>Введите пароль:</p>
-                <Field type="password" placeholder="Пароль" name ={"password"} validate = {[requiredField]} component={Input}/>
+                <Field type="password" placeholder="Пароль" name ={"password"} validate = {[requiredField]} component={InputForm}/>
             </div>
             <div className={s.entryButton}>
+                {props.error ?<div className={s.summaryErrorBar}>
+                    <spans className={sForm.summaryError}>
+                        {props.error}
+                    </spans>
+                </div>:null}
                 <button
-                    disabled={props.authorisationInProgress}
-                >
+                    type="submit"
+                    disabled={props.authorisationInProgress}>
                     Вход
                 </button>
             </div>
