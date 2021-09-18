@@ -2,19 +2,9 @@ import s from "./FriendsPage.module.css"
 import React from "react";
 import {NavLink} from "react-router-dom";
 import FriendList from "./FriendList/FriendList";
+import Pagination from "../Pagination";
 
 const FriendsPage = (props) => {
-    let pagesCount = Math.ceil(props.totalFriendsCount / props.pageSize)
-    let pageNumbers = []
-    for (let i = 1; i <= pagesCount; i++) {
-        pageNumbers.push(i)
-    }
-    let pageNumbersList = pageNumbers.map((n) => <span
-        key={n}
-        className={n === props.currentPage ? `${s.selectedPage} ${s.pageNumber}` : s.pageNumber}
-        onClick={() => {
-            props.onSetCurrentPage(n)
-        }}>{n}</span>)
 
     return (
         <div className={s.friendsPage}>
@@ -31,7 +21,11 @@ const FriendsPage = (props) => {
                                                                               followingInProgress={props.followingInProgress}
                                                                               isWroteInProgress={props.isWroteInProgress}/>
             </div>
-            <div className={s.selectingPageMenu}>{props.friendsData.length > 0 ? pageNumbersList : null}</div>
+            <div className={s.selectingPageMenu}>{props.friendsData.length > 0 ?
+                <Pagination totalCount={props.totalFriendsCount}
+                            pageSize={props.pageSize}
+                            currentPage={props.currentPage}
+                            setCurrentPage={props.onSetCurrentPage}/> : null}</div>
         </div>
     )
 }
