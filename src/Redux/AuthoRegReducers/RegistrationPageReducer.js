@@ -1,4 +1,5 @@
 import {userRegistrationRequest} from "../../DAL/ApiRequests";
+
 const TOGGLE_REGISTRATION_PROGRESS = "TOGGLE_REGISTRATION_PROGRESS";
 
 let initialRegistrationPage = {
@@ -28,17 +29,15 @@ export const toggleRegistrationProgress = (registrationInProgress) => {
 
 
 export const registrationUserThunkCreator = (login, password, firstName, lastName, address, age, email) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleRegistrationProgress(true))
-        userRegistrationRequest(login, firstName, lastName, password, address, age, email)
-            .then(data => {
-                if (data.itsFine) {
-                    alert("Пользователь успешно зарегистрирован")
-                } else (
-                    alert(`Пользователь не был зарегистрирован - ${data.error}`)
-                )
-                dispatch(toggleRegistrationProgress(false))
-            })
+        let data = await userRegistrationRequest(login, firstName, lastName, password, address, age, email)
+        if (data.itsFine) {
+            alert("Пользователь успешно зарегистрирован")
+        } else (
+            alert(`Пользователь не был зарегистрирован - ${data.error}`)
+        )
+        dispatch(toggleRegistrationProgress(false))
     }
 }
 

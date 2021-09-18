@@ -1,6 +1,6 @@
 import {
     followRequest,
-    getSelectedUserProfileRequest, getSelectedUserStatusRequest, getStatusRequest,
+    getSelectedUserProfileRequest, getSelectedUserStatusRequest,
     goToDialogRequest,
     unFollowRequest,
 } from "../../DAL/ApiRequests";
@@ -24,7 +24,7 @@ let initialSelectedUserProfilePage = {
     isWrote: false,
     setIsWroteInProgress: false,
     followingInProgress: false,
-    userStatus:""
+    userStatus: ""
 
 };
 
@@ -158,52 +158,45 @@ export const toggleFollowingProgress = (followingInProgress) => {
 }
 
 export const setSelectedUserProfileThunkCreator = (userId) => {
-    return (dispatch) => {
-        getSelectedUserProfileRequest(userId)
-            .then(data => {
-                getSelectedUserStatusRequest(userId)
-                    .then(data => {
-                        dispatch(setUserStatus(data.userStatus))
-                    })
-                dispatch(setUserProfileInfo(data.userInfo))
-                if (data.posts[0]) {
-                    dispatch(setUserPosts(data.posts))
-                }
-            })
+    return async (dispatch) => {
+        const data = await getSelectedUserProfileRequest(userId)
+        dispatch(setUserProfileInfo(data.userInfo))
+        if (data.posts[0]) {
+            dispatch(setUserPosts(data.posts))
+        }
+        else {
+            dispatch(setUserPosts([]))
+        }
+        const statusData = await getSelectedUserStatusRequest(userId)
+        dispatch(setUserStatus(statusData.userStatus))
     }
 }
 
 export const unFollowThunkCreator = (userId) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleFollowingProgress(true))
-        unFollowRequest(userId)
-            .then(data => {
-                dispatch(unFollow(userId, data.message))
-                dispatch(toggleFollowingProgress(false))
-            })
+        const data = await unFollowRequest(userId)
+        dispatch(unFollow(userId, data.message))
+        dispatch(toggleFollowingProgress(false))
     }
 }
 
 export const followThunkCreator = (userId) => {
-    return (dispatch) => {
-
-        followRequest(userId)
-            .then(data => {
-                dispatch(follow(userId, data.message))
-                dispatch(toggleFollowingProgress(false))
-            })
+    return async (dispatch) => {
+        const data = await followRequest(userId)
+        dispatch(follow(userId, data.message))
+        dispatch(toggleFollowingProgress(false))
     }
 }
 
 export const goToDialogThunkCreator = (userId) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleSetIsWroteProgress(true))
-        goToDialogRequest(userId)
-            .then((data) => {
-                dispatch(setIsWrote(true))
-                dispatch(setCurrentDialog(data.idDialog))
-                dispatch(toggleSetIsWroteProgress(false))
-            })
+        const data = await goToDialogRequest(userId)
+        dispatch(setIsWrote(true))
+        dispatch(setCurrentDialog(data.idDialog))
+        dispatch(toggleSetIsWroteProgress(false))
+
 
     }
 

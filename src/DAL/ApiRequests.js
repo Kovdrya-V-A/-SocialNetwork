@@ -210,7 +210,7 @@ export const deletePostRequest = (idPost) => {
         })
 }
 
-export const updateUserStatus = (newStatusText) => {
+export const updateUserStatusRequest = (newStatusText) => {
     return axios.put(`${serverLink}/updUserStatus`, {
 
         "token": localStorage.getItem("userToken"),

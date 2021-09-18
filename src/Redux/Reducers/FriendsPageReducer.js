@@ -1,11 +1,10 @@
 import {
     followRequest,
     getFriendsRequest,
-    getUsersRequest,
     goToDialogRequest,
     unFollowRequest
 } from "../../DAL/ApiRequests";
-import {setUsers, setUserTotalCount} from "./UsersPageReducer";
+
 import {setCurrentDialog} from "./DialogsPageReducer";
 
 const SET_FRIENDS = "SET_FRIENDS";
@@ -162,64 +161,54 @@ export const toggleIsWroteProgress = (inProgress, userId) => {
 
 
 export const setFriendsThunkCreator = (currentPage, pageSize) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(setIsFetching(true))
-        getFriendsRequest(currentPage, pageSize)
-            .then(data => {
-                dispatch(setIsFetching(false))
-                if (data) {
-                    dispatch(setFriends(data.items))
-                    dispatch(setFriendsTotalCount(data.totalCount))
-                }
-            })
+        const data = await getFriendsRequest(currentPage, pageSize)
+        dispatch(setIsFetching(false))
+        if (data) {
+            dispatch(setFriends(data.items))
+            dispatch(setFriendsTotalCount(data.totalCount))
+        }
     }
 
 }
 
 export const unFollowThunkActionCreator = (userId) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleFollowingProgress(true, userId))
-        unFollowRequest(userId)
-            .then(data => {
-                dispatch(unFollow(userId, data.message))
-                dispatch(toggleFollowingProgress(false, userId))
-            })
+        const data = await unFollowRequest(userId)
+        dispatch(unFollow(userId, data.message))
+        dispatch(toggleFollowingProgress(false, userId))
     }
 }
 
 export const followThunkActionCreator = (userId) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleFollowingProgress(true, userId))
-        followRequest(userId)
-            .then(data => {
-                dispatch(follow(userId, data.message))
-                dispatch(toggleFollowingProgress(false, userId))
-            })
+        const data = await followRequest(userId)
+        dispatch(follow(userId, data.message))
+        dispatch(toggleFollowingProgress(false, userId))
     }
 }
 
 export const setCurrentPageThunkActionCreator = (number, pageSize) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(setCurrentPage(number))
         dispatch(setIsFetching(true))
-        getFriendsRequest(number, pageSize)
-            .then(data => {
-                dispatch(setIsFetching(false))
-                dispatch(setFriends(data.items))
-                dispatch(setFriendsTotalCount(data.totalCount))
-            })
+        const data = await getFriendsRequest(number, pageSize)
+        dispatch(setIsFetching(false))
+        dispatch(setFriends(data.items))
+        dispatch(setFriendsTotalCount(data.totalCount))
     }
 }
 
 export const goToDialogThunkActionCreator = (userId) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleIsWroteProgress(true, userId))
-        goToDialogRequest(userId)
-            .then((data) => {
-                dispatch(setIsWrote(true))
-                dispatch(setCurrentDialog(data.idDialog))
-                dispatch(toggleIsWroteProgress(false, userId))
-            })
+        const data = await goToDialogRequest(userId)
+        dispatch(setIsWrote(true))
+        dispatch(setCurrentDialog(data.idDialog))
+        dispatch(toggleIsWroteProgress(false, userId))
     }
 }
 

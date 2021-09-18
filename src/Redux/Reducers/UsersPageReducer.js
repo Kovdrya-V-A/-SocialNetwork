@@ -174,74 +174,61 @@ export const toggleSearchUsersProgress = (searchUsersInProgress) => {
 }
 
 export const setUsersThunkCreator = (currentPage, pageSize) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(setIsFetching(true))
-        getUsersRequest(currentPage, pageSize)
-            .then(data => {
-                dispatch(setIsFetching(false))
-                dispatch(setUsers(data.items))
-                dispatch(setUserTotalCount(data.totalCount))
-            })
+        const data = await getUsersRequest(currentPage, pageSize)
+        dispatch(setIsFetching(false))
+        dispatch(setUsers(data.items))
+        dispatch(setUserTotalCount(data.totalCount))
     }
 }
 
 export const searchUsersThunkCreator = (currentPage, pageSize, searchText) => {
-    return (dispatch) => {
-        let isSearch = true;
+    return async (dispatch) => {
         toggleSearchUsersProgress(true)
-        searchUsersRequest(currentPage, pageSize, isSearch, searchText)
-            .then(data => {
-                dispatch(setUsers(data.items))
-                dispatch(setUserTotalCount(data.totalCount))
-                dispatch(toggleSearchUsersProgress(false))
-            })
+        const data = await searchUsersRequest(currentPage, pageSize, true, searchText)
+        dispatch(setUsers(data.items))
+        dispatch(setUserTotalCount(data.totalCount))
+        dispatch(toggleSearchUsersProgress(false))
     }
 }
 
 export const unFollowThunkCreator = (userId) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleFollowingProgress(true, userId))
-        unFollowRequest(userId)
-            .then(data => {
-                dispatch(unFollow(userId, data.message))
-                dispatch(toggleFollowingProgress(false, userId))
-            })
+        const data = await unFollowRequest(userId)
+        dispatch(unFollow(userId, data.message))
+        dispatch(toggleFollowingProgress(false, userId))
     }
 }
 
 export const followThunkCreator = (userId) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleFollowingProgress(true, userId))
-        followRequest(userId)
-            .then(data => {
-                dispatch(follow(userId, data.message, data.error))
-                dispatch(toggleFollowingProgress(false, userId))
-            })
+        const data = await followRequest(userId)
+        dispatch(follow(userId, data.message, data.error))
+        dispatch(toggleFollowingProgress(false, userId))
     }
 }
 
 export const setCurrentPageThunkCreator = (number, pageSize) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(setCurrentPage(number))
         dispatch(setIsFetching(true))
-        getUsersRequest(number, pageSize)
-            .then(data => {
-                dispatch(setIsFetching(false))
-                dispatch(setUsers(data.items))
-                dispatch(setUserTotalCount(data.totalCount))
-            })
+        const data = await getUsersRequest(number, pageSize)
+        dispatch(setIsFetching(false))
+        dispatch(setUsers(data.items))
+        dispatch(setUserTotalCount(data.totalCount))
     }
 }
 
 export const goToDialogThunkCreator = (userId) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleSetIsWroteProgress(true, userId))
-        goToDialogRequest(userId)
-            .then((data) => {
-                dispatch(setIsWrote(true))
-                dispatch(setCurrentDialog(data.idDialog))
-                dispatch(toggleSetIsWroteProgress(false, userId))
-            })
+        const data = await goToDialogRequest(userId)
+        dispatch(setIsWrote(true))
+        dispatch(setCurrentDialog(data.idDialog))
+        dispatch(toggleSetIsWroteProgress(false, userId))
     }
 }
 

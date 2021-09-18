@@ -3,7 +3,7 @@ import {
     deletePostRequest,
     getMyPostsRequest,
     getMyProfileInfoRequest, getStatusRequest,
-    updateUserStatus
+    updateUserStatusRequest
 } from "../../DAL/ApiRequests";
 
 const ADD_POST = "ADD_POST";
@@ -104,7 +104,8 @@ const profilePageReducer = (profilePage = initialProfilePage, action) => {
 
         default:
             return profilePage;
-    };
+    }
+    ;
 
 }
 
@@ -172,59 +173,49 @@ export const toggleDeletePostProgress = (deletePostInProgress) => {
 
 
 export const setPostsThunkCreator = () => {
-    return (dispatch) => {
-        getMyPostsRequest()
-            .then(data => {
-                if (data) {
-                    dispatch(setPosts(data.items))
-                }
-            })
+    return async (dispatch) => {
+        const data = await getMyPostsRequest()
+        if (data) {
+            dispatch(setPosts(data.items))
+        } else {
+            dispatch(setPosts([]))
+        }
     }
 }
 
 export const addPostThunkCreator = (postText) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleAddPostProgress(true))
-        addNewPostRequest(postText)
-            .then(data => {
-                dispatch(addPost(data[0].idPost, data[0].text, data[0].dateTime))
-                dispatch(toggleAddPostProgress(false))
-            })
+        const data = await addNewPostRequest(postText)
+        dispatch(addPost(data[0].idPost, data[0].text, data[0].dateTime))
+        dispatch(toggleAddPostProgress(false))
     }
 }
 
 export const deletePostThunkCreator = (idPost) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleDeletePostProgress(true))
-        deletePostRequest(idPost)
-            .then(data => {
-                dispatch(deletePost(idPost, data.message))
-                dispatch(toggleDeletePostProgress(false))
-            })
+        const data = await deletePostRequest(idPost)
+        dispatch(deletePost(idPost, data.message))
+        dispatch(toggleDeletePostProgress(false))
     }
 }
 
 export const setProfileInfoThunkCreator = () => {
-    return (dispatch) => {
-        getMyProfileInfoRequest()
-            .then(data => {
-                getStatusRequest()
-                    .then(data => {
-                        dispatch(setStatus(data.userStatus))
-                    })
-                dispatch(setProfileInfo(data))
-            })
+    return async (dispatch) => {
+        const data = await getMyProfileInfoRequest()
+        dispatch(setProfileInfo(data))
+        const statusData = await getStatusRequest()
+        dispatch(setStatus(statusData.userStatus))
     }
 }
 
 export const setNewStatusThunkCreator = (newStatusText) => {
-    return (dispatch) => {
-        updateUserStatus(newStatusText)
-            .then((data) => {
-                if (!data.error) {
-                    dispatch(setStatus(data.userStatus))
-                }
-            })
+    return async (dispatch) => {
+        const data = await updateUserStatusRequest(newStatusText)
+        if (!data.error) {
+            dispatch(setStatus(data.userStatus))
+        }
     }
 }
 

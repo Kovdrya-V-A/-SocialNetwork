@@ -198,74 +198,64 @@ export const toggleSendMessageProgress = (sendMessageInProgress) => {
 }
 
 export const setDialogsThunkCreator = (currentDialogId) => {
-    return (dispatch) => {
-        getDialogsRequest()
-            .then(data => {
-                if (data) {
-                  dispatch(  setDialogs(data.items))
-                }
-                if (currentDialogId) {
-                    getMessagesRequest(currentDialogId)
-                        .then(data => {
-                            if (data) {
-                                dispatch(setMessages(data.items))
-                            } else if (data === null) {
-                                dispatch(setMessages([]))
-                            }
-                        })
-                }
-            })
+    return async (dispatch) => {
+        const data = await getDialogsRequest()
+        if (data) {
+            dispatch(setDialogs(data.items))
+        }
+        if (currentDialogId) {
+            const data = await getMessagesRequest(currentDialogId)
+            if (data) {
+                dispatch(setMessages(data.items))
+            } else if (data === null) {
+                dispatch(setMessages([]))
+            }
+
+        }
+
     }
 }
 
 export const deleteDialogThunkCreator = (idDialog, currentDialogId) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleDeleteDialogProgress(true))
-        deleteDialogRequest(idDialog)
-            .then(data => {
-                dispatch(deleteDialog(idDialog, data.message))
-                if (currentDialogId === idDialog) {
-                    dispatch(setCurrentDialog(""))
-                }
-                dispatch(toggleDeleteDialogProgress(false))
-            })
+        const data = await deleteDialogRequest(idDialog)
+        dispatch(deleteDialog(idDialog, data.message))
+        if (currentDialogId === idDialog) {
+            dispatch(setCurrentDialog(""))
+        }
+        dispatch(toggleDeleteDialogProgress(false))
     }
 }
 
 export const deleteMessageThunkCreator = (dialogId, idMessage) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleDeleteMessageProgress(true))
-        deleteMessageRequest(dialogId, idMessage)
-            .then(data => {
-                dispatch(deleteMessage(idMessage, data.message))
-                dispatch(toggleDeleteMessageProgress(false))
-            })
+        const data = await deleteMessageRequest(dialogId, idMessage)
+        dispatch(deleteMessage(idMessage, data.message))
+        dispatch(toggleDeleteMessageProgress(false))
     }
 }
 
 export const cetCurrentDialogThunkCreator = (idDialog) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleSetCurrentDialogProgress(true))
-        getMessagesRequest(idDialog)
-            .then(data => {
-                if (data) {
-                   dispatch( setMessages(data.items))
-                } else if (data === null) {
-                    dispatch(setMessages([]))
-                }
-                dispatch(toggleSetCurrentDialogProgress(false))
-            })
+        const data = await getMessagesRequest(idDialog)
+        if (data) {
+            dispatch(setMessages(data.items))
+        } else if (data === null) {
+            dispatch(setMessages([]))
+        }
+        dispatch(toggleSetCurrentDialogProgress(false))
     }
 }
 
 export const sendMessageThunkCreator = (dialogId, messageText) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleSendMessageProgress(true))
-        sendNewMessageRequest(dialogId, messageText)
-            .then(data => {
-              dispatch(sendMessage(data[0].name, data[0].img, data[0].id, data[0].text, data[0].time))
-              dispatch(toggleSendMessageProgress(false))
-            })
+        const data = await sendNewMessageRequest(dialogId, messageText)
+                dispatch(sendMessage(data[0].name, data[0].img, data[0].id, data[0].text, data[0].time))
+                dispatch(toggleSendMessageProgress(false))
     }
 }
 

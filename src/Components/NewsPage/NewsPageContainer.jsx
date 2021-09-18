@@ -18,6 +18,10 @@ let mapStateToProps = (state) => {
 
 class NewsPageContainer extends React.Component {
 
+    componentDidUpdate(prevProps, prevState) {
+
+    }
+
     componentDidMount() {
         this.props.setNewsThunkCreator(this.props.newsPage.currentPage, this.props.newsPage.pageSize)
     }

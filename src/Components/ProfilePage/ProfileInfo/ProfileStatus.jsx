@@ -1,59 +1,47 @@
-import React from "react"
+import React, {useEffect, useState} from "react"
 import s from "./ProfileInfo.module.css"
 
-class ProfileStatus extends React.PureComponent {
+const ProfileStatus = (props) => {
 
-    state = {
-        status: this.props.status,
-        editMode: false,
+    let [editMode, toggleEditMode] = useState(false)
+    let [status, setStatus] = useState(props.status)
+
+    let activateEditMode = () => {
+        toggleEditMode(true)
+    }
+    let deactivateEditMode = () => {
+        toggleEditMode(false)
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.status !== this.props.status) {
-            this.setState({
-                status: this.props.status
-            })
-        }
+    let onStatusTextChange = (e) => {
+        setStatus(e.currentTarget.value)
     }
 
-    onStatusTextChange = (e) => {
-        this.setState({
-            status: e.currentTarget.value
-        })
-
+    let onSetNewStatus = () => {
+        deactivateEditMode()
+        props.onSetNewStatus(status)
     }
 
-    activateEditMode = () => {
-        this.setState({
-            editMode:true
-        })
-    }
+    useEffect(() => {
+        setStatus(props.status)
+    }, [props.status])
 
-    deactivateEditMode = () => {
-        this.setState({
-            editMode: false
-        })
-    }
 
-    onSetNewStatus = () => {
-        this.deactivateEditMode()
-        this.props.onSetNewStatus(this.state.status)
 
-    }
-
-    render() {
-        return <div className={s.ProfileStatus}>
-            {!this.state.editMode ? <div>
-                <span className={s.statusValue} onDoubleClick={this.activateEditMode}>
-                    {this.props.status}
+    return <div className={s.ProfileStatus}>
+        {!editMode ? <div>
+                <span className={s.statusValue} onDoubleClick={activateEditMode}>
+                    {props.status}
                 </span>
-            </div> : <div className={s.inputStatusArea}>
-                <input onChange={this.onStatusTextChange} autoFocus={true} onBlur={this.onSetNewStatus} className={s.inputStatus} value={this.state.status}></input>
+            </div>
+            :
+            <div className={s.inputStatusArea}>
+                <input onChange={onStatusTextChange} autoFocus={true} onBlur={onSetNewStatus} className={s.inputStatus}
+                       value={status}></input>
             </div>}
 
 
-        </div>
-    }
+    </div>
 }
 
-export default ProfileStatus
+export default React.memo(ProfileStatus)

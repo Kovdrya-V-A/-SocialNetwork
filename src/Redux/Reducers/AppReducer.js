@@ -28,20 +28,18 @@ export const setSessionIsStart = () => {
     }
 }
 
-export const checkAuthMeThunkCreator = () => (dispatch) => {
-    return checkAuthMeRequest()
-        .then((data) => {
+export const checkAuthMeThunkCreator = () => async (dispatch) => {
+    let data = await checkAuthMeRequest()
             if (data.auth) {
                 dispatch(userVerification())
             }
-        })
+            return true
 }
 
-export const setSessionIsStartThunkCreator = () => (dispatch) => {
-    dispatch(checkAuthMeThunkCreator())
-        .then(() => {
-            dispatch(setSessionIsStart())
-        })
+export const setSessionIsStartThunkCreator = () => async (dispatch) => {
+    await dispatch(checkAuthMeThunkCreator())
+    dispatch(setSessionIsStart())
+
 }
 
 
