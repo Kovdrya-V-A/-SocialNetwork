@@ -45,11 +45,10 @@ class App extends React.Component {
                         <Route path="/AuthUser/ProfilePage" render={() => <ProfilePageContainer/>}/>
                         <Route path="/AuthUser/DialogsPage/:dialogId?"
                                render={() => <WithRouterDialogsPageContainer/>}/>
-                        <Route exact path="/AuthUser/UsersPage" render={() =>
-                            // <div className={s.lazyLoadPreloaderBar}><MainPreloader/></div>
-                            <Suspense fallback={<div className={s.lazyLoadPreloaderBar}><MainPreloader/></div>}>
-                                <UsersPageContainer/>
-                            </Suspense>
+                        <Route exact path="/AuthUser/UsersPage" render={() => <Suspense
+                            fallback={<div className={s.lazyLoadPreloaderBar}><MainPreloader/></div>}>
+                            <UsersPageContainer/>
+                        </Suspense>
 
                         }/>
 

@@ -11,14 +11,13 @@ import RegistrationPageContainer from "./Components/AuthoRegComponents/Registrat
 
 
 ReactDOM.render(
-
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
-            <Provider store={store}>
-                <Route path="/AuthUser" render={() => <App/>}/>
-                <Route exact path="/Auth" render={() => <AuthorizationPageContainer/>}/>
-                <Route path="/RegistrationPage" render={() => <RegistrationPageContainer/>}/>
-            </Provider>
-        </BrowserRouter>,
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <Provider store={store}>
+            <Route path="/AuthUser" render={() => <App/>}/>
+            <Route exact path="/" render={() => <AuthorizationPageContainer/>}/>
+            <Route path="/RegistrationPage" render={() => <RegistrationPageContainer/>}/>
+        </Provider>
+    </BrowserRouter>,
     document.getElementById('root')
 );
 
