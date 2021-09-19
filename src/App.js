@@ -5,7 +5,6 @@ import s from './App.module.css';
 import {Route} from "react-router-dom";
 import SettingsContainer from "./Components/Settings/Settings";
 import NewsPageContainer from "./Components/NewsPage/NewsPageContainer";
-// import UsersPageContainer from "./Components/UsersPage/UsersPageContainer";
 import ProfilePageContainer from "./Components/ProfilePage/ProfilePageContainer";
 import FriendsPageContainer from "./Components/FriendsPage/FriendsPageContainer";
 import NavContainer from "./Components/Nav/NavContainer";
@@ -49,8 +48,8 @@ class App extends React.Component {
                         <Route exact path="/AuthUser/UsersPage" render={() =>
                             // <div className={s.lazyLoadPreloaderBar}><MainPreloader/></div>
                             <Suspense fallback={<div className={s.lazyLoadPreloaderBar}><MainPreloader/></div>}>
-                            <UsersPageContainer/>
-                        </Suspense>
+                                <UsersPageContainer/>
+                            </Suspense>
 
                         }/>
 
