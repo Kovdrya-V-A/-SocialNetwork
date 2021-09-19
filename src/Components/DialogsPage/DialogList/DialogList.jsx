@@ -18,7 +18,7 @@ const DialogList = (props) => {
     return (
         <div className={s.dialogList}>
             <h2>Список диалогов:</h2>
-            {props.dialogsData.length > 0 ? dialogsItems :
+            {props.dialogsData.length > 0 ? <div className={s.dialogsBar}>{dialogsItems}</div> :
                 <p>У вас пока нет активых диалогов. Напишите кому - нибудь, и здесь появится диалог</p>}
         </div>
     )

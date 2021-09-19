@@ -6,7 +6,7 @@ const SET_NEWS_TOTAL_COUNT = "SET_NEWS_TOTAL_COUNT";
 let initialNewsPage = {
     newsData: [],
     currentPage: 1,
-    pageSize: 7,
+    pageSize: 10,
     totalNewsCount: 0,
 };
 

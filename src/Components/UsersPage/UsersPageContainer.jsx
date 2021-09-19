@@ -1,13 +1,11 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import {connect} from "react-redux";
 import {
     followThunkCreator, goToDialogThunkCreator, searchUsersThunkCreator,
     setCurrentPageThunkCreator,
     setIsWrote,
     setUsersThunkCreator,
-
     unFollowThunkCreator,
-
 } from "../../Redux/Reducers/UsersPageReducer";
 import UsersPage from "./UsersPage";
 import {compose} from "redux";

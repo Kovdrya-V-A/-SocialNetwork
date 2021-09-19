@@ -7,6 +7,11 @@
 .dialogList {
     flex: 3;
     margin-left: 5px;
+    text-align: center;
+}
+
+.dialogsBar {
+    margin: 0 auto;
 }
 
 .nullMessagesMessage {
