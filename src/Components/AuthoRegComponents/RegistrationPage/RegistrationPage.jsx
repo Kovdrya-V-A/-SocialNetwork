@@ -32,7 +32,7 @@ const RegistrationPage = (props) => {
                         <ReduxRegistrationPageForm onSubmit={onSubmit}
                                                    registrationInProgress={props.registrationInProgress}/>
                         <div className={s.authLink}>
-                            <p>Уже есть аккаунт ? <NavLink className={s.link} to="/">Авторизация</NavLink></p>
+                            <p>Уже есть аккаунт ? <NavLink className={s.link} to="/-SocialNetwork">Авторизация</NavLink></p>
                         </div>
                     </div>
                 </div>

@@ -13,7 +13,7 @@ export const CheckAuthRedirect = (Component) => {
 
     class RedirectComponent extends React.Component {
         render() {
-            if (!this.props.auth) return <Redirect to={"/"}/>
+            if (!this.props.auth) return <Redirect to={"/-SocialNetwork"}/>
             return <Component {...this.props}/>
         }
     }
