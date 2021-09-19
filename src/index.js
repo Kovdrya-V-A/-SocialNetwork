@@ -15,7 +15,7 @@ ReactDOM.render(
         <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Provider store={store}>
                 <Route path="/AuthUser" render={() => <App/>}/>
-                <Route exact path="/" render={() => <AuthorizationPageContainer/>}/>
+                <Route exact path="/Auth" render={() => <AuthorizationPageContainer/>}/>
                 <Route path="/RegistrationPage" render={() => <RegistrationPageContainer/>}/>
             </Provider>
         </BrowserRouter>,
