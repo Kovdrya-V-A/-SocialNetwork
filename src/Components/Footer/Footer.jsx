@@ -4,7 +4,7 @@ import s from "./Footer.module.css"
 const Footer = () => {
     return (
         <footer className={s.footer}>
-            FOOTER
+            FOOTER 2
         </footer>
     )
 }
