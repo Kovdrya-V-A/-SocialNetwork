@@ -1,13 +1,31 @@
+.container {
+    width: 1600px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    background: #fff;
+    display: flex;
+    color: #171717;
+}
+
 .main {
     display: flex;
     margin: 0 auto;
-    max-width: 1200px;
+    width: 100%;
 }
 
 
-.form {
-    flex: 7;
+.authorisation_block {
+    height: calc(100% - 110px);
     display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.authorisation_center {
+    background: #333336;
+    width: 500px;
+    border-radius: 10px;
 }
 
 .autoReg {
@@ -39,12 +57,6 @@
 }
 
 .imgLoadWrap {
-}
-
-.entryButton button{
-    background-color: #D3D3D3;
-    border-radius: 4px;
-    cursor: pointer;
 }
 
 .registration h3 {
