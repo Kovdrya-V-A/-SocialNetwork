@@ -3,7 +3,7 @@ import * as axios from "axios";
 
 //AUTH
 
-export let serverLink = "http://188.32.105.146:8123"
+export let serverLink = "https://188.32.105.146:8123"
 
 export const userVerificationRequest = (login, password) => {
     return axios.post(`${serverLink}/auth`, {"login": login, "password": password})

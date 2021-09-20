@@ -4,20 +4,20 @@ import reportWebVitals from './reportWebVitals';
 import ReactDOM from "react-dom";
 import App from "./App";
 import store from "./Redux/ReduxStore";
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, HashRouter, Route} from "react-router-dom";
 import {Provider} from "react-redux";
 import AuthorizationPageContainer from "./Components/AuthoRegComponents/AuthorizationPage/AuthorizationPageContainer";
 import RegistrationPageContainer from "./Components/AuthoRegComponents/RegistrationPage/RegistrarionPageContainer";
 
 
 ReactDOM.render(
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <HashRouter basename={process.env.PUBLIC_URL}>
         <Provider store={store}>
             <Route path="/AuthUser" render={() => <App/>}/>
             <Route exact path="/" render={() => <AuthorizationPageContainer/>}/>
             <Route path="/RegistrationPage" render={() => <RegistrationPageContainer/>}/>
         </Provider>
-    </BrowserRouter>,
+    </HashRouter>,
     document.getElementById('root')
 );
 

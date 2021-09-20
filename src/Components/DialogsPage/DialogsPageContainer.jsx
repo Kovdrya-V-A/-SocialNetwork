@@ -57,10 +57,7 @@ class DialogsPageContainer extends React.Component {
 
     onSetCurrentDialog = (selectedDialogId) => {
         this.props.setCurrentDialog(selectedDialogId)
-        let dialogId = window.location.pathname.split("/")
-        let a = dialogId.length - 1
-        let idDialog = dialogId[a]
-        this.props.cetCurrentDialogThunkCreator(idDialog)
+        this.props.cetCurrentDialogThunkCreator(selectedDialogId)
 
         // ws.send(JSON.stringify({
         //     token: localStorage.getItem("userToken"),
