@@ -1,26 +1,26 @@
 {
   "files": {
     "main.css": "/-SocialNetwork/static/css/main.4e05dd8f.chunk.css",
-    "main.js": "/-SocialNetwork/static/js/main.e9d4295f.chunk.js",
-    "main.js.map": "/-SocialNetwork/static/js/main.e9d4295f.chunk.js.map",
-    "runtime-main.js": "/-SocialNetwork/static/js/runtime-main.3ae3baf7.js",
-    "runtime-main.js.map": "/-SocialNetwork/static/js/runtime-main.3ae3baf7.js.map",
-    "static/js/2.c5fed150.chunk.js": "/-SocialNetwork/static/js/2.c5fed150.chunk.js",
-    "static/js/2.c5fed150.chunk.js.map": "/-SocialNetwork/static/js/2.c5fed150.chunk.js.map",
-    "static/js/3.3587b7a4.chunk.js": "/-SocialNetwork/static/js/3.3587b7a4.chunk.js",
-    "static/js/3.3587b7a4.chunk.js.map": "/-SocialNetwork/static/js/3.3587b7a4.chunk.js.map",
+    "main.js": "/-SocialNetwork/static/js/main.0803ccd0.chunk.js",
+    "main.js.map": "/-SocialNetwork/static/js/main.0803ccd0.chunk.js.map",
+    "runtime-main.js": "/-SocialNetwork/static/js/runtime-main.aea76e1e.js",
+    "runtime-main.js.map": "/-SocialNetwork/static/js/runtime-main.aea76e1e.js.map",
+    "static/js/2.5a8626a1.chunk.js": "/-SocialNetwork/static/js/2.5a8626a1.chunk.js",
+    "static/js/2.5a8626a1.chunk.js.map": "/-SocialNetwork/static/js/2.5a8626a1.chunk.js.map",
+    "static/js/3.6931ca0d.chunk.js": "/-SocialNetwork/static/js/3.6931ca0d.chunk.js",
+    "static/js/3.6931ca0d.chunk.js.map": "/-SocialNetwork/static/js/3.6931ca0d.chunk.js.map",
     "static/js/4.f1c26adc.chunk.js": "/-SocialNetwork/static/js/4.f1c26adc.chunk.js",
     "static/js/4.f1c26adc.chunk.js.map": "/-SocialNetwork/static/js/4.f1c26adc.chunk.js.map",
     "index.html": "/-SocialNetwork/index.html",
     "static/css/main.4e05dd8f.chunk.css.map": "/-SocialNetwork/static/css/main.4e05dd8f.chunk.css.map",
-    "static/js/2.c5fed150.chunk.js.LICENSE.txt": "/-SocialNetwork/static/js/2.c5fed150.chunk.js.LICENSE.txt",
+    "static/js/2.5a8626a1.chunk.js.LICENSE.txt": "/-SocialNetwork/static/js/2.5a8626a1.chunk.js.LICENSE.txt",
     "static/media/mainPreloader.eb8b1ae0.svg": "/-SocialNetwork/static/media/mainPreloader.eb8b1ae0.svg",
     "static/media/standUserAva.png": "/-SocialNetwork/static/media/standUserAva.ab7efdc7.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.3ae3baf7.js",
-    "static/js/2.c5fed150.chunk.js",
+    "static/js/runtime-main.aea76e1e.js",
+    "static/js/2.5a8626a1.chunk.js",
     "static/css/main.4e05dd8f.chunk.css",
-    "static/js/main.e9d4295f.chunk.js"
+    "static/js/main.0803ccd0.chunk.js"
   ]
 }
