@@ -172,9 +172,9 @@ export const toggleDeletePostProgress = (deletePostInProgress) => {
 }
 
 
-export const setPostsThunkCreator = () => {
+export const setPostsThunkCreator = (profileId) => {
     return async (dispatch) => {
-        const data = await getMyPostsRequest()
+        const data = await getMyPostsRequest(profileId)
         if (data) {
             dispatch(setPosts(data.items))
         } else {
@@ -201,11 +201,11 @@ export const deletePostThunkCreator = (idPost) => {
     }
 }
 
-export const setProfileInfoThunkCreator = () => {
+export const setProfileInfoThunkCreator = (profileId) => {
     return async (dispatch) => {
-        const data = await getMyProfileInfoRequest()
+        const data = await getMyProfileInfoRequest(profileId)
         dispatch(setProfileInfo(data))
-        const statusData = await getStatusRequest()
+        const statusData = await getStatusRequest(profileId)
         dispatch(setStatus(statusData.userStatus))
     }
 }

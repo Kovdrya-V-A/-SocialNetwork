@@ -21,7 +21,8 @@ const ProfileInfo = (props) => {
                     <p>Адрес: {props.profileData[0].address}</p>
                 </div>
             </div>
-            <button onClick={() => props.onSetChangeAvaIsActive(true)} className={s.changeAvaButton}>Обновить фото</button>
+            {!props.isAuthProfile ?<button onClick={() => props.onSetChangeAvaIsActive(true)} className={s.changeAvaButton}>Обновить
+                фото</button>:null}
                 {props.changeAvaIsActive ? <FileUploadContainer/> : null}
         </div>
     )

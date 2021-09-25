@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import ProfilePage from "./ProfilePage";
 import {CheckAuthRedirect} from "../../HOC/CheckAuth.jsx";
 import {compose} from "redux";
+import {withRouter} from "react-router-dom";
 
 
 let mapStateToProps = (state) => {
@@ -12,7 +13,10 @@ let mapStateToProps = (state) => {
 
 
 class profilePageContainer extends React.Component {
+
+
     componentDidUpdate(prevProps, prevState, snapshot) {
+        alert(1)
     }
 
 
@@ -22,14 +26,16 @@ class profilePageContainer extends React.Component {
 
 
     render() {
+        let profileId = this.props.match.params.profileId
         return (
-            <ProfilePage key = {112}/>
+            <ProfilePage profileId = {profileId||null}/>
         )
     }
 
 }
 
 export default compose(
+    withRouter,
     connect(mapStateToProps, {}),
-    CheckAuthRedirect
+    CheckAuthRedirect,
 )(profilePageContainer)

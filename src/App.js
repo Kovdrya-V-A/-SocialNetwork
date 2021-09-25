@@ -42,7 +42,7 @@ class App extends React.Component {
                     <NavContainer/>
                     <div className={s.content}>
                         <Route exact path="/AuthUser" render={() => <ProfilePageContainer/>}/>
-                        <Route path="/AuthUser/ProfilePage" render={() => <ProfilePageContainer/>}/>
+                        <Route path="/AuthUser/ProfilePage/:profileId?" render={() => <ProfilePageContainer/>}/>
                         <Route path="/AuthUser/DialogsPage/:dialogId?"
                                render={() => <WithRouterDialogsPageContainer/>}/>
                         <Route exact path="/AuthUser/UsersPage" render={() => <Suspense

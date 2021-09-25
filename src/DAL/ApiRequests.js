@@ -172,15 +172,15 @@ export const getNewsRequest = (page, count) => {
 //PROFILE_PAGE
 
 
-export const getMyProfileInfoRequest = () => {
-    return axios.get(`${serverLink}/authProfileInfo?token=${localStorage.getItem("userToken")}`)
+export const getMyProfileInfoRequest = (profileId) => {
+    return axios.get(`${serverLink}/profileInfo?token=${localStorage.getItem("userToken")}&profileId=${profileId}`)
         .then(response => {
             return response.data
         })
 }
 
-export const getMyPostsRequest = () => {
-    return axios.get(`${serverLink}/posts?token=${localStorage.getItem("userToken")}`)
+export const getMyPostsRequest = (profileId) => {
+    return axios.get(`${serverLink}/posts?token=${localStorage.getItem("userToken")}&profileId=${profileId}`)
         .then(response => {
             return response.data
         })
@@ -221,8 +221,8 @@ export const updateUserStatusRequest = (newStatusText) => {
         })
 }
 
-export const getStatusRequest = () => {
-    return axios.get(`${serverLink}/status?token=${localStorage.getItem("userToken")}`)
+export const getStatusRequest = (profileId) => {
+    return axios.get(`${serverLink}/status?token=${localStorage.getItem("userToken")}&profileId=${profileId}`)
         .then(response => {
             return response.data
         })

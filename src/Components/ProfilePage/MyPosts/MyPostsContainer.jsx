@@ -19,7 +19,7 @@ let mapStateToProps = (state) => {
 class MyPostsService extends React.Component {
 
     componentDidMount() {
-        this.props.setPostsThunkCreator()
+        this.props.setPostsThunkCreator(this.props.profileId)
 
     }
 

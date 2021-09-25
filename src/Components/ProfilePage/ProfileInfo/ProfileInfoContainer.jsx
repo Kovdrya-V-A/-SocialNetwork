@@ -5,6 +5,8 @@ import {
     setChangeAvaIsActive, setNewStatusThunkCreator,
     setProfileInfoThunkCreator,
 } from "../../../Redux/Reducers/ProfilePageReducer";
+import {compose} from "redux";
+import {withRouter} from "react-router-dom";
 
 
 let mapStateToProps = (state) => {
@@ -18,7 +20,7 @@ let mapStateToProps = (state) => {
 class ProfileInfoService extends React.Component {
 
     componentDidMount() {
-        this.props.setProfileInfoThunkCreator()
+        this.props.setProfileInfoThunkCreator(this.props.profileId)
     }
 
 
@@ -36,6 +38,7 @@ class ProfileInfoService extends React.Component {
     render() {
         return (
             <ProfileInfo
+                isAuthProfile = {this.props.profileId}
                 changeAvaIsActive={this.props.changeAvaIsActive}
                 profileData={this.props.profileData}
                 status={this.props.status}
@@ -46,10 +49,12 @@ class ProfileInfoService extends React.Component {
     }
 }
 
-const ProfileInfoContainer = connect(mapStateToProps, {
+const ProfileInfoContainer = compose(
+    connect(mapStateToProps, {
     setChangeAvaIsActive,
     setProfileInfoThunkCreator,
     setNewStatusThunkCreator
-})(ProfileInfoService)
+})
+) (ProfileInfoService)
 
 export default ProfileInfoContainer;

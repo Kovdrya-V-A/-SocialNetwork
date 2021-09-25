@@ -18,7 +18,7 @@ const Friend = (props) => {
             </div>
             <div className={s.friendInfo}>
                 <NavLink className={s.friendLink}
-                         to={"/AuthUser/UserPage/" + props.id}>{`${props.name}`}</NavLink>
+                         to={"/AuthUser/ProfilePage/" + props.id}>{`${props.name}`}</NavLink>
                 <button disabled={props.isWroteInProgress.some(id => id == props.id)} onClick={() => {
                     props.onMessage(props.id)
                 }} className={`${s.toMessageButton} ${s.button}`}>Написать
