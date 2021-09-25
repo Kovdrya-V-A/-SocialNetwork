@@ -173,7 +173,7 @@ export const getNewsRequest = (page, count) => {
 
 
 export const getMyProfileInfoRequest = (profileId) => {
-    return axios.get(`${serverLink}/profileInfo?token=${localStorage.getItem("userToken")}&profileId=${profileId}`)
+    return axios.get(`${serverLink}/profileInfo?token=${localStorage.getItem("userToken")}&${profileId?`profileId=${profileId}`:""}`)
         .then(response => {
             return response.data
         })

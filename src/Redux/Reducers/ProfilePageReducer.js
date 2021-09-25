@@ -14,7 +14,8 @@ const SET_CHANGE_AVA_IS_ACTIVE = "SET_CHANGE_AVA_IS_ACTIVE";
 const SET_CHANGE_AVA_STATUS = "SET_CHANGE_AVA_STATUS";
 const TOGGLE_ADD_POST_PROGRESS = "TOGGLE_ADD_POST_PROGRESS";
 const TOGGLE_DELETE_POST_PROGRESS = "TOGGLE_DELETE_POST_PROGRESS";
-const SET_STATUS = "SET_STATUS"
+const SET_STATUS = "SET_STATUS";
+const SET_PROFILE_ID = "SET_PROFILE_ID";
 
 let initialProfilePage = {
     postsData: [],
@@ -23,13 +24,22 @@ let initialProfilePage = {
     changeAvaStatus: null,
     addPostInProgress: false,
     deletePostInProgress: false,
-    status: ""
+    status: "",
+    profileId: null,
 };
 
 
 const profilePageReducer = (profilePage = initialProfilePage, action) => {
 
     switch (action.type) {
+
+        case SET_PROFILE_ID: {
+            return {
+                ...profilePage,
+                profileId: action.profileId
+            }
+        }
+
         case ADD_POST: {
             let newPost = {
                 idPost: action.idPost,
@@ -107,6 +117,13 @@ const profilePageReducer = (profilePage = initialProfilePage, action) => {
     }
     ;
 
+}
+
+export const setProfileId = (profileId) => {
+    return {
+        type: SET_PROFILE_ID,
+        profileId
+    }
 }
 
 export const setStatus = (statusText) => {

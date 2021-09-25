@@ -5,13 +5,10 @@ import ProfileInfoContainer from "./ProfileInfo/ProfileInfoContainer";
 
 
 const ProfilePage = (props) => {
-
-    const [profileId, setProfileId] = useState(props.profileId)
-
     return (
         <div className={s.profilePage}>
-            <ProfileInfoContainer profileId = {profileId}/>
-            <MyPostsContainer profileId = {profileId}/>
+            <ProfileInfoContainer profileId = {props.profileId}/>
+            <MyPostsContainer profileId = {props.profileId}/>
         </div>
     )
 }

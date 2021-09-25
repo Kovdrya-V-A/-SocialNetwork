@@ -4,10 +4,12 @@ import ProfilePage from "./ProfilePage";
 import {CheckAuthRedirect} from "../../HOC/CheckAuth.jsx";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
+import {setProfileId} from "../../Redux/Reducers/ProfilePageReducer";
 
 
 let mapStateToProps = (state) => {
     return {
+        profileId: state.profilePage.profileId
     }
 }
 
@@ -15,20 +17,22 @@ let mapStateToProps = (state) => {
 class profilePageContainer extends React.Component {
 
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        alert(1)
-    }
-
-
     componentDidMount() {
-
+        this.props.setProfileId(this.props.match.params.profileId || null)
     }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.profileId !== null ) {
+            this.props.setProfileId(this.props.match.params.profileId || null)
+        }
+    }
+
 
 
     render() {
-        let profileId = this.props.match.params.profileId
+        const profileId = this.props.match.params.profileId
         return (
-            <ProfilePage profileId = {profileId||null}/>
+            <ProfilePage profileId = {profileId || null}/>
         )
     }
 
@@ -36,6 +40,6 @@ class profilePageContainer extends React.Component {
 
 export default compose(
     withRouter,
-    connect(mapStateToProps, {}),
+    connect(mapStateToProps, {setProfileId}),
     CheckAuthRedirect,
 )(profilePageContainer)
