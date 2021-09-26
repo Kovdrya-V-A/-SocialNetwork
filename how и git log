@@ -1,0 +1,153 @@
+[33mcommit 22ce4a1c629d1413a7ea09e5c59bbab8e557ad8a[m[33m ([m[1;36mHEAD -> [m[1;32mLesson-13[m[33m)[m
+Author: Kovdrya-V-A <KovdryaVladislav@gmail.com>
+Date:   Sun Sep 26 18:59:39 2021 +0300
+
+    SocialNetworkUpdate 65
+
+[1mdiff --git a/src/App.js b/src/App.js[m
+[1mnew file mode 100644[m
+[1mindex 0000000..9e7c508[m
+[1m--- /dev/null[m
+[1m+++ b/src/App.js[m
+[36m@@ -0,0 +1,70 @@[m
+[32m+[m[32mimport React, {Suspense} from 'react';[m
+[32m+[m[32mimport Footer from './Components/Footer/Footer';[m
+[32m+[m[32mimport Header from './Components/Header/Header';[m
+[32m+[m[32mimport s from './App.module.css';[m
+[32m+[m[32mimport {Route} from "react-router-dom";[m
+[32m+[m[32mimport SettingsContainer from "./Components/Settings/Settings";[m
+[32m+[m[32mimport NewsPageContainer from "./Components/NewsPage/NewsPageContainer";[m
+[32m+[m[32mimport ProfilePageContainer from "./Components/ProfilePage/ProfilePageContainer";[m
+[32m+[m[32mimport FriendsPageContainer from "./Components/FriendsPage/FriendsPageContainer";[m
+[32m+[m[32mimport NavContainer from "./Components/Nav/NavContainer";[m
+[32m+[m[32mimport WithRouterDialogsPageContainer from "./Components/DialogsPage/DialogsPageContainer";[m
+[32m+[m[32mimport {connect} from "react-redux";[m
+[32m+[m[32mimport {checkAuthMeThunkCreator, setSessionIsStartThunkCreator} from "./Redux/Reducers/AppReducer";[m
+[32m+[m[32mimport {MainPreloader} from "./Assets/Preloaders/mainPreloader";[m
+[32m+[m
+[32m+[m[32mconst UsersPageContainer = React.lazy(() => import('./Components/UsersPage/UsersPageContainer'))[m
+[32m+[m
+[32m+[m[32mconst mapStateToProps = (state) => {[m
+[32m+[m[32m    return {[m
+[32m+[m[32m        auth: state.authorizationPage.auth,[m
+[32m+[m[32m        sessionIsStart: state.app.sessionIsStart[m
+[32m+[m[32m    }[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mclass App extends React.Component {[m
+[32m+[m[32m    componentDidMount() {[m
+[32m+[m[32m        this.props.setSessionIsStartThunkCreator()[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    render() {[m
+[32m+[m[32m        if (!this.props.sessionIsStart) {[m
+[32m+[m[32m            return <div className={s.preloaderBar}>[m
+[32m+[m[32m                <MainPreloader/>[m
+[32m+[m[32m                {/*<img src={mainPreloader} alt=""/>*/}[m
+[32m+[m[32m            </div>[m
+[32m+[m[32m        }[m
+[32m+[m[32m        return ([m
+[32m+[m[32m            <div className={s.AppWrapper}>[m
+[32m+[m[32m                <Header/>[m
+[32m+[m[32m                <div className={s.main}>[m
+[32m+[m[32m                    <NavContainer/>[m
+[32m+[m[32m                    <div className={s.content}>[m
+[32m+[m[32m                        <Route exact path="/AuthUser" render={() => <ProfilePageContainer/>}/>[m
+[32m+[m[32m                        <Route path="/AuthUser/ProfilePage/:profileId?" render={() => <ProfilePageContainer/>}/>[m
+[32m+[m[32m                        <Route path="/AuthUser/DialogsPage/:dialogId?"[m
+[32m+[m[32m                               render={() => <WithRouterDialogsPageContainer/>}/>[m
+[32m+[m[32m                        <Route exact path="/AuthUser/UsersPage" render={() => <Suspense[m
+[32m+[m[32m                            fallback={<div className={s.lazyLoadPreloaderBar}><MainPreloader/></div>}>[m
+[32m+[m[32m                            <UsersPageContainer/>[m
+[32m+[m[32m                        </Suspense>[m
+[32m+[m
+[32m+[m[32m                        }/>[m
+[32m+[m
+[32m+[m[32m                        <Route path="/AuthUser/NewsPage" render={() => <NewsPageContainer/>}/>[m
+[32m+[m[32m                        <Route path="/AuthUser/Settings" render={() => <SettingsContainer/>}/>[m
+[32m+[m[32m                        <Route exact path="/AuthUser/FriendsPage" render={() => <FriendsPageContainer/>}/>[m
+[32m+[m[32m                    </div>[m
+[32m+[m[32m                </div>[m
+[32m+[m[32m                <Footer/>[m
+[32m+[m[32m            </div>[m
+[32m+[m[32m        );[m
+[32m+[m
+[32m+[m[32m    }[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m
+[32m+[m[32mexport default connect(mapStateToProps, {[m
+[32m+[m[32m    checkAuthMeThunkCreator,[m
+[32m+[m[32m    setSessionIsStartThunkCreator[m
+[32m+[m[32m})(App);[m
+[1mdiff --git a/src/Components/ProfilePage/MyPosts/MyPosts.jsx b/src/Components/ProfilePage/MyPosts/MyPosts.jsx[m
+[1mnew file mode 100644[m
+[1mindex 0000000..b0f5b82[m
+[1m--- /dev/null[m
+[1m+++ b/src/Components/ProfilePage/MyPosts/MyPosts.jsx[m
+[36m@@ -0,0 +1,56 @@[m
+[32m+[m[32mimport React from 'react';[m
+[32m+[m[32mimport s from './MyPosts.module.css'[m
+[32m+[m[32mimport Post from "./Post/Post";[m
+[32m+[m[32mimport {Field, reduxForm, reset} from "redux-form";[m
+[32m+[m[32mimport {CreateFormItem} from "../../Common/FormsElements/FormsElements";[m
+[32m+[m[32mimport {checkLenghtCreator} from "../../Common/Validators/Validators";[m
+[32m+[m
+[32m+[m[32mconst MyPosts = (props) => {[m
+[32m+[m
+[32m+[m[32m    let postsItems =[m
+[32m+[m[32m        props.postsData.map(p => p.isDeleted ? null : <Post key={p.idPost}[m
+[32m+[m[32m                                                            avaImg={props.avaImg}[m
+[32m+[m[32m                                                            name={props.name}[m
+[32m+[m[32m                                                            text={p.text}[m
+[32m+[m[32m                                                            dateTime={p.dateTime}[m
+[32m+[m[32m                                                            idPost={p.idPost}[m
+[32m+[m[32m                                                            onDeletePost={props.onDeletePost}[m
+[32m+[m[32m                                                            deletePostInProgress={props.deletePostInProgress}[m
+[32m+[m[32m                                                            profileId = {props.profileId}/>)[m
+[32m+[m
+[32m+[m
+[32m+[m[32m    const onSubmit = (formData, dispatch) => {[m
+[32m+[m[32m        props.onAddNewPost(formData.postText)[m
+[32m+[m[32m        dispatch(reset("addPost"))[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m
+[32m+[m[32m    return ([m
+[32m+[m[32m        <div className={s.myPosts}>[m
+[32m+[m[32m            {!props.profileId ?<ReduxAddPostForm addPostInProgress={props.addPostInProgress} onSubmit={onSubmit}/>:null}[m
+[32m+[m[32m            <h2>{!props.profileId ? "Ваши посты:":"Посты пользователя:"}</h2>[m
+[32m+[m[32m            {props.postsData.length > 0 ? postsItems : "В профиле пока нет постов"}[m
+[32m+[m[32m        </div>[m
+[32m+[m[32m    )[m
+[32m+[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mconst TextAreaForm = CreateFormItem("textarea")[m
+[32m+[m[32mconst requiredLength = checkLenghtCreator(0, 500)[m
+[32m+[m
+[32m+[m[32mconst AddPostForm = (props) => {[m
+[32m+[m[32m    return <form className={s.addPostForm} onSubmit={props.handleSubmit}>[m
+[32m+[m[32m        <Field placeholder="Есть что нового ?"[m
+[32m+[m[32m               name="postText" validate={[requiredLength]} component={TextAreaForm}/>[m
+[32m+[m[32m        <button[m
+[32m+[m[32m            disabled={props.addPostInProgress}[m
+[32m+[m[32m            className={s.addPostButton}>Опубликовать[m
+[32m+[m[32m        </button>[m
+[32m+[m[32m    </form>[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mconst ReduxAddPostForm = reduxForm({[m
+[32m+[m[32m    form: "addPost"[m
+[32m+[m[32m})(AddPostForm)[m
+[32m+[m
+[32m+[m[32mexport default React.memo(MyPosts);[m
+\ No newline at end of file[m
+[1mdiff --git a/src/Components/ProfilePage/MyPosts/MyPostsContainer.jsx b/src/Components/ProfilePage/MyPosts/MyPostsContainer.jsx[m
+[1mnew file mode 100644[m
+[1mindex 0000000..f1557e2[m
+[1m--- /dev/null[m
+[1m+++ b/src/Components/ProfilePage/MyPosts/MyPostsContainer.jsx[m
+[36m@@ -0,0 +1,65 @@[m
+[32m+[m[32mimport React from 'react';[m
+[3
