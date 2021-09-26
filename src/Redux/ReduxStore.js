@@ -6,7 +6,6 @@ import newsPageReducer from "./Reducers/NewsPageReducer";
 import usersPageReducer from "./Reducers/UsersPageReducer";
 import authorisationPageReducer from "./AuthoRegReducers/AuthorizationPageReducer";
 import registrationPageReducer from "./AuthoRegReducers/RegistrationPageReducer";
-import selectedProfilePageReducer from "./Reducers/SelectedUserProfilePageReducer";
 import friendsPageReducer from "./Reducers/FriendsPageReducer";
 import thunkMiddleware from "redux-thunk";
 import {reducer as formReducer} from "redux-form"
@@ -19,7 +18,6 @@ let reducers = combineReducers({
     profilePage: profilePageReducer,
     usersPage: usersPageReducer,
     newsPage: newsPageReducer,
-    selectedProfilePage: selectedProfilePageReducer,
     authorizationPage: authorisationPageReducer,
     registrationPage: registrationPageReducer,
     friendsPage: friendsPageReducer,

@@ -12,7 +12,7 @@ const News = (props) => {
             <div className={s.newsContent}>
                 <div className={s.resourceName}>
                     <NavLink className={s.resourceLink}
-                             to={"/AuthUser/UserPage/" + props.resourceId}><h2>{props.name}</h2></NavLink>
+                             to={"/AuthUser/ProfilePage/" + props.resourceId}><h2>{props.name}</h2></NavLink>
                 </div>
                 <div className={s.newsText}>
                     <p>{props.text}</p>

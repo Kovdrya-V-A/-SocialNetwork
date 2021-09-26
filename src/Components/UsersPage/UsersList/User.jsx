@@ -13,7 +13,7 @@ const User = (props) => {
         </div>
         <div className={s.userInfo}>
             <NavLink className={s.userLink}
-                     to={"/AuthUser/UserPage/" + props.id}>{props.name}</NavLink>
+                     to={"/AuthUser/ProfilePage/" + props.id}>{props.name}</NavLink>
             <button disabled={props.setIsWroteInProgress.some(id => id === props.id)} onClick={() => {
                 props.onMessage(props.id)
             }} className={`${s.toMessageButton} ${s.button}`}>Написать

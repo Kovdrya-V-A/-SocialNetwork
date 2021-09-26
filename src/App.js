@@ -1,4 +1,4 @@
-import React, {lazy, Suspense} from 'react';
+import React, {Suspense} from 'react';
 import Footer from './Components/Footer/Footer';
 import Header from './Components/Header/Header';
 import s from './App.module.css';
@@ -9,7 +9,6 @@ import ProfilePageContainer from "./Components/ProfilePage/ProfilePageContainer"
 import FriendsPageContainer from "./Components/FriendsPage/FriendsPageContainer";
 import NavContainer from "./Components/Nav/NavContainer";
 import WithRouterDialogsPageContainer from "./Components/DialogsPage/DialogsPageContainer";
-import WithRouterSelectedProfilePageContainer from "./Components/SelectedProfilePage/SelectedProfilePageContainer";
 import {connect} from "react-redux";
 import {checkAuthMeThunkCreator, setSessionIsStartThunkCreator} from "./Redux/Reducers/AppReducer";
 import {MainPreloader} from "./Assets/Preloaders/mainPreloader";
@@ -54,8 +53,6 @@ class App extends React.Component {
 
                         <Route path="/AuthUser/NewsPage" render={() => <NewsPageContainer/>}/>
                         <Route path="/AuthUser/Settings" render={() => <SettingsContainer/>}/>
-                        <Route path="/AuthUser/userPage/:userId?"
-                               render={() => <WithRouterSelectedProfilePageContainer/>}/>
                         <Route exact path="/AuthUser/FriendsPage" render={() => <FriendsPageContainer/>}/>
                     </div>
                 </div>

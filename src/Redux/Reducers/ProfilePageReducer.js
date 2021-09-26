@@ -1,21 +1,28 @@
 import {
     addNewPostRequest,
-    deletePostRequest,
+    deletePostRequest, followRequest,
     getMyPostsRequest,
-    getMyProfileInfoRequest, getStatusRequest,
+    getMyProfileInfoRequest, getStatusRequest, goToDialogRequest, unFollowRequest,
     updateUserStatusRequest
 } from "../../DAL/ApiRequests";
+import {setCurrentDialog} from "./DialogsPageReducer";
 
-const ADD_POST = "ADD_POST";
-const SET_POSTS = "SET_POSTS";
-const SET_PROFILE_INFO = "SET_PROFILE_INFO";
-const DELETE_POST = "DELETE_POST";
-const SET_CHANGE_AVA_IS_ACTIVE = "SET_CHANGE_AVA_IS_ACTIVE";
-const SET_CHANGE_AVA_STATUS = "SET_CHANGE_AVA_STATUS";
-const TOGGLE_ADD_POST_PROGRESS = "TOGGLE_ADD_POST_PROGRESS";
-const TOGGLE_DELETE_POST_PROGRESS = "TOGGLE_DELETE_POST_PROGRESS";
-const SET_STATUS = "SET_STATUS";
-const SET_PROFILE_ID = "SET_PROFILE_ID";
+const PPActionsTypes = {
+    ADD_POST: "ADD_POST",
+    SET_POSTS: "SET_POSTS",
+    SET_PROFILE_INFO: "SET_PROFILE_INFO",
+    DELETE_POST: "DELETE_POST",
+    SET_CHANGE_AVA_IS_ACTIVE: "SET_CHANGE_AVA_IS_ACTIVE",
+    SET_CHANGE_AVA_STATUS: "SET_CHANGE_AVA_STATUS",
+    TOGGLE_ADD_POST_PROGRESS: "TOGGLE_ADD_POST_PROGRESS",
+    TOGGLE_DELETE_POST_PROGRESS: "TOGGLE_DELETE_POST_PROGRESS",
+    SET_STATUS: "SET_STATUS",
+    TOGGLE_IS_WROTE_PROGRESS: "SP_TOGGLE_IS_WROTE_PROGRESS",
+    TOGGLE_FOLLOWING_PROGRESS: "SP_TOGGLE_FOLLOWING_PROGRESS",
+    SET_IS_WROTE: "SET_IS_WROTE",
+    UNFOLLOW: "UNFOLLOW",
+    FOLLOW: "FOLLOW",
+}
 
 let initialProfilePage = {
     postsData: [],
@@ -25,7 +32,9 @@ let initialProfilePage = {
     addPostInProgress: false,
     deletePostInProgress: false,
     status: "",
-    profileId: null,
+    isWrote: false,
+    setIsWroteInProgress: false,
+    followingInProgress: false,
 };
 
 
@@ -33,14 +42,28 @@ const profilePageReducer = (profilePage = initialProfilePage, action) => {
 
     switch (action.type) {
 
-        case SET_PROFILE_ID: {
+        case PPActionsTypes.UNFOLLOW:
             return {
                 ...profilePage,
-                profileId: action.profileId
+                profileData: profilePage.profileData.map(f => {
+                    return {...f, followed: false}
+                })
             }
-        }
 
-        case ADD_POST: {
+
+        case PPActionsTypes.FOLLOW:
+            return {
+                ...profilePage,
+                profileData: profilePage.profileData.map(f => {
+                    return {...f, followed: true}
+                })
+            }
+
+        case PPActionsTypes.SET_IS_WROTE:
+            return {...profilePage, isWrote: action.isWrote}
+
+
+        case PPActionsTypes.ADD_POST: {
             let newPost = {
                 idPost: action.idPost,
                 text: action.text,
@@ -53,21 +76,21 @@ const profilePageReducer = (profilePage = initialProfilePage, action) => {
 
         }
 
-        case SET_CHANGE_AVA_IS_ACTIVE : {
+        case PPActionsTypes.SET_CHANGE_AVA_IS_ACTIVE : {
             return {
                 ...profilePage,
                 changeAvaIsActive: action.changeAvaIsActive
             }
         }
 
-        case SET_CHANGE_AVA_STATUS: {
+        case PPActionsTypes.SET_CHANGE_AVA_STATUS: {
             return {
                 ...profilePage,
                 changeAvaStatus: action.status
             }
         }
 
-        case DELETE_POST: {
+        case PPActionsTypes.DELETE_POST: {
             return {
                 ...profilePage,
                 postsData: profilePage.postsData.map(p => {
@@ -80,36 +103,48 @@ const profilePageReducer = (profilePage = initialProfilePage, action) => {
         }
 
 
-        case SET_PROFILE_INFO:
+        case PPActionsTypes.SET_PROFILE_INFO:
             return {
                 ...profilePage,
                 profileData: [action.profileData]
             }
 
 
-        case SET_POSTS:
+        case PPActionsTypes.SET_POSTS:
             if (action.postsData) {
                 return {
                     ...profilePage,
                     postsData: [...action.postsData]
                 }
             }
-        case TOGGLE_ADD_POST_PROGRESS:
+        case PPActionsTypes.TOGGLE_ADD_POST_PROGRESS:
             return {
                 ...profilePage,
                 addPostInProgress: action.addPostInProgress
             }
 
-        case TOGGLE_DELETE_POST_PROGRESS:
+        case PPActionsTypes.TOGGLE_DELETE_POST_PROGRESS:
             return {
                 ...profilePage,
                 deletePostInProgress: action.deletePostInProgress
             }
 
-        case SET_STATUS:
+        case PPActionsTypes.SET_STATUS:
             return {
                 ...profilePage,
                 status: action.statusText
+            }
+
+        case PPActionsTypes.TOGGLE_IS_WROTE_PROGRESS:
+            return {
+                ...profilePage,
+                setIsWroteInProgress: action.setIsWroteInProgress
+            }
+
+        case PPActionsTypes.TOGGLE_FOLLOWING_PROGRESS:
+            return {
+                ...profilePage,
+                followingInProgress: action.followingInProgress
             }
 
         default:
@@ -119,23 +154,36 @@ const profilePageReducer = (profilePage = initialProfilePage, action) => {
 
 }
 
-export const setProfileId = (profileId) => {
+export const setIsWrote = (isWrote) => {
     return {
-        type: SET_PROFILE_ID,
-        profileId
+        type: PPActionsTypes.SET_IS_WROTE,
+        isWrote
+    }
+}
+export const follow = (message) => {
+    return {
+        type: PPActionsTypes.FOLLOW,
+        message
+    }
+}
+
+export const unFollow = (message) => {
+    return {
+        type: PPActionsTypes.UNFOLLOW,
+        message
     }
 }
 
 export const setStatus = (statusText) => {
     return {
-        type: SET_STATUS,
+        type: PPActionsTypes.SET_STATUS,
         statusText
     }
 }
 
 export const addPost = (idPost, text, dateTime) => {
     return {
-        type: ADD_POST,
+        type: PPActionsTypes.ADD_POST,
         idPost: idPost,
         text: text,
         dateTime: dateTime
@@ -144,7 +192,7 @@ export const addPost = (idPost, text, dateTime) => {
 
 export const deletePost = (idPost, message) => {
     return {
-        type: DELETE_POST,
+        type: PPActionsTypes.DELETE_POST,
         idPost: idPost,
         message: message
     }
@@ -152,39 +200,54 @@ export const deletePost = (idPost, message) => {
 
 export const setPosts = (postsData) => {
     return {
-        type: SET_POSTS,
+        type: PPActionsTypes.SET_POSTS,
         postsData
     }
 }
 
 export const setProfileInfo = (profileData) => {
     return {
-        type: SET_PROFILE_INFO,
+        type: PPActionsTypes.SET_PROFILE_INFO,
         profileData
     }
 }
 export const setChangeAvaIsActive = (changeAvaIsActive) => {
     return {
-        type: SET_CHANGE_AVA_IS_ACTIVE,
+        type: PPActionsTypes.SET_CHANGE_AVA_IS_ACTIVE,
         changeAvaIsActive
     }
 }
 export const setChangeAvaStatus = (status) => {
     return {
-        type: SET_CHANGE_AVA_STATUS,
+        type: PPActionsTypes.SET_CHANGE_AVA_STATUS,
         status
     }
 }
 export const toggleAddPostProgress = (addPostInProgress) => {
     return {
-        type: TOGGLE_ADD_POST_PROGRESS,
+        type: PPActionsTypes.TOGGLE_ADD_POST_PROGRESS,
         addPostInProgress
     }
 }
 export const toggleDeletePostProgress = (deletePostInProgress) => {
     return {
-        type: TOGGLE_DELETE_POST_PROGRESS,
+        type: PPActionsTypes.TOGGLE_DELETE_POST_PROGRESS,
         deletePostInProgress
+    }
+}
+
+export const toggleSetIsWroteProgress = (setIsWroteInProgress) => {
+    return {
+        type: PPActionsTypes.TOGGLE_IS_WROTE_PROGRESS,
+        setIsWroteInProgress
+
+    }
+}
+
+export const toggleFollowingProgress = (followingInProgress) => {
+    return {
+        type: PPActionsTypes.TOGGLE_FOLLOWING_PROGRESS,
+        followingInProgress: followingInProgress
     }
 }
 
@@ -234,6 +297,37 @@ export const setNewStatusThunkCreator = (newStatusText) => {
             dispatch(setStatus(data.userStatus))
         }
     }
+}
+
+export const unFollowThunkCreator = (userId) => {
+    return async (dispatch) => {
+        dispatch(toggleFollowingProgress(true))
+        const data = await unFollowRequest(userId)
+        dispatch(unFollow(userId, data.message))
+        dispatch(toggleFollowingProgress(false))
+    }
+}
+
+export const followThunkCreator = (userId) => {
+    return async (dispatch) => {
+        dispatch(toggleFollowingProgress(true))
+        const data = await followRequest(userId)
+        dispatch(follow(userId, data.message))
+        dispatch(toggleFollowingProgress(false))
+    }
+}
+
+export const goToDialogThunkCreator = (userId) => {
+    return async (dispatch) => {
+        dispatch(toggleSetIsWroteProgress(true))
+        const data = await goToDialogRequest(userId)
+        dispatch(setIsWrote(true))
+        dispatch(setCurrentDialog(data.idDialog))
+        dispatch(toggleSetIsWroteProgress(false))
+
+
+    }
+
 }
 
 

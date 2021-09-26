@@ -12,7 +12,7 @@ const Message = (props) => {
 
                 <div className={s.senderName}>
                     <NavLink className={s.senderLink}
-                                to={"/AuthUser/UserPage/" + props.senderId}>{props.senderName}</NavLink>
+                                to={"/AuthUser/ProfilePage/" + props.senderId}>{props.senderName}</NavLink>
                 </div>
                 <div className={s.text}><p>{props.text}</p></div>
                 <div className={s.time}>{props.time}</div>
