@@ -15,10 +15,7 @@ const Post = (props) => {
                 <div className={s.dateTime}><p>{props.dateTime}</p>
                 </div>
             </div>
-            {!props.profileId ? <div className={s.deletePost}>
-                <button disabled={props.deletePostInProgress} onClick={() => props.onDeletePost(props.idPost)}><p>×</p>
-                </button>
-            </div> : null}
+            <div className={s.deletePost}><button disabled={props.deletePostInProgress} onClick={() => props.onDeletePost(props.idPost)}><p>×</p></button></div>
         </div>
     )
 }

@@ -3,40 +3,36 @@ import {connect} from "react-redux";
 import ProfilePage from "./ProfilePage";
 import {CheckAuthRedirect} from "../../HOC/CheckAuth.jsx";
 import {compose} from "redux";
-import {Redirect, withRouter} from "react-router-dom";
-import {setIsWrote, setProfileId} from "../../Redux/Reducers/ProfilePageReducer";
+import {withRouter} from "react-router-dom";
+import {setProfileId} from "../../Redux/Reducers/ProfilePageReducer";
 
 
 let mapStateToProps = (state) => {
     return {
-        isWrote: state.profilePage.isWrote,
-        currentDialogId: state.dialogsPage.currentDialogId,
+        profileId: state.profilePage.profileId
     }
 }
 
 
 class profilePageContainer extends React.Component {
 
-    componentDidMount() {
-    }
 
-    componentWillUnmount() {
-        if (this.props.isWrote) {
-            this.props.setIsWrote(false)
-        }
+    componentDidMount() {
+        this.props.setProfileId(this.props.match.params.profileId || null)
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.profileId !== null ) {
+            this.props.setProfileId(this.props.match.params.profileId || null)
+        }
     }
+
 
 
     render() {
         const profileId = this.props.match.params.profileId
-        if (this.props.isWrote && this.props.currentDialogId) {
-            return <Redirect to={"/AuthUser/DialogsPage/" + this.props.currentDialogId}/>
-        }
         return (
-            <ProfilePage profileId={profileId}/>
+            <ProfilePage profileId = {profileId || null}/>
         )
     }
 
@@ -44,6 +40,6 @@ class profilePageContainer extends React.Component {
 
 export default compose(
     withRouter,
-    connect(mapStateToProps, {setIsWrote}),
+    connect(mapStateToProps, {setProfileId}),
     CheckAuthRedirect,
 )(profilePageContainer)

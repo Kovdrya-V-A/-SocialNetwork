@@ -23,13 +23,6 @@ class MyPostsService extends React.Component {
 
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.profileId !== this.props.profileId) {
-            this.props.setPostsThunkCreator(this.props.profileId)
-        }
-    }
-
-
     onAddNewPost = (postText) => {
         if (postText) {
             this.props.addPostThunkCreator(postText)
@@ -50,7 +43,6 @@ class MyPostsService extends React.Component {
                      name={this.props.profilePage.profileData[0].name}
                      addPostInProgress={this.props.profilePage.addPostInProgress}
                      deletePostInProgress={this.props.profilePage.deletePostInProgress}
-                     profileId={this.props.profileId}
             />
         )
     }

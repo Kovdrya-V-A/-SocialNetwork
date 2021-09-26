@@ -1,0 +1,40 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.nav {
+    flex: 1;
+    padding-top: 5px;
+}
+
+.nav div {
+    padding-left: 10px;
+}
+
+.navItem {
+    margin-bottom: 5px;
+}
+
+.link {
+    color: #D3D3C9;
+    text-decoration: none;
+}
+
+.nav div:hover{
+    background-color: #444446;
+}
+
+.logoutLink {
+    color: black;
+}
+
+.activeLink {
+    color: gold;
+}
+
+.logoutButton {
+    background-color: #D3D3D3;
+    border-radius: 4px;
+    cursor: pointer;
+}

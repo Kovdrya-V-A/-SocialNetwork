@@ -1,0 +1,38 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    max-width: 100%;
+    background-color: #333336;
+}
+
+.headerWRap {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+}
+
+.logo {
+    flex: 1;
+    margin: 3px;
+    width: 50px;
+}
+
+
+.title {
+    position: relative;
+    color: #D3D3C9;
+    flex: 100;
+    padding-top: 20px;
+}
+.title p{
+    position: absolute;
+    top: 50%;
+    margin-top: -0.625em;
+}
+
+.logo img {
+    width: 50px;
+}

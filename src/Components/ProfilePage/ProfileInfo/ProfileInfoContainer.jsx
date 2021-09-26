@@ -2,20 +2,18 @@ import React from 'react';
 import {connect} from "react-redux";
 import ProfileInfo from "./ProfileInfo";
 import {
-    followThunkCreator, goToDialogThunkCreator,
     setChangeAvaIsActive, setNewStatusThunkCreator,
-    setProfileInfoThunkCreator, unFollowThunkCreator,
+    setProfileInfoThunkCreator,
 } from "../../../Redux/Reducers/ProfilePageReducer";
 import {compose} from "redux";
+import {withRouter} from "react-router-dom";
 
 
 let mapStateToProps = (state) => {
     return {
         changeAvaIsActive: state.profilePage.changeAvaIsActive,
-        profileData: state.profilePage.profileData,
-        status: state.profilePage.status,
-        setIsWroteInProgress: state.profilePage.setIsWroteInProgress,
-        followingInProgress: state.profilePage.followingInProgress,
+        profileData:state.profilePage.profileData,
+        status: state.profilePage.status
     }
 }
 
@@ -27,21 +25,6 @@ class ProfileInfoService extends React.Component {
 
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.profileId !==this.props.profileId) {
-            this.props.setProfileInfoThunkCreator(this.props.profileId)
-        }
-    }
-
-    onUnfollow = (userId) => {
-        this.props.unFollowThunkCreator(userId)
-    }
-
-    onFollow = (userId) => {
-        this.props.followThunkCreator(userId)
-    }
-
-    onMessage = (userId) => {
-        this.props.goToDialogThunkCreator(userId)
     }
 
     onSetChangeAvaIsActive = (changeAvaIsActive) => {
@@ -55,17 +38,12 @@ class ProfileInfoService extends React.Component {
     render() {
         return (
             <ProfileInfo
-                profileId={this.props.profileId}
+                isAuthProfile = {this.props.profileId}
                 changeAvaIsActive={this.props.changeAvaIsActive}
                 profileData={this.props.profileData}
                 status={this.props.status}
                 onSetChangeAvaIsActive={this.onSetChangeAvaIsActive}
                 onSetNewStatus={this.onSetNewStatus}
-                onUnfollow={this.onUnfollow}
-                onFollow={this.onFollow}
-                onMessage={this.onMessage}
-                setIsWroteInProgress={this.props.setIsWroteInProgress}
-                followingInProgress={this.props.followingInProgress}
             />
         )
     }
@@ -73,13 +51,10 @@ class ProfileInfoService extends React.Component {
 
 const ProfileInfoContainer = compose(
     connect(mapStateToProps, {
-        setChangeAvaIsActive,
-        setProfileInfoThunkCreator,
-        setNewStatusThunkCreator,
-        unFollowThunkCreator,
-        followThunkCreator,
-        goToDialogThunkCreator,
-    })
-)(ProfileInfoService)
+    setChangeAvaIsActive,
+    setProfileInfoThunkCreator,
+    setNewStatusThunkCreator
+})
+) (ProfileInfoService)
 
 export default ProfileInfoContainer;

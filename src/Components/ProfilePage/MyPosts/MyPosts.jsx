@@ -15,8 +15,7 @@ const MyPosts = (props) => {
                                                             dateTime={p.dateTime}
                                                             idPost={p.idPost}
                                                             onDeletePost={props.onDeletePost}
-                                                            deletePostInProgress={props.deletePostInProgress}
-                                                            profileId = {props.profileId}/>)
+                                                            deletePostInProgress={props.deletePostInProgress}/>)
 
 
     const onSubmit = (formData, dispatch) => {
@@ -27,9 +26,9 @@ const MyPosts = (props) => {
 
     return (
         <div className={s.myPosts}>
-            {!props.profileId ?<ReduxAddPostForm addPostInProgress={props.addPostInProgress} onSubmit={onSubmit}/>:null}
-            <h2>{!props.profileId ? "Ваши посты:":"Посты пользователя:"}</h2>
-            {props.postsData.length > 0 ? postsItems : "В профиле пока нет постов"}
+            <ReduxAddPostForm addPostInProgress = {props.addPostInProgress} onSubmit = {onSubmit}/>
+            <h2>Ваши посты:</h2>
+            {props.postsData.length > 0 ? postsItems : "У вас пока нет постов"}
         </div>
     )
 

@@ -1,0 +1,44 @@
+
+.newsPage {
+    width: 100%;
+}
+
+.newsList {
+    width: 100%;
+}
+
+.selectingPageMenu {
+    color: #D3D3C9;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.selectedPage {
+    color: gold;
+    font-weight: bold;
+    border-bottom: 1px solid gold;
+}
+
+.pageNumber {
+    padding: 3px;
+    cursor: pointer;
+}
+
+
+.selectingPageMenu {
+    color: #D3D3C9;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.selectedPage {
+    color: gold;
+    font-weight: bold;
+    border-bottom: 1px solid gold;
+}
+
+.pageNumber {
+    padding: 3px;
+    cursor: pointer;
+}
+

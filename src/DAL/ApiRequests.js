@@ -180,7 +180,7 @@ export const getMyProfileInfoRequest = (profileId) => {
 }
 
 export const getMyPostsRequest = (profileId) => {
-    return axios.get(`${serverLink}/posts?token=${localStorage.getItem("userToken")}&${profileId?`profileId=${profileId}`:""}`)
+    return axios.get(`${serverLink}/posts?token=${localStorage.getItem("userToken")}&profileId=${profileId}`)
         .then(response => {
             return response.data
         })
@@ -222,7 +222,7 @@ export const updateUserStatusRequest = (newStatusText) => {
 }
 
 export const getStatusRequest = (profileId) => {
-    return axios.get(`${serverLink}/status?token=${localStorage.getItem("userToken")}&${profileId?`profileId=${profileId}`:""}`)
+    return axios.get(`${serverLink}/status?token=${localStorage.getItem("userToken")}&profileId=${profileId}`)
         .then(response => {
             return response.data
         })

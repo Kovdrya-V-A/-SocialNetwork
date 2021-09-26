@@ -1,0 +1,48 @@
+.news {
+    background-color: #333336;
+    border-radius: 5px;
+    margin-top:5px;
+    margin-bottom:12px;
+    display: flex;
+}
+
+.newsContent {
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+    flex: 50;
+}
+
+.resourceLink {
+    text-decoration: none;
+    color: white;
+    margin-bottom: 5px;
+}
+
+.avaNews img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.resourceName h2 {
+    color: white;
+}
+
+
+
+.newsText {
+    color: white;
+    word-wrap: break-word;
+    word-break: break-all;
+    hyphens: auto;
+}
+
+.newsText p{
+    word-break: break-word;
+}
+
+.dateTime p{
+    font-size: 14px;
+    color: #D3D3D3;
+}
