@@ -1,8 +1,12 @@
 import {
     addNewPostRequest,
-    deletePostRequest, followRequest,
-    getMyPostsRequest,
-    getMyProfileInfoRequest, getStatusRequest, goToDialogRequest, unFollowRequest,
+    deletePostRequest,
+    followRequest,
+    getPostsRequest,
+    getProfileInfoRequest,
+    getStatusRequest,
+    goToDialogRequest,
+    unFollowRequest,
     updateUserStatusRequest
 } from "../../DAL/ApiRequests";
 import {setCurrentDialog} from "./DialogsPageReducer";
@@ -254,7 +258,7 @@ export const toggleFollowingProgress = (followingInProgress) => {
 
 export const setPostsThunkCreator = (profileId) => {
     return async (dispatch) => {
-        const data = await getMyPostsRequest(profileId)
+        const data = await getPostsRequest(profileId)
         if (data) {
             dispatch(setPosts(data.items))
         } else {
@@ -283,7 +287,7 @@ export const deletePostThunkCreator = (idPost) => {
 
 export const setProfileInfoThunkCreator = (profileId) => {
     return async (dispatch) => {
-        const data = await getMyProfileInfoRequest(profileId)
+        const data = await getProfileInfoRequest(profileId)
         dispatch(setProfileInfo(data))
         const statusData = await getStatusRequest(profileId)
         dispatch(setStatus(statusData.userStatus))

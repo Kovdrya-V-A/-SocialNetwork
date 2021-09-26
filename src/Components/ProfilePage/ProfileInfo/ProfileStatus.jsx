@@ -30,7 +30,7 @@ const ProfileStatus = (props) => {
 
     return <div className={s.ProfileStatus}>
         {!editMode ? <div>
-                <span className={s.statusValue} onDoubleClick={activateEditMode}>
+                <span className={!props.profileId ? s.statusValue: s.strangerStatusValue} onDoubleClick={!props.profileId ? activateEditMode:null}>
                     {props.status}
                 </span>
             </div>

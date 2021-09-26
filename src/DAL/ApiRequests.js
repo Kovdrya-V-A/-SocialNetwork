@@ -172,14 +172,14 @@ export const getNewsRequest = (page, count) => {
 //PROFILE_PAGE
 
 
-export const getMyProfileInfoRequest = (profileId) => {
+export const getProfileInfoRequest = (profileId) => {
     return axios.get(`${serverLink}/profileInfo?token=${localStorage.getItem("userToken")}&${profileId?`profileId=${profileId}`:""}`)
         .then(response => {
             return response.data
         })
 }
 
-export const getMyPostsRequest = (profileId) => {
+export const getPostsRequest = (profileId) => {
     return axios.get(`${serverLink}/posts?token=${localStorage.getItem("userToken")}&${profileId?`profileId=${profileId}`:""}`)
         .then(response => {
             return response.data

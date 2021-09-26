@@ -16,6 +16,7 @@ const ProfileInfo = (props) => {
                     <p className={s.name}>{props.profileData[0].name}</p>
                     <ProfileStatus onSetNewStatus ={props.onSetNewStatus}
                                    status = {props.status}
+                                   profileId = {props.profileId}
                     />
                     <p>Возраст: {props.profileData[0].age}</p>
                     <p>Адрес: {props.profileData[0].address}</p>
