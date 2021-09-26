@@ -6,7 +6,9 @@ import {resetVerificationThunkCreator} from "../../Redux/AuthoRegReducers/Author
 
 
 let mapStateToProps = (state) => {
-    return {}
+    return {
+        myId: state.profilePage.myId
+    }
 }
 
 
@@ -26,6 +28,7 @@ class NavService extends React.Component {
     render() {
         return (
             <Nav onGoToDialogsPage={this.onGoToDialogsPage}
+                 myId = {this.props.myId}
                  onExit = {this.onExit}/>
         )
     }

@@ -38,7 +38,8 @@ const dialogsPageReducer = (dialogsPage = initialDialogsPage, action) => {
                 name: action.name,
                 text: action.text,
                 img: action.img,
-                time: action.time
+                time: action.time,
+                senderId: action.senderId
             };
             return {
                 ...dialogsPage,
@@ -122,21 +123,22 @@ const dialogsPageReducer = (dialogsPage = initialDialogsPage, action) => {
 
 }
 
-export const sendMessage = (name, img, id, text, time) => {
+export const sendMessage = (name, img, id, text, time, senderId) => {
     return {
         type: SEND_MESSAGE,
-        name: name,
-        img: img,
-        id: id,
-        text: text,
-        time: time
+        name,
+        img,
+        id,
+        text,
+        time,
+        senderId
     }
 }
 export const deleteDialog = (idDialog, message) => {
     return {
         type: DELETE_DIALOG,
-        idDialog: idDialog,
-        message: message
+        idDialog,
+        message
 
     }
 }
@@ -254,7 +256,7 @@ export const sendMessageThunkCreator = (dialogId, messageText) => {
     return async (dispatch) => {
         dispatch(toggleSendMessageProgress(true))
         const data = await sendNewMessageRequest(dialogId, messageText)
-                dispatch(sendMessage(data[0].name, data[0].img, data[0].id, data[0].text, data[0].time))
+                dispatch(sendMessage(data[0].name, data[0].img, data[0].id, data[0].text, data[0].time, data[0].senderId))
                 dispatch(toggleSendMessageProgress(false))
     }
 }

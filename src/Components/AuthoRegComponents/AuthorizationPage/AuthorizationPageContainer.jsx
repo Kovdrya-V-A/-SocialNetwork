@@ -9,6 +9,7 @@ import {Redirect} from "react-router-dom";
 let mapStateToProps = (state) => {
     return {
         authorizationPage: state.authorizationPage,
+        authUserId: state.authorizationPage.authUserId
     }
 }
 
@@ -21,7 +22,7 @@ class AuthorizationPageService extends React.Component {
 
     render() {
         if (this.props.authorizationPage.auth) {
-            return <Redirect to="/AuthUser/ProfilePage"/>
+            return <Redirect to={"/AuthUser/ProfilePage/" + this.props.authUserId}/>
         }
         return (
             <AuthorizationPage

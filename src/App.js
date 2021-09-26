@@ -40,7 +40,7 @@ class App extends React.Component {
                 <div className={s.main}>
                     <NavContainer/>
                     <div className={s.content}>
-                        <Route exact path="/AuthUser" render={() => <ProfilePageContainer/>}/>
+                        {/*<Route exact path="/AuthUser" render={() => <ProfilePageContainer/>}/>*/}
                         <Route path="/AuthUser/ProfilePage/:profileId?" render={() => <ProfilePageContainer/>}/>
                         <Route path="/AuthUser/DialogsPage/:dialogId?"
                                render={() => <WithRouterDialogsPageContainer/>}/>

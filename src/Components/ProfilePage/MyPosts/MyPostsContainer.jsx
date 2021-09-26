@@ -50,7 +50,7 @@ class MyPostsService extends React.Component {
                      name={this.props.profilePage.profileData[0].name}
                      addPostInProgress={this.props.profilePage.addPostInProgress}
                      deletePostInProgress={this.props.profilePage.deletePostInProgress}
-                     profileId={this.props.profileId}
+                     isMyProfile = {this.props.isMyProfile}
             />
         )
     }

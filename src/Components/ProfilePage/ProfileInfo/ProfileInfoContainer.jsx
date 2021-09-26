@@ -27,7 +27,7 @@ class ProfileInfoService extends React.Component {
 
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.profileId !==this.props.profileId) {
+        if (prevProps.profileId !== this.props.profileId) {
             this.props.setProfileInfoThunkCreator(this.props.profileId)
         }
     }
@@ -55,7 +55,7 @@ class ProfileInfoService extends React.Component {
     render() {
         return (
             <ProfileInfo
-                profileId={this.props.profileId}
+                isMyProfile = {this.props.isMyProfile}
                 changeAvaIsActive={this.props.changeAvaIsActive}
                 profileData={this.props.profileData}
                 status={this.props.status}

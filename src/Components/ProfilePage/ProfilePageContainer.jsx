@@ -11,6 +11,7 @@ let mapStateToProps = (state) => {
     return {
         isWrote: state.profilePage.isWrote,
         currentDialogId: state.dialogsPage.currentDialogId,
+        myId: state.profilePage.myId,
     }
 }
 
@@ -32,11 +33,13 @@ class profilePageContainer extends React.Component {
 
     render() {
         const profileId = this.props.match.params.profileId
+        const isMyProfile = +(this.props.match.params.profileId) === this.props.myId || !profileId
         if (this.props.isWrote && this.props.currentDialogId) {
             return <Redirect to={"/AuthUser/DialogsPage/" + this.props.currentDialogId}/>
         }
         return (
-            <ProfilePage profileId={profileId}/>
+            <ProfilePage profileId={profileId}
+                         isMyProfile = {isMyProfile}/>
         )
     }
 

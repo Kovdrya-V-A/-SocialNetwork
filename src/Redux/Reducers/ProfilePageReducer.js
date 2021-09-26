@@ -26,6 +26,7 @@ const PPActionsTypes = {
     SET_IS_WROTE: "SET_IS_WROTE",
     UNFOLLOW: "UNFOLLOW",
     FOLLOW: "FOLLOW",
+    SET_MY_ID: "SET_MY_ID",
 }
 
 let initialProfilePage = {
@@ -39,12 +40,19 @@ let initialProfilePage = {
     isWrote: false,
     setIsWroteInProgress: false,
     followingInProgress: false,
+    myId: null
 };
 
 
 const profilePageReducer = (profilePage = initialProfilePage, action) => {
 
     switch (action.type) {
+
+        case PPActionsTypes.SET_MY_ID:
+            return {
+                ...profilePage,
+                myId: action.myId
+            }
 
         case PPActionsTypes.UNFOLLOW:
             return {
@@ -157,6 +165,13 @@ const profilePageReducer = (profilePage = initialProfilePage, action) => {
     ;
 
 }
+export const setMyId = (myId) => {
+    return {
+        type: PPActionsTypes.SET_MY_ID,
+        myId
+    }
+}
+
 
 export const setIsWrote = (isWrote) => {
     return {

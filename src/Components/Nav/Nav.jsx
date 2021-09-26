@@ -7,7 +7,7 @@ const Nav = (props) => {
         <nav className={s.nav}>
             <div className={s.navItem}>
                 <p><NavLink className={s.link} activeClassName={s.activeLink}
-                            to="/AuthUser/ProfilePage">Профиль</NavLink></p>
+                            to={"/AuthUser/ProfilePage/" + props.myId}>Профиль</NavLink></p>
             </div>
             <div className={s.navItem}>
                 <p onClick={() => props.onGoToDialogsPage("")}><NavLink className={s.link}

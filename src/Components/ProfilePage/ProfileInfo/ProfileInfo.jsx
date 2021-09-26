@@ -16,7 +16,7 @@ const ProfileInfo = (props) => {
                     <p className={s.name}>{props.profileData[0].name}</p>
                     <ProfileStatus onSetNewStatus ={props.onSetNewStatus}
                                    status = {props.status}
-                                   profileId = {props.profileId}
+                                   isMyProfile = {props.isMyProfile}
                     />
                     <p>Возраст: {props.profileData[0].age}</p>
                     <p>Адрес: {props.profileData[0].address}</p>
@@ -24,7 +24,7 @@ const ProfileInfo = (props) => {
                 </div>
             </div>
             <div className={s.activity}>
-                {!props.profileId ?
+                {props.isMyProfile ?
                     <div>
                         <button onClick={() => props.onSetChangeAvaIsActive(true)} className={s.activityButton}>Обновить
                             фото</button>

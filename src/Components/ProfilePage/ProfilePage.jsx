@@ -7,8 +7,8 @@ import ProfileInfoContainer from "./ProfileInfo/ProfileInfoContainer";
 const ProfilePage = (props) => {
     return (
         <div className={s.profilePage}>
-            <ProfileInfoContainer profileId = {props.profileId}/>
-            <MyPostsContainer profileId = {props.profileId}/>
+            <ProfileInfoContainer isMyProfile={props.isMyProfile} profileId = {props.profileId}/>
+            <MyPostsContainer isMyProfile={props.isMyProfile} profileId = {props.profileId}/>
         </div>
     )
 }
