@@ -2,7 +2,7 @@ import React, {Suspense} from 'react';
 import Footer from './Components/Footer/Footer';
 import Header from './Components/Header/Header';
 import s from './App.module.css';
-import {Route} from "react-router-dom";
+import {Redirect, Route} from "react-router-dom";
 import SettingsContainer from "./Components/Settings/Settings";
 import NewsPageContainer from "./Components/NewsPage/NewsPageContainer";
 import ProfilePageContainer from "./Components/ProfilePage/ProfilePageContainer";
@@ -12,23 +12,28 @@ import WithRouterDialogsPageContainer from "./Components/DialogsPage/DialogsPage
 import {connect} from "react-redux";
 import {checkAuthMeThunkCreator, setSessionIsStartThunkCreator} from "./Redux/Reducers/AppReducer";
 import {MainPreloader} from "./Assets/Preloaders/mainPreloader";
+import {CheckAuthRedirect} from "./HOC/CheckAuth";
 
 const UsersPageContainer = React.lazy(() => import('./Components/UsersPage/UsersPageContainer'))
 
 const mapStateToProps = (state) => {
     return {
-        auth: state.authorizationPage.auth,
         sessionIsStart: state.app.sessionIsStart
     }
 }
 
 class App extends React.Component {
     componentDidMount() {
-        this.props.setSessionIsStartThunkCreator()
+        if (localStorage.getItem("userToken")) {
+            this.props.setSessionIsStartThunkCreator()
+        }
     }
 
     render() {
         if (!this.props.sessionIsStart) {
+            if (!localStorage.getItem("userToken")) {
+                return <Redirect to={"/"}/>
+            }
             return <div className={s.preloaderBar}>
                 <MainPreloader/>
                 {/*<img src={mainPreloader} alt=""/>*/}
@@ -66,5 +71,6 @@ class App extends React.Component {
 
 export default connect(mapStateToProps, {
     checkAuthMeThunkCreator,
-    setSessionIsStartThunkCreator
+    setSessionIsStartThunkCreator,
+    CheckAuthRedirect
 })(App);

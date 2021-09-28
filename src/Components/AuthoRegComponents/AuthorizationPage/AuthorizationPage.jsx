@@ -65,6 +65,4 @@ let AuthorizationForm = (props) => {
 const ReduxAuthorizationForm = reduxForm({
     form: "authorization"
 })(AuthorizationForm)
-
-
 export default React.memo(AuthorizationPage);

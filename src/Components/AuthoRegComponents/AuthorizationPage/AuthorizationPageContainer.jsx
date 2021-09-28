@@ -1,7 +1,8 @@
 import React from 'react';
 import {connect} from "react-redux";
 import AuthorizationPage from "./AuthorizationPage";
-import {userVerificationThunkCreator
+import {
+    toggleAuthorisationProgress, userVerificationThunkCreator
 } from "../../../Redux/AuthoRegReducers/AuthorizationPageReducer";
 import {Redirect} from "react-router-dom";
 
@@ -15,6 +16,19 @@ let mapStateToProps = (state) => {
 
 
 class AuthorizationPageService extends React.Component {
+
+    showSomeError = (reason, promise) => {
+        alert('Some error =(')
+        this.props.toggleAuthorisationProgress(false)
+    }
+
+    componentDidMount() {
+        window.addEventListener("unhandledrejection", () => this.showSomeError())
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("unhandledrejection", () => this.showSomeError())
+    }
 
     onUserVerification = (login, password) => {
         this.props.userVerificationThunkCreator(login, password)
@@ -35,6 +49,7 @@ class AuthorizationPageService extends React.Component {
 
 const AuthorizationPageContainer = connect(mapStateToProps, {
     userVerificationThunkCreator,
+    toggleAuthorisationProgress
 
 })(AuthorizationPageService)
 
