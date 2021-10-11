@@ -1,5 +1,5 @@
 import {userVerificationRequest} from "../../DAL/ApiRequests";
-import {stopSubmit} from "redux-form";
+import {stopSubmit} from "redux-form"
 
 const AuthPActionsTypes = {
     USER_VERIFICATION: "USER_VERIFICATION",
@@ -10,13 +10,27 @@ const AuthPActionsTypes = {
 }
 
 
+type ActionType = {
+    type: typeof AuthPActionsTypes.SET_AUTH_USER_ID |
+        typeof  AuthPActionsTypes.USER_VERIFICATION |
+        typeof  AuthPActionsTypes.RESET_VERIFICATION|
+        typeof  AuthPActionsTypes.SET_USER_TOKEN
+
+    authUserId?: number
+    token?: any
+    authorisationInProgress?: boolean
+}
+
 let initialAuthorisationPage = {
-    auth: false,
-    authorisationInProgress: false,
-    authUserId: null,
+    auth: false as boolean,
+    authorisationInProgress: false as boolean | undefined,
+    authUserId: null as number | null | undefined,
 };
 
-const authorisationPageReducer = (authorisationPage = initialAuthorisationPage, action) => {
+export type initialStateType = typeof initialAuthorisationPage
+
+
+const authorisationPageReducer = (authorisationPage = initialAuthorisationPage, action: ActionType ): initialStateType => {
     switch (action.type) {
 
         case AuthPActionsTypes.USER_VERIFICATION:
@@ -39,6 +53,7 @@ const authorisationPageReducer = (authorisationPage = initialAuthorisationPage, 
             }
         case AuthPActionsTypes.SET_USER_TOKEN:
             localStorage.setItem("userToken", action.token)
+            return authorisationPage
         default: {
             return authorisationPage
         }
@@ -51,7 +66,7 @@ const authorisationPageReducer = (authorisationPage = initialAuthorisationPage, 
     }
 }
 
-export const setAuthUserId = (authUserId) => {
+export const setAuthUserId = (authUserId: number) => {
     return {
         type: AuthPActionsTypes.SET_AUTH_USER_ID,
         authUserId
@@ -70,21 +85,21 @@ export const resetVerification = () => {
     }
 
 }
-export const setUserToken = (token) => {
+export const setUserToken = (token: string) => {
     return {
         type: AuthPActionsTypes.SET_USER_TOKEN,
         token
     }
 }
-export const toggleAuthorisationProgress = (authorisationInProgress) => {
+export const toggleAuthorisationProgress = (authorisationInProgress: boolean) => {
     return {
         type: AuthPActionsTypes.TOGGLE_AUTHORISATION_PROGRESS,
         authorisationInProgress: authorisationInProgress
     }
 }
 
-export const userVerificationThunkCreator = (login, password) => {
-    return async (dispatch) => {
+export const userVerificationThunkCreator = (login: string, password: string) => {
+    return async (dispatch: Function) => {
         dispatch(toggleAuthorisationProgress(true))
         let data = await userVerificationRequest(login, password)
         if (data.key_type) {
@@ -100,7 +115,7 @@ export const userVerificationThunkCreator = (login, password) => {
 }
 
 
-export const resetVerificationThunkCreator = () => (dispatch) => {
+export const resetVerificationThunkCreator = () => (dispatch: Function) => {
     dispatch(resetVerification())
 }
 

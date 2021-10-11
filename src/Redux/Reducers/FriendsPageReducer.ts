@@ -18,23 +18,31 @@ const FP_TOGGLE_FOLLOWING_PROGRESS = "FP_TOGGLE_FOLLOWING_PROGRESS";
 const FP_TOGGLE_IS_WROTE_PROGRESS = "FP_TOGGLE_IS_WROTE_PROGRESS";
 
 let initialFriendsPage = {
-    friendsData: [],
-    currentPage: 1,
+    friendsData: [] as Array<FriendType>,
+    currentPage: 1 as number,
     pageSize: 7,
-    totalFriendsCount: 0,
+    totalFriendsCount: 0 as number,
     isFetching: false,
-    followingInProgress: [],
+    followingInProgress: [] as Array<Number>,
     isWrote: false,
-    isWroteInProgress: [],
+    isWroteInProgress: [] as Array<Number>,
 };
 
-const friendsPageReducer = (friendsPage = initialFriendsPage, action) => {
+export type FriendType = {
+    id: number
+    name: string
+    img: string
+}
+
+export type initialStateType = typeof initialFriendsPage
+
+const friendsPageReducer = (friendsPage = initialFriendsPage, action: any): initialStateType => {
 
     switch (action.type) {
         case UNFOLLOW:
             return {
                 ...friendsPage,
-                friendsData: friendsPage.friendsData.map(f => {
+                friendsData: friendsPage.friendsData.map((f: FriendType) => {
                     if (f.id === action.userId) {
                         return {...f, followed: false}
                     }
@@ -45,7 +53,7 @@ const friendsPageReducer = (friendsPage = initialFriendsPage, action) => {
         case FOLLOW:
             return {
                 ...friendsPage,
-                friendsData: friendsPage.friendsData.map(f => {
+                friendsData: friendsPage.friendsData.map((f: FriendType) => {
                     if (f.id === action.friendId) {
                         return {...f, followed: true}
                     }
@@ -63,6 +71,7 @@ const friendsPageReducer = (friendsPage = initialFriendsPage, action) => {
                     ...friendsPage, friendsData: [...action.friendsData]
                 }
             }
+            else return friendsPage
 
         case SET_CURRENT_FRIENDS_PAGE:
             return {
@@ -95,39 +104,39 @@ const friendsPageReducer = (friendsPage = initialFriendsPage, action) => {
 }
 
 
-export const setFriends = (friendsData) => {
+export const setFriends = (friendsData: Array<FriendType>) => {
     return {
         type: SET_FRIENDS,
         friendsData
     }
 }
 
-export const setCurrentPage = (number) => {
+export const setCurrentPage = (number: number) => {
     return {
         type: SET_CURRENT_FRIENDS_PAGE,
         number
     }
 }
-export const setFriendsTotalCount = (count) => {
+export const setFriendsTotalCount = (count: number) => {
     return {
         type: SET_FRIENDS_TOTAL_COUNT,
         count
     }
 }
 
-export const setIsFetching = (isFetch) => {
+export const setIsFetching = (isFetch: boolean) => {
     return {
         type: SET_IS_FETCHING,
         isFetch
     }
 }
-export const setIsWrote = (isWrote) => {
+export const setIsWrote = (isWrote: boolean) => {
     return {
         type: SET_IS_WROTE,
         isWrote
     }
 }
-export const follow = (friendId, message) => {
+export const follow = (friendId: number, message: string) => {
     return {
         type: FOLLOW,
         friendId,
@@ -135,7 +144,7 @@ export const follow = (friendId, message) => {
     }
 }
 
-export const unFollow = (userId, message) => {
+export const unFollow = (userId: number, message: string) => {
     return {
         type: UNFOLLOW,
         userId,
@@ -143,7 +152,7 @@ export const unFollow = (userId, message) => {
     }
 }
 
-export const toggleFollowingProgress = (inProgress, userId) => {
+export const toggleFollowingProgress = (inProgress: boolean, userId: number) => {
     return {
         type: FP_TOGGLE_FOLLOWING_PROGRESS,
         inProgress,
@@ -151,7 +160,7 @@ export const toggleFollowingProgress = (inProgress, userId) => {
     }
 }
 
-export const toggleIsWroteProgress = (inProgress, userId) => {
+export const toggleIsWroteProgress = (inProgress: boolean, userId: number) => {
     return {
         type: FP_TOGGLE_IS_WROTE_PROGRESS,
         inProgress,
@@ -160,8 +169,8 @@ export const toggleIsWroteProgress = (inProgress, userId) => {
 }
 
 
-export const setFriendsThunkCreator = (currentPage, pageSize) => {
-    return async (dispatch) => {
+export const setFriendsThunkCreator = (currentPage: number, pageSize: number) => {
+    return async (dispatch: Function) => {
         dispatch(setIsFetching(true))
         const data = await getFriendsRequest(currentPage, pageSize)
         dispatch(setIsFetching(false))
@@ -173,8 +182,8 @@ export const setFriendsThunkCreator = (currentPage, pageSize) => {
 
 }
 
-export const unFollowThunkActionCreator = (userId) => {
-    return async (dispatch) => {
+export const unFollowThunkActionCreator = (userId: number) => {
+    return async (dispatch: Function) => {
         dispatch(toggleFollowingProgress(true, userId))
         const data = await unFollowRequest(userId)
         dispatch(unFollow(userId, data.message))
@@ -182,8 +191,8 @@ export const unFollowThunkActionCreator = (userId) => {
     }
 }
 
-export const followThunkActionCreator = (userId) => {
-    return async (dispatch) => {
+export const followThunkActionCreator = (userId: number) => {
+    return async (dispatch:Function) => {
         dispatch(toggleFollowingProgress(true, userId))
         const data = await followRequest(userId)
         dispatch(follow(userId, data.message))
@@ -191,8 +200,8 @@ export const followThunkActionCreator = (userId) => {
     }
 }
 
-export const setCurrentPageThunkActionCreator = (number, pageSize) => {
-    return async (dispatch) => {
+export const setCurrentPageThunkActionCreator = (number: number, pageSize: number) => {
+    return async (dispatch:Function) => {
         dispatch(setCurrentPage(number))
         dispatch(setIsFetching(true))
         const data = await getFriendsRequest(number, pageSize)
@@ -202,8 +211,8 @@ export const setCurrentPageThunkActionCreator = (number, pageSize) => {
     }
 }
 
-export const goToDialogThunkActionCreator = (userId) => {
-    return async (dispatch) => {
+export const goToDialogThunkActionCreator = (userId: number) => {
+    return async (dispatch:Function) => {
         dispatch(toggleIsWroteProgress(true, userId))
         const data = await goToDialogRequest(userId)
         dispatch(setIsWrote(true))

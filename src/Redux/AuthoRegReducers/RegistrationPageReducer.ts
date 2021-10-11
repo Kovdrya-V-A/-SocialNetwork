@@ -2,11 +2,17 @@ import {userRegistrationRequest} from "../../DAL/ApiRequests";
 
 const TOGGLE_REGISTRATION_PROGRESS = "TOGGLE_REGISTRATION_PROGRESS";
 
-let initialRegistrationPage = {
-    registrationInProgress: false,
-};
+export type ActionType = {
+    type: typeof TOGGLE_REGISTRATION_PROGRESS
+    registrationInProgress?: boolean
+}
 
-const registrationPageReducer = (registrationPage = initialRegistrationPage, action) => {
+let initialRegistrationPage = {
+    registrationInProgress: false as boolean | undefined,
+};
+export type initialStateType = typeof initialRegistrationPage
+
+const registrationPageReducer = (registrationPage = initialRegistrationPage, action: ActionType): initialStateType => {
     switch (action.type) {
         case TOGGLE_REGISTRATION_PROGRESS:
             return {
@@ -20,7 +26,7 @@ const registrationPageReducer = (registrationPage = initialRegistrationPage, act
     }
 }
 
-export const toggleRegistrationProgress = (registrationInProgress) => {
+export const toggleRegistrationProgress = (registrationInProgress: boolean) => {
     return {
         type: TOGGLE_REGISTRATION_PROGRESS,
         registrationInProgress: registrationInProgress
@@ -28,8 +34,8 @@ export const toggleRegistrationProgress = (registrationInProgress) => {
 }
 
 
-export const registrationUserThunkCreator = (login, password, firstName, lastName, address, age, email) => {
-    return async (dispatch) => {
+export const registrationUserThunkCreator = (login: string, password: string, firstName:string, lastName:string, address:string, age:number, email:string) => {
+    return async (dispatch: Function) => {
         dispatch(toggleRegistrationProgress(true))
         let data = await userRegistrationRequest(login, firstName, lastName, password, address, age, email)
         if (data.itsFine) {

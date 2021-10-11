@@ -18,7 +18,7 @@ let mapStateToProps = (state) => {
 class AuthorizationPageService extends React.Component {
 
     showSomeError = (reason, promise) => {
-        alert('Some error =(')
+        alert('Some untreated error =(')
         this.props.toggleAuthorisationProgress(false)
     }
 

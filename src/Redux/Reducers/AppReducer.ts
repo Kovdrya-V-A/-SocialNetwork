@@ -5,11 +5,18 @@ import {setMyId} from "./ProfilePageReducer";
 const SET_SESSION_IS_START = "SET_SESSION_IS_START";
 
 
-let initialAppState = {
+export type initialStateType = {
+    sessionIsStart: boolean
+}
+let initialAppState: initialStateType = {
     sessionIsStart: false,
 };
 
-const appReducer = (appState = initialAppState, action) => {
+type actionType = {
+    type: string
+}
+
+const appReducer = (appState = initialAppState, action: actionType): initialStateType => {
     switch (action.type) {
 
         case SET_SESSION_IS_START:
@@ -23,13 +30,17 @@ const appReducer = (appState = initialAppState, action) => {
     }
 }
 
-export const setSessionIsStart = () => {
+export type setSessionActionType = {
+    type: typeof SET_SESSION_IS_START
+}
+
+export const setSessionIsStart = (): setSessionActionType => {
     return {
-        type: SET_SESSION_IS_START
+        type: SET_SESSION_IS_START,
     }
 }
 
-export const checkAuthMeThunkCreator = () => async (dispatch) => {
+export const checkAuthMeThunkCreator = () => async (dispatch: Function) => {
     let data = await checkAuthMeRequest()
             if (data.auth) {
                 dispatch(userVerification())
@@ -38,7 +49,7 @@ export const checkAuthMeThunkCreator = () => async (dispatch) => {
             return true
 }
 
-export const setSessionIsStartThunkCreator = () => async (dispatch) => {
+export const setSessionIsStartThunkCreator = () => async (dispatch: Function) => {
     await dispatch(checkAuthMeThunkCreator())
     dispatch(setSessionIsStart())
 
