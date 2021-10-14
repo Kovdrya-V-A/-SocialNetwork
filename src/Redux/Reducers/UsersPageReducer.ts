@@ -19,19 +19,27 @@ const UP_TOGGLE_FOLLOWING_PROGRESS = "UP_TOGGLE_FOLLOWING_PROGRESS";
 const TOGGLE_SEARCH_USERS_PROGRESS = "TOGGLE_SEARCH_USERS_PROGRESS";
 
 let initialUsersPage = {
-
-    usersData: [],
-    currentPage: 1,
-    pageSize: 7,
-    totalUsersCount: 0,
-    isFetching: false,
-    isWrote: false,
-    followingInProgress: [],
-    setIsWroteInProgress: [],
-    searchUsersInProgress: false,
+    usersData: [] as Array<UserType>,
+    currentPage: 1 as number,
+    pageSize: 7 as number,
+    totalUsersCount: 0 as number,
+    isFetching: false as boolean,
+    isWrote: false as boolean,
+    followingInProgress: [] as Array<number>,
+    setIsWroteInProgress: [] as Array<number>,
+    searchUsersInProgress: false as boolean,
 };
 
-const usersPageReducer = (usersPage = initialUsersPage, action) => {
+export type initialStateType = typeof initialUsersPage
+
+export type UserType = {
+    id: number
+    name: string
+    img: string
+    followed: number | boolean
+}
+
+const usersPageReducer = (usersPage = initialUsersPage, action: any): initialStateType => {
 
     switch (action.type) {
 
@@ -100,7 +108,7 @@ const usersPageReducer = (usersPage = initialUsersPage, action) => {
     }
 }
 
-export const unFollow = (userId, message) => {
+export const unFollow = (userId: number, message: string) => {
     return {
         type: UNFOLLOW,
         userId,
@@ -109,7 +117,7 @@ export const unFollow = (userId, message) => {
 }
 
 
-export const follow = (userId, message, error) => {
+export const follow = (userId: number, message: string, error: any) => {
     return {
         type: FOLLOW,
         userId,
@@ -118,40 +126,40 @@ export const follow = (userId, message, error) => {
     }
 }
 
-export const setUsers = (usersData) => {
+export const setUsers = (usersData: Array<UserType>) => {
     return {
         type: SET_USERS,
         usersData
     }
 }
 
-export const setCurrentPage = (number) => {
+export const setCurrentPage = (number: number) => {
     return {
         type: SET_CURRENT_USERS_PAGE,
         number
     }
 }
-export const setUserTotalCount = (count) => {
+export const setUserTotalCount = (count: number) => {
     return {
         type: SET_USERS_TOTAL_COUNT,
         count
     }
 }
 
-export const setIsFetching = (isFetch) => {
+export const setIsFetching = (isFetch: boolean) => {
     return {
         type: SET_IS_FETCHING,
         isFetch
     }
 }
-export const setIsWrote = (isWrote) => {
+export const setIsWrote = (isWrote: boolean) => {
     return {
         type: SET_IS_WROTE,
         isWrote
     }
 }
 
-export const toggleSetIsWroteProgress = (inProgress, userId) => {
+export const toggleSetIsWroteProgress = (inProgress: boolean, userId: number) => {
     return {
         type: UP_TOGGLE_IS_WROTE_PROGRESS,
         inProgress,
@@ -159,22 +167,22 @@ export const toggleSetIsWroteProgress = (inProgress, userId) => {
     }
 }
 
-export const toggleFollowingProgress = (inProgress, userId) => {
+export const toggleFollowingProgress = (inProgress: boolean, userId: number) => {
     return {
         type: UP_TOGGLE_FOLLOWING_PROGRESS,
         inProgress,
         userId
     }
 }
-export const toggleSearchUsersProgress = (searchUsersInProgress) => {
+export const toggleSearchUsersProgress = (searchUsersInProgress: boolean) => {
     return {
         type: TOGGLE_SEARCH_USERS_PROGRESS,
         searchUsersInProgress: searchUsersInProgress
     }
 }
 
-export const setUsersThunkCreator = (currentPage, pageSize) => {
-    return async (dispatch) => {
+export const setUsersThunkCreator = (currentPage: number, pageSize: number) => {
+    return async (dispatch: Function) => {
         dispatch(setIsFetching(true))
         const data = await getUsersRequest(currentPage, pageSize)
         dispatch(setIsFetching(false))
@@ -183,8 +191,8 @@ export const setUsersThunkCreator = (currentPage, pageSize) => {
     }
 }
 
-export const searchUsersThunkCreator = (currentPage, pageSize, searchText) => {
-    return async (dispatch) => {
+export const searchUsersThunkCreator = (currentPage: number, pageSize: number, searchText: string) => {
+    return async (dispatch: Function) => {
         toggleSearchUsersProgress(true)
         const data = await searchUsersRequest(currentPage, pageSize, true, searchText)
         dispatch(setUsers(data.items))
@@ -193,8 +201,8 @@ export const searchUsersThunkCreator = (currentPage, pageSize, searchText) => {
     }
 }
 
-export const unFollowThunkCreator = (userId) => {
-    return async (dispatch) => {
+export const unFollowThunkCreator = (userId: number) => {
+    return async (dispatch: Function) => {
         dispatch(toggleFollowingProgress(true, userId))
         const data = await unFollowRequest(userId)
         dispatch(unFollow(userId, data.message))
@@ -202,8 +210,8 @@ export const unFollowThunkCreator = (userId) => {
     }
 }
 
-export const followThunkCreator = (userId) => {
-    return async (dispatch) => {
+export const followThunkCreator = (userId: number) => {
+    return async (dispatch: Function) => {
         dispatch(toggleFollowingProgress(true, userId))
         const data = await followRequest(userId)
         dispatch(follow(userId, data.message, data.error))
@@ -211,8 +219,8 @@ export const followThunkCreator = (userId) => {
     }
 }
 
-export const setCurrentPageThunkCreator = (number, pageSize) => {
-    return async (dispatch) => {
+export const setCurrentPageThunkCreator = (number: number, pageSize: number) => {
+    return async (dispatch: Function) => {
         dispatch(setCurrentPage(number))
         dispatch(setIsFetching(true))
         const data = await getUsersRequest(number, pageSize)
@@ -222,8 +230,8 @@ export const setCurrentPageThunkCreator = (number, pageSize) => {
     }
 }
 
-export const goToDialogThunkCreator = (userId) => {
-    return async (dispatch) => {
+export const goToDialogThunkCreator = (userId: number) => {
+    return async (dispatch: Function) => {
         dispatch(toggleSetIsWroteProgress(true, userId))
         const data = await goToDialogRequest(userId)
         dispatch(setIsWrote(true))

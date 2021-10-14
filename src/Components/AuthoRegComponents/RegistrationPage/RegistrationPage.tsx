@@ -4,14 +4,30 @@ import {NavLink} from "react-router-dom";
 import Header from "../../Header/Header";
 import Footer from "../../Footer/Footer";
 import {Field, reduxForm} from "redux-form";
-import {CreateFormItem, Input} from "../../Common/FormsElements/FormsElements";
+import {CreateFormItem} from "../../Common/FormsElements/FormsElements";
 import {checkLenghtCreator, requiredField} from "../../Common/Validators/Validators";
 
-const RegistrationPage = (props) => {
+type RegPagePropsType = {
+    onRegistrationUser: (login: string, password: string, firstName: string, lastName: string,
+                         address: string, age: string, email: string) => void
+    registrationInProgress: boolean
+}
 
-    let onSubmit = (formData) => {
+type FormDataType = {
+    login: string
+    password: string
+    firstName: string
+    lastName: string
+    address: string
+    age: string
+    email: string
+}
 
-        props.onRegistrationUser(
+const RegistrationPage: React.FC<RegPagePropsType> = ({onRegistrationUser, registrationInProgress}) => {
+
+    let onSubmit = (formData: FormDataType) => {
+
+        onRegistrationUser(
             formData.login,
             formData.password,
             formData.firstName,
@@ -30,7 +46,7 @@ const RegistrationPage = (props) => {
                     <div className={s.registration}>
                         <h3>Регистрация</h3>
                         <ReduxRegistrationPageForm onSubmit={onSubmit}
-                                                   registrationInProgress={props.registrationInProgress}/>
+                                                   registrationInProgress={registrationInProgress}/>
                         <div className={s.authLink}>
                             <p>Уже есть аккаунт ? <NavLink className={s.link} to="/">Авторизация</NavLink></p>
                         </div>
@@ -44,10 +60,11 @@ const RegistrationPage = (props) => {
 
 let requiredLengthFrom3to20 = checkLenghtCreator(3, 20)
 let requiredLengthFrom5to30 = checkLenghtCreator(5, 30)
+
 const InputForm = CreateFormItem("input")
 
 
-const RegistrationPageForm = (props) => {
+const RegistrationPageForm = (props: any) => {
     return <form onSubmit={props.handleSubmit}>
         <div className={s.interLogin}>
             <p>Придумайте логин:</p>
@@ -80,7 +97,8 @@ const RegistrationPageForm = (props) => {
         </div>
         <div className={s.interPassword}>
             <p>Придумайте пароль:</p>
-            <Field name={"password"} validate={[requiredField, requiredLengthFrom5to30]} component={InputForm} type="password" placeholder="Пароль"/>
+            <Field name={"password"} validate={[requiredField, requiredLengthFrom5to30]} component={InputForm}
+                   type="password" placeholder="Пароль"/>
         </div>
         <div className={s.regButton}>
             <button disabled={props.registrationInProgress}
@@ -90,7 +108,7 @@ const RegistrationPageForm = (props) => {
     </form>
 }
 
-const ReduxRegistrationPageForm = reduxForm({
+const ReduxRegistrationPageForm: any = reduxForm({
     form: "registration"
 })(RegistrationPageForm)
 

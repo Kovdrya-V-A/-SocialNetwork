@@ -30,21 +30,38 @@ const PPActionsTypes = {
 }
 
 let initialProfilePage = {
-    postsData: [],
-    profileData: [{}],
-    changeAvaIsActive: false,
-    changeAvaStatus: null,
-    addPostInProgress: false,
-    deletePostInProgress: false,
-    status: "",
-    isWrote: false,
-    setIsWroteInProgress: false,
-    followingInProgress: false,
-    myId: null
+    postsData: [] as Array<PostType>,
+    profileData: [{}] as Array<ProfileInfoType>,
+    changeAvaIsActive: false as boolean,
+    changeAvaStatus: null as any,
+    addPostInProgress: false as boolean,
+    deletePostInProgress: false as boolean,
+    status: "" as string,
+    isWrote: false as boolean,
+    setIsWroteInProgress: false as boolean,
+    followingInProgress: false as boolean,
+    myId: null as number | null
 };
 
+export type initialStateType = typeof initialProfilePage
 
-const profilePageReducer = (profilePage = initialProfilePage, action) => {
+export type PostType = {
+    idPost: number
+    text: string
+    dateTime: string
+}
+
+export type ProfileInfoType = {
+    name: string
+    address: string
+    img: string
+    age: number
+    followed: boolean | number
+    userId: number
+}
+
+
+const profilePageReducer = (profilePage = initialProfilePage, action: any): initialStateType => {
 
     switch (action.type) {
 
@@ -129,6 +146,7 @@ const profilePageReducer = (profilePage = initialProfilePage, action) => {
                     postsData: [...action.postsData]
                 }
             }
+            return profilePage
         case PPActionsTypes.TOGGLE_ADD_POST_PROGRESS:
             return {
                 ...profilePage,
@@ -165,7 +183,7 @@ const profilePageReducer = (profilePage = initialProfilePage, action) => {
     ;
 
 }
-export const setMyId = (myId) => {
+export const setMyId = (myId: number) => {
     return {
         type: PPActionsTypes.SET_MY_ID,
         myId
@@ -173,34 +191,34 @@ export const setMyId = (myId) => {
 }
 
 
-export const setIsWrote = (isWrote) => {
+export const setIsWrote = (isWrote: boolean) => {
     return {
         type: PPActionsTypes.SET_IS_WROTE,
         isWrote
     }
 }
-export const follow = (message) => {
+export const follow = ( message: string) => {
     return {
         type: PPActionsTypes.FOLLOW,
         message
     }
 }
 
-export const unFollow = (message) => {
+export const unFollow = ( message: string) => {
     return {
         type: PPActionsTypes.UNFOLLOW,
         message
     }
 }
 
-export const setStatus = (statusText) => {
+export const setStatus = (statusText: string) => {
     return {
         type: PPActionsTypes.SET_STATUS,
         statusText
     }
 }
 
-export const addPost = (idPost, text, dateTime) => {
+export const addPost = (idPost: number, text: string, dateTime: string) => {
     return {
         type: PPActionsTypes.ADD_POST,
         idPost: idPost,
@@ -209,7 +227,7 @@ export const addPost = (idPost, text, dateTime) => {
     }
 }
 
-export const deletePost = (idPost, message) => {
+export const deletePost = (idPost: number, message: string) => {
     return {
         type: PPActionsTypes.DELETE_POST,
         idPost: idPost,
@@ -217,45 +235,45 @@ export const deletePost = (idPost, message) => {
     }
 }
 
-export const setPosts = (postsData) => {
+export const setPosts = (postsData: Array<PostType>) => {
     return {
         type: PPActionsTypes.SET_POSTS,
         postsData
     }
 }
 
-export const setProfileInfo = (profileData) => {
+export const setProfileInfo = (profileData: Array<ProfileInfoType>) => {
     return {
         type: PPActionsTypes.SET_PROFILE_INFO,
         profileData
     }
 }
-export const setChangeAvaIsActive = (changeAvaIsActive) => {
+export const setChangeAvaIsActive = (changeAvaIsActive: boolean) => {
     return {
         type: PPActionsTypes.SET_CHANGE_AVA_IS_ACTIVE,
         changeAvaIsActive
     }
 }
-export const setChangeAvaStatus = (status) => {
+export const setChangeAvaStatus = (status: string) => {
     return {
         type: PPActionsTypes.SET_CHANGE_AVA_STATUS,
         status
     }
 }
-export const toggleAddPostProgress = (addPostInProgress) => {
+export const toggleAddPostProgress = (addPostInProgress: boolean) => {
     return {
         type: PPActionsTypes.TOGGLE_ADD_POST_PROGRESS,
         addPostInProgress
     }
 }
-export const toggleDeletePostProgress = (deletePostInProgress) => {
+export const toggleDeletePostProgress = (deletePostInProgress: boolean) => {
     return {
         type: PPActionsTypes.TOGGLE_DELETE_POST_PROGRESS,
         deletePostInProgress
     }
 }
 
-export const toggleSetIsWroteProgress = (setIsWroteInProgress) => {
+export const toggleSetIsWroteProgress = (setIsWroteInProgress: boolean) => {
     return {
         type: PPActionsTypes.TOGGLE_IS_WROTE_PROGRESS,
         setIsWroteInProgress
@@ -263,7 +281,7 @@ export const toggleSetIsWroteProgress = (setIsWroteInProgress) => {
     }
 }
 
-export const toggleFollowingProgress = (followingInProgress) => {
+export const toggleFollowingProgress = (followingInProgress: boolean) => {
     return {
         type: PPActionsTypes.TOGGLE_FOLLOWING_PROGRESS,
         followingInProgress: followingInProgress
@@ -271,8 +289,8 @@ export const toggleFollowingProgress = (followingInProgress) => {
 }
 
 
-export const setPostsThunkCreator = (profileId) => {
-    return async (dispatch) => {
+export const setPostsThunkCreator = (profileId: number) => {
+    return async (dispatch: Function) => {
         const data = await getPostsRequest(profileId)
         if (data) {
             dispatch(setPosts(data.items))
@@ -282,8 +300,8 @@ export const setPostsThunkCreator = (profileId) => {
     }
 }
 
-export const addPostThunkCreator = (postText) => {
-    return async (dispatch) => {
+export const addPostThunkCreator = (postText: string) => {
+    return async (dispatch: Function) => {
         dispatch(toggleAddPostProgress(true))
         const data = await addNewPostRequest(postText)
         dispatch(addPost(data[0].idPost, data[0].text, data[0].dateTime))
@@ -291,8 +309,8 @@ export const addPostThunkCreator = (postText) => {
     }
 }
 
-export const deletePostThunkCreator = (idPost) => {
-    return async (dispatch) => {
+export const deletePostThunkCreator = (idPost: number) => {
+    return async (dispatch: Function) => {
         dispatch(toggleDeletePostProgress(true))
         const data = await deletePostRequest(idPost)
         dispatch(deletePost(idPost, data.message))
@@ -300,8 +318,8 @@ export const deletePostThunkCreator = (idPost) => {
     }
 }
 
-export const setProfileInfoThunkCreator = (profileId) => {
-    return async (dispatch) => {
+export const setProfileInfoThunkCreator = (profileId: number) => {
+    return async (dispatch: Function) => {
         const data = await getProfileInfoRequest(profileId)
         dispatch(setProfileInfo(data))
         const statusData = await getStatusRequest(profileId)
@@ -309,8 +327,8 @@ export const setProfileInfoThunkCreator = (profileId) => {
     }
 }
 
-export const setNewStatusThunkCreator = (newStatusText) => {
-    return async (dispatch) => {
+export const setNewStatusThunkCreator = (newStatusText: string) => {
+    return async (dispatch: Function) => {
         const data = await updateUserStatusRequest(newStatusText)
         if (!data.error) {
             dispatch(setStatus(data.userStatus))
@@ -318,26 +336,26 @@ export const setNewStatusThunkCreator = (newStatusText) => {
     }
 }
 
-export const unFollowThunkCreator = (userId) => {
-    return async (dispatch) => {
+export const unFollowThunkCreator = (userId: number) => {
+    return async (dispatch: Function) => {
         dispatch(toggleFollowingProgress(true))
         const data = await unFollowRequest(userId)
-        dispatch(unFollow(userId, data.message))
+        dispatch(unFollow( data.message))
         dispatch(toggleFollowingProgress(false))
     }
 }
 
-export const followThunkCreator = (userId) => {
-    return async (dispatch) => {
+export const followThunkCreator = (userId: number) => {
+    return async (dispatch: Function) => {
         dispatch(toggleFollowingProgress(true))
         const data = await followRequest(userId)
-        dispatch(follow(userId, data.message))
+        dispatch(follow(data.message))
         dispatch(toggleFollowingProgress(false))
     }
 }
 
-export const goToDialogThunkCreator = (userId) => {
-    return async (dispatch) => {
+export const goToDialogThunkCreator = (userId: number) => {
+    return async (dispatch: Function) => {
         dispatch(toggleSetIsWroteProgress(true))
         const data = await goToDialogRequest(userId)
         dispatch(setIsWrote(true))

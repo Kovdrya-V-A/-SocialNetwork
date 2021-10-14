@@ -8,10 +8,20 @@ import {Field, reduxForm} from "redux-form";
 import {requiredField} from "../../Common/Validators/Validators";
 import {CreateFormItem} from "../../Common/FormsElements/FormsElements";
 
-const AuthorizationPage = (props) => {
+type AuthPagePropsType = {
+    authorisationInProgress: boolean
+    onUserVerification: (login: string, password: string) => void
+}
 
-    const onSubmit = (formData) => {
-        props.onUserVerification(formData.login, formData.password)
+type FormDataType = {
+    login: string
+    password: string
+}
+
+const AuthorizationPage: React.FC<AuthPagePropsType> = ({authorisationInProgress, onUserVerification}) => {
+
+    const onSubmit = (formData: FormDataType) => {
+        onUserVerification(formData.login, formData.password)
     }
     return (
         <div className={s.wrapper}>
@@ -20,7 +30,7 @@ const AuthorizationPage = (props) => {
                 <div className={s.form}>
                     <div className={s.authorisation}>
                         <h3>Авторизация</h3>
-                        <ReduxAuthorizationForm authorisationInProgress = {props.authorisationInProgress}  onSubmit = {onSubmit}/>
+                        <ReduxAuthorizationForm authorisationInProgress = {authorisationInProgress}  onSubmit = {onSubmit}/>
                         <div className={s.regLink}>
                             <p>Еще не зарегистрированы ? <NavLink className={s.link}
                                                                   to="/RegistrationPage">Регистрация</NavLink></p>
@@ -35,7 +45,7 @@ const AuthorizationPage = (props) => {
 
 const InputForm = CreateFormItem("input")
 
-let AuthorizationForm = (props) => {
+let AuthorizationForm = (props: any) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div className={s.enterLogin}>
@@ -48,9 +58,9 @@ let AuthorizationForm = (props) => {
             </div>
             <div className={s.entryButton}>
                 {props.error ?<div className={s.summaryErrorBar}>
-                    <spans className={sForm.summaryError}>
+                    <span className={sForm.summaryError}>
                         {props.error}
-                    </spans>
+                    </span>
                 </div>:null}
                 <button
                     type="submit"
@@ -62,7 +72,7 @@ let AuthorizationForm = (props) => {
     )
 }
 
-const ReduxAuthorizationForm = reduxForm({
+const ReduxAuthorizationForm: any = reduxForm({
     form: "authorization"
 })(AuthorizationForm)
 export default React.memo(AuthorizationPage);
