@@ -23,6 +23,7 @@ let DialogsPage = (props) => {
 
     return <>
         {!props.currentDialogId ? <Redirect to={"/AuthUser/DialogsPage" + props.currentDialogId}/> : null}
+
         <div className={s.dialogsPage}>
             {props.currentDialogId ? <MessagesBar
                 sendMessageInProgress = {props.sendMessageInProgress}

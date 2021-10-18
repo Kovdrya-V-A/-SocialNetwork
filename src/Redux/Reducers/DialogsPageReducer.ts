@@ -21,7 +21,7 @@ const TOGGLE_SEND_MESSAGE_PROGRESS = "TOGGLE_SEND_MESSAGE_PROGRESS";
 let initialDialogsPage = {
     dialogsData: [] as Array<DialogType>,
     messagesData: [] as Array<MessageType>,
-    currentDialogId: null as number | null,
+    currentDialogId: "" as string | number,
     setCurrentDialogInProgress: false as boolean,
     deleteDialogInProgress: false as boolean,
     deleteMessageInProgress: false as boolean,

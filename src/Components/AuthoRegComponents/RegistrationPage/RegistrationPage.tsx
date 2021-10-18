@@ -40,21 +40,16 @@ const RegistrationPage: React.FC<RegPagePropsType> = ({onRegistrationUser, regis
 
     return (
         <div className={s.wrapper}>
-            <Header/>
-            <div className={s.main}>
-                <div className={s.form}>
-                    <div className={s.registration}>
-                        <h3>Регистрация</h3>
-                        <ReduxRegistrationPageForm onSubmit={onSubmit}
-                                                   registrationInProgress={registrationInProgress}/>
-                        <div className={s.authLink}>
-                            <p>Уже есть аккаунт ? <NavLink className={s.link} to="/">Авторизация</NavLink></p>
-                        </div>
-                    </div>
+            <div className={s.registration}>
+                <h3>Регистрация</h3>
+                <ReduxRegistrationPageForm onSubmit={onSubmit}
+                                           registrationInProgress={registrationInProgress}/>
+                <div className={s.authLink}>
+                    <p>Уже есть аккаунт ? <NavLink className={s.link} to="/">Авторизация</NavLink></p>
                 </div>
             </div>
-            <Footer/>
         </div>
+
     );
 }
 

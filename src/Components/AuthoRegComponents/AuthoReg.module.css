@@ -1,36 +1,23 @@
-.main {
-    display: flex;
+.wrapper {
     margin: 0 auto;
-    max-width: 1200px;
-}
-
-
-.form {
-    flex: 7;
     display: flex;
+    max-width: 1200px;
+    min-height: calc(100vh - 88px);
+    align-items: center;
+    justify-content: center;
 }
-
-.autoReg {
-
-}
-
 
 .authorisation h3 {
     text-align: center;
 }
 
 .authorisation {
-    min-width: 200px;
-    display: flex;
-    flex-direction: column;
+    min-width: 350px;
     color: #D3D3D3;
     padding-left: 5px;
     background-color: #333336;
     max-width: 45%;
-    margin: auto;
     border-radius: 10px;
-    margin-top: 100px;
-    margin-bottom: 70px;;
 }
 
 .entryButton {
@@ -38,10 +25,8 @@
     text-align: center;
 }
 
-.imgLoadWrap {
-}
 
-.entryButton button{
+.entryButton button {
     background-color: #D3D3D3;
     border-radius: 4px;
     cursor: pointer;
@@ -52,17 +37,13 @@
 }
 
 .registration {
-    min-width: 200px;
-    display: flex;
-    flex-direction: column;
+    min-width: 350px;
     color: #D3D3D3;
     padding-left: 5px;
     background-color: #333336;
     max-width: 45%;
-    margin: auto;
     border-radius: 10px;
-    margin-top: 100px;
-    margin-bottom: 70px;
+
 }
 
 
@@ -87,13 +68,3 @@
     color: #FFFFFF;
 }
 
-.addImg {
-}
-
-.loadedImg {
-    width: 80px;
-}
-
-.summaryErrorBar {
-
-}

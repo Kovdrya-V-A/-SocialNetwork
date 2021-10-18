@@ -33,8 +33,9 @@
     font-size: 14px;
 }
 
-.inputStatusArea {
-    display: flex;
+.followedStatus p{
+    padding-top: 5px;
+    color: #FFFFFF;
 }
 
 .ava {
