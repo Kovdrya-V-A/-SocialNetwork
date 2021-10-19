@@ -3,20 +3,17 @@
     padding: 0;
 }
 
-.postBox {
+.wrapper {
     background-color: #333336;
     border-radius: 5px;
-    margin-top:5px;
-    margin-bottom:5px;
+    margin-bottom:10px;
+    padding: 5px 5px;
     display: flex;
-}
-
-.postText {
-    color: white;
 }
 
 .postText p {
     word-break: break-word;
+
 }
 
 .avaPost img {
@@ -32,9 +29,9 @@
     flex: 50;
 }
 
-.dateTime {
+.dateTime p{
     padding-top: 5px;
-    color: #D3D3D3;
+    font-size: 14px;
 }
 
 .deletePost {
@@ -53,9 +50,13 @@
     font-size: 20px;
 }
 
-.name {
+.deletePost p:hover {
+    color: white;
+}
+
+.name p{
     font-size: 16px;
     padding-top: 5px;
     padding-bottom: 5px;
-    color: #D3D3D3;
+    color: #FFFFFF;
 }

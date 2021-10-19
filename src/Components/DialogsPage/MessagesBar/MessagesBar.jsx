@@ -1,5 +1,5 @@
 import s from "../DialogsPage.module.css";
-import React from "react";
+import React, {useEffect, useRef} from "react";
 import Message from "./Message/Message";
 import {Field, reduxForm, reset} from "redux-form";
 import {CreateFormItem} from "../../Common/FormsElements/FormsElements";
@@ -8,11 +8,16 @@ import {checkLenghtCreator} from "../../Common/Validators/Validators";
 
 const MessagesBar = (props) => {
 
+    const barBottom = useRef(null)
+
+    useEffect(() => {
+        barBottom.current.scrollIntoView();
+    })
+
     const onSubmit = (formData, dispatch) => {
         props.onSendNewMessage(formData.messageText)
         dispatch(reset("sendMessage"))
     }
-
 
 
     let messagesItems = props.messagesData.map(m => m.isDeleted ? null : <Message
@@ -28,16 +33,18 @@ const MessagesBar = (props) => {
     />)
 
     return (
-        <div className={s.messageBar}>
-            {props.messagesData.length > 0 ? messagesItems :
-                <p className={s.nullMessagesMessage}>В этом диалоге пока нет сообщений</p>}
-            <ReduxSendingMessageForm sendMessageInProgress = {props.sendMessageInProgress} onSubmit = {onSubmit}
+        <div className={s.messagesBar}>
+            <div className={s.messagesList}>{props.messagesData.length > 0 ? messagesItems :
+                <p className={s.noMessagesMessage}>В этом диалоге пока нет сообщений</p>}
+                <div ref={barBottom}></div>
+            </div>
+            <ReduxSendingMessageForm sendMessageInProgress={props.sendMessageInProgress} onSubmit={onSubmit}
             />
         </div>
     )
 }
 
-const TextAreaForm =  CreateFormItem("textarea")
+const TextAreaForm = CreateFormItem("textarea")
 const requiredLength = checkLenghtCreator(0, 350)
 
 const SendingMessageForm = (props) => {
@@ -54,8 +61,6 @@ const SendingMessageForm = (props) => {
 const ReduxSendingMessageForm = reduxForm({
     form: "sendMessage",
 })(SendingMessageForm)
-
-
 
 
 export default React.memo(MessagesBar)

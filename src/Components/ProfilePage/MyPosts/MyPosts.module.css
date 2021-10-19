@@ -1,10 +1,7 @@
 
-.myPosts {
-    display: flex;
-    flex-direction: column;
+.wrapper {
     padding-left: 10px;
     padding-right: 10px;
-    color: #CCD2CA;
 }
 
 h2 {
@@ -18,11 +15,6 @@ h2 {
     background-color: #D3D3D3;
     border-radius: 4px;
     cursor: pointer;
-}
-
-.addPostForm{
-    display: flex;
-    flex-direction: column;
 }
 
 .addPostForm textarea {
@@ -40,4 +32,7 @@ h2 {
     margin-bottom: 5px;
     color: #ffffff;
     background-color: #444446;
+}
+.postsList {
+    padding-top: 10px;
 }

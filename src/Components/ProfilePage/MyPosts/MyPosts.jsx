@@ -26,10 +26,10 @@ const MyPosts = (props) => {
 
 
     return (
-        <div className={s.myPosts}>
+        <div className={s.wrapper}>
             {props.isMyProfile ?<ReduxAddPostForm addPostInProgress={props.addPostInProgress} onSubmit={onSubmit}/>:null}
             <h2>{props.isMyProfile ? "Ваши посты:" : "Посты пользователя:"}</h2>
-            {props.postsData.length > 0 ? postsItems : "В профиле пока нет постов"}
+            <div className={s.postsList}>{props.postsData.length > 0 ? postsItems : "В профиле пока нет постов"}</div>
         </div>
     )
 

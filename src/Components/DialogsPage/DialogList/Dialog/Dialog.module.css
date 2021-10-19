@@ -13,7 +13,7 @@
 }
 
 .dialog:hover .deleteDialog {
-    display: block;
+    opacity: 1;
 }
 
 .dialogLink {
@@ -56,7 +56,7 @@
 }
 
 .deleteDialog {
-    display: none;
+    opacity: 0;
     flex: 1;
 }
 
@@ -69,4 +69,8 @@
 .deleteDialog p{
     color: #D3D3D3;
     font-size: 20px;
+}
+
+.deleteDialog p:hover{
+    color: #FFFFFF;
 }

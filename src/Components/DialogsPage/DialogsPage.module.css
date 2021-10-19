@@ -1,7 +1,29 @@
-.dialogsPage {
-    width: 100%;
+.wrapper {
     display: flex;
-    color: #CCD2CA;
+    margin-bottom: 10px;
+}
+
+.messagesBar {
+    display: flex;
+    flex-direction: column;
+    background-color: #333336;
+    flex: 10;
+    height: calc(100vh - 110px);
+}
+
+.messagesList {
+    height: 100%;
+    padding-bottom: 5px;
+    overflow-y: scroll;
+}
+
+.messagesList::-webkit-scrollbar {
+    width: 5px;
+}
+
+.messagesList::-webkit-scrollbar-thumb {
+    background-color: #d3d3d3;
+    border-radius: 5px;
 }
 
 .dialogList {
@@ -14,18 +36,12 @@
     margin: 0 auto;
 }
 
-.nullMessagesMessage {
+.noMessagesMessage {
     text-align: center;
     padding-top: 10px;
     padding-bottom: 100px;
 }
 
-.messageBar {
-    display: flex;
-    flex-direction: column;
-    background-color: #333336;
-    flex: 10;
-}
 
 .sendMessageForm {
     display: flex;

@@ -3,7 +3,7 @@ import s from './Post.module.css'
 
 const Post = (props) => {
     return (
-        <div className={s.postBox}>
+        <div className={s.wrapper}>
             <div className={s.avaPost}>
                 <img src={props.avaImg} alt="avapost"/>
             </div>

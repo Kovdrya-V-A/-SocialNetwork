@@ -7,9 +7,9 @@ const DialogList = (props) => {
 
     let dialogsItems = props.dialogsData.map(d => d.isDeleted ? null :
         <Dialog
-            deleteDialogInProgress = {props.deleteDialogInProgress}
-            setCurrentDialogInProgress = {props.setCurrentDialogInProgress}
-            key = {d.idDialog}
+            deleteDialogInProgress={props.deleteDialogInProgress}
+            setCurrentDialogInProgress={props.setCurrentDialogInProgress}
+            key={d.idDialog}
             onSetCurrentDialog={props.onSetCurrentDialog}
             dialogAva={d.img} idDialog={d.idDialog}
             chatName={d.name}
@@ -18,9 +18,9 @@ const DialogList = (props) => {
     return (
         <div className={s.dialogList}>
             <h2>Список диалогов:</h2>
-            {props.dialogsData.length > 0 ? <div className={s.dialogsBar}>{dialogsItems}</div> :
-                <p>У вас пока нет активых диалогов. Напишите кому - нибудь, и здесь появится диалог</p>}
+            <div className={s.dialogsBar}>{props.dialogsData.length > 0 ? dialogsItems :
+                <p>У вас пока нет активых диалогов. Напишите кому - нибудь, и здесь появится диалог</p>}</div>
         </div>
     )
 }
-export default  React.memo(DialogList)
+export default React.memo(DialogList)
